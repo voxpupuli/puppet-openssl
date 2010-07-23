@@ -2,7 +2,7 @@
 
 == Definition: openssl::certificate::x509
 
-Create a certificate according to datas provided.
+Creates a certificate, key and CSR according to datas provided.
 
 Require class openssl::genx509
 
@@ -12,7 +12,7 @@ Parameters:
 - *$state*:        certificate stateOrProvinceName
 - *$locality*:     certificate localityName
 - *$commonname*:   certificate CommonName
-- *$aliases*:      certificate subjectAltName. Can be an array or a single string.
+- *$altnames*:     certificate subjectAltName. Can be an array or a single string.
 - *$organisation*: certificate organizationName
 - *$unit*:         certificate organizationalUnitName
 - *$email*:        certificate emailAddress
@@ -23,12 +23,12 @@ Parameters:
 */
 define openssl::certificate::x509($ensure=present,
   $country,
-  $state,
-  $locality,
+  $state=false,
+  $locality=false,
   $organisation,
   $commonname,
-  $unit,
-  $aliases=false,
+  $unit=false,
+  $altnames=false,
   $email=false,
   $days=365,
   $base_dir='/etc/ssl/certs',
