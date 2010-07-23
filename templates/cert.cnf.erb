@@ -16,20 +16,20 @@ req_extensions          = req_ext
 <% end -%>
 
 [ req_distinguished_name ]
-countryName                     = <%= sslcert_country %>
-<% if has_variable?("sslcert_state") -%>
-stateOrProvinceName             = <%= sslcert_state %>
+countryName                     = <%= country %>
+<% if has_variable?("state") -%>
+stateOrProvinceName             = <%= state %>
 <% end -%>
-<% if has_variable?("sslcert_locality") -%>
-localityName                    = <%= sslcert_locality %>
+<% if has_variable?("locality") -%>
+localityName                    = <%= locality %>
 <% end -%>
-organizationName                = <%= sslcert_organisation %>
-<% if has_variable?("sslcert_unit") -%>
-organizationalUnitName          = <%= sslcert_unit %>
+organizationName                = <%= organisation %>
+<% if has_variable?("unit") -%>
+organizationalUnitName          = <%= unit %>
 <% end -%>
-commonName                      = <%= sslcert_commonname %>
-<% if has_variable?("sslcert_email") -%>
-emailAddress                    = <%= sslcert_email %>
+commonName                      = <%= commonname %>
+<% if has_variable?("email") -%>
+emailAddress                    = <%= email %>
 <% end -%>
 
 <% if aliases -%>
