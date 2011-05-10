@@ -69,7 +69,7 @@ define openssl::certificate::x509($ensure=present,
       exec {"create ${name} certificate":
         creates => "${base_dir}/${name}.crt",
         user    => $owner,
-        command => "/usr/local/sbin/generate-ssl-cert.sh ${name} ${base_dir}/${name}.cnf ${base_dir}/ ${days}",
+        command => "/usr/local/sbin/generate-x509-cert.sh ${name} ${base_dir}/${name}.cnf ${base_dir}/ ${days}",
         require => [File["${base_dir}/${name}.cnf"], Class['openssl::genx509']],
       }
     }
