@@ -15,7 +15,13 @@ class openssl {
 
     package { "ca-certificates":
       ensure => present,
-      before => Package["openssl"],
+      before => [Package["openssl"], File["ca-certificates.crt"]],
+    }
+
+    exec { "update-ca-certificates":
+      refreshonly => true,
+      require     => Package["ca-certificates"],
+      before      => File["ca-certificates.crt"],
     }
   }
 
