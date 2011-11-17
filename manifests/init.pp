@@ -11,7 +11,7 @@ class openssl {
     ensure => present
   }
 
-  if $operatingsystem == "Debian" {
+  if $operatingsystem =~ /Debian|Ubuntu|kFreeBSD/ {
 
     package { "ca-certificates":
       ensure => present,
@@ -29,8 +29,8 @@ class openssl {
     mode    => 0644,
     owner   => "root",
     path    => $operatingsystem ? {
-      Debian => "/etc/ssl/certs/ca-certificates.crt",
-      RedHat => "/etc/pki/tls/certs/ca-bundle.crt",
+      /Debian|Ubuntu|kFreeBSD/ => "/etc/ssl/certs/ca-certificates.crt",
+      /RedHat|CentOS|Fedora/   => "/etc/pki/tls/certs/ca-bundle.crt",
     },
     require => Package["openssl"],
   }
