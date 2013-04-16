@@ -4,8 +4,12 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
 
   commands :openssl => 'openssl'
 
-  def self.dirname (resource)
+  def self.dirname(resource)
     resource[:path].dirname
+  end
+
+  def self.template(resource)
+    resource[:template] || "#{resource[:path]}.cnf"
   end
 
   def exists?
@@ -16,7 +20,7 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
 
   def create
     openssl(
-      'req', '-config', "#{resource[:path]}.cnf", '-new', '-x509',
+      'req', '-config', "#{self.class.template(resource)}", '-new', '-x509',
       '-nodes', '-days', resource[:days],
       '-out', "#{resource[:path]}.crt",
       '-keyout', "#{resource[:path]}.key"
