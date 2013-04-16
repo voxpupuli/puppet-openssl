@@ -9,13 +9,20 @@ describe 'The openssl provider for the x509_cert type' do
   let (:resource) { Puppet::Type::X509_cert.new({:path => path}) }
   subject { Puppet::Type.type(:x509_cert).provider(:openssl).new(resource) }
 
-  it 'exists? should return true if file exists' do
+  it 'exists? should return true if certificate and key exist' do
     Pathname.expects(:exists?).with("#{path}.crt").returns(true)
+    Pathname.expects(:exists?).with("#{path}.key").returns(true)
     subject.exists?.should == true
   end
 
-  it 'exists? should return false if file does not exist' do
+  it 'exists? should return false if certificate does not exist' do
     Pathname.expects(:exists?).with("#{path}.crt").returns(false)
+    subject.exists?.should == false
+  end
+
+  it 'exists? should return false if key does not exist' do
+    Pathname.expects(:exists?).with("#{path}.crt").returns(true)
+    Pathname.expects(:exists?).with("#{path}.key").returns(false)
     subject.exists?.should == false
   end
 
