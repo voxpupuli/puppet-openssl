@@ -40,7 +40,7 @@ Puppet::Type.newtype(:x509_csr) do
   end
 
   autorequire(:x509_cert) do
-    Pathname.basename(self[:private_key])
+    Pathname.new(self[:private_key]).basename
   end
 
   autorequire(:file) do
