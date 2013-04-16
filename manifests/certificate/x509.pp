@@ -36,12 +36,13 @@ All files will belong to user "www-data".
 Those files can be used as is for apache, openldap and so on.
 
 */
-define openssl::certificate::x509($ensure=present,
+define openssl::certificate::x509(
   $country,
-  $state=false,
-  $locality=false,
   $organisation,
   $commonname,
+  $ensure=present,
+  $state=false,
+  $locality=false,
   $unit=false,
   $altnames=false,
   $email=false,
@@ -49,6 +50,23 @@ define openssl::certificate::x509($ensure=present,
   $base_dir='/etc/ssl/certs',
   $owner='root'
   ) {
+
+  validate_string($name)
+  validate_absolute_path($name)
+  validate_string($country)
+  validate_string($organisation)
+  validate_string($commonname)
+  validate_string($ensure)
+  validate_string($state)
+  validate_string($locality)
+  validate_string($unit)
+  validate_array($altnames)
+  validate_string($email)
+  validate_string($days)
+  validate_re($days, '^\d+$')
+  validate_string($base_dir)
+  validate_absolute_path($base_dir)
+  validate_string($owner)
 
   file {"${base_dir}/${name}.cnf":
     ensure  => $ensure,
