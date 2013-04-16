@@ -39,6 +39,7 @@ Puppet::Type.newtype(:x509_cert) do
 
   newparam(:days) do
     newvalues(/\d+/)
+    defaultto(3650)
   end
 
   newparam(:owner) do
