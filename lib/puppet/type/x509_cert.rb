@@ -27,4 +27,8 @@ Puppet::Type.newtype(:x509_cert) do
       end
     end
   end
+
+  autorequire(:file) do
+    self[:template]
+  end
 end
