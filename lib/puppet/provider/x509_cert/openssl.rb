@@ -8,10 +8,6 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
     resource[:path].dirname
   end
 
-  def self.template(resource)
-    resource[:template] || "#{resource[:path]}.cnf"
-  end
-
   def exists?
     # TODO: add a "force" parameter to force recreation
     # if existing certificate does not match parameters
@@ -21,7 +17,7 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
 
   def create
     openssl(
-      'req', '-config', "#{self.class.template(resource)}", '-new', '-x509',
+      'req', '-config', "#{resource[:template]}", '-new', '-x509',
       '-nodes', '-days', resource[:days],
       '-out', "#{resource[:path]}.crt",
       '-keyout', "#{resource[:path]}.key"

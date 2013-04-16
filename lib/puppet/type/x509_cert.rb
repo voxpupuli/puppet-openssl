@@ -19,6 +19,7 @@ Puppet::Type.newtype(:x509_cert) do
   end
 
   newparam(:template) do
+    defaultto { "#{@resource[:path]}.cnf" }
     validate do |value|
       path = Pathname.new(value)
       unless path.absolute?
