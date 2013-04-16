@@ -13,6 +13,19 @@ Puppet::Type.newtype(:x509_csr) do
     end
   end
 
+  newparam(:template) do
+    defaultto do
+      path = Pathname.new(@resource[:path])
+      "#{path.dirname}/#{path.basename(path.extname)}.cnf"
+    end
+    validate do |value|
+      path = Pathname.new(value)
+      unless path.absolute?
+        raise ArgumentError, "Path must be absolute: #{path}"
+      end
+    end
+  end
+
   newparam(:private_key) do
     defaultto do
       path = Pathname.new(@resource[:path])

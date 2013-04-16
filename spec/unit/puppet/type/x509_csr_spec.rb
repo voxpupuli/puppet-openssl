@@ -24,5 +24,16 @@ describe Puppet::Type.type(:x509_csr) do
       subject[:private_key] = 'foo.key'
     }.to raise_error(Puppet::Error, /Path must be absolute: foo\.key/)
   end
+
+  it 'should accept valid template' do
+    subject[:template] = '/tmp/foo.cnf'
+    subject[:template].should == '/tmp/foo.cnf'
+  end
+
+  it 'should not accept non absolute template' do
+    expect {
+      subject[:template] = 'foo.cnf'
+    }.to raise_error(Puppet::Error, /Path must be absolute: foo\.cnf/)
+  end
 end
 
