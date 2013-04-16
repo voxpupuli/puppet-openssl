@@ -22,4 +22,9 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
       '-keyout', "#{resource[:path]}.key"
     )
   end
+
+  def destroy
+    Pathname.delete "#{resource[:path]}.crt"
+    Pathname.delete "#{resource[:path]}.key"
+  end
 end

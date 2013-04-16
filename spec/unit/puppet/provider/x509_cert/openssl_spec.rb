@@ -28,4 +28,10 @@ describe 'The openssl provider for the x509_cert type' do
     )
     subject.create
   end
+
+  it 'should delete files' do
+    Pathname.expects(:delete).with("#{path}.crt")
+    Pathname.expects(:delete).with("#{path}.key")
+    subject.destroy
+  end
 end
