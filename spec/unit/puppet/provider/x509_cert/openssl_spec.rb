@@ -18,4 +18,14 @@ describe 'The openssl provider for the x509_cert type' do
     Pathname.expects(:exists?).with("#{path}.crt").returns(false)
     subject.exists?.should == false
   end
+
+  it 'should create a certificate with the proper options' do
+    subject.expects(:openssl).with(
+      'req', '-config', "/tmp/foo.cnf", '-new', '-x509',
+      '-nodes', '-days', 3650,
+      '-out', "/tmp/foo.crt",
+      '-keyout', "/tmp/foo.key"
+    )
+    subject.create
+  end
 end
