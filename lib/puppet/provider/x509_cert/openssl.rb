@@ -17,7 +17,7 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
 
   def create
     openssl(
-      'req', '-config', "#{resource[:template]}", '-new', '-x509',
+      'req', '-config', resource[:template], '-new', '-x509',
       '-nodes', '-days', resource[:days],
       '-out', "#{resource[:path]}.crt",
       '-keyout', "#{resource[:path]}.key"
