@@ -11,8 +11,8 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
   def exists?
     # TODO: add a "force" parameter to force recreation
     # if existing certificate does not match parameters
-    Pathname.exists? "#{resource[:path]}.crt" and
-    Pathname.exists? "#{resource[:path]}.key"
+    Pathname.new("#{resource[:path]}.crt").exist? and
+    Pathname.new("#{resource[:path]}.key").exist?
   end
 
   def create
@@ -25,7 +25,7 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
   end
 
   def destroy
-    Pathname.delete "#{resource[:path]}.crt"
-    Pathname.delete "#{resource[:path]}.key"
+    Pathname.new("#{resource[:path]}.crt").delete
+    Pathname.new("#{resource[:path]}.key").delete
   end
 end

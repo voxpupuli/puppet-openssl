@@ -10,19 +10,17 @@ describe 'The openssl provider for the x509_cert type' do
   subject { Puppet::Type.type(:x509_cert).provider(:openssl).new(resource) }
 
   it 'exists? should return true if certificate and key exist' do
-    Pathname.expects(:exists?).with("#{path}.crt").returns(true)
-    Pathname.expects(:exists?).with("#{path}.key").returns(true)
+    Pathname.any_instance.expects(:exist?).twice.returns(true)
     subject.exists?.should == true
   end
 
   it 'exists? should return false if certificate does not exist' do
-    Pathname.expects(:exists?).with("#{path}.crt").returns(false)
+    Pathname.any_instance.expects(:exist?).once.returns(false)
     subject.exists?.should == false
   end
 
   it 'exists? should return false if key does not exist' do
-    Pathname.expects(:exists?).with("#{path}.crt").returns(true)
-    Pathname.expects(:exists?).with("#{path}.key").returns(false)
+    Pathname.any_instance.expects(:exist?).twice.returns(true).then.returns(false)
     subject.exists?.should == false
   end
 
@@ -37,8 +35,7 @@ describe 'The openssl provider for the x509_cert type' do
   end
 
   it 'should delete files' do
-    Pathname.expects(:delete).with("#{path}.crt")
-    Pathname.expects(:delete).with("#{path}.key")
+    Pathname.any_instance.expects(:delete).twice
     subject.destroy
   end
 end
