@@ -14,46 +14,6 @@ describe Puppet::Type.type(:x509_cert) do
     subject[:ensure].should == :present
   end
 
-  it 'should accept a valid country' do
-    subject[:country] = :com
-    subject[:country].should == :com
-  end
-
-  it 'should accept a valid state' do
-    subject[:state] = :CH
-    subject[:state].should == :CH
-  end
-
-  it 'should accept a valid locality' do
-    subject[:locality] = :Geneva
-    subject[:locality].should == :Geneva
-  end
-
-  it 'should accept a valid commonname' do
-    subject[:commonname] = :bar
-    subject[:commonname].should == :bar
-  end
-
-  it 'should accept a valid array of altnames' do
-    subject[:altnames] = [:foo, :bar, :baz]
-    subject[:altnames].should == [:foo, :bar, :baz]
-  end
-
-  it 'should accept a valid organisation' do
-    subject[:organisation] = :baz
-    subject[:organisation].should == :baz
-  end
-  
-  it 'should accept a valid unit' do
-    subject[:unit] = :infra
-    subject[:unit].should == :infra
-  end
-
-  it 'should accept a valid email' do
-    subject[:email] = 'infra@example.com'
-    subject[:email].should == 'infra@example.com'
-  end
-
   it 'should accept valid days' do
     subject[:days] = 365
     subject[:days].should == 365
@@ -65,8 +25,14 @@ describe Puppet::Type.type(:x509_cert) do
     }.to raise_error(Puppet::Error, /Invalid value :foo/)
   end
 
-  it 'should accept a valid owner' do
-    subject[:owner] = :bar
-    subject[:owner].should == :bar
+  it 'should accept valid template' do
+    subject[:template] = '/tmp/foo.cnf'
+    subject[:template].should == '/tmp/foo.cnf'
+  end
+
+  it 'should not accept non absolute template' do
+    expect {
+      subject[:template] = 'foo.cnf'
+    }.to raise_error(Puppet::Error, /Path must be absolute: foo\.cnf/)
   end
 end
