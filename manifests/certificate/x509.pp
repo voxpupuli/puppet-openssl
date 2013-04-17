@@ -39,18 +39,17 @@ define openssl::certificate::x509(
   $organisation,
   $commonname,
   $ensure=present,
-  $state=false,
-  $locality=false,
-  $unit=false,
-  $altnames=false,
-  $email=false,
+  $state=undef,
+  $locality=undef,
+  $unit=undef,
+  $altnames=[],
+  $email=undef,
   $days=365,
   $base_dir='/etc/ssl/certs',
   $owner='root'
   ) {
 
   validate_string($name)
-  validate_absolute_path($name)
   validate_string($country)
   validate_string($organisation)
   validate_string($commonname)
