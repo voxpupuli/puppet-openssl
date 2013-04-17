@@ -40,7 +40,8 @@ Puppet::Type.newtype(:x509_csr) do
   end
 
   autorequire(:x509_cert) do
-    Pathname.new(self[:private_key]).basename
+    path = Pathname.new(self[:private_key])
+    "#{path.dirname}/#{path.basename(path.extname)}"
   end
 
   autorequire(:file) do
