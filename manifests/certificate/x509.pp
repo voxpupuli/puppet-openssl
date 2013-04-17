@@ -71,7 +71,7 @@ define openssl::certificate::x509(
     content => template('openssl/cert.cnf.erb'),
   }
 
-  x509_cert { $base_dir:
+  x509_cert { "${base_dir}/${name}":
     ensure   => $ensure,
     template => "${base_dir}/${name}.cnf",
     days     => $days,
