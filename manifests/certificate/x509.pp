@@ -19,7 +19,6 @@ Parameters:
 - *$owner*:        cnf, crt, csr and key owner. User must exist
 
 Example:
-node "foo.bar" {
   openssl::certificate::x509 {"foo.bar":
     ensure       => present,
     country      => "CH",
@@ -28,7 +27,6 @@ node "foo.bar" {
     base_dir     => "/var/www/ssl",
     owner        => "www-data",
   }
-}
 
 This will create files "foo.bar.cnf", "foo.bar.crt", "foo.bar.key" and "foo.bar.csr" in /var/www/ssl/.
 All files will belong to user "www-data".
