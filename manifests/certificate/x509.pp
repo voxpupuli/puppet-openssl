@@ -91,5 +91,6 @@ define openssl::certificate::x509(
     template    => "${base_dir}/${name}.cnf",
     private_key => "${base_dir}/${name}.key",
     password    => $password,
+    force       => true,
   }
 }
