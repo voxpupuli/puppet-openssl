@@ -46,7 +46,8 @@ define openssl::certificate::x509(
   $email=undef,
   $days=365,
   $base_dir='/etc/ssl/certs',
-  $owner='root'
+  $owner='root',
+  $password = undef,
   ) {
 
   validate_string($name)
@@ -72,7 +73,8 @@ define openssl::certificate::x509(
   }
 
   ssl_pkey { "${base_dir}/${name}.key":
-    ensure => $ensure,
+    ensure   => $ensure,
+    password => $password,
   }
 
   x509_cert { "${base_dir}/${name}.crt":
@@ -80,6 +82,7 @@ define openssl::certificate::x509(
     template    => "${base_dir}/${name}.cnf",
     private_key => "${base_dir}/${name}.key",
     days        => $days,
+    password    => $password,
     force       => true,
   }
 
@@ -87,5 +90,6 @@ define openssl::certificate::x509(
     ensure      => $ensure,
     template    => "${base_dir}/${name}.cnf",
     private_key => "${base_dir}/${name}.key",
+    password    => $password,
   }
 }
