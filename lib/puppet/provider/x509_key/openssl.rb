@@ -16,17 +16,9 @@ Puppet::Type.type(:x509_key).provide(:openssl) do
   def create
     k = nil
     if resource[:authentication] == :dsa
-      if resource[:password]
-        k = OpenSSL::PKey::DSA.new(resource[:size], resource[:password])
-      else
-        k = OpenSSL::PKey::DSA.new(resource[:size])
-      end
+      k = OpenSSL::PKey::DSA.new(resource[:size], resource[:password])
     elsif resource[:authentication] == :rsa
-      if resource[:password]
-        k = OpenSSL::PKey::RSA.new(resource[:size], resource[:password])
-      else
-        k = OpenSSL::PKey::RSA.new(resource[:size])
-      end
+      k = OpenSSL::PKey::RSA.new(resource[:size], resource[:password])
     else
       raise Puppet::Error,
             "Unknown authentication type '#{resource[:authentication]}'"

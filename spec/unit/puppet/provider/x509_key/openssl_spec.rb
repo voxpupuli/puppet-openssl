@@ -21,20 +21,25 @@ describe 'The openssl provider for the x509_key type' do
 
   context 'when creating a key with defaults' do
     it 'should create an rsa key' do
-      subject.expects(:openssl).with(
-        'genrsa', '-des3',
-        '-out', '/tmp/foo.key', 2048
-      )
+      OpenSSL::PKey::RSA.expects(:new).with(2048, nil)
+      File.expects(:open).with('/tmp/foo.key', 'w')
       subject.create
     end
 
     context 'when setting size' do
       it 'should create with given size' do
         resource[:size] = 1024
-        subject.expects(:openssl).with(
-          'genrsa', '-des3',
-          '-out', '/tmp/foo.key', 1024
-        )
+        OpenSSL::PKey::RSA.expects(:new).with(1024, nil)
+        File.expects(:open).with('/tmp/foo.key', 'w')
+        subject.create
+      end
+    end
+
+    context 'when setting password' do
+      it 'should create with given password' do
+        resource[:password] = '2x$5{'
+        OpenSSL::PKey::RSA.expects(:new).with(2048, '2x$5{')
+        File.expects(:open).with('/tmp/foo.key', 'w')
         subject.create
       end
     end
@@ -43,10 +48,8 @@ describe 'The openssl provider for the x509_key type' do
   context 'when setting authentication to rsa' do
     it 'should create an dsa key' do
       resource[:authentication] = :rsa
-      subject.expects(:openssl).with(
-        'genrsa', '-des3',
-        '-out', '/tmp/foo.key', 2048
-      )
+      OpenSSL::PKey::RSA.expects(:new).with(2048, nil)
+      File.expects(:open).with('/tmp/foo.key', 'w')
       subject.create
     end
 
@@ -54,10 +57,18 @@ describe 'The openssl provider for the x509_key type' do
       it 'should create with given size' do
         resource[:authentication] = :rsa
         resource[:size] = 1024
-        subject.expects(:openssl).with(
-          'genrsa', '-des3',
-          '-out', '/tmp/foo.key', 1024
-        )
+        OpenSSL::PKey::RSA.expects(:new).with(1024, nil)
+        File.expects(:open).with('/tmp/foo.key', 'w')
+        subject.create
+      end
+    end
+
+    context 'when setting password' do
+      it 'should create with given password' do
+        resource[:authentication] = :rsa
+        resource[:password] = '2x$5{'
+        OpenSSL::PKey::RSA.expects(:new).with(2048, '2x$5{')
+        File.expects(:open).with('/tmp/foo.key', 'w')
         subject.create
       end
     end
@@ -66,15 +77,8 @@ describe 'The openssl provider for the x509_key type' do
   context 'when setting authentication to dsa' do
     it 'should create an dsa key' do
       resource[:authentication] = :dsa
-      Tempfile.any_instance.stubs(:path).returns('/tmp/dsaparam-bar.pem')
-      subject.expects(:openssl).with(
-        'dsaparam',
-        '-out', '/tmp/dsaparam-bar.pem', 2048
-      )
-      subject.expects(:openssl).with(
-        'gendsa', '-des3',
-        '-out', '/tmp/foo.key', '/tmp/dsaparam-bar.pem'
-      )
+      OpenSSL::PKey::DSA.expects(:new).with(2048, nil)
+      File.expects(:open).with('/tmp/foo.key', 'w')
       subject.create
     end
 
@@ -82,15 +86,18 @@ describe 'The openssl provider for the x509_key type' do
       it 'should create with given size' do
         resource[:authentication] = :dsa
         resource[:size] = 1024
-        Tempfile.any_instance.stubs(:path).returns('/tmp/dsaparam-bar.pem')
-        subject.expects(:openssl).with(
-          'dsaparam',
-          '-out', '/tmp/dsaparam-bar.pem', 1024
-        )
-        subject.expects(:openssl).with(
-          'gendsa', '-des3',
-          '-out', '/tmp/foo.key', '/tmp/dsaparam-bar.pem'
-        )
+        OpenSSL::PKey::DSA.expects(:new).with(1024, nil)
+        File.expects(:open).with('/tmp/foo.key', 'w')
+        subject.create
+      end
+    end
+
+    context 'when setting password' do
+      it 'should create with given password' do
+        resource[:authentication] = :dsa
+        resource[:password] = '2x$5{'
+        OpenSSL::PKey::DSA.expects(:new).with(2048, '2x$5{')
+        File.expects(:open).with('/tmp/foo.key', 'w')
         subject.create
       end
     end
