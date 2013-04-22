@@ -13,6 +13,12 @@ Puppet::Type.newtype(:x509_csr) do
     end
   end
 
+  newparam(:force, :boolean => true) do
+    desc 'Whether to replace the certificate if the private key mismatches'
+    newvalues(:true, :false)
+    defaultto false
+  end
+
   newparam(:password) do
     desc 'The optional password for the private key'
   end
@@ -41,6 +47,12 @@ Puppet::Type.newtype(:x509_csr) do
         raise ArgumentError, "Path must be absolute: #{path}"
       end
     end
+  end
+
+  newparam(:authentication) do
+    desc "The authentication algorithm: 'rsa' or 'dsa'"
+    newvalues /[dr]sa/
+    defaultto :rsa
   end
 
   autorequire(:x509_cert) do

@@ -40,5 +40,28 @@ describe Puppet::Type.type(:x509_csr) do
     subject[:password] = 'foox2$bar'
     subject[:password].should == 'foox2$bar'
   end
-end
 
+  it 'should accept a valid force parameter' do
+    subject[:force] = true
+    subject[:force].should == :true
+  end
+
+  it 'should not accept a bad force parameter' do
+    expect {
+      subject[:force] = :foo
+    }.to raise_error(Puppet::Error, /Invalid value :foo/)
+  end
+
+  it 'should accept a valid authentication' do
+    subject[:authentication] = :rsa
+    subject[:authentication].should == :rsa
+    subject[:authentication] = :dsa
+    subject[:authentication].should == :dsa
+  end
+
+  it 'should not accept an invalid authentication' do
+    expect {
+      subject[:authentication] = :foo
+    }.to raise_error(Puppet::Error, /Invalid value :foo/)
+  end
+end
