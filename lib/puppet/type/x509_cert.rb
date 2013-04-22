@@ -5,6 +5,7 @@ Puppet::Type.newtype(:x509_cert) do
   ensurable
 
   newparam(:path, :namevar => true) do
+    desc 'The path to the certificate'
     validate do |value|
       path = Pathname.new(value)
       unless path.absolute?
@@ -14,6 +15,7 @@ Puppet::Type.newtype(:x509_cert) do
   end
 
   newparam(:private_key) do
+    desc 'The path to the private key'
     defaultto do
       path = Pathname.new(@resource[:path])
       "#{path.dirname}/#{path.basename(path.extname)}.key"
@@ -27,14 +29,23 @@ Puppet::Type.newtype(:x509_cert) do
   end
 
   newparam(:days) do
+    desc 'The validity of the certificate'
     newvalues(/\d+/)
     defaultto(3650)
   end
 
-  newparam(:force) do
+  newparam(:force, :boolean => true) do
+    desc 'Whether to replace the certificate if the private key mismatches'
+    newvalues(:true, :false)
+    defaultto false
+  end
+
+  newparam(:password) do
+    desc 'The optional password for the private key'
   end
 
   newparam(:template) do
+    desc 'The template to use'
     defaultto do
       path = Pathname.new(@resource[:path])
       "#{path.dirname}/#{path.basename(path.extname)}.cnf"
@@ -51,7 +62,7 @@ Puppet::Type.newtype(:x509_cert) do
     self[:template]
   end
 
-  autorequire(:x509_key) do
+  autorequire(:ssl_pkey) do
     self[:private_key]
   end
 
