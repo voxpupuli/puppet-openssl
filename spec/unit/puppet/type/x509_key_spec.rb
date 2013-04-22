@@ -37,4 +37,9 @@ describe Puppet::Type.type(:x509_key) do
       subject[:authentication] = :foo
     }.to raise_error(Puppet::Error, /Invalid value :foo/)
   end
+
+  it 'should accept a password' do
+    subject[:password] = 'foox2$bar'
+    subject[:password].should == 'foox2$bar'
+  end
 end

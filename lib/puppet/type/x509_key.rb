@@ -22,4 +22,7 @@ Puppet::Type.newtype(:x509_key) do
     newvalues /\d+/
     defaultto 2048
   end
+
+  newparam(:password) do
+  end
 end

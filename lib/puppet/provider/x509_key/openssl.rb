@@ -1,4 +1,5 @@
 require 'pathname'
+require 'openssl'
 Puppet::Type.type(:x509_key).provide(:openssl) do
   desc 'Manages private keys with OpenSSL'
 
@@ -13,25 +14,25 @@ Puppet::Type.type(:x509_key).provide(:openssl) do
   end
 
   def create
+    k = nil
     if resource[:authentication] == :dsa
-      dsaparam = Tempfile.new(['dsaparam', '.pem'])
-      openssl(
-        'dsaparam',
-        '-out', dsaparam.path, resource[:size]
-      )
-      openssl(
-        'gendsa', '-des3',
-        '-out', resource[:path], dsaparam.path
-      )
-      dsaparam.close
+      if resource[:password]
+        k = OpenSSL::PKey::DSA.new(resource[:size], resource[:password])
+      else
+        k = OpenSSL::PKey::DSA.new(resource[:size])
+      end
     elsif resource[:authentication] == :rsa
-      openssl(
-        'genrsa', '-des3',
-        '-out', resource[:path], resource[:size]
-      )
+      if resource[:password]
+        k = OpenSSL::PKey::RSA.new(resource[:size], resource[:password])
+      else
+        k = OpenSSL::PKey::RSA.new(resource[:size])
+      end
     else
       raise Puppet::Error,
             "Unknown authentication type '#{resource[:authentication]}'"
+    end
+    File.open(resource[:path], 'w') do |f|
+      f.write(k.to_pem)
     end
   end
 
