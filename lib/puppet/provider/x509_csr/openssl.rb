@@ -4,12 +4,33 @@ Puppet::Type.type(:x509_csr).provide(:openssl) do
 
   commands :openssl => 'openssl'
 
-  def self.dirname(resource)
-    resource[:path].dirname
+  def self.private_key(resource)
+    file = File.read(resource[:private_key])
+    if resource[:authentication] == :dsa
+      OpenSSL::PKey::DSA.new(file, resource[:password])
+    elsif resource[:authentication] == :rsa
+      OpenSSL::PKey::RSA.new(file, resource[:password])
+    else
+      raise Puppet::Error,
+            "Unknown authentication type '#{resource[:authentication]}'"
+    end
+  end
+
+  def self.check_private_key(resource)
+    request = OpenSSL::X509::Request.new(File.read(resource[:path]))
+    priv = self.private_key(resource)
+    request.verify(priv)
   end
 
   def exists?
-    Pathname.new(resource[:path]).exist?
+    if Pathname.new(resource[:path]).exist?
+      if resource[:force] and !self.class.check_private_key(resource)
+        return false
+      end
+      return true
+    else
+      return false
+    end
   end
 
   def create

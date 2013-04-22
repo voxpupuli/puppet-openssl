@@ -9,24 +9,26 @@ describe 'The openssl provider for the x509_csr type' do
   let (:resource) { Puppet::Type::X509_csr.new({:path => path}) }
   subject { Puppet::Type.type(:x509_csr).provider(:openssl).new(resource) }
 
-  it 'exists? should return true if csr exists' do
-    Pathname.any_instance.expects(:exist?).returns(true)
-    subject.exists?.should == true
-  end
+  context 'when not forcing key' do
+    it 'exists? should return true if csr exists' do
+      Pathname.any_instance.expects(:exist?).returns(true)
+      subject.exists?.should == true
+    end
 
-  it 'exists? should return false if csr exists' do
-    Pathname.any_instance.expects(:exist?).returns(false)
-    subject.exists?.should == false
-  end
+    it 'exists? should return false if csr exists' do
+      Pathname.any_instance.expects(:exist?).returns(false)
+      subject.exists?.should == false
+    end
 
-  it 'should create a certificate with the proper options' do
-    subject.expects(:openssl).with(
-      'req', '-new',
-      '-key', '/tmp/foo.key',
-      '-config', '/tmp/foo.cnf',
-      '-out', '/tmp/foo.csr'
-    )
-    subject.create
+    it 'should create a certificate with the proper options' do
+      subject.expects(:openssl).with(
+        'req', '-new',
+        '-key', '/tmp/foo.key',
+        '-config', '/tmp/foo.cnf',
+        '-out', '/tmp/foo.csr'
+      )
+      subject.create
+    end
   end
 
   context 'when using password' do
@@ -40,6 +42,36 @@ describe 'The openssl provider for the x509_csr type' do
         '-passin', 'pass:2x6${'
       )
       subject.create
+    end
+  end
+
+  context 'when forcing key' do
+    it 'exists? should return true if certificate exists and is synced' do
+      resource[:force] = true
+      File.stubs(:read)
+      Pathname.any_instance.expects(:exist?).returns(true)
+      c = OpenSSL::X509::Request.new # Fake certificate for mocking
+      OpenSSL::X509::Request.stubs(:new).returns(c)
+      OpenSSL::PKey::RSA.expects(:new)
+      OpenSSL::X509::Request.any_instance.expects(:verify).returns(true)
+      subject.exists?.should == true
+    end
+
+    it 'exists? should return false if certificate exists and is not synced' do
+      resource[:force] = true
+      File.stubs(:read)
+      Pathname.any_instance.expects(:exist?).returns(true)
+      c = OpenSSL::X509::Request.new # Fake certificate for mocking
+      OpenSSL::X509::Request.stubs(:new).returns(c)
+      OpenSSL::PKey::RSA.expects(:new)
+      OpenSSL::X509::Request.any_instance.expects(:verify).returns(false)
+      subject.exists?.should == false
+    end
+
+    it 'exists? should return false if certificate does not exist' do
+      resource[:force] = true
+      Pathname.any_instance.expects(:exist?).returns(false)
+      subject.exists?.should == false
     end
   end
 
