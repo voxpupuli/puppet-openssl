@@ -17,6 +17,8 @@ Parameters:
 - *$days*:         certificate validity
 - *$base_dir*:     where cnf, crt, csr and key should be placed. Directory must exist
 - *$owner*:        cnf, crt, csr and key owner. User must exist
+- *$password*:     private key password
+- *$force*:        whether to override certificate and csr if private key changes
 
 Example:
   openssl::certificate::x509 {"foo.bar":
@@ -48,6 +50,7 @@ define openssl::certificate::x509(
   $base_dir='/etc/ssl/certs',
   $owner='root',
   $password = undef,
+  $force = true,
   ) {
 
   validate_string($name)
@@ -83,7 +86,7 @@ define openssl::certificate::x509(
     private_key => "${base_dir}/${name}.key",
     days        => $days,
     password    => $password,
-    force       => true,
+    force       => $force,
   }
 
   x509_csr { "${base_dir}/${name}.csr":
@@ -91,6 +94,6 @@ define openssl::certificate::x509(
     template    => "${base_dir}/${name}.cnf",
     private_key => "${base_dir}/${name}.key",
     password    => $password,
-    force       => true,
+    force       => $force,
   }
 }
