@@ -3,8 +3,6 @@ require 'openssl'
 Puppet::Type.type(:ssl_pkey).provide(:openssl) do
   desc 'Manages private keys with OpenSSL'
 
-  commands :openssl => 'openssl'
-
   def self.dirname(resource)
     resource[:path].dirname
   end
