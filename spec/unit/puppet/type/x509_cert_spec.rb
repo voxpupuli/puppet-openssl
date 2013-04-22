@@ -35,4 +35,20 @@ describe Puppet::Type.type(:x509_cert) do
       subject[:template] = 'foo.cnf'
     }.to raise_error(Puppet::Error, /Path must be absolute: foo\.cnf/)
   end
+
+  it 'should accept a password' do
+    subject[:password] = 'foox2$bar'
+    subject[:password].should == 'foox2$bar'
+  end
+
+  it 'should accept a valid force parameter' do
+    subject[:force] = true
+    subject[:force].should == :true
+  end
+
+  it 'should not accept a bad force parameter' do
+    expect {
+      subject[:force] = :foo
+    }.to raise_error(Puppet::Error, /Invalid value :foo/)
+  end
 end
