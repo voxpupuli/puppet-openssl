@@ -4,10 +4,6 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
 
   commands :openssl => 'openssl'
 
-  def self.dirname(resource)
-    resource[:path].dirname
-  end
-
   def self.private_key(resource)
     file = File.read(resource[:private_key])
     if resource[:authentication] == :dsa
