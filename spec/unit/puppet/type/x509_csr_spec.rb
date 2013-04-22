@@ -35,5 +35,10 @@ describe Puppet::Type.type(:x509_csr) do
       subject[:template] = 'foo.cnf'
     }.to raise_error(Puppet::Error, /Path must be absolute: foo\.cnf/)
   end
+
+  it 'should accept a password' do
+    subject[:password] = 'foox2$bar'
+    subject[:password].should == 'foox2$bar'
+  end
 end
 

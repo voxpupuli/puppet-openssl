@@ -13,6 +13,10 @@ Puppet::Type.newtype(:x509_csr) do
     end
   end
 
+  newparam(:password) do
+    desc 'The optional password for the private key'
+  end
+
   newparam(:template) do
     defaultto do
       path = Pathname.new(@resource[:path])
