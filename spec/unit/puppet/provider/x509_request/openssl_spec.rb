@@ -1,13 +1,13 @@
 require 'puppet'
 require 'pathname'
-require 'puppet/type/x509_csr'
+require 'puppet/type/x509_request'
 
 RSpec.configure { |c| c.mock_with :mocha }
 
-describe 'The openssl provider for the x509_csr type' do
+describe 'The openssl provider for the x509_request type' do
   let (:path) { '/tmp/foo.csr' }
-  let (:resource) { Puppet::Type::X509_csr.new({:path => path}) }
-  subject { Puppet::Type.type(:x509_csr).provider(:openssl).new(resource) }
+  let (:resource) { Puppet::Type::X509_request.new({:path => path}) }
+  subject { Puppet::Type.type(:x509_request).provider(:openssl).new(resource) }
 
   context 'when not forcing key' do
     it 'exists? should return true if csr exists' do

@@ -89,7 +89,7 @@ define openssl::certificate::x509(
     force       => $force,
   }
 
-  x509_csr { "${base_dir}/${name}.csr":
+  x509_request { "${base_dir}/${name}.csr":
     ensure      => $ensure,
     template    => "${base_dir}/${name}.cnf",
     private_key => "${base_dir}/${name}.key",

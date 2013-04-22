@@ -1,5 +1,5 @@
 require 'pathname'
-Puppet::Type.newtype(:x509_csr) do
+Puppet::Type.newtype(:x509_request) do
   desc 'An x509 certificate signing request'
 
   ensurable

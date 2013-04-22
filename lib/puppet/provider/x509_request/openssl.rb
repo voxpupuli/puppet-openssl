@@ -1,5 +1,5 @@
 require 'pathname'
-Puppet::Type.type(:x509_csr).provide(:openssl) do
+Puppet::Type.type(:x509_request).provide(:openssl) do
   desc 'Manages certificate signing requests with OpenSSL'
 
   commands :openssl => 'openssl'

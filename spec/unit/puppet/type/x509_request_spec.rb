@@ -1,11 +1,11 @@
 require 'puppet'
-require 'puppet/type/x509_csr'
-describe Puppet::Type.type(:x509_csr) do
-  subject { Puppet::Type.type(:x509_csr).new(:path => '/tmp/foo.csr') }
+require 'puppet/type/x509_request'
+describe Puppet::Type.type(:x509_request) do
+  subject { Puppet::Type.type(:x509_request).new(:path => '/tmp/foo.csr') }
 
   it 'should not accept a non absolute path' do
     expect {
-      Puppet::Type.type(:x509_csr).new(:path => 'foo')
+      Puppet::Type.type(:x509_request).new(:path => 'foo')
     }.to raise_error(Puppet::Error, /Path must be absolute: foo/)
   end
 
