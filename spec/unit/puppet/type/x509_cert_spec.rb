@@ -51,4 +51,17 @@ describe Puppet::Type.type(:x509_cert) do
       subject[:force] = :foo
     }.to raise_error(Puppet::Error, /Invalid value :foo/)
   end
+
+  it 'should accept a valid authentication' do
+    subject[:authentication] = :rsa
+    subject[:authentication].should == :rsa
+    subject[:authentication] = :dsa
+    subject[:authentication].should == :dsa
+  end
+
+  it 'should not accept an invalid authentication' do
+    expect {
+      subject[:authentication] = :foo
+    }.to raise_error(Puppet::Error, /Invalid value :foo/)
+  end
 end

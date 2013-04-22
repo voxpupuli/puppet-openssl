@@ -58,6 +58,12 @@ Puppet::Type.newtype(:x509_cert) do
     end
   end
 
+  newparam(:authentication) do
+    desc "The authentication algorithm: 'rsa' or 'dsa'"
+    newvalues /[dr]sa/
+    defaultto :rsa
+  end
+
   autorequire(:file) do
     self[:template]
   end
