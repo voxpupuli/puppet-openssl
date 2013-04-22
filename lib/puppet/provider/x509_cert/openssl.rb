@@ -8,10 +8,33 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
     resource[:path].dirname
   end
 
+  def self.private_key(resource)
+    file = File.read(resource[:private_key])
+    if resource[:authentication] == :dsa
+      OpenSSL::PKey::DSA.new(file, resource[:password])
+    elsif resource[:authentication] == :rsa
+      OpenSSL::PKey::RSA.new(file, resource[:password])
+    else
+      raise Puppet::Error,
+            "Unknown authentication type '#{resource[:authentication]}'"
+    end
+  end
+
+  def self.check_private_key(resource)
+    cert = OpenSSL::X509::Certificate.new(File.read(resource[:path]))
+    priv = self.private_key(resource)
+    cert.check_private_key(priv)
+  end
+
   def exists?
-    # TODO: add a "force" parameter to force recreation
-    # if existing certificate does not match private key
-    Pathname.new(resource[:path]).exist?
+    if Pathname.new(resource[:path]).exist?
+      if resource[:force] and !self.class.check_private_key(resource)
+        return false
+      end
+      return true
+    else
+      return false
+    end
   end
 
   def create
