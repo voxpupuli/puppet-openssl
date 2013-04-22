@@ -13,12 +13,22 @@ Puppet::Type.type(:x509_csr).provide(:openssl) do
   end
 
   def create
-    openssl(
-      'req', '-new',
-      '-key', resource[:private_key],
-      '-config', resource[:template],
-      '-out', resource[:path]
-    )
+    if resource[:password]
+      openssl(
+        'req', '-new',
+        '-key', resource[:private_key],
+        '-config', resource[:template],
+        '-out', resource[:path],
+        '-passin', "pass:#{resource[:password]}"
+      )
+    else
+      openssl(
+        'req', '-new',
+        '-key', resource[:private_key],
+        '-config', resource[:template],
+        '-out', resource[:path]
+      )
+    end
   end
 
   def destroy

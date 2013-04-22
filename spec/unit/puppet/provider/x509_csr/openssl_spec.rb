@@ -29,6 +29,20 @@ describe 'The openssl provider for the x509_csr type' do
     subject.create
   end
 
+  context 'when using password' do
+    it 'should create a certificate with the proper options' do
+      resource[:password] = '2x6${'
+      subject.expects(:openssl).with(
+        'req', '-new',
+        '-key', '/tmp/foo.key',
+        '-config', '/tmp/foo.cnf',
+        '-out', '/tmp/foo.csr',
+        '-passin', 'pass:2x6${'
+      )
+      subject.create
+    end
+  end
+
   it 'should delete files' do
     Pathname.any_instance.expects(:delete)
     subject.destroy
