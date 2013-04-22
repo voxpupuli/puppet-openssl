@@ -1,11 +1,11 @@
 require 'puppet'
-require 'puppet/type/x509_key'
-describe Puppet::Type.type(:x509_key) do
-  subject { Puppet::Type.type(:x509_key).new(:path => '/tmp/foo.key') }
+require 'puppet/type/ssl_pkey'
+describe Puppet::Type.type(:ssl_pkey) do
+  subject { Puppet::Type.type(:ssl_pkey).new(:path => '/tmp/foo.key') }
 
   it 'should not accept a non absolute path' do
     expect {
-      Puppet::Type.type(:x509_key).new(:path => 'foo')
+      Puppet::Type.type(:ssl_pkey).new(:path => 'foo')
     }.to raise_error(Puppet::Error, /Path must be absolute: foo/)
   end
 

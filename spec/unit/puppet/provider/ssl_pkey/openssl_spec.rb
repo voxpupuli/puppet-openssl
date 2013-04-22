@@ -1,13 +1,13 @@
 require 'puppet'
 require 'pathname'
-require 'puppet/type/x509_key'
+require 'puppet/type/ssl_pkey'
 
 RSpec.configure { |c| c.mock_with :mocha }
 
-describe 'The openssl provider for the x509_key type' do
+describe 'The openssl provider for the ssl_pkey type' do
   let (:path) { '/tmp/foo.key' }
-  let (:resource) { Puppet::Type::X509_key.new({:path => path}) }
-  subject { Puppet::Type.type(:x509_key).provider(:openssl).new(resource) }
+  let (:resource) { Puppet::Type::Ssl_pkey.new({:path => path}) }
+  subject { Puppet::Type.type(:ssl_pkey).provider(:openssl).new(resource) }
 
   it 'exists? should return true if key exists' do
     Pathname.any_instance.expects(:exist?).returns(true)

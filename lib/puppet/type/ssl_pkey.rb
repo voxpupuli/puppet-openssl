@@ -1,6 +1,6 @@
 require 'pathname'
-Puppet::Type.newtype(:x509_key) do
-  desc 'An x509 private key'
+Puppet::Type.newtype(:ssl_pkey) do
+  desc 'An SSL private key'
 
   ensurable
 

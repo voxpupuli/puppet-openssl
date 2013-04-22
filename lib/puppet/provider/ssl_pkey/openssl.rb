@@ -1,6 +1,6 @@
 require 'pathname'
 require 'openssl'
-Puppet::Type.type(:x509_key).provide(:openssl) do
+Puppet::Type.type(:ssl_pkey).provide(:openssl) do
   desc 'Manages private keys with OpenSSL'
 
   commands :openssl => 'openssl'
