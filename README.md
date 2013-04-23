@@ -73,7 +73,7 @@ Simple usage:
       commonname   => $fqdn,
     }
 
-Advaned options:
+Advanced options:
 
     openssl::certificate::x509 { 'foo':
       ensure       => present,
