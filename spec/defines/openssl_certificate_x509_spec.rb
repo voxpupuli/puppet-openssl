@@ -263,5 +263,162 @@ describe 'openssl::certificate::x509' do
   end
 
   context 'when using defaults' do
+    let (:params) { {
+      :country      => 'com',
+      :organisation => 'bar',
+      :commonname   => 'baz',
+    } }
+
+    it {
+      should contain_file('/etc/ssl/certs/foo.cnf').with(
+        :ensure  => 'present',
+        :owner   => 'root'
+      ).with_content(
+        /countryName\s+=\s+com/
+      ).with_content(
+        /organizationName\s+=\s+bar/
+      ).with_content(
+        /commonName\s+=\s+baz/
+      )
+    }
+
+    it {
+      should contain_ssl_pkey('/etc/ssl/certs/foo.key').with(
+        :ensure   => 'present',
+        :password => nil
+      )
+    }
+
+    it {
+      should contain_x509_cert('/etc/ssl/certs/foo.crt').with(
+        :ensure      => 'present',
+        :template    => '/etc/ssl/certs/foo.cnf',
+        :private_key => '/etc/ssl/certs/foo.key',
+        :days        => 365,
+        :password    => nil,
+        :force       => true
+      )
+    }
+
+    it {
+      should contain_x509_request('/etc/ssl/certs/foo.csr').with(
+        :ensure      => 'present',
+        :template    => '/etc/ssl/certs/foo.cnf',
+        :private_key => '/etc/ssl/certs/foo.key',
+        :password    => nil,
+        :force       => true
+      )
+    }
+
+    it {
+      should contain_file('/etc/ssl/certs/foo.key').with(
+        :ensure => 'present',
+        :owner  => 'root'
+      )
+    }
+
+    it {
+      should contain_file('/etc/ssl/certs/foo.crt').with(
+        :ensure => 'present',
+        :owner  => 'root'
+      )
+    }
+
+    it {
+      should contain_file('/etc/ssl/certs/foo.csr').with(
+        :ensure => 'present',
+        :owner  => 'root'
+      )
+    }
+  end
+
+  context 'when passing all parameters' do
+    let (:params) { {
+      :country      => 'com',
+      :organisation => 'bar',
+      :commonname   => 'baz',
+      :state        => 'FR',
+      :locality     => 'here',
+      :unit         => 'braz',
+      :altnames     => ['a.com', 'b.com', 'c.com'],
+      :email        => 'contact@foo.com',
+      :days         => 4567,
+      :owner        => 'www-data',
+      :password     => '5r$}^',
+      :force        => false,
+      :base_dir     => '/tmp/foobar',
+    } }
+
+    it {
+      should contain_file('/tmp/foobar/foo.cnf').with(
+        :ensure  => 'present',
+        :owner   => 'www-data'
+      ).with_content(
+        /countryName\s+=\s+com/
+      ).with_content(
+        /stateOrProvinceName\s+=\s+FR/
+      ).with_content(
+        /localityName\s+=\s+here/
+      ).with_content(
+        /organizationName\s+=\s+bar/
+      ).with_content(
+        /organizationalUnitName\s+=\s+braz/
+      ).with_content(
+        /commonName\s+=\s+baz/
+      ).with_content(
+        /emailAddress\s+=\s+contact@foo\.com/
+      ).with_content(
+        /subjectAltName\s+=\s+"DNS: a\.com, DNS: b\.com, DNS: c\.com"/
+      )
+    }
+
+    it {
+      should contain_ssl_pkey('/tmp/foobar/foo.key').with(
+        :ensure   => 'present',
+        :password => '5r$}^'
+      )
+    }
+
+    it {
+      should contain_x509_cert('/tmp/foobar/foo.crt').with(
+        :ensure      => 'present',
+        :template    => '/tmp/foobar/foo.cnf',
+        :private_key => '/tmp/foobar/foo.key',
+        :days        => 4567,
+        :password    => '5r$}^',
+        :force       => false
+      )
+    }
+
+    it {
+      should contain_x509_request('/tmp/foobar/foo.csr').with(
+        :ensure      => 'present',
+        :template    => '/tmp/foobar/foo.cnf',
+        :private_key => '/tmp/foobar/foo.key',
+        :password    => '5r$}^',
+        :force       => false
+      )
+    }
+
+    it {
+      should contain_file('/tmp/foobar/foo.key').with(
+        :ensure => 'present',
+        :owner  => 'www-data'
+      )
+    }
+
+    it {
+      should contain_file('/tmp/foobar/foo.crt').with(
+        :ensure => 'present',
+        :owner  => 'www-data'
+      )
+    }
+
+    it {
+      should contain_file('/tmp/foobar/foo.csr').with(
+        :ensure => 'present',
+        :owner  => 'www-data'
+      )
+    }
   end
 end

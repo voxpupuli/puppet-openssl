@@ -105,11 +105,20 @@ define openssl::certificate::x509(
   }
 
   # Set owner of all files
-  file { [
-      "${base_dir}/${name}.key",
-      "${base_dir}/${name}.crt",
-      "${base_dir}/${name}.csr",
-    ]:
-    owner => $owner,
+  file {
+    "${base_dir}/${name}.key":
+      ensure  => $ensure,
+      owner   => $owner,
+      require => Ssl_pkey["${base_dir}/${name}.key"];
+
+    "${base_dir}/${name}.crt":
+      ensure  => $ensure,
+      owner   => $owner,
+      require => X509_cert["${base_dir}/${name}.crt"];
+
+    "${base_dir}/${name}.csr":
+      ensure  => $ensure,
+      owner   => $owner,
+      require => X509_request["${base_dir}/${name}.csr"];
   }
 }
