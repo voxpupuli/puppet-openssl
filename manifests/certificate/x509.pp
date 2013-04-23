@@ -1,29 +1,28 @@
-#
-#
-# Definition: openssl::certificate::x509
+# == Definition: openssl::certificate::x509
 #
 # Creates a certificate, key and CSR according to datas provided.
 #
-# Parameters:
-#   - ['ensure']         ensure wether certif and its config are present or not
-#   - ['country']        certificate countryName
-#   - ['state']          certificate stateOrProvinceName
-#   - ['locality']       certificate localityName
-#   - ['commonname']     certificate CommonName
-#   - ['altnames']       certificate subjectAltName.
-#                        Can be an array or a single string.
-#   - ['organization']   certificate organizationName
-#   - ['unit']           certificate organizationalUnitName
-#   - ['email']          certificate emailAddress
-#   - ['days']           certificate validity
-#   - ['base_dir']       where cnf, crt, csr and key should be placed.
-#                        Directory must exist
-#   - ['owner']          cnf, crt, csr and key owner. User must exist
-#   - ['password']       private key password
-#   - ['force']          whether to override certificate and request
-#                        if private key changes
+# === Parameters
+#  [*ensure*]         ensure wether certif and its config are present or not
+#  [*country*]        certificate countryName
+#  [*state*]          certificate stateOrProvinceName
+#  [*locality*]       certificate localityName
+#  [*commonname*]     certificate CommonName
+#  [*altnames*]       certificate subjectAltName.
+#                     Can be an array or a single string.
+#  [*organization*]   certificate organizationName
+#  [*unit*]           certificate organizationalUnitName
+#  [*email*]          certificate emailAddress
+#  [*days*]           certificate validity
+#  [*base_dir*]       where cnf, crt, csr and key should be placed.
+#                     Directory must exist
+#  [*owner*]          cnf, crt, csr and key owner. User must exist
+#  [*password*]       private key password
+#  [*force*]          whether to override certificate and request
+#                     if private key changes
 #
-# Example:
+# === Example
+#
 #   openssl::certificate::x509 { 'foo.bar':
 #     ensure       => present,
 #     country      => 'CH',
@@ -38,6 +37,10 @@
 # All files will belong to user "www-data".
 #
 # Those files can be used as is for apache, openldap and so on.
+#
+# === Requires
+#
+#   - `puppetlabs/stdlib`
 #
 define openssl::certificate::x509(
   $country,
