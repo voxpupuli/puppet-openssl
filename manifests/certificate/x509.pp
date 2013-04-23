@@ -71,6 +71,10 @@ define openssl::certificate::x509(
   validate_string($base_dir)
   validate_absolute_path($base_dir)
   validate_string($owner)
+  validate_string($password)
+  validate_bool($force)
+  validate_re($ensure, '^(present|absent)$',
+    "\$ensure must be either 'present' or 'absent', got '${ensure}'")
 
   file {"${base_dir}/${name}.cnf":
     ensure  => $ensure,
