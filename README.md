@@ -92,6 +92,18 @@ Advanced options:
       force        => false,
     }
 
+### openssl::export::pkcs12
+
+This definition generates a pkcs12 file:
+
+    openssl::export::pkcs12 { 'foo':
+      ensure    => 'present',
+      basedir   => '/path/to/dir',
+      pkey      => '/here/is/my/private.key',
+      cert      => '/there/is/the/cert.crt',
+      pkey_pass => 'mypassword',
+    }
+
 ## Contributing
 
 Please report bugs and feature request using [GitHub issue
