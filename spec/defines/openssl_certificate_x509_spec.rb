@@ -6,7 +6,7 @@ describe 'openssl::certificate::x509' do
   context 'when passing non absolute path as base_dir' do
     let (:params) { {
       :country      => 'com',
-      :organisation => 'bar',
+      :organization => 'bar',
       :commonname   => 'baz',
       :base_dir     => 'barz',
     } }
@@ -19,7 +19,7 @@ describe 'openssl::certificate::x509' do
 
   context 'when not passing a country' do
     let (:params) { {
-      :organisation => 'bar',
+      :organization => 'bar',
       :commonname   => 'baz',
       :base_dir     => '/tmp/foo',
     } }
@@ -33,7 +33,7 @@ describe 'openssl::certificate::x509' do
   context 'when passing wrong type for country' do
     let (:params) { {
       :country      => true,
-      :organisation => 'bar',
+      :organization => 'bar',
       :commonname   => 'baz',
       :base_dir     => '/tmp/foo',
     } }
@@ -44,7 +44,7 @@ describe 'openssl::certificate::x509' do
     end
   end
 
-  context 'when not passing an organisation' do
+  context 'when not passing an organization' do
     let (:params) { {
       :country      => 'CH',
       :commonname   => 'baz',
@@ -53,14 +53,14 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         should contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /Must pass organisation to Openssl::Certificate::X509/)
+      }.to raise_error(Puppet::Error, /Must pass organization to Openssl::Certificate::X509/)
     end
   end
 
-  context 'when passing wrong type for organisation' do
+  context 'when passing wrong type for organization' do
     let (:params) { {
       :country      => 'CH',
-      :organisation => true,
+      :organization => true,
       :commonname   => 'baz',
       :base_dir     => '/tmp/foo',
     } }
@@ -74,7 +74,7 @@ describe 'openssl::certificate::x509' do
   context 'when not passing an commonname' do
     let (:params) { {
       :country      => 'CH',
-      :organisation => 'bar',
+      :organization => 'bar',
       :base_dir     => '/tmp/foo',
     } }
     it 'should fail' do
@@ -87,7 +87,7 @@ describe 'openssl::certificate::x509' do
   context 'when passing wrong type for commonname' do
     let (:params) { {
       :country      => 'CH',
-      :organisation => 'bar',
+      :organization => 'bar',
       :commonname   => true,
       :base_dir     => '/tmp/foo',
     } }
@@ -102,7 +102,7 @@ describe 'openssl::certificate::x509' do
     let (:params) { {
       :ensure       => 'foo',
       :country      => 'CH',
-      :organisation => 'bar',
+      :organization => 'bar',
       :commonname   => 'baz',
       :base_dir     => '/tmp/foo',
     } }
@@ -116,7 +116,7 @@ describe 'openssl::certificate::x509' do
   context 'when passing wrong type for state' do
     let (:params) { {
       :country      => 'CH',
-      :organisation => 'bar',
+      :organization => 'bar',
       :commonname   => 'baz',
       :base_dir     => '/tmp/foo',
       :state        => true,
@@ -131,7 +131,7 @@ describe 'openssl::certificate::x509' do
   context 'when passing wrong type for locality' do
     let (:params) { {
       :country      => 'CH',
-      :organisation => 'bar',
+      :organization => 'bar',
       :commonname   => 'baz',
       :base_dir     => '/tmp/foo',
       :locality     => true,
@@ -146,7 +146,7 @@ describe 'openssl::certificate::x509' do
   context 'when passing wrong type for unit' do
     let (:params) { {
       :country      => 'CH',
-      :organisation => 'bar',
+      :organization => 'bar',
       :commonname   => 'baz',
       :base_dir     => '/tmp/foo',
       :unit         => true,
@@ -161,7 +161,7 @@ describe 'openssl::certificate::x509' do
   context 'when passing wrong type for altnames' do
     let (:params) { {
       :country      => 'CH',
-      :organisation => 'bar',
+      :organization => 'bar',
       :commonname   => 'baz',
       :base_dir     => '/tmp/foo',
       :altnames     => true,
@@ -176,7 +176,7 @@ describe 'openssl::certificate::x509' do
   context 'when passing wrong type for email' do
     let (:params) { {
       :country      => 'CH',
-      :organisation => 'bar',
+      :organization => 'bar',
       :commonname   => 'baz',
       :base_dir     => '/tmp/foo',
       :email        => true,
@@ -191,7 +191,7 @@ describe 'openssl::certificate::x509' do
   context 'when passing wrong type for days' do
     let (:params) { {
       :country      => 'CH',
-      :organisation => 'bar',
+      :organization => 'bar',
       :commonname   => 'baz',
       :base_dir     => '/tmp/foo',
       :days         => true,
@@ -206,7 +206,7 @@ describe 'openssl::certificate::x509' do
   context 'when passing wrong type for base_dir' do
     let (:params) { {
       :country      => 'CH',
-      :organisation => 'bar',
+      :organization => 'bar',
       :commonname   => 'baz',
       :base_dir     => true,
     } }
@@ -220,7 +220,7 @@ describe 'openssl::certificate::x509' do
   context 'when passing wrong type for owner' do
     let (:params) { {
       :country      => 'CH',
-      :organisation => 'bar',
+      :organization => 'bar',
       :commonname   => 'baz',
       :owner        => true,
       :base_dir     => '/tmp/foo',
@@ -235,7 +235,7 @@ describe 'openssl::certificate::x509' do
   context 'when passing wrong type for password' do
     let (:params) { {
       :country      => 'CH',
-      :organisation => 'bar',
+      :organization => 'bar',
       :commonname   => 'baz',
       :base_dir     => '/tmp/foo',
       :password     => true,
@@ -250,7 +250,7 @@ describe 'openssl::certificate::x509' do
   context 'when passing wrong type for force' do
     let (:params) { {
       :country      => 'CH',
-      :organisation => 'bar',
+      :organization => 'bar',
       :commonname   => 'baz',
       :base_dir     => '/tmp/foo',
       :force        => 'foobar',
@@ -265,7 +265,7 @@ describe 'openssl::certificate::x509' do
   context 'when using defaults' do
     let (:params) { {
       :country      => 'com',
-      :organisation => 'bar',
+      :organization => 'bar',
       :commonname   => 'baz',
     } }
 
@@ -335,7 +335,7 @@ describe 'openssl::certificate::x509' do
   context 'when passing all parameters' do
     let (:params) { {
       :country      => 'com',
-      :organisation => 'bar',
+      :organization => 'bar',
       :commonname   => 'baz',
       :state        => 'FR',
       :locality     => 'here',

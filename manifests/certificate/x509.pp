@@ -12,7 +12,7 @@
 #   - ['commonname']     certificate CommonName
 #   - ['altnames']       certificate subjectAltName.
 #                        Can be an array or a single string.
-#   - ['organisation']   certificate organizationName
+#   - ['organization']   certificate organizationName
 #   - ['unit']           certificate organizationalUnitName
 #   - ['email']          certificate emailAddress
 #   - ['days']           certificate validity
@@ -27,7 +27,7 @@
 #   openssl::certificate::x509 { 'foo.bar':
 #     ensure       => present,
 #     country      => 'CH',
-#     organisation => 'Example.com',
+#     organization => 'Example.com',
 #     commonname   => $fqdn,
 #     base_dir     => '/var/www/ssl',
 #     owner        => 'www-data',
@@ -41,7 +41,7 @@
 #
 define openssl::certificate::x509(
   $country,
-  $organisation,
+  $organization,
   $commonname,
   $ensure = present,
   $state = undef,
@@ -58,7 +58,7 @@ define openssl::certificate::x509(
 
   validate_string($name)
   validate_string($country)
-  validate_string($organisation)
+  validate_string($organization)
   validate_string($commonname)
   validate_string($ensure)
   validate_string($state)
