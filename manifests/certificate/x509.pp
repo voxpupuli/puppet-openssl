@@ -1,54 +1,57 @@
-/*
-
-== Definition: openssl::certificate::x509
-
-Creates a certificate, key and CSR according to datas provided.
-
-Parameters:
-- *$ensure*:       ensure wether certif and its config are present or not
-- *$country*:      certificate countryName
-- *$state*:        certificate stateOrProvinceName
-- *$locality*:     certificate localityName
-- *$commonname*:   certificate CommonName
-- *$altnames*:     certificate subjectAltName. Can be an array or a single string.
-- *$organisation*: certificate organizationName
-- *$unit*:         certificate organizationalUnitName
-- *$email*:        certificate emailAddress
-- *$days*:         certificate validity
-- *$base_dir*:     where cnf, crt, csr and key should be placed. Directory must exist
-- *$owner*:        cnf, crt, csr and key owner. User must exist
-- *$password*:     private key password
-- *$force*:        whether to override certificate and csr if private key changes
-
-Example:
-  openssl::certificate::x509 {"foo.bar":
-    ensure       => present,
-    country      => "CH",
-    organisation => "Example.com",
-    commonname   => $fqdn,
-    base_dir     => "/var/www/ssl",
-    owner        => "www-data",
-  }
-
-This will create files "foo.bar.cnf", "foo.bar.crt", "foo.bar.key" and "foo.bar.csr" in /var/www/ssl/.
-All files will belong to user "www-data".
-
-Those files can be used as is for apache, openldap and so on.
-
-*/
+#
+#
+# Definition: openssl::certificate::x509
+#
+# Creates a certificate, key and CSR according to datas provided.
+#
+# Parameters:
+#   - ['ensure']         ensure wether certif and its config are present or not
+#   - ['country']        certificate countryName
+#   - ['state']          certificate stateOrProvinceName
+#   - ['locality']       certificate localityName
+#   - ['commonname']     certificate CommonName
+#   - ['altnames']       certificate subjectAltName.
+#                        Can be an array or a single string.
+#   - ['organisation']   certificate organizationName
+#   - ['unit']           certificate organizationalUnitName
+#   - ['email']          certificate emailAddress
+#   - ['days']           certificate validity
+#   - ['base_dir']       where cnf, crt, csr and key should be placed.
+#                        Directory must exist
+#   - ['owner']          cnf, crt, csr and key owner. User must exist
+#   - ['password']       private key password
+#   - ['force']          whether to override certificate and request
+#                        if private key changes
+#
+# Example:
+#   openssl::certificate::x509 { 'foo.bar':
+#     ensure       => present,
+#     country      => 'CH',
+#     organisation => 'Example.com',
+#     commonname   => $fqdn,
+#     base_dir     => '/var/www/ssl',
+#     owner        => 'www-data',
+#   }
+#
+# This will create files "foo.bar.cnf", "foo.bar.crt", "foo.bar.key"
+# and "foo.bar.csr" in /var/www/ssl/.
+# All files will belong to user "www-data".
+#
+# Those files can be used as is for apache, openldap and so on.
+#
 define openssl::certificate::x509(
   $country,
   $organisation,
   $commonname,
-  $ensure=present,
-  $state=undef,
-  $locality=undef,
-  $unit=undef,
-  $altnames=[],
-  $email=undef,
-  $days=365,
-  $base_dir='/etc/ssl/certs',
-  $owner='root',
+  $ensure = present,
+  $state = undef,
+  $locality = undef,
+  $unit = undef,
+  $altnames = [],
+  $email = undef,
+  $days = 365,
+  $base_dir = '/etc/ssl/certs',
+  $owner = 'root',
   $password = undef,
   $force = true,
   ) {
@@ -95,5 +98,14 @@ define openssl::certificate::x509(
     private_key => "${base_dir}/${name}.key",
     password    => $password,
     force       => $force,
+  }
+
+  # Set owner of all files
+  file { [
+      "${base_dir}/${name}.key",
+      "${base_dir}/${name}.crt",
+      "${base_dir}/${name}.csr",
+    ]:
+    owner => $owner,
   }
 }
