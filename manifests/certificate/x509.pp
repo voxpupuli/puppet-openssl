@@ -112,6 +112,7 @@ define openssl::certificate::x509(
     "${base_dir}/${name}.key":
       ensure  => $ensure,
       owner   => $owner,
+      mode    => '0600',
       require => Ssl_pkey["${base_dir}/${name}.key"];
 
     "${base_dir}/${name}.crt":
