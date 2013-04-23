@@ -16,24 +16,24 @@ req_extensions          = req_ext
 <% end -%>
 
 [ req_distinguished_name ]
-countryName                     = <%= country %>
+countryName                     = <%= @country %>
 <% if has_variable?("state") -%>
-stateOrProvinceName             = <%= state %>
+stateOrProvinceName             = <%= @state %>
 <% end -%>
 <% if has_variable?("locality") -%>
-localityName                    = <%= locality %>
+localityName                    = <%= @locality %>
 <% end -%>
-organizationName                = <%= organisation %>
+organizationName                = <%= @organization %>
 <% if has_variable?("unit") -%>
-organizationalUnitName          = <%= unit %>
+organizationalUnitName          = <%= @unit %>
 <% end -%>
-commonName                      = <%= commonname %>
+commonName                      = <%= @commonname %>
 <% if has_variable?("email") -%>
-emailAddress                    = <%= email %>
+emailAddress                    = <%= @email %>
 <% end -%>
 
-<% if altnames and not altnames.empty? -%>
+<% unless altnames.empty? -%>
 [ req_ext ]
-subjectAltName = "<%= altnames.collect! {|i| "DNS: #{i}" }.join(', ') -%>"
+subjectAltName = "<%= @altnames.collect! {|i| "DNS: #{i}" }.join(', ') -%>"
 <% end %>
 

@@ -1,89 +1,128 @@
-/*
-
-== Definition: openssl::certificate::x509
-
-Creates a certificate, key and CSR according to datas provided.
-
-Requires:
-- Class["openssl::genx509"]
-
-Parameters:
-- *$ensure*:       ensure wether certif and its config are present or not
-- *$country*:      certificate countryName
-- *$state*:        certificate stateOrProvinceName
-- *$locality*:     certificate localityName
-- *$commonname*:   certificate CommonName
-- *$altnames*:     certificate subjectAltName. Can be an array or a single string.
-- *$organisation*: certificate organizationName
-- *$unit*:         certificate organizationalUnitName
-- *$email*:        certificate emailAddress
-- *$days*:         certificate validity
-- *$base_dir*:     where cnf, crt, csr and key should be placed. Directory must exist
-- *$owner*:        cnf, crt, csr and key owner. User must exist
-
-Example:
-node "foo.bar" {
-  include openssl::genx509
-  openssl::certificate::x509 {"foo.bar":
-    ensure       => present,
-    country      => "CH",
-    organisation => "Example.com",
-    commonname   => $fqdn,
-    base_dir     => "/var/www/ssl",
-    owner        => "www-data",
-  }
-}
-
-This will create files "foo.bar.cnf", "foo.bar.crt", "foo.bar.key" and "foo.bar.csr" in /var/www/ssl/.
-All files will belong to user "www-data".
-
-Those files can be used as is for apache, openldap and so on.
-
-*/
-define openssl::certificate::x509($ensure=present,
+# == Definition: openssl::certificate::x509
+#
+# Creates a certificate, key and CSR according to datas provided.
+#
+# === Parameters
+#  [*ensure*]         ensure wether certif and its config are present or not
+#  [*country*]        certificate countryName
+#  [*state*]          certificate stateOrProvinceName
+#  [*locality*]       certificate localityName
+#  [*commonname*]     certificate CommonName
+#  [*altnames*]       certificate subjectAltName.
+#                     Can be an array or a single string.
+#  [*organization*]   certificate organizationName
+#  [*unit*]           certificate organizationalUnitName
+#  [*email*]          certificate emailAddress
+#  [*days*]           certificate validity
+#  [*base_dir*]       where cnf, crt, csr and key should be placed.
+#                     Directory must exist
+#  [*owner*]          cnf, crt, csr and key owner. User must exist
+#  [*password*]       private key password
+#  [*force*]          whether to override certificate and request
+#                     if private key changes
+#
+# === Example
+#
+#   openssl::certificate::x509 { 'foo.bar':
+#     ensure       => present,
+#     country      => 'CH',
+#     organization => 'Example.com',
+#     commonname   => $fqdn,
+#     base_dir     => '/var/www/ssl',
+#     owner        => 'www-data',
+#   }
+#
+# This will create files "foo.bar.cnf", "foo.bar.crt", "foo.bar.key"
+# and "foo.bar.csr" in /var/www/ssl/.
+# All files will belong to user "www-data".
+#
+# Those files can be used as is for apache, openldap and so on.
+#
+# === Requires
+#
+#   - `puppetlabs/stdlib`
+#
+define openssl::certificate::x509(
   $country,
-  $state=false,
-  $locality=false,
-  $organisation,
+  $organization,
   $commonname,
-  $unit=false,
-  $altnames=false,
-  $email=false,
-  $days=365,
-  $base_dir='/etc/ssl/certs',
-  $owner='root'
+  $ensure = present,
+  $state = undef,
+  $locality = undef,
+  $unit = undef,
+  $altnames = [],
+  $email = undef,
+  $days = 365,
+  $base_dir = '/etc/ssl/certs',
+  $owner = 'root',
+  $password = undef,
+  $force = true,
   ) {
 
+  validate_string($name)
+  validate_string($country)
+  validate_string($organization)
+  validate_string($commonname)
+  validate_string($ensure)
+  validate_string($state)
+  validate_string($locality)
+  validate_string($unit)
+  validate_array($altnames)
+  validate_string($email)
+  validate_string($days)
+  validate_re($days, '^\d+$')
+  validate_string($base_dir)
+  validate_absolute_path($base_dir)
+  validate_string($owner)
+  validate_string($password)
+  validate_bool($force)
+  validate_re($ensure, '^(present|absent)$',
+    "\$ensure must be either 'present' or 'absent', got '${ensure}'")
+
   file {"${base_dir}/${name}.cnf":
-    ensure  => present,
+    ensure  => $ensure,
     owner   => $owner,
-    content => template("openssl/cert.cnf.erb"),
+    content => template('openssl/cert.cnf.erb'),
   }
 
-  case $ensure {
-    'present': {
-      File["${base_dir}/${name}.cnf"] {
-        notify => Exec["create ${name} certificate"],
-      }
+  ssl_pkey { "${base_dir}/${name}.key":
+    ensure   => $ensure,
+    password => $password,
+  }
 
-      exec {"create ${name} certificate":
-        creates => "${base_dir}/${name}.crt",
-        user    => $owner,
-        command => "/usr/local/sbin/generate-x509-cert.sh ${name} ${base_dir}/${name}.cnf ${base_dir}/ ${days}",
-        require => [File["${base_dir}/${name}.cnf"], Class['openssl::genx509']],
-      }
-    }
+  x509_cert { "${base_dir}/${name}.crt":
+    ensure      => $ensure,
+    template    => "${base_dir}/${name}.cnf",
+    private_key => "${base_dir}/${name}.key",
+    days        => $days,
+    password    => $password,
+    force       => $force,
+  }
 
-    'absent':{
-      file {[
-        "${base_dir}/${name}.crt",
-        "${base_dir}/${name}.csr",
-        "${base_dir}/${name}.key",
-        ]:
-        ensure => absent,
-      }
-    }
+  x509_request { "${base_dir}/${name}.csr":
+    ensure      => $ensure,
+    template    => "${base_dir}/${name}.cnf",
+    private_key => "${base_dir}/${name}.key",
+    password    => $password,
+    force       => $force,
+  }
 
-    default: { fail "Unknown \$ensure value: ${ensure}"}
+  # Set owner of all files
+  file {
+    "${base_dir}/${name}.key":
+      ensure  => $ensure,
+      owner   => $owner,
+      mode    => '0600',
+      require => Ssl_pkey["${base_dir}/${name}.key"];
+
+    "${base_dir}/${name}.crt":
+      ensure  => $ensure,
+      owner   => $owner,
+      require => X509_cert["${base_dir}/${name}.crt"];
+
+    "${base_dir}/${name}.csr":
+      ensure  => $ensure,
+      owner   => $owner,
+      require => X509_request["${base_dir}/${name}.csr"];
   }
 }
