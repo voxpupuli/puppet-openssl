@@ -20,6 +20,7 @@
 #  [*password*]       private key password
 #  [*force*]          whether to override certificate and request
 #                     if private key changes
+#  [*cnf_tpl*]        Specify an other template to generate ".cnf" file.
 #
 # === Example
 #
@@ -57,6 +58,7 @@ define openssl::certificate::x509(
   $owner = 'root',
   $password = undef,
   $force = true,
+  $cnf_tpl = 'openssl/cert.cnf.erb',
   ) {
 
   validate_string($name)
@@ -78,11 +80,12 @@ define openssl::certificate::x509(
   validate_bool($force)
   validate_re($ensure, '^(present|absent)$',
     "\$ensure must be either 'present' or 'absent', got '${ensure}'")
+  validate_string($cnf_tpl)
 
   file {"${base_dir}/${name}.cnf":
     ensure  => $ensure,
     owner   => $owner,
-    content => template('openssl/cert.cnf.erb'),
+    content => template($cnf_tpl),
   }
 
   ssl_pkey { "${base_dir}/${name}.key":

@@ -90,6 +90,7 @@ Advanced options:
       owner        => 'www-data',
       password     => 'j(D$',
       force        => false,
+      cnf_tpl      => 'my_module/cert.cnf.erb'
     }
 
 ### openssl::export::pkcs12
