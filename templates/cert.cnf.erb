@@ -17,18 +17,18 @@ req_extensions          = req_ext
 
 [ req_distinguished_name ]
 countryName                     = <%= @country %>
-<% if has_variable?("state") -%>
+<% unless @state.nil? -%>
 stateOrProvinceName             = <%= @state %>
 <% end -%>
-<% if has_variable?("locality") -%>
+<% unless @locality.nil? -%>
 localityName                    = <%= @locality %>
 <% end -%>
 organizationName                = <%= @organization %>
-<% if has_variable?("unit") -%>
+<% unless @unit.nil? -%>
 organizationalUnitName          = <%= @unit %>
 <% end -%>
 commonName                      = <%= @commonname %>
-<% if has_variable?("email") -%>
+<% unless @email.nil? -%>
 emailAddress                    = <%= @email %>
 <% end -%>
 
