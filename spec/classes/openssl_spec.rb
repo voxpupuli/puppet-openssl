@@ -1,7 +1,30 @@
 require 'spec_helper'
 
 describe 'openssl' do
-  context 'when on Debian' do
+
+  context "parameter validation" do
+    let (:params) {{ :install_devel => "asdf" }}
+
+    it do
+      expect {
+        should true
+      }.to raise_error(Puppet::Error, %r{.*is not a boolean.*})
+    end
+  end
+
+  context 'when on Solaris' do
+    let (:facts) {{
+      :osfamily => 'Solaris'
+    }}
+
+    it do
+      expect {
+        should true
+      }.to raise_error(Puppet::Error, %r{Operating systems in the Solaris family are not supported})
+    end
+  end
+
+  context 'when on Debian with' do
     let (:facts) { {
       :operatingsystem => 'Debian',
       :osfamily        => 'Debian',
@@ -18,6 +41,28 @@ describe 'openssl' do
         :path   => '/etc/ssl/certs/ca-certificates.crt'
       )
     }
+
+    context "with default parameters" do
+      let (:params) { {} }
+
+      it { should_not contain_package('openssl-dev') }
+    end
+
+    context "explicitly not installing development packages" do
+      let (:params) {
+        { :install_devel => false }
+      }
+
+      it { should_not contain_package('openssl-dev') }
+    end
+
+    context "installing development packages" do
+      let (:params) {
+        { :install_devel => true }
+      }
+
+      it { should contain_package('openssl-devel').with_name('openssl-dev') }
+    end
   end
 
   context 'when on RedHat' do
@@ -37,5 +82,27 @@ describe 'openssl' do
         :path   => '/etc/pki/tls/certs/ca-bundle.crt'
       )
     }
+
+    context "with default parameters" do
+      let (:params) { {} }
+
+      it { should_not contain_package('openssl-devel') }
+    end
+
+    context "explicitly not installing development packages" do
+      let (:params) {
+        { :install_devel => false }
+      }
+
+      it { should_not contain_package('openssl-devel') }
+    end
+
+    context "installing development packages" do
+      let (:params) {
+        { :install_devel => true }
+      }
+
+      it { should contain_package('openssl-devel').with_name('openssl-devel') }
+    end
   end
 end
