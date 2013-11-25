@@ -100,6 +100,7 @@ define openssl::certificate::x509(
     days        => $days,
     password    => $password,
     force       => $force,
+    require     => File["${base_dir}/${name}.cnf"],
   }
 
   x509_request { "${base_dir}/${name}.csr":
