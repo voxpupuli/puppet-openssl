@@ -17,6 +17,7 @@
 #  [*base_dir*]       where cnf, crt, csr and key should be placed.
 #                     Directory must exist
 #  [*owner*]          cnf, crt, csr and key owner. User must exist
+#  [*group*]          cnf, crt, csr and key group. Group must exist
 #  [*password*]       private key password
 #  [*force*]          whether to override certificate and request
 #                     if private key changes
@@ -56,6 +57,7 @@ define openssl::certificate::x509(
   $days = 365,
   $base_dir = '/etc/ssl/certs',
   $owner = 'root',
+  $group = 'root',
   $password = undef,
   $force = true,
   $cnf_tpl = 'openssl/cert.cnf.erb',
@@ -76,6 +78,7 @@ define openssl::certificate::x509(
   validate_string($base_dir)
   validate_absolute_path($base_dir)
   validate_string($owner)
+  validate_string($group)
   validate_string($password)
   validate_bool($force)
   validate_re($ensure, '^(present|absent)$',
@@ -85,6 +88,7 @@ define openssl::certificate::x509(
   file {"${base_dir}/${name}.cnf":
     ensure  => $ensure,
     owner   => $owner,
+    group   => $group,
     content => template($cnf_tpl),
   }
 
@@ -116,17 +120,20 @@ define openssl::certificate::x509(
     "${base_dir}/${name}.key":
       ensure  => $ensure,
       owner   => $owner,
+      group   => $group,
       mode    => '0600',
       require => Ssl_pkey["${base_dir}/${name}.key"];
 
     "${base_dir}/${name}.crt":
       ensure  => $ensure,
       owner   => $owner,
+      group   => $group,
       require => X509_cert["${base_dir}/${name}.crt"];
 
     "${base_dir}/${name}.csr":
       ensure  => $ensure,
       owner   => $owner,
+      group   => $group,
       require => X509_request["${base_dir}/${name}.csr"];
   }
 }
