@@ -88,6 +88,7 @@ Advanced options:
       days         => 3456,
       base_dir     => '/var/www/ssl',
       owner        => 'www-data',
+      group        => 'www-data',
       password     => 'j(D$',
       force        => false,
       cnf_tpl      => 'my_module/cert.cnf.erb'
