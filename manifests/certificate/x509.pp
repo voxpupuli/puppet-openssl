@@ -113,6 +113,7 @@ define openssl::certificate::x509(
     private_key => "${base_dir}/${name}.key",
     password    => $password,
     force       => $force,
+    require     => File["${base_dir}/${name}.cnf"],
   }
 
   # Set owner of all files
