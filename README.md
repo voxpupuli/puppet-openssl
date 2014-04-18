@@ -1,5 +1,7 @@
 # OpenSSL Puppet Module
 
+[![Build Status](https://travis-ci.org/camptocamp/puppet-openssl.png?branch=master)](https://travis-ci.org/camptocamp/puppet-openssl)
+
 **This module manages OpenSSL.**
 
 ## Types and providers
