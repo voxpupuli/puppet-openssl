@@ -1,5 +1,5 @@
 name         'camptocamp-openssl'
-version      '0.2.0'
+version      '0.3.0'
 dependency   'puppetlabs/stdlib', '>= 2.0.0'
 source       'https://github.com/camptocamp/puppet-openssl'
 author       'DevOps Team / Camptocamp'
