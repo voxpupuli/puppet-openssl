@@ -1,0 +1,14 @@
+{
+  "name": "camptocamp-openssl",
+  "version": "0.3.2",
+  "author": "DevOps Team / Camptocamp",
+  "summary": "Camptocamp OpenSSL Module",
+  "license": "GNU GPLv3",
+  "source": "https://github.com/camptocamp/puppet-openssl",
+  "project_page": "https://github.com/camptocamp/puppet-openssl",
+  "issues_url": "https://github.com/camptocamp/puppet-openssl/issues",
+  "description": "OpenSSL Module for Puppet",
+  "dependencies": [
+    {"name":"puppetlabs/stdlib","version_requirement":">= 2.0.0"}
+  ]
+}
