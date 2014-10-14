@@ -18,7 +18,8 @@
 #                     Directory must exist
 #  [*owner*]          cnf, crt, csr and key owner. User must exist
 #  [*group*]          cnf, crt, csr and key group. Group must exist
-#  [*password*]       private key password
+#  [*password*]       private key password. undef means no passphrase 
+#                     will be used to encrypt private key.
 #  [*force*]          whether to override certificate and request
 #                     if private key changes
 #  [*cnf_tpl*]        Specify an other template to generate ".cnf" file.

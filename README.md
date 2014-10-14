@@ -8,6 +8,7 @@
 
 This module provides three types and associated providers to manage SSL keys and certificates.
 
+In every case, not providing the password (or setting it to _undef_, which is the default) means that __the private key won't be encrypted__ with any symmetric cipher so __it is completely unprotected__.
 
 ### ssl\_pkey
 
