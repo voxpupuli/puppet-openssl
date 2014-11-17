@@ -1,7 +1,7 @@
 {
   "name": "camptocamp-openssl",
-  "version": "1.0.0",
-  "author": "DevOps Team / Camptocamp",
+  "version": "1.0.1",
+  "author": "Camptocamp",
   "summary": "Camptocamp OpenSSL Module",
   "license": "GNU GPLv3",
   "source": "https://github.com/camptocamp/puppet-openssl",
