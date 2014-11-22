@@ -6,7 +6,8 @@
 #   [*basedir*]   - directory where you want the export to be done. Must exists
 #   [*pkey*]      - private key
 #   [*cert*]      - certificate
-#   [*pkey_pass*] - private key password
+#   [*in_pass*]   - private key password
+#   [*out_pass*]  - PKCS12 password
 #   [*chaincert*] - chain certificate to include in pkcs12
 #
 define openssl::export::pkcs12(
@@ -15,13 +16,19 @@ define openssl::export::pkcs12(
   $cert,
   $ensure    = present,
   $chaincert = false,
-  $pkey_pass = false,
+  $in_pass   = false,
+  $out_pass  = false,
 ) {
   case $ensure {
     present: {
-      $pass_opt = $pkey_pass ? {
+      $pass_opt = $in_pass ? {
         false   => '',
-        default => "-passout pass:${pkey_pass}",
+        default => "-passin pass:${in_pass}",
+      }
+
+      $passout_opt = $out_pass ? {
+        false   => '',
+        default => "-passout pass:${out_pass}",
       }
 
       $chain_opt = $chaincert ? {
@@ -38,6 +45,7 @@ define openssl::export::pkcs12(
         '-nodes -noiter',
         $chain_opt,
         $pass_opt,
+        $passout_opt,
       ]
 
       exec {"Export ${name} to ${basedir}/${name}.p12":
