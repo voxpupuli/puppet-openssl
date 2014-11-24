@@ -22,9 +22,9 @@ describe 'openssl' do
 
   context 'when on RedHat' do
     let (:facts) { {
-      :lsbmajdistrelease => '6',
-      :operatingsystem   => 'RedHat',
-      :osfamily          => 'RedHat',
+      :operatingsystemmajrelease => '6',
+      :operatingsystem           => 'RedHat',
+      :osfamily                  => 'RedHat',
     } }
 
     it { should contain_package('openssl').with_ensure('present') }
