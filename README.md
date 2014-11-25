@@ -103,11 +103,12 @@ Advanced options:
 This definition generates a pkcs12 file:
 
     openssl::export::pkcs12 { 'foo':
-      ensure    => 'present',
-      basedir   => '/path/to/dir',
-      pkey      => '/here/is/my/private.key',
-      cert      => '/there/is/the/cert.crt',
-      pkey_pass => 'mypassword',
+      ensure   => 'present',
+      basedir  => '/path/to/dir',
+      pkey     => '/here/is/my/private.key',
+      cert     => '/there/is/the/cert.crt',
+      in_pass  => 'my_pkey_password',
+      out_pass => 'my_pkcs12_password',
     }
 
 ## Contributing
