@@ -1,3 +1,7 @@
+2014.11.25 - Version 1.1.0
+
+- Corrected and added new features for openssl::export::pkcs12
+
 2014-11-17 - Version 1.0.1
 
 - Lint metadata.json
