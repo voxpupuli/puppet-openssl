@@ -67,7 +67,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         should contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /"true" does not match/)
+      }.to raise_error(Puppet::Error, /true is not a string/)
     end
   end
 
@@ -199,7 +199,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         should contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /true is not a string/)
+      }.to raise_error(Puppet::Error, /"true" does not match/)
     end
   end
 
