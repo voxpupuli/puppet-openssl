@@ -50,6 +50,7 @@ define openssl::export::pkcs12(
 
       exec {"Export ${name} to ${basedir}/${name}.p12":
         command => inline_template('<%= @cmd.join(" ") %>'),
+        path    => $::path,
         creates => "${basedir}/${name}.p12",
       }
     }
