@@ -7,11 +7,11 @@ describe 'openssl' do
       :osfamily        => 'Debian',
     } }
 
-    it { should contain_package('openssl').with_ensure('present') }
-    it { should contain_package('ca-certificates').with_ensure('present') }
-    it { should contain_exec('update-ca-certificates').with_refreshonly('true') }
+    it { is_expected.to contain_package('openssl').with_ensure('present') }
+    it { is_expected.to contain_package('ca-certificates').with_ensure('present') }
+    it { is_expected.to contain_exec('update-ca-certificates').with_refreshonly('true') }
 
-    it { should contain_file('ca-certificates.crt').with(
+    it { is_expected.to contain_file('ca-certificates.crt').with(
         :ensure => 'present',
         :owner  => 'root',
         :mode   => '0644',
@@ -27,11 +27,11 @@ describe 'openssl' do
       :osfamily                  => 'RedHat',
     } }
 
-    it { should contain_package('openssl').with_ensure('present') }
-    it { should_not contain_package('ca-certificates') }
-    it { should_not contain_exec('update-ca-certificates') }
+    it { is_expected.to contain_package('openssl').with_ensure('present') }
+    it { is_expected.not_to contain_package('ca-certificates') }
+    it { is_expected.not_to contain_exec('update-ca-certificates') }
 
-    it { should contain_file('ca-certificates.crt').with(
+    it { is_expected.to contain_file('ca-certificates.crt').with(
         :ensure => 'present',
         :owner  => 'root',
         :mode   => '0644',
