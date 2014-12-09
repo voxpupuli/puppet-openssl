@@ -9,9 +9,10 @@ describe 'openssl' do
         it { is_expected.to compile.with_all_deps }
 
         it { is_expected.to contain_package('openssl').with_ensure('present') }
-        it { is_expected.to contain_exec('update-ca-certificates').with_refreshonly('true') }
 
         if facts[:osfamily] == 'Debian'
+          it { is_expected.to contain_package('ca-certificates') }
+          it { is_expected.to contain_exec('update-ca-certificates').with_refreshonly('true') }
           it { is_expected.to contain_file('ca-certificates.crt').with(
             :ensure => 'present',
             :owner  => 'root',
@@ -21,6 +22,7 @@ describe 'openssl' do
           }
         elsif facts[:osfamily] == 'RedHat'
           it { is_expected.not_to contain_package('ca-certificates') }
+          it { is_expected.not_to contain_exec('update-ca-certificates').with_refreshonly('true') }
 
           it { is_expected.to contain_file('ca-certificates.crt').with(
             :ensure => 'present',
