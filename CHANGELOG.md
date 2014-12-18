@@ -1,3 +1,8 @@
+## 2014-12-18 - Release 1.2.2
+
+- Fix LICENSE file to match metadata.json
+- Remove puppet_version from metadata.json
+
 ## 2014-12-18 - Release 1.2.1
 
 Various improvements in unit tests
