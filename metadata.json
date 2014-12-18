@@ -1,6 +1,6 @@
 {
   "name": "camptocamp-openssl",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "Camptocamp",
   "summary": "Camptocamp OpenSSL Module",
   "license": "Apache-2.0",
@@ -9,7 +9,10 @@
   "issues_url": "https://github.com/camptocamp/puppet-openssl/issues",
   "description": "OpenSSL Module for Puppet",
   "dependencies": [
-    {"name":"puppetlabs/stdlib","version_requirement":">= 2.0.0 < 5.0.0"}
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 2.0.0 < 5.0.0"
+    }
   ],
   "requirements": [
     {

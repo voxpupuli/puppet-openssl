@@ -1,3 +1,7 @@
+## 2014-12-18 - Release 1.2.1
+
+Various improvements in unit tests
+
 ## 2014-12-09 - Release 1.2.0
 
 - Fix metadata.json warnings
