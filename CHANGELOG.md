@@ -1,3 +1,7 @@
+## 2015-01-05 - Release 1.2.3
+
+- Fix .travis.yml
+
 ## 2014-12-18 - Release 1.2.2
 
 - Fix LICENSE file to match metadata.json
@@ -5,7 +9,7 @@
 
 ## 2014-12-18 - Release 1.2.1
 
-Various improvements in unit tests
+- Various improvements in unit tests
 
 ## 2014-12-09 - Release 1.2.0
 
