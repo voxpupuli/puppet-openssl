@@ -20,7 +20,7 @@ define openssl::export::pkcs12(
   $out_pass  = false,
 ) {
   case $ensure {
-    present: {
+    'present': {
       $pass_opt = $in_pass ? {
         false   => '',
         default => "-passin pass:${in_pass}",
@@ -54,7 +54,7 @@ define openssl::export::pkcs12(
         creates => "${basedir}/${name}.p12",
       }
     }
-    absent: {
+    'absent': {
       file {"${basedir}/${name}.p12":
         ensure => absent,
       }
