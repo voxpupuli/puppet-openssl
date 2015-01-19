@@ -1,3 +1,7 @@
+## 2015-01-19 - Release 1.2.5
+
+- Add puppet-lint plugins
+
 ## 2015-01-07 - Release 1.2.4
 
 - Fix unquoted strings in cases
