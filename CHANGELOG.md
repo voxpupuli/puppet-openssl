@@ -1,3 +1,8 @@
+## 2015-02-18 - Release 1.2.6
+
+- Various spec improvements
+- Linting
+
 ## 2015-01-19 - Release 1.2.5
 
 - Add puppet-lint plugins
