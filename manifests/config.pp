@@ -6,7 +6,7 @@ class openssl::config {
   include ::openssl::params
 
   file { 'ca-certificates.crt':
-    ensure => 'present',
+    ensure => 'file',
     owner  => 'root',
     mode   => '0644',
     path   => $openssl::params::ca_cert_path,
