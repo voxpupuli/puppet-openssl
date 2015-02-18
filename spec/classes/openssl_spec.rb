@@ -13,7 +13,7 @@ describe 'openssl' do
         it { is_expected.to contain_package('ca-certificates') }
         it { is_expected.to contain_exec('update-ca-certificates').with_refreshonly('true') }
         it { is_expected.to contain_file('ca-certificates.crt').with(
-          :ensure => 'present',
+          :ensure => 'file',
           :owner  => 'root',
           :mode   => '0644',
           :path   => '/etc/ssl/certs/ca-certificates.crt'
@@ -24,7 +24,7 @@ describe 'openssl' do
         it { is_expected.not_to contain_exec('update-ca-certificates').with_refreshonly('true') }
 
         it { is_expected.to contain_file('ca-certificates.crt').with(
-          :ensure => 'present',
+          :ensure => 'file',
           :owner  => 'root',
           :mode   => '0644',
           :path   => '/etc/pki/tls/certs/ca-bundle.crt'
