@@ -150,6 +150,22 @@ openssl::export::pkcs12 { 'foo':
 }
 ```
 
+### openssl::certificate::authority
+
+This definition generates a self signed certificate to be used as a certificate authority:
+
+  openssl::certificate::authority { 'ca':
+    cnf_tpl       => 'my_module/openssl.cnf.erb',
+    base_dir      => '/etc/pki/mymodule,
+    country       => 'CH',
+    state         => 'Here',
+    locality      => 'Myplace',
+    organization  => 'Example.com',
+    commonname    => $fqdn,
+    days          => 365*20,
+  }
+
+
 ## Contributing
 
 Please report bugs and feature request using [GitHub issue

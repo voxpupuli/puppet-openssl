@@ -16,7 +16,7 @@ Puppet::Type.newtype(:x509_request) do
   newparam(:force, :boolean => true) do
     desc 'Whether to replace the certificate if the private key mismatches'
     newvalues(:true, :false)
-    defaultto false
+    defaultto true
   end
 
   newparam(:password) do

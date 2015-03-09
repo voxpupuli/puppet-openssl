@@ -1,0 +1,82 @@
+# file managed by puppet
+#
+# SSLeay example configuration file.
+#
+
+# This definition stops the following lines choking if HOME isn't
+# defined.
+dir = <%= @pki_dir %>
+
+[ ca ]
+default_ca = CA_default
+x509_extensions	= v3_ca
+
+[ CA_default ]
+serial         = $dir/serial
+database       = $dir/index.txt
+new_certs_dir  = $dir/certs
+private_key    = $dir/private/<%= @name %>_key.pem
+certificate    = $dir/certs/<%= @name %>_cert.pem
+default_md     = sha256
+default_days   = <%= @days %>
+
+preserve    = no
+email_in_dn = no
+policy      = policy_match
+nameopt     = default_ca
+certopt     = default_ca
+
+unique_subject  = no
+copy_extensions = none
+
+[ policy_match ]
+countryName            = match
+stateOrProvinceName    = match
+organizationName       = match
+organizationalUnitName = optional
+commonName             = supplied
+emailAddress           = optional
+
+[ req ]
+default_bits        = 2048
+default_keyfile     = privkey.pem
+distinguished_name  = req_distinguished_name
+req_extensions      = v3_req
+prompt              = no
+
+[ req_distinguished_name ]
+countryName            = <%= @country %>
+stateOrProvinceName    = <%= @state %>
+localityName           = <%= @locality %>
+organizationName       = <%= @organization %>
+<% unless @unit.nil? -%>
+organizationalUnitName = <%= @unit %>
+<% end -%>
+commonName             = <%= @common_name %>
+
+[ v3_ca ]
+basicConstraints        = CA:TRUE
+subjectKeyIdentifier    = hash
+authorityKeyIdentifier  = keyid:always,issuer:always
+nsCertType              = sslCA
+keyUsage                = cRLSign, keyCertSign
+extendedKeyUsage        = serverAuth, clientAuth
+ 
+[ v3_req ]
+basicConstraints     = CA:FALSE
+subjectKeyIdentifier = hash
+extendedKeyUsage     = serverAuth, clientAuth
+
+[ ssl_server ]
+basicConstraints        = CA:FALSE
+nsCertType              = server
+keyUsage                = digitalSignature, keyEncipherment
+extendedKeyUsage        = serverAuth, nsSGC, msSGC
+nsComment               = "OpenSSL Certificate for SSL Web Server"
+
+[ ssl_client ]
+basicConstraints        = CA:FALSE
+nsCertType              = client
+keyUsage                = digitalSignature, keyEncipherment
+extendedKeyUsage        = clientAuth
+nsComment               = "OpenSSL Certificate for SSL Client"

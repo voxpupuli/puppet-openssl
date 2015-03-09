@@ -50,6 +50,10 @@ Puppet::Type.newtype(:x509_cert) do
     defaultto false
   end
 
+  newparam(:ca) do
+    desc 'If this certificate should be a self-signed Certificate Authority'
+  end
+
   newparam(:template) do
     desc 'The template to use'
     defaultto do
@@ -62,6 +66,26 @@ Puppet::Type.newtype(:x509_cert) do
         raise ArgumentError, "Path must be absolute: #{path}"
       end
     end
+  end
+
+  newparam(:request) do
+    desc 'The certificate signing request to use'
+    validate do |value|
+      path = Pathname.new(value)
+      unless path.absolute?
+        raise ArgumentError, "Path must be absolute: #{path}"
+      end
+    end
+  end
+
+  newparam(:server, :boolean => true) do
+    desc "If true, will generate a server only certificate"
+    defaultto(false)
+  end
+
+  newparam(:client, :boolean => true) do
+    desc "If true, will generate a client only certificate"
+    defaultto(false)
   end
 
   newparam(:authentication) do
