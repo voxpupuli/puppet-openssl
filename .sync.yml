@@ -4,4 +4,4 @@
 README.md:
   module_name: 'OpenSSL'
   endorsement: 'approved'
-  include: ['.sync/definitions.md']
+  include: ['.sync/types.md', '.sync/definitions.md']
