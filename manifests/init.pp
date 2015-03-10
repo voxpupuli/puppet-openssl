@@ -4,6 +4,5 @@
 #
 class openssl {
   class { '::openssl::packages': } ->
-  class { '::openssl::config': } ->
   Class['openssl']
 }
