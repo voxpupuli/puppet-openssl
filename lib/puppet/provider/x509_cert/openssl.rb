@@ -35,7 +35,7 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
 
   def create
     if resource[:password]
-      openssl(
+      options = [
         'req',
         '-config', resource[:template],
         '-new', '-x509',
@@ -43,17 +43,25 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
         '-key', resource[:private_key],
         '-out', resource[:path],
         '-passin', "pass:#{resource[:password]}"
-      )
+      ]
     else
-      openssl(
+      options = [
         'req',
         '-config', resource[:template],
         '-new', '-x509',
         '-days', resource[:days],
         '-key', resource[:private_key],
         '-out', resource[:path]
-      )
+      ]
     end
+
+    if resource[:server_only]
+      options.concat(['-extensions', resource[:server_only_extension]])
+    elsif resource[:client_only]
+      options.concat(['-extensions', resource[:client_only_extension]])
+    end
+
+    openssl(options)
   end
 
   def destroy

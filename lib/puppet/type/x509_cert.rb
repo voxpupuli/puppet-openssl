@@ -58,6 +58,26 @@ Puppet::Type.newtype(:x509_cert) do
     end
   end
 
+  newparam(:server_only, :boolean => true) do
+    desc "If true, will generate a server only certificate"
+    defaultto(false)
+  end
+
+  newparam(:server_only_extension) do
+    desc 'The extension within your openssl config file to use for server only certificates'
+    defaultto('ssl_server')
+  end
+
+  newparam(:client_only, :boolean => true) do
+    desc "If true, will generate a client only certificate"
+    defaultto(false)
+  end
+
+  newparam(:client_only_extension) do
+    desc 'The extension within your openssl config file to use for client only certificates'
+    defaultto('ssl_client')
+  end
+
   newparam(:authentication) do
     desc "The authentication algorithm: 'rsa' or 'dsa'"
     newvalues /[dr]sa/
