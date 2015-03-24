@@ -4,6 +4,7 @@
 [![Puppet Forge Downloads](http://img.shields.io/puppetforge/dt/camptocamp/openssl.svg)](https://forge.puppetlabs.com/camptocamp/openssl)
 [![Build Status](https://img.shields.io/travis/camptocamp/puppet-openssl/master.svg)](https://travis-ci.org/camptocamp/puppet-openssl)
 [![Puppet Forge Endorsement](https://img.shields.io/puppetforge/e/camptocamp/openssl.svg)](https://forge.puppetlabs.com/camptocamp/openssl)
+[![Gemnasium](https://img.shields.io/gemnasium/camptocamp/puppet-openssl.svg)](https://gemnasium.com/camptocamp/puppet-openssl)
 
 **This module manages OpenSSL.**
 
