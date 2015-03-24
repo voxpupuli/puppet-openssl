@@ -1,3 +1,7 @@
+## 2015-03-24 - Release 1.2.8
+
+- Various spec improvements
+
 ## 2015-03-10 - Release 1.2.7
 
 - Stop managing ca-certificates file
