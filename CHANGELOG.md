@@ -1,3 +1,8 @@
+## 2015-04-03 - Release 1.3.0
+
+- Use sha256 instead of sha1 by default
+- Confine rspec pinning to ruby 1.8
+
 ## 2015-03-24 - Release 1.2.8
 
 - Various spec improvements
