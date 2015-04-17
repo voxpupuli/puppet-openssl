@@ -1,3 +1,7 @@
+## 2015-04-17 - Release 1.3.1
+
+- Add beaker nodesets
+
 ## 2015-04-03 - Release 1.3.0
 
 - Use sha256 instead of sha1 by default
