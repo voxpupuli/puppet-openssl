@@ -18,6 +18,9 @@
 #                     Directory must exist
 #  [*owner*]          cnf, crt, csr and key owner. User must exist
 #  [*group*]          cnf, crt, csr and key group. Group must exist
+#  [*key_owner*]      key owner. User must exist. defaults to $owner
+#  [*key_group*]      key group. Group must exist. defaults to $group
+#  [*key_mode*]       key group.
 #  [*password*]       private key password. undef means no passphrase 
 #                     will be used to encrypt private key.
 #  [*force*]          whether to override certificate and request
@@ -41,6 +44,10 @@
 #
 # Those files can be used as is for apache, openldap and so on.
 #
+# If you wish to ensure a key is read-only to a process:
+# set $key_group to match the group of the process,
+# and set $key_mode to '0640'.
+#
 # === Requires
 #
 #   - `puppetlabs/stdlib`
@@ -59,11 +66,16 @@ define openssl::certificate::x509(
   $base_dir = '/etc/ssl/certs',
   $owner = 'root',
   $group = 'root',
+  $key_owner = undef,
+  $key_group = undef,
+  $key_mode = '0600',
   $password = undef,
   $force = true,
   $cnf_tpl = 'openssl/cert.cnf.erb',
   ) {
 
+  $_key_owner = pick($key_owner, $owner)
+  $_key_group = pick($key_group, $group)
   validate_string($name)
   validate_string($country)
   validate_string($organization)
@@ -82,6 +94,9 @@ define openssl::certificate::x509(
   validate_absolute_path($base_dir)
   validate_string($owner)
   validate_string($group)
+  validate_string($_key_owner)
+  validate_string($_key_group)
+  validate_string($key_mode)
   validate_string($password)
   validate_bool($force)
   validate_re($ensure, '^(present|absent)$',
@@ -123,9 +138,9 @@ define openssl::certificate::x509(
   file {
     "${base_dir}/${name}.key":
       ensure  => $ensure,
-      owner   => $owner,
-      group   => $group,
-      mode    => '0600',
+      owner   => $_key_owner,
+      group   => $_key_group,
+      mode    => $key_mode,
       require => Ssl_pkey["${base_dir}/${name}.key"];
 
     "${base_dir}/${name}.crt":
