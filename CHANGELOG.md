@@ -1,3 +1,7 @@
+## 2015-06-26 - Release 1.3.9
+
+Fix strict_variables activation with rspec-puppet 2.2
+
 ## 2015-05-28 - Release 1.3.8
 
 Add beaker_spec_helper to Gemfile
