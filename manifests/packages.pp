@@ -3,12 +3,12 @@
 # Sets up packages for openssl
 class openssl::packages {
   package { 'openssl':
-    ensure => present,
+    ensure => $openssl::package_ensure,
   }
 
   if $::osfamily == 'Debian' {
     package { 'ca-certificates':
-      ensure => present,
+      ensure => $openssl::ca_certificates_ensure,
       before => Package['openssl'],
     }
 
