@@ -99,7 +99,22 @@ Advanced options:
       group        => 'www-data',
       password     => 'j(D$',
       force        => false,
-      cnf_tpl      => 'my_module/cert.cnf.erb'
+      cnf_tpl      => 'my_module/cert.cnf.erb',
+    }
+
+#### Server or Client Only Certificates
+
+In some cases you may want to generate a certificate that is restricted to server or client use only. This can be done by passing either `server_only => true` or `client_only => true` to the certificate declaration. The default implementation expects your config file to include a `ssl_server` or `ssl_client` extension section respectively. This can be customized by passing the name of the section that contains the declaration to `server_only_extension` or `client_only_extension`.
+
+Example usage:
+
+    openssl::certificate::x509 { 'foo':
+      country              => 'CH',
+      organization         => 'Example.com',
+      commonname           => $fqdn,
+      server_only          => true,
+      sever_only_extension => 'my_ssl_server',
+      cnf_tpl              => 'my_module/cert.cnf.erb',
     }
 
 ### openssl::export::pkcs12

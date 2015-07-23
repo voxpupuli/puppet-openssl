@@ -21,25 +21,52 @@ describe 'The openssl provider for the x509_cert type' do
     end
 
     it 'should create a certificate with the proper options' do
-      subject.expects(:openssl).with(
+      subject.expects(:openssl).with([
         'req', '-config', '/tmp/foo.cnf', '-new', '-x509',
         '-days', 3650,
         '-key', '/tmp/foo.key',
         '-out', '/tmp/foo.crt'
-      )
+      ])
       subject.create
     end
 
     context 'when using password' do
       it 'should create a certificate with the proper options' do
         resource[:password] = '2x6${'
-        subject.expects(:openssl).with(
+        subject.expects(:openssl).with([
           'req', '-config', '/tmp/foo.cnf', '-new', '-x509',
           '-days', 3650,
           '-key', '/tmp/foo.key',
           '-out', '/tmp/foo.crt',
           '-passin', 'pass:2x6${'
-        )
+        ])
+        subject.create
+      end
+    end
+
+    context 'when using server_only' do
+      it 'should create a certificate with ssl_server extensions added' do
+        resource[:server_only] = true
+        subject.expects(:openssl).with([
+          'req', '-config', '/tmp/foo.cnf', '-new', '-x509',
+          '-days', 3650,
+          '-key', '/tmp/foo.key',
+          '-out', '/tmp/foo.crt',
+          '-extensions', 'ssl_server',
+        ])
+        subject.create
+      end
+
+      it 'should create a certificate with custom server extensions' do
+        resource[:server_only] = true
+        resource[:server_only_extension] = 'my_ssl_server'
+        subject.expects(:openssl).with([
+          'req', '-config', '/tmp/foo.cnf', '-new', '-x509',
+          '-days', 3650,
+          '-key', '/tmp/foo.key',
+          '-out', '/tmp/foo.crt',
+          '-extensions', 'my_ssl_server',
+        ])
         subject.create
       end
     end
