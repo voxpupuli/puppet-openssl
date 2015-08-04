@@ -9,6 +9,23 @@
 
 **This module manages OpenSSL.**
 
+## Class openssl
+
+Make sure openssl is installed:
+
+```puppet
+include ::openssl
+```
+
+Specify openssl and ca-certificates package versions:
+
+```puppet
+class { '::openssl':
+  package_ensure         => latest,
+  ca_certificates_ensure => latest,
+}
+```
+
 ## Types and providers
 
 This module provides three types and associated providers to manage SSL keys and certificates.
@@ -21,14 +38,18 @@ This type allows to generate SSL private keys.
 
 Simple usage:
 
-    ssl_pkey { '/path/to/private.key': }
+```puppet
+ssl_pkey { '/path/to/private.key': }
+```
 
 Advanced options:
 
-    ssl_pkey { '/path/to/private.key':
-      ensure   => 'present',
-      password => 'j(D$',
-    }
+```puppet
+ssl_pkey { '/path/to/private.key':
+  ensure   => 'present',
+  password => 'j(D$',
+}
+```
 
 ### x509\_cert
 
@@ -36,18 +57,22 @@ This type allows to generate SSL certificates from a private key. You need to de
 
 Simple usage:
 
-    x509_cert { '/path/to/certificate.crt': }
+```puppet
+x509_cert { '/path/to/certificate.crt': }
+```
 
 Advanced options:
 
-    x509_cert { '/path/to/certificate.crt':
-      ensure      => 'present',
-      password    => 'j(D$',
-      template    => '/other/path/to/template.cnf',
-      private_key => '/there/is/my/private.key',
-      days        => 4536,
-      force       => false,
-    }
+```puppet
+x509_cert { '/path/to/certificate.crt':
+  ensure      => 'present',
+  password    => 'j(D$',
+  template    => '/other/path/to/template.cnf',
+  private_key => '/there/is/my/private.key',
+  days        => 4536,
+  force       => false,
+}
+```
 
 ### x509\_request
 
@@ -55,17 +80,21 @@ This type allows to generate SSL certificate signing requests from a private key
 
 Simple usage:
 
-    x509_request { '/path/to/request.csr': }
+```puppet
+x509_request { '/path/to/request.csr': }
+```
 
 Advanced options:
 
-    x509_request { '/path/to/request.csr':
-      ensure      => 'present',
-      password    => 'j(D$',
-      template    => '/other/path/to/template.cnf',
-      private_key => '/there/is/my/private.key',
-      force       => false,
-    }
+```puppet
+x509_request { '/path/to/request.csr':
+  ensure      => 'present',
+  password    => 'j(D$',
+  template    => '/other/path/to/template.cnf',
+  private_key => '/there/is/my/private.key',
+  force       => false,
+}
+```
 
 ## Definitions
 
@@ -75,45 +104,51 @@ This definition is a wrapper around the `ssl_pkey`, `x509_cert` and `x509_reques
 
 Simple usage:
 
-    openssl::certificate::x509 { 'foo':
-      country      => 'CH',
-      organization => 'Example.com',
-      commonname   => $fqdn,
-    }
+```puppet
+openssl::certificate::x509 { 'foo':
+  country      => 'CH',
+  organization => 'Example.com',
+  commonname   => $fqdn,
+}
+```
 
 Advanced options:
 
-    openssl::certificate::x509 { 'foo':
-      ensure       => present,
-      country      => 'CH',
-      organization => 'Example.com',
-      commonname   => $fqdn,
-      state        => 'Here',
-      locality     => 'Myplace',
-      unit         => 'MyUnit',
-      altnames     => ['a.com', 'b.com', 'c.com'],
-      email        => 'contact@foo.com',
-      days         => 3456,
-      base_dir     => '/var/www/ssl',
-      owner        => 'www-data',
-      group        => 'www-data',
-      password     => 'j(D$',
-      force        => false,
-      cnf_tpl      => 'my_module/cert.cnf.erb'
-    }
+```puppet
+openssl::certificate::x509 { 'foo':
+  ensure       => present,
+  country      => 'CH',
+  organization => 'Example.com',
+  commonname   => $fqdn,
+  state        => 'Here',
+  locality     => 'Myplace',
+  unit         => 'MyUnit',
+  altnames     => ['a.com', 'b.com', 'c.com'],
+  email        => 'contact@foo.com',
+  days         => 3456,
+  base_dir     => '/var/www/ssl',
+  owner        => 'www-data',
+  group        => 'www-data',
+  password     => 'j(D$',
+  force        => false,
+  cnf_tpl      => 'my_module/cert.cnf.erb'
+}
+```
 
 ### openssl::export::pkcs12
 
 This definition generates a pkcs12 file:
 
-    openssl::export::pkcs12 { 'foo':
-      ensure   => 'present',
-      basedir  => '/path/to/dir',
-      pkey     => '/here/is/my/private.key',
-      cert     => '/there/is/the/cert.crt',
-      in_pass  => 'my_pkey_password',
-      out_pass => 'my_pkcs12_password',
-    }
+```puppet
+openssl::export::pkcs12 { 'foo':
+  ensure   => 'present',
+  basedir  => '/path/to/dir',
+  pkey     => '/here/is/my/private.key',
+  cert     => '/there/is/the/cert.crt',
+  in_pass  => 'my_pkey_password',
+  out_pass => 'my_pkcs12_password',
+}
+```
 
 ## Contributing
 
@@ -123,4 +158,3 @@ tracker](https://github.com/camptocamp/puppet-openssl/issues).
 For pull requests, it is very much appreciated to check your Puppet manifest
 with [puppet-lint](https://github.com/rodjek/puppet-lint) to follow the recommended Puppet style guidelines from the
 [Puppet Labs style guide](http://docs.puppetlabs.com/guides/style_guide.html).
-
