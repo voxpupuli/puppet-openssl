@@ -21,25 +21,27 @@ describe 'The openssl provider for the x509_cert type' do
     end
 
     it 'should create a certificate with the proper options' do
-      subject.expects(:openssl).with(
+      subject.expects(:openssl).with([
         'req', '-config', '/tmp/foo.cnf', '-new', '-x509',
         '-days', 3650,
         '-key', '/tmp/foo.key',
-        '-out', '/tmp/foo.crt'
-      )
+        '-out', '/tmp/foo.crt',
+        ['-extensions', 'req_ext'],
+      ])
       subject.create
     end
 
     context 'when using password' do
       it 'should create a certificate with the proper options' do
         resource[:password] = '2x6${'
-        subject.expects(:openssl).with(
+        subject.expects(:openssl).with([
           'req', '-config', '/tmp/foo.cnf', '-new', '-x509',
           '-days', 3650,
           '-key', '/tmp/foo.key',
           '-out', '/tmp/foo.crt',
-          '-passin', 'pass:2x6${'
-        )
+          ['-passin', 'pass:2x6${'],
+          ['-extensions', 'req_ext'],
+        ])
         subject.create
       end
     end
