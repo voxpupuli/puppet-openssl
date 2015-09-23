@@ -1,3 +1,7 @@
+## 2015-09-23 - Release 1.5.0
+
+Customizable cnf/crt/csr/key paths
+
 ## 2015-09-15 - Release 1.4.0
 
 Add a req_ext parameter to x509_cert type
