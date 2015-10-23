@@ -13,7 +13,11 @@ describe 'openssl' do
         it { is_expected.to contain_package('ca-certificates') }
         it { is_expected.to contain_exec('update-ca-certificates').with_refreshonly('true') }
       elsif facts[:osfamily] == 'RedHat'
-        it { is_expected.not_to contain_package('ca-certificates') }
+        if facts[:operatingsystemrelease].to_i >= 6
+          it { is_expected.to contain_package('ca-certificates') }
+        else
+          it { is_expected.not_to contain_package('ca-certificates') }
+        end
         it { is_expected.not_to contain_exec('update-ca-certificates').with_refreshonly('true') }
       end
     end
