@@ -1,3 +1,7 @@
+## 2015-11-17 - Release 1.5.1
+
+Use ensure_package for ca-certificate
+
 ## 2015-09-23 - Release 1.5.0
 
 Customizable cnf/crt/csr/key paths
