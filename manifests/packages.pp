@@ -8,10 +8,9 @@ class openssl::packages {
 
   if $::osfamily == 'Debian' or (
   $::osfamily == 'RedHat' and versioncmp($::operatingsystemrelease, '6.0') >= 0) {
-    package { 'ca-certificates':
+    ensure_packages(['ca-certificates'], {
       ensure => $openssl::ca_certificates_ensure,
-      before => Package['openssl'],
-    }
+    })
 
     if $::osfamily == 'Debian' {
       exec { 'update-ca-certificates':
