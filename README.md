@@ -32,6 +32,24 @@ This module provides three types and associated providers to manage SSL keys and
 
 In every case, not providing the password (or setting it to _undef_, which is the default) means that __the private key won't be encrypted__ with any symmetric cipher so __it is completely unprotected__.
 
+### dhparam
+
+This type allows to generate Diffie Hellman parameters.
+
+Simple usage:
+
+```puppet
+dhparam { '/path/to/dhparam.pem': }
+```
+
+Advanced options:
+
+```puppet
+dhparam { '/path/to/dhparam.pem':
+  size => 2048,
+}
+```
+
 ### ssl\_pkey
 
 This type allows to generate SSL private keys.
@@ -147,6 +165,41 @@ openssl::export::pkcs12 { 'foo':
   cert     => '/there/is/the/cert.crt',
   in_pass  => 'my_pkey_password',
   out_pass => 'my_pkcs12_password',
+}
+```
+
+### openssl::dhparam
+
+This definition creates a dhparam PEM file:
+
+
+Simple usage:
+
+```puppet
+openssl::dhparam { '/path/to/dhparam.pem': }
+```
+
+which is equivalent to:
+
+```puppet
+openssl::dhparam { '/path/to/dhparam.pem':
+  ensure => 'present',
+  size   => 512,
+  owner  => 'root',
+  group  => 'root',
+  mode   => '0644',
+}
+```
+
+Advanced usage:
+
+```puppet
+openssl::dhparam { '/path/to/dhparam.pem':
+  ensure => 'present',
+  size   => 2048,
+  owner  => 'www-data',
+  group  => 'adm',
+  mode   => '0640',
 }
 ```
 
