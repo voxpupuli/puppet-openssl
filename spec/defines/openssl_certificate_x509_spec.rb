@@ -26,7 +26,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /Must pass country to Openssl::Certificate::X509/)
+      }.to raise_error(Puppet::Error, /\bcountry\b/)
     end
   end
 
@@ -53,7 +53,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /Must pass organization to Openssl::Certificate::X509/)
+      }.to raise_error(Puppet::Error, /\borganization\b/)
     end
   end
 
@@ -80,7 +80,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /Must pass commonname to Openssl::Certificate::X509/)
+      }.to raise_error(Puppet::Error, /\bcommonname\b/)
     end
   end
 
