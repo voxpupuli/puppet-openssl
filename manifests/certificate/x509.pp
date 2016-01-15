@@ -88,6 +88,7 @@ define openssl::certificate::x509(
   $crt = undef,
   $csr = undef,
   $key = undef,
+  $key_size = 2048,
   $owner = 'root',
   $group = 'root',
   $key_owner = undef,
@@ -141,6 +142,10 @@ define openssl::certificate::x509(
   validate_absolute_path($_crt)
   validate_string($_key)
   validate_absolute_path($_key)
+  # lint:ignore:only_variable_string
+  validate_string("${key_size}")
+  validate_re("${key_size}", '^\d+$')
+  # lint:endignore
   validate_string($owner)
   validate_string($group)
   validate_string($_key_owner)
@@ -168,6 +173,7 @@ define openssl::certificate::x509(
   ssl_pkey { $_key:
     ensure   => $ensure,
     password => $password,
+    size     => $key_size,
   }
 
   x509_cert { $_crt:
