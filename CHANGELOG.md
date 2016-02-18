@@ -1,3 +1,9 @@
+## 2016-02-18 - Release 1.6.0
+
+- Change certificate existence logic (issue #51)
+- Add dhparam type and provider (issue #53)
+- Fix unit tests for Puppet 4
+
 ## 2015-11-17 - Release 1.5.1
 
 Use ensure_package for ca-certificate
