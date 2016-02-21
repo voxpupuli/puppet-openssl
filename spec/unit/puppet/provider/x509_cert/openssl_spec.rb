@@ -1,3 +1,4 @@
+require 'inifile'
 require 'puppet'
 require 'pathname'
 require 'puppet/type/x509_cert'

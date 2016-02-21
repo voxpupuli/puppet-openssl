@@ -1,5 +1,4 @@
 require 'pathname'
-require 'inifile'
 Puppet::Type.type(:x509_cert).provide(:openssl) do
   desc 'Manages certificates with OpenSSL'
 
@@ -37,6 +36,7 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
         cdata[k] = v
     end
 
+    require 'inifile'
     ini_file  = IniFile.load(resource[:template])
     ini_file.each do |section, parameter, value|
       return false if parameter == 'subjectAltName' and value.delete(' ').gsub(/^"|"$/, '') != altName.delete(' ').gsub(/^"|"$/, '')
