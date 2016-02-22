@@ -1,3 +1,7 @@
+## 2016-02-22 - Release 1.6.1
+
+- Fix failure to load inifile (issue #56)
+
 ## 2016-02-18 - Release 1.6.0
 
 - Change certificate existence logic (issue #51)
