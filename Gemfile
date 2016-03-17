@@ -23,6 +23,7 @@ group :development, :unit_tests do
   gem 'rspec-puppet-facts',                                :require => false
   gem 'ruby-augeas',                                       :require => false
   gem 'puppet-blacksmith',                                 :require => false if RUBY_VERSION !~ /^1\./
+  gem 'inifile',                                           :require => false
 end
 
 group :system_tests do
