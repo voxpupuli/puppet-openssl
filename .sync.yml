@@ -1,6 +1,10 @@
 ---
 .travis.yml:
   forge_password: "XgiXVp8K+UjVAQFVC4qBt6BPNBMhNGBHgpKlB5f4bpiY2wIZjlLNLdhilBnPqZcuJAmauTcdhmI0C7Iys4aKPsS/oQtZAjRjPvgXtvA2iza+aiPUrrjQASDOWlfuGRj1yMqNXDDDC18RZO+ajoruLO32Xvi2nf9exxm64BrSehw="
+Gemfile:
+  optional:
+    ':development, :unit_tests':
+      - gem: inifile
 #README.md:
 #  module_name: 'OpenSSL'
 #  endorsement: 'approved'
