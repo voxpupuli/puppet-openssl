@@ -1,3 +1,8 @@
+## 2016-03-18 - Release 1.7.0
+
+- Add openssl_version fact (issue #60, fix #57)
+- Various fixes to tests
+
 ## 2016-02-22 - Release 1.6.1
 
 - Fix failure to load inifile (issue #56)
