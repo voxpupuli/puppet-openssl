@@ -1,3 +1,7 @@
+## 2016-03-XX - Release 1.7.1
+
+- Fix false parsing of IPAddress field (issue #61)
+
 ## 2016-03-18 - Release 1.7.0
 
 - Add openssl_version fact (issue #60, fix #57)
