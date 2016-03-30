@@ -1,6 +1,7 @@
-## 2016-03-XX - Release 1.7.1
+## 2016-03-30 - Release 1.7.1
 
 - Fix false parsing of IPAddress field (issue #61)
+- Fix openssl_version fact on RedHat-based OSes (issue #66, fixes #62 and #65)
 
 ## 2016-03-18 - Release 1.7.0
 
