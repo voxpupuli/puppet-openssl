@@ -19,6 +19,17 @@ describe Facter::Util::Fact do
           }
         end
       end
+      describe "openssl_version rhel" do
+        context 'with value' do
+          before :each do
+            Facter::Util::Resolution.stubs(:which).with('openssl').returns(true)
+            Facter::Util::Resolution.stubs(:exec).with('openssl version 2>&1').returns('OpenSSL 1.0.1e-fips 11 Feb 2013')
+          end
+          it {
+            expect(Facter.value(:openssl_version)).to eq('1.0.1e-fips')
+          }
+        end
+      end
     end
   end
 end
