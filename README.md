@@ -41,6 +41,13 @@ class { '::openssl::certificates':
 }
 ```
 
+Specify openssl and compat package
+
+```puppet
+class { '::openssl':
+  package_name  => ['openssl', 'openssl-compat', ],
+}
+```
 
 ## Types and providers
 
