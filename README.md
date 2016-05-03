@@ -26,6 +26,14 @@ class { '::openssl':
 }
 ```
 
+Specify openssl and compat package
+
+```puppet
+class { '::openssl':
+  package_name  => ['openssl', 'openssl-compat', ],
+}
+```
+
 ## Types and providers
 
 This module provides three types and associated providers to manage SSL keys and certificates.

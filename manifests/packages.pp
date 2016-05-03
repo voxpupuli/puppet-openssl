@@ -2,7 +2,7 @@
 #
 # Sets up packages for openssl
 class openssl::packages {
-  package { 'openssl':
+  package { $openssl::package_name:
     ensure => $openssl::package_ensure,
   }
 
