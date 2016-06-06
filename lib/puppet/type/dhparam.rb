@@ -18,9 +18,9 @@ Puppet::Type.newtype(:dhparam) do
     newvalues /\d+/
     defaultto 512
     validate do |value|
-      size = value
-      if size <= 0 || size != size.to_i
-        raise ArgumentError, "Size must be a positive integer: #{size.inspect}"
+      size = value.to_i
+      if size <= 0 || value.to_s != size.to_s
+        raise ArgumentError, "Size must be a positive integer: #{value.inspect}"
       end
     end
   end
