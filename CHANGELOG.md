@@ -1,3 +1,7 @@
+## 2016-06-29 - Release 1.7.2
+
+- Fix validation of the size parameter (fix #70, fix #58)
+
 ## 2016-03-30 - Release 1.7.1
 
 - Fix false parsing of IPAddress field (issue #61)
