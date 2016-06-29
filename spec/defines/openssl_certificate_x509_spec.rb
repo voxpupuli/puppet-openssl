@@ -358,6 +358,7 @@ describe 'openssl::certificate::x509' do
       :altnames     => ['a.com', 'b.com', 'c.com'],
       :email        => 'contact@foo.com',
       :days         => 4567,
+      :key_size     => 4096,
       :owner        => 'www-data',
       :password     => '5r$}^',
       :force        => false,
@@ -390,7 +391,8 @@ describe 'openssl::certificate::x509' do
     it {
       is_expected.to contain_ssl_pkey('/tmp/foobar/foo.key').with(
         :ensure   => 'present',
-        :password => '5r$}^'
+        :password => '5r$}^',
+        :size     => 4096
       )
     }
 
