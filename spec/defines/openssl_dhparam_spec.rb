@@ -87,6 +87,27 @@ describe 'openssl::dhparam' do
       )
     }
   end
+  
+  context 'when using size' do
+    let (:params) { {
+      :path => '/etc/ssl/dhparam.pem',
+      :size => 2048,
+    } }
+    it {
+      is_expected.to contain_dhparam('/etc/ssl/dhparam.pem').with(
+        :ensure => 'present',
+        :size => 2048
+      )
+    }
+    it {
+      is_expected.to contain_file('/etc/ssl/dhparam.pem').with(
+        :ensure => 'present',
+        :owner  => 'root',
+        :group  => 'root',
+        :mode   => '0644'
+      )
+    }
+  end
 
  context 'when passing all parameters' do
     let (:params) { {
