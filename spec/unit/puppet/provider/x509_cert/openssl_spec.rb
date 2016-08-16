@@ -1,4 +1,4 @@
-require 'inifile'
+require 'puppet/util/inifile'
 require 'puppet'
 require 'pathname'
 require 'puppet/type/x509_cert'
@@ -16,7 +16,6 @@ describe 'The openssl provider for the x509_cert type' do
       Pathname.any_instance.expects(:exist?).returns(true)
       c = OpenSSL::X509::Certificate.new # Fake certificate for mocking
       OpenSSL::X509::Certificate.stubs(:new).returns(c)
-      IniFile.stubs(:load).returns([0,0,0])
       expect(subject.exists?).to eq(true)
     end
 
@@ -61,7 +60,6 @@ describe 'The openssl provider for the x509_cert type' do
       OpenSSL::X509::Certificate.stubs(:new).returns(c)
       OpenSSL::PKey::RSA.expects(:new)
       OpenSSL::X509::Certificate.any_instance.expects(:check_private_key).returns(true)
-      IniFile.stubs(:load).returns([0,0,0])
       expect(subject.exists?).to eq(true)
     end
 
