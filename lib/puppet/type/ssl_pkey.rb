@@ -24,6 +24,10 @@ Puppet::Type.newtype(:ssl_pkey) do
     desc 'The key size'
     newvalues /\d+/
     defaultto 2048
+
+    munge do |val|
+      val.to_i
+    end
   end
 
   newparam(:password) do

@@ -9,9 +9,9 @@ Puppet::Type.type(:ssl_pkey).provide(:openssl) do
 
   def self.generate_key(resource)
     if resource[:authentication] == :dsa
-      OpenSSL::PKey::DSA.new(Integer(resource[:size]))
+      OpenSSL::PKey::DSA.new(resource[:size])
     elsif resource[:authentication] == :rsa
-      OpenSSL::PKey::RSA.new(Integer(resource[:size]))
+      OpenSSL::PKey::RSA.new(resource[:size])
     else
       raise Puppet::Error,
         "Unknown authentication type '#{resource[:authentication]}'"
