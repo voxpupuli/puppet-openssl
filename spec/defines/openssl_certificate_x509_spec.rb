@@ -262,6 +262,21 @@ describe 'openssl::certificate::x509' do
     end
   end
 
+  context 'when passing wrong type for key_size' do
+    let (:params) { {
+      :country      => 'CH',
+      :organization => 'bar',
+      :commonname   => 'baz',
+      :base_dir     => '/tmp/foo',
+      :key_size     => true,
+    } }
+    it 'should fail' do
+      expect {
+        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
+      }.to raise_error(Puppet::Error, /"true" does not match/)
+    end
+  end
+
   context 'when using defaults' do
     let (:params) { {
       :country      => 'com',
@@ -343,6 +358,7 @@ describe 'openssl::certificate::x509' do
       :altnames     => ['a.com', 'b.com', 'c.com'],
       :email        => 'contact@foo.com',
       :days         => 4567,
+      :key_size     => 4096,
       :owner        => 'www-data',
       :password     => '5r$}^',
       :force        => false,
@@ -375,7 +391,8 @@ describe 'openssl::certificate::x509' do
     it {
       is_expected.to contain_ssl_pkey('/tmp/foobar/foo.key').with(
         :ensure   => 'present',
-        :password => '5r$}^'
+        :password => '5r$}^',
+        :size     => 4096
       )
     }
 
