@@ -1,6 +1,7 @@
-## 2016-06-29 - Release 1.7.2
+## 2016-08-18 - Release 1.8.0
 
 - Fix validation of the size parameter (fix #70, fix #58)
+- Add argument key_size to openssl::certificate::x509 (fix #55)
 
 ## 2016-03-30 - Release 1.7.1
 
