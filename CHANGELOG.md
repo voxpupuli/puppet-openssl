@@ -1,3 +1,7 @@
+## 2016-08-19 - Release 1.8.1
+
+- Fix error "failure to load inifile" resulting in failed Puppet run (issue #63)
+
 ## 2016-08-18 - Release 1.8.0
 
 - Fix validation of the size parameter (fix #70, fix #58)
