@@ -36,11 +36,16 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
         cdata[k] = v
     end
 
-    require 'inifile'
-    ini_file  = IniFile.load(resource[:template])
-    ini_file.each do |section, parameter, value|
-      return false if parameter == 'subjectAltName' and value.delete(' ').gsub(/^"|"$/, '') != altName.delete(' ').gsub(/^"|"$/, '').gsub('IPAddress','IP')
-      return false if parameter == 'commonName' and value != cdata['CN']
+    require 'puppet/util/inifile'
+    ini_file  = Puppet::Util::IniConfig::PhysicalFile.new(resource[:template])
+    if (req_ext = ini_file.get_section('req_ext'))
+      if (value = req_ext['subjectAltName'])
+        return false if value.delete(' ').gsub(/^"|"$/, '') != altName.delete(' ').gsub(/^"|"$/, '').gsub('IPAddress','IP')
+      end
+    elsif (req_dn = ini_file.get_section('req_distinguished_name'))
+      if (value = req_dn['commonName'])
+        return false if value != cdata['CN']
+      end
     end
     return true
   end
