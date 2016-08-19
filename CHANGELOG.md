@@ -1,3 +1,8 @@
+## 2016-08-19 - Release 1.8.2
+
+- Fix unit tests
+- Announce support of Debian 8, Ubuntu 16.04 and RedHat 7 in metadata.json
+
 ## 2016-08-19 - Release 1.8.1
 
 - Fix error "failure to load inifile" resulting in failed Puppet run (issue #63)
