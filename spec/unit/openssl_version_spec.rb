@@ -18,6 +18,15 @@ describe Facter::Util::Fact do
             expect(Facter.value(:openssl_version)).to eq('0.9.8zg')
           }
         end
+        context 'with broken openssl' do
+          before :each do
+            Facter::Util::Resolution.stubs(:which).with('openssl').returns(true)
+            Facter::Util::Resolution.stubs(:exec).with('openssl version 2>&1').returns('openssl: /usr/lib/x86_64-linux-gnu/libcrypto.so.1.0.0: version `OPENSSL_1.0.1s\' not found (required by openssl)')
+          end
+          it {
+            expect(Facter.value(:openssl_version)).to be_nil
+          }
+        end
       end
       describe "openssl_version rhel" do
         context 'with value' do
