@@ -63,4 +63,8 @@ Puppet::Type.newtype(:x509_request) do
   autorequire(:file) do
     self[:private_key]
   end
+
+  def refresh
+    provider.create
+  end
 end

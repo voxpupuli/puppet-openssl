@@ -81,4 +81,8 @@ Puppet::Type.newtype(:x509_cert) do
   autorequire(:file) do
     self[:private_key]
   end
+
+  def refresh
+    provider.create
+  end
 end
