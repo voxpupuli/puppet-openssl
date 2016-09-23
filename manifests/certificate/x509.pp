@@ -194,6 +194,8 @@ define openssl::certificate::x509(
     password    => $password,
     force       => $force,
     require     => File[$_cnf],
+    subscribe   => File[$_cnf],
+    notify      => X509_cert[$_crt],
   }
 
   # Set owner of all files
