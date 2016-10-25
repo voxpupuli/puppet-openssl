@@ -26,6 +26,22 @@ class { '::openssl':
 }
 ```
 
+Create certificates (see the x509 defined type):
+
+```puppet
+class { '::openssl::certificates':
+  x509_certs => { '/path/to/certificate.crt' => { ensure      => 'present',
+                                                  password    => 'j(D$',
+                                                  template    => '/other/path/to/template.cnf',
+                                                  private_key => '/there/is/my/private.key',
+                                                  days        => 4536,
+                                                  force       => false,},
+                  '/a/other/certificate.crt' => { ensure      => 'present', },
+                }
+}
+```
+
+
 ## Types and providers
 
 This module provides three types and associated providers to manage SSL keys and certificates.
