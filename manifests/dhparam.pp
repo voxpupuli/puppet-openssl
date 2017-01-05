@@ -17,7 +17,7 @@
 define openssl::dhparam(
   $path,
   $ensure = present,
-  $size = 512,
+  $size = 2048,
   $owner = 'root',
   $group = 'root',
   $mode = '0644',
