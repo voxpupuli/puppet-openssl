@@ -15,7 +15,7 @@
 #   - `puppetlabs/stdlib`
 #
 define openssl::dhparam(
-  $path,
+  $path = $name,
   $ensure = present,
   $size = 2048,
   $owner = 'root',
