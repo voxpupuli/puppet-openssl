@@ -21,6 +21,7 @@ define openssl::dhparam(
   $owner = 'root',
   $group = 'root',
   $mode = '0644',
+  $fastmode = true,
 ) {
 
   validate_absolute_path($path)
@@ -34,6 +35,7 @@ define openssl::dhparam(
   dhparam { $path:
     ensure => $ensure,
     size   => $size,
+    fastmode => $fastmode,
   }
 
   # Set file access

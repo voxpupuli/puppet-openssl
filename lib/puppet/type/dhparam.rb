@@ -24,4 +24,14 @@ Puppet::Type.newtype(:dhparam) do
       end
     end
   end
+
+  newparam(:fastmode) do
+    desc 'Enable fast mode'
+    defaultto false
+    validate do |value|
+      if !value.is_a?(TrueClass) && !value.is_a?(FalseClass)
+        raise ArgumentError, "Fastmode must be a boolean: #{value.inspect} #{value.class}"
+      end
+    end
+  end
 end
