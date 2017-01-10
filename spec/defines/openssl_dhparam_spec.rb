@@ -75,7 +75,7 @@ describe 'openssl::dhparam' do
     it {
       is_expected.to contain_dhparam('/etc/ssl/dhparam.pem').with(
         :ensure => 'present',
-        :size => 512
+        :size => 2048
       )
     }
     it {

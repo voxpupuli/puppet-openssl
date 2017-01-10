@@ -15,12 +15,13 @@
 #   - `puppetlabs/stdlib`
 #
 define openssl::dhparam(
-  $path,
+  $path = $name,
   $ensure = present,
-  $size = 512,
+  $size = 2048,
   $owner = 'root',
   $group = 'root',
   $mode = '0644',
+  $fastmode = true,
 ) {
 
   validate_absolute_path($path)
@@ -32,8 +33,9 @@ define openssl::dhparam(
   validate_string($mode)
 
   dhparam { $path:
-    ensure => $ensure,
-    size   => $size,
+    ensure   => $ensure,
+    size     => $size,
+    fastmode => $fastmode,
   }
 
   # Set file access

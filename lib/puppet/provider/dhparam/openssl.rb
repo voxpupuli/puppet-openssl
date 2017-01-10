@@ -14,6 +14,10 @@ Puppet::Type.type(:dhparam).provide(:openssl) do
       '-out', resource[:path],
       resource[:size]
     ]
+    if resource[:fastmode]
+      options.insert(1,'-dsaparam')
+    end
+
     openssl options
   end
 
