@@ -2,10 +2,10 @@
 #
 # Sets up packages for openssl
 class openssl::packages {
-  package { 'openssl':
+  ensure_packages(['openssl'], {
     ensure => $openssl::package_ensure,
     name   => $openssl::package_name,
-  }
+  }) 
 
   if $::osfamily == 'Debian' or (
   $::osfamily == 'RedHat' and versioncmp($::operatingsystemrelease, '6.0') >= 0) {
