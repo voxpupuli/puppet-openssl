@@ -105,6 +105,7 @@ x509_cert { '/path/to/certificate.crt':
   private_key => '/there/is/my/private.key',
   days        => 4536,
   force       => false,
+  subscribe   => '/other/path/to/template.cnf',
 }
 ```
 
@@ -127,6 +128,7 @@ x509_request { '/path/to/request.csr':
   template    => '/other/path/to/template.cnf',
   private_key => '/there/is/my/private.key',
   force       => false,
+  subscribe   => '/other/path/to/template.cnf',
 }
 ```
 
