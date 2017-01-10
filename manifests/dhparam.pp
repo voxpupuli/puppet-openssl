@@ -33,8 +33,8 @@ define openssl::dhparam(
   validate_string($mode)
 
   dhparam { $path:
-    ensure => $ensure,
-    size   => $size,
+    ensure   => $ensure,
+    size     => $size,
     fastmode => $fastmode,
   }
 
