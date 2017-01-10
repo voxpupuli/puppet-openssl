@@ -1,3 +1,14 @@
+## 2017-01-10 - Release 1.9.0
+
+- Add $openssl::packages::package_name parameter (fix #69)
+- Add test for dh_param (fix #64)
+- Ensure authentication is a symbol (fix #72)
+- Add openssl::certificates class (fix #77)
+- Handle refresh for x509_cert and x509_request (fix #75, fix #71)
+- Check if there are matches in openssl_version() before returning (#74)
+- Deprecate Puppet 3 compatibility
+- Update test framework
+
 ## 2016-08-19 - Release 1.8.2
 
 - Fix unit tests
