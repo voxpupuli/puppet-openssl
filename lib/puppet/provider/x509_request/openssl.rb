@@ -34,22 +34,22 @@ Puppet::Type.type(:x509_request).provide(:openssl) do
   end
 
   def create
-    if resource[:password]
-      openssl(
-        'req', '-new',
-        '-key', resource[:private_key],
-        '-config', resource[:template],
-        '-out', resource[:path],
-        '-passin', "pass:#{resource[:password]}"
-      )
-    else
-      openssl(
+    cmd_args = [
         'req', '-new',
         '-key', resource[:private_key],
         '-config', resource[:template],
         '-out', resource[:path]
-      )
+    ]
+
+    if resource[:password]
+      cmd_args.push('-passin', "pass:#{resource[:password]}")
     end
+
+    if resource[:unencrypted]
+      cmd_args.push('-nodes')
+    end
+
+    openssl(cmd_args)
   end
 
   def destroy
