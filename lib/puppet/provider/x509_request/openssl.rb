@@ -42,7 +42,8 @@ Puppet::Type.type(:x509_request).provide(:openssl) do
     ]
 
     if resource[:password]
-      cmd_args.push('-passin', "pass:#{resource[:password]}")
+      cmd_args.push('-passin')
+      cmd_args.push("pass:#{resource[:password]}")
     end
 
     if resource[:unencrypted]
