@@ -50,7 +50,7 @@ Puppet::Type.type(:x509_request).provide(:openssl) do
       cmd_args.push('-nodes')
     end
 
-    openssl(cmd_args)
+    openssl(*cmd_args)
   end
 
   def destroy
