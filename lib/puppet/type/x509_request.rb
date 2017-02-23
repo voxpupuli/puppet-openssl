@@ -55,10 +55,10 @@ Puppet::Type.newtype(:x509_request) do
     defaultto :rsa
   end
 
-  newparam(:unencrypted, :boolean => true) do
+  newparam(:encrypted, :boolean => true) do
     desc 'Whether to generate the key unencrypted. This is needed by some applications like OpenLDAP'
     newvalues(:true, :false)
-    defaultto false
+    defaultto true
   end
 
   autorequire(:x509_cert) do

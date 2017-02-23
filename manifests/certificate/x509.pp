@@ -101,7 +101,7 @@ define openssl::certificate::x509(
   $password = undef,
   $force = true,
   $cnf_tpl = 'openssl/cert.cnf.erb',
-  $unencrypted = false,
+  $encrypted = true,
   ) {
 
   $_key_owner = pick($key_owner, $owner)
@@ -158,7 +158,7 @@ define openssl::certificate::x509(
   validate_string($key_mode)
   validate_string($password)
   validate_bool($force)
-  validate_bool($unencrypted)
+  validate_bool($encrypted)
   validate_re($ensure, '^(present|absent)$',
     "\$ensure must be either 'present' or 'absent', got '${ensure}'")
   validate_string($cnf_tpl)
@@ -199,7 +199,7 @@ define openssl::certificate::x509(
     private_key => $_key,
     password    => $password,
     force       => $force,
-    unencrypted => $unencrypted,
+    encrypted   => $encrypted,
     require     => File[$_cnf],
     subscribe   => File[$_cnf],
     notify      => X509_cert[$_crt],
