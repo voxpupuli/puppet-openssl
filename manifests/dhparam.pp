@@ -21,7 +21,7 @@ define openssl::dhparam(
   $owner = 'root',
   $group = 'root',
   $mode = '0644',
-  $fastmode = true,
+  $fastmode = false,
 ) {
 
   validate_absolute_path($path)
