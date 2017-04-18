@@ -10,7 +10,7 @@ describe 'openssl::dhparam' do
     it 'should fail' do
       expect {
               is_expected.to contain_file('/etc/ssl/dhparam.pem')
-      }.to raise_error(Puppet::Error, /got String/)
+      }.to raise_error(Puppet::Error, /got 'foo'/)
     end
   end
   context 'when passing wrong value for ensure' do
@@ -21,7 +21,7 @@ describe 'openssl::dhparam' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/dhparam.pem')
-      }.to raise_error(Puppet::Error, /got String/)
+      }.to raise_error(Puppet::Error, /got 'foo'/)
     end
   end
   context 'when passing non positive size' do
