@@ -1,3 +1,11 @@
+## 2017-04-18 - Release 1.10.0
+
+- Increase default keysize to 2048bit (#80)
+- Add fastmode (#80)
+- Add definitions to export PEM cert/key from PKCS12 container (#85)
+- Remove pe requirement
+- Use Data Types (#87)
+
 ## 2017-01-10 - Release 1.9.0
 
 - Add $openssl::packages::package_name parameter (fix #69)
