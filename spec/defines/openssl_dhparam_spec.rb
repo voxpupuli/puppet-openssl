@@ -21,7 +21,7 @@ describe 'openssl::dhparam' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/dhparam.pem')
-      }.to raise_error(Puppet::Error, /\$ensure must be either 'present' or 'absent', got 'foo'/)
+      }.to raise_error(Puppet::Error, /got String/)
     end
   end
   context 'when passing non positive size' do
@@ -32,7 +32,7 @@ describe 'openssl::dhparam' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/dhparam.pem')
-      }.to raise_error(Puppet::Error, /Expected -1 to be greater or equal to 1, got -1/)
+      }.to raise_error(Puppet::Error, /got Integer/)
     end
   end
   context 'when passing wrong type for user' do
@@ -43,7 +43,7 @@ describe 'openssl::dhparam' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/dhparam.pem')
-      }.to raise_error(Puppet::Error, /true is not a string/)
+      }.to raise_error(Puppet::Error, /got Boolean/)
     end
   end
   context 'when passing wrong type for group' do
@@ -54,7 +54,7 @@ describe 'openssl::dhparam' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/dhparam.pem')
-      }.to raise_error(Puppet::Error, /true is not a string/)
+      }.to raise_error(Puppet::Error, /got Boolean/)
     end
   end
   context 'when passing wrong type for mode' do
@@ -65,7 +65,7 @@ describe 'openssl::dhparam' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/dhparam.pem')
-      }.to raise_error(Puppet::Error, /true is not a string/)
+      }.to raise_error(Puppet::Error, /got Boolean/)
     end
   end
   context 'when using defaults' do

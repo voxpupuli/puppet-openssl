@@ -15,22 +15,16 @@
 #   - `puppetlabs/stdlib`
 #
 define openssl::dhparam(
-  $path = $name,
-  $ensure = present,
-  $size = 2048,
-  $owner = 'root',
-  $group = 'root',
-  $mode = '0644',
-  $fastmode = false,
+  String                    $path = $name,
+  Enum['present', 'absent'] $ensure = present,
+  Integer[1]                $size = 2048,
+  String                    $owner = 'root',
+  String                    $group = 'root',
+  String                    $mode = '0644',
+  Boolean                   $fastmode = false,
 ) {
 
   validate_absolute_path($path)
-  validate_re($ensure, '^(present|absent)$',
-    "\$ensure must be either 'present' or 'absent', got '${ensure}'")
-  validate_integer($size, '', 1) # positive integer
-  validate_string($owner)
-  validate_string($group)
-  validate_string($mode)
 
   dhparam { $path:
     ensure   => $ensure,
