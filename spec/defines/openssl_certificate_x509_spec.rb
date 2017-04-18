@@ -13,7 +13,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /"barz" is not an absolute path/)
+      }.to raise_error(Puppet::Error, /got String/)
     end
   end
 

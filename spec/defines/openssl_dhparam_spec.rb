@@ -10,7 +10,7 @@ describe 'openssl::dhparam' do
     it 'should fail' do
       expect {
               is_expected.to contain_file('/etc/ssl/dhparam.pem')
-      }.to raise_error(Puppet::Error, /"foo" is not an absolute path/)
+      }.to raise_error(Puppet::Error, /got String/)
     end
   end
   context 'when passing wrong value for ensure' do
