@@ -19,9 +19,8 @@
 #   }
 #
 class openssl::certificates (
-  $x509_certs = {},
+  Hash $x509_certs = {},
 ){
-  validate_hash($x509_certs)
 
   if $x509_certs {
     ensure_resources('openssl::certificate::x509', $x509_certs)
