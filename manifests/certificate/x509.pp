@@ -69,34 +69,34 @@
 #   - `puppetlabs/stdlib`
 #
 define openssl::certificate::x509(
-  String                     $country,
-  String                     $organization,
-  String                     $commonname,
-  Enum['present', 'absent']  $ensure = present,
-  Optional[String]           $state = undef,
-  Optional[String]           $locality = undef,
-  Optional[String]           $unit = undef,
-  Array                      $altnames = [],
-  Optional[String]           $email = undef,
-  Integer                    $days = 365,
-  String                     $base_dir = '/etc/ssl/certs',
-  Optional[String]           $cnf_dir = undef,
-  Optional[String]           $crt_dir = undef,
-  Optional[String]           $csr_dir = undef,
-  Optional[String]           $key_dir = undef,
-  Optional[String]           $cnf = undef,
-  Optional[String]           $crt = undef,
-  Optional[String]           $csr = undef,
-  Optional[String]           $key = undef,
-  Integer                    $key_size = 2048,
-  String                     $owner = 'root',
-  String                     $group = 'root',
-  Optional[String]           $key_owner = undef,
-  Optional[String]           $key_group = undef,
-  String                     $key_mode = '0600',
-  Optional[String]           $password = undef,
-  Boolean                    $force = true,
-  String                     $cnf_tpl = 'openssl/cert.cnf.erb',
+  String                         $country,
+  String                         $organization,
+  String                         $commonname,
+  Enum['present', 'absent']      $ensure = present,
+  Optional[String]               $state = undef,
+  Optional[String]               $locality = undef,
+  Optional[String]               $unit = undef,
+  Array                          $altnames = [],
+  Optional[String]               $email = undef,
+  Integer                        $days = 365,
+  Stdlib::Absolutepath           $base_dir = '/etc/ssl/certs',
+  Optional[Stdlib::Absolutepath] $cnf_dir = undef,
+  Optional[Stdlib::Absolutepath] $crt_dir = undef,
+  Optional[Stdlib::Absolutepath] $csr_dir = undef,
+  Optional[Stdlib::Absolutepath] $key_dir = undef,
+  Optional[Stdlib::Absolutepath] $cnf = undef,
+  Optional[Stdlib::Absolutepath] $crt = undef,
+  Optional[Stdlib::Absolutepath] $csr = undef,
+  Optional[Stdlib::Absolutepath] $key = undef,
+  Integer                        $key_size = 2048,
+  String                         $owner = 'root',
+  String                         $group = 'root',
+  Optional[String]               $key_owner = undef,
+  Optional[String]               $key_group = undef,
+  String                         $key_mode = '0600',
+  Optional[String]               $password = undef,
+  Boolean                        $force = true,
+  String                         $cnf_tpl = 'openssl/cert.cnf.erb',
   ) {
 
   $_key_owner = pick($key_owner, $owner)
@@ -109,23 +109,6 @@ define openssl::certificate::x509(
   $_crt = pick($crt, "${_crt_dir}/${name}.crt")
   $_csr = pick($csr, "${_csr_dir}/${name}.csr")
   $_key = pick($key, "${_key_dir}/${name}.key")
-
-  validate_absolute_path($base_dir)
-  validate_absolute_path($_cnf_dir)
-  assert_type(String, $_csr_dir)
-  validate_absolute_path($_csr_dir)
-  assert_type(String,$_crt_dir)
-  validate_absolute_path($_crt_dir)
-  assert_type(String,$_key_dir)
-  validate_absolute_path($_key_dir)
-  assert_type(String,$_cnf)
-  validate_absolute_path($_cnf)
-  assert_type(String,$_csr)
-  validate_absolute_path($_csr)
-  assert_type(String,$_crt)
-  validate_absolute_path($_crt)
-  assert_type(String,$_key)
-  validate_absolute_path($_key)
 
   if !empty($altnames) {
     $req_ext = true
