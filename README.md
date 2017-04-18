@@ -193,6 +193,33 @@ openssl::export::pkcs12 { 'foo':
 }
 ```
 
+### openssl::export::pem_cert
+
+This definition exports PEM certificates from a pkcs12 container:
+
+```puppet
+openssl::export::pem_cert { 'foo':
+  ensure   => 'present',
+  pfx_cert => '/here/is/my/certstore.pfx',
+  pem_cert => '/here/is/my/cert.pem',
+  in_pass  => 'my_pkcs12_password',
+}
+```
+
+### openssl::export::pem_key
+
+This definition exports PEM key from a pkcs12 container:
+
+```puppet
+openssl::export::pem_key { 'foo':
+  ensure   => 'present',
+  pfx_cert => '/here/is/my/certstore.pfx',
+  pem_key  => '/here/is/my/private.key',
+  in_pass  => 'my_pkcs12_password',
+  out_pass => 'my_pkey_password',
+}
+```
+
 ### openssl::dhparam
 
 This definition creates a dhparam PEM file:
