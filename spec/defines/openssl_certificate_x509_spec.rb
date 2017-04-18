@@ -40,7 +40,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /true is not a string/)
+      }.to raise_error(Puppet::Error, /got Boolean/)
     end
   end
 
@@ -67,7 +67,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /true is not a string/)
+      }.to raise_error(Puppet::Error, /got Boolean/)
     end
   end
 
@@ -94,7 +94,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /true is not a string/)
+      }.to raise_error(Puppet::Error, /got Boolean/)
     end
   end
 
@@ -109,7 +109,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /\$ensure must be either 'present' or 'absent', got 'foo'/)
+      }.to raise_error(Puppet::Error, /got String/)
     end
   end
 
@@ -124,7 +124,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /true is not a string/)
+      }.to raise_error(Puppet::Error, /got Boolean/)
     end
   end
 
@@ -139,7 +139,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /true is not a string/)
+      }.to raise_error(Puppet::Error, /got Boolean/)
     end
   end
 
@@ -154,7 +154,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /true is not a string/)
+      }.to raise_error(Puppet::Error, /got Boolean/)
     end
   end
 
@@ -169,7 +169,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /true is not an Array/)
+      }.to raise_error(Puppet::Error, /got Boolean/)
     end
   end
 
@@ -184,7 +184,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /true is not a string/)
+      }.to raise_error(Puppet::Error, /got Boolean/)
     end
   end
 
@@ -199,7 +199,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /"true" does not match/)
+      }.to raise_error(Puppet::Error, /got Boolean/)
     end
   end
 
@@ -213,7 +213,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /true is not a string/)
+      }.to raise_error(Puppet::Error, /got Boolean/)
     end
   end
 
@@ -228,7 +228,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /true is not a string/)
+      }.to raise_error(Puppet::Error, /got Boolean/)
     end
   end
 
@@ -243,7 +243,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /true is not a string/)
+      }.to raise_error(Puppet::Error, /got Boolean/)
     end
   end
 
@@ -258,7 +258,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /"foobar" is not a boolean/)
+      }.to raise_error(Puppet::Error, /got String/)
     end
   end
 
@@ -273,7 +273,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /"true" does not match/)
+      }.to raise_error(Puppet::Error, /got Boolean/)
     end
   end
 
