@@ -55,6 +55,12 @@ Puppet::Type.newtype(:x509_request) do
     defaultto :rsa
   end
 
+  newparam(:encrypted, :boolean => true) do
+    desc 'Whether to generate the key unencrypted. This is needed by some applications like OpenLDAP'
+    newvalues(:true, :false)
+    defaultto true
+  end
+
   autorequire(:x509_cert) do
     path = Pathname.new(self[:private_key])
     "#{path.dirname}/#{path.basename(path.extname)}"
