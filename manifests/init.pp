@@ -20,6 +20,6 @@ class openssl (
   $package_ensure         = present,
   $ca_certificates_ensure = present,
 ){
-  class { '::openssl::packages': } ->
-  Class['openssl']
+  class { '::openssl::packages': }
+  -> Class['openssl']
 }
