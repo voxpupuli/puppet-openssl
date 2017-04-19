@@ -42,10 +42,10 @@
 #                     Directory must exist, defaults to $csr_dir/$title.csr
 #  [*key*]            override key path entirely.
 #                     Directory must exist, defaults to $key_dir/$title.key
-#  [*unencrypted*]    Flag requesting the exported key to be unencrypted by
+#  [*encrypted*]      Flag requesting the exported key to be unencrypted by
 #                     specifying the -nodes option during the CSR generation. Turning
-#                     of encryption is needed by some applications, such as OpenLDAP.
-#                     Defaults to false (key is encrypted)
+#                     off encryption is needed by some applications, such as OpenLDAP.
+#                     Defaults to true (key is encrypted)
 #
 # === Example
 #
@@ -101,6 +101,7 @@ define openssl::certificate::x509(
   Optional[String]               $password = undef,
   Boolean                        $force = true,
   String                         $cnf_tpl = 'openssl/cert.cnf.erb',
+  Boolean                        $encrypted = true,
   ) {
 
   $_key_owner = pick($key_owner, $owner)
