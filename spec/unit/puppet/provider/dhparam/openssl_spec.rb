@@ -14,21 +14,33 @@ describe 'The openssl provider for the dhparam type' do
       subject.expects(:openssl).with([
         'dhparam',
         '-out', '/tmp/dhparam.pem',
-        512
+        2048
       ])
       subject.create
     end
   end
   context 'when setting size' do
     it 'should create dhpram with the proper options' do
-      resource[:size] = 2048
+      resource[:size] = 1024
       subject.expects(:openssl).with([
         'dhparam',
         '-out', '/tmp/dhparam.pem',
-        2048
+        1024
       ])
       subject.create
     end
+  end
+  context 'when the dhparam file already exists' do
+    it 'should check the validity of the existing key' do
+      resource[:size] = 128
+      subject.expects(:openssl).with([
+        'dhparam',
+        '-in', '/tmp/dhparam.pem',
+        '-check'
+      ])
+      subject.valid?
+    end
+
   end
   it 'should delete file' do
     Pathname.any_instance.expects(:delete)

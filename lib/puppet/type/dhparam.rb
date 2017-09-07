@@ -13,10 +13,10 @@ Puppet::Type.newtype(:dhparam) do
     end
   end
 
-  newparam(:size) do
-    desc 'The key size'
+  newproperty(:size) do
+    desc 'Manage the dhparam key size'
     newvalues /\d+/
-    defaultto 512
+    defaultto 2048
     validate do |value|
       size = value.to_i
       if size <= 0 || value.to_s != size.to_s
