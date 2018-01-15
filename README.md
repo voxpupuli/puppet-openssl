@@ -62,13 +62,13 @@ This type allows to generate Diffie Hellman parameters.
 Simple usage:
 
 ```puppet
-openssl::dhparam { '/path/to/dhparam.pem': }
+dhparam { '/path/to/dhparam.pem': }
 ```
 
 Advanced options:
 
 ```puppet
-openssl::dhparam { '/path/to/dhparam.pem':
+dhparam { '/path/to/dhparam.pem':
   size => 2048,
 }
 ```
@@ -167,6 +167,7 @@ openssl::certificate::x509 { 'foo':
   locality     => 'Myplace',
   unit         => 'MyUnit',
   altnames     => ['a.com', 'b.com', 'c.com'],
+  extkeyusage  => ['serverAuth', 'clientAuth', 'any_other_option_per_openssl'],
   email        => 'contact@foo.com',
   days         => 3456,
   base_dir     => '/var/www/ssl',
