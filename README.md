@@ -62,14 +62,14 @@ This type allows to generate Diffie Hellman parameters.
 Simple usage:
 
 ```puppet
-dhparam { '/path/to/dhparam.pem': }
+openssl::dhparam { '/path/to/dhparam.pem': }
 ```
 
 Advanced options:
 
 ```puppet
 dhparam { '/path/to/dhparam.pem':
-  size => 2048,
+  openssl::size => 2048,
 }
 ```
 

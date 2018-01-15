@@ -57,6 +57,10 @@
 #                     Directory must exist, defaults to $csr_dir/$title.csr
 #  [*key*]            override key path entirely.
 #                     Directory must exist, defaults to $key_dir/$title.key
+#  [*encrypted*]      Flag requesting the exported key to be unencrypted by
+#                     specifying the -nodes option during the CSR generation. Turning
+#                     off encryption is needed by some applications, such as OpenLDAP.
+#                     Defaults to true (key is encrypted)
 #
 # === Example
 #

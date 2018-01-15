@@ -16,6 +16,7 @@ distinguished_name      = req_distinguished_name
 prompt                  = no
 <% if (@altnames and not @altnames.empty?) || (@extkeyusage and not @extkeyusage.empty?) -%>
 req_extensions          = req_ext
+x509_extensions         = req_ext
 <% end -%>
 
 [ req_distinguished_name ]
