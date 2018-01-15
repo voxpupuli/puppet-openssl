@@ -117,6 +117,7 @@ define openssl::certificate::x509(
   Optional[String]               $password = undef,
   Boolean                        $force = true,
   String                         $cnf_tpl = 'openssl/cert.cnf.erb',
+  Boolean                        $encrypted = true,
   ) {
 
   $_key_owner = pick($key_owner, $owner)
@@ -166,6 +167,7 @@ define openssl::certificate::x509(
     private_key => $_key,
     password    => $password,
     force       => $force,
+    encrypted   => $encrypted,
     require     => File[$_cnf],
     subscribe   => File[$_cnf],
     notify      => X509_cert[$_crt],

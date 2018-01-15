@@ -68,8 +68,8 @@ openssl::dhparam { '/path/to/dhparam.pem': }
 Advanced options:
 
 ```puppet
-dhparam { '/path/to/dhparam.pem':
-  openssl::size => 2048,
+openssl::dhparam { '/path/to/dhparam.pem':
+  size => 2048,
 }
 ```
 
