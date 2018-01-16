@@ -10,6 +10,7 @@
 #  [*commonname*]     certificate CommonName
 #  [*altnames*]       certificate subjectAltName.
 #                     Can be an array or a single string.
+#  [*use_req*]        Boolean to enable the use of certificate extensions
 #  [*extkeyusage*]    certificate extended key usage
 #  # Value            Meaning
 #  -----              -------
@@ -118,7 +119,7 @@ define openssl::certificate::x509(
   Boolean                        $force = true,
   String                         $cnf_tpl = 'openssl/cert.cnf.erb',
   Boolean                        $encrypted = true,
-  Boolean                        $use_req,
+  Boolean                        $use_req = false,
   ) {
 
   $_key_owner = pick($key_owner, $owner)
@@ -132,7 +133,7 @@ define openssl::certificate::x509(
   $_csr = pick($csr, "${_csr_dir}/${name}.csr")
   $_key = pick($key, "${_key_dir}/${name}.key")
 
-  if !empty($altnames+$extkeyusage) {
+  if !empty($altnames+$extkeyusage) and ($use_req == true) {
     $req_ext = true
   } else {
     $req_ext = false
