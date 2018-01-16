@@ -10,6 +10,21 @@
 #  [*commonname*]     certificate CommonName
 #  [*altnames*]       certificate subjectAltName.
 #                     Can be an array or a single string.
+#  [*extkeyusage*]    certificate extended key usage
+#  # Value            Meaning
+#  -----              -------
+#  serverAuth         SSL/TLS Web Server Authentication.
+#  clientAuth         SL/TLS Web Client Authentication.
+#  codeSigning        Code signing.
+#  emailProtection    E-mail Protection (S/MIME).
+#  timeStamping       Trusted Timestamping
+#  OCSPSigning        OCSP Signing
+#  ipsecIKE           ipsec Internet Key Exchange
+#  msCodeInd          Microsoft Individual Code Signing (authenticode)
+#  msCodeCom          Microsoft Commercial Code Signing (authenticode)
+#  msCTLSign          Microsoft Trust List Signing
+#  msEFS              Microsoft Encrypted File System
+#
 #  [*organization*]   certificate organizationName
 #  [*unit*]           certificate organizationalUnitName
 #  [*email*]          certificate emailAddress
@@ -81,6 +96,7 @@ define openssl::certificate::x509(
   Optional[String]               $locality = undef,
   Optional[String]               $unit = undef,
   Array                          $altnames = [],
+  Array                          $extkeyusage = [],
   Optional[String]               $email = undef,
   Integer                        $days = 365,
   Stdlib::Absolutepath           $base_dir = '/etc/ssl/certs',
@@ -115,7 +131,7 @@ define openssl::certificate::x509(
   $_csr = pick($csr, "${_csr_dir}/${name}.csr")
   $_key = pick($key, "${_key_dir}/${name}.key")
 
-  if !empty($altnames) {
+  if !empty($altnames+$extkeyusage) {
     $req_ext = true
   } else {
     $req_ext = false

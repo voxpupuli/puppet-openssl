@@ -173,6 +173,21 @@ describe 'openssl::certificate::x509' do
     end
   end
 
+  context 'when passing wrong type for extkeyusage' do
+    let (:params) { {
+      :country      => 'CH',
+      :organization => 'bar',
+      :commonname   => 'baz',
+      :base_dir     => '/tmp/foo',
+      :extkeyusage  => true,
+    } }
+    it 'should fail' do
+      expect {
+        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
+      }.to raise_error(Puppet::Error, /got Boolean/)
+    end
+  end
+
   context 'when passing wrong type for email' do
     let (:params) { {
       :country      => 'CH',
@@ -356,6 +371,7 @@ describe 'openssl::certificate::x509' do
       :locality     => 'here',
       :unit         => 'braz',
       :altnames     => ['a.com', 'b.com', 'c.com'],
+      :extkeyusage  => ['serverAuth', 'clientAuth'],
       :email        => 'contact@foo.com',
       :days         => 4567,
       :key_size     => 4096,
@@ -385,6 +401,8 @@ describe 'openssl::certificate::x509' do
         /emailAddress\s+=\s+contact@foo\.com/
       ).with_content(
         /subjectAltName\s+=\s+"DNS: a\.com, DNS: b\.com, DNS: c\.com"/
+      ).with_content(
+	/extendedKeyUsage\s+=\s+"serverAuth, clientAuth"/
       )
     }
 
