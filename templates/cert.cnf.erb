@@ -14,7 +14,7 @@ default_md              = sha256
 default_keyfile         = privkey.pem
 distinguished_name      = req_distinguished_name
 prompt                  = no
-<% if $use_req == true -%>
+<% if $req_ext == true -%>
 req_extensions          = req_ext
 <% end -%>
 
@@ -35,7 +35,7 @@ commonName                      = <%= @commonname %>
 emailAddress                    = <%= @email %>
 <% end -%>
 
-<% if $use_req == true -%>
+<% if $req_ext == true -%>
 [ req_ext ]
 <% unless @altnames.empty? -%>
 subjectAltName = "<%= @altnames.collect! {|i| "DNS: #{i}" }.join(', ') -%>"

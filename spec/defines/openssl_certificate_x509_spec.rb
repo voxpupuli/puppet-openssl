@@ -188,23 +188,6 @@ describe 'openssl::certificate::x509' do
     end
   end
 
-  context 'when passing wrong type for use_req' do
-    let (:params) { {
-      :country      => 'CH',
-      :organization => 'bar',
-      :commonname   => 'baz',
-      :base_dir     => '/tmp/foo',
-      :use_req	    => 'foo',
-    } }
-    it 'should fail' do
-      expect {
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /got String/)
-    end
-  end
-
-
-
   context 'when passing wrong type for email' do
     let (:params) { {
       :country      => 'CH',
@@ -396,7 +379,6 @@ describe 'openssl::certificate::x509' do
       :password     => '5r$}^',
       :force        => false,
       :base_dir     => '/tmp/foobar',
-      :use_req	    => true,
     } }
 
     it {
