@@ -167,6 +167,7 @@ openssl::certificate::x509 { 'foo':
   locality     => 'Myplace',
   unit         => 'MyUnit',
   altnames     => ['a.com', 'b.com', 'c.com'],
+  use_req      => true,
   extkeyusage  => ['serverAuth', 'clientAuth', 'any_other_option_per_openssl'],
   email        => 'contact@foo.com',
   days         => 3456,
@@ -178,6 +179,8 @@ openssl::certificate::x509 { 'foo':
   cnf_tpl      => 'my_module/cert.cnf.erb'
 }
 ```
+
+Set `use_req` to `true` to enable the use of `req_extensions` in the template. 
 
 ### openssl::export::pkcs12
 

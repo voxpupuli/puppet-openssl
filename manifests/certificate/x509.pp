@@ -118,6 +118,7 @@ define openssl::certificate::x509(
   Boolean                        $force = true,
   String                         $cnf_tpl = 'openssl/cert.cnf.erb',
   Boolean                        $encrypted = true,
+  Boolean                        $use_req,
   ) {
 
   $_key_owner = pick($key_owner, $owner)
@@ -131,7 +132,7 @@ define openssl::certificate::x509(
   $_csr = pick($csr, "${_csr_dir}/${name}.csr")
   $_key = pick($key, "${_key_dir}/${name}.key")
 
-  if (!empty($altnames)) or (!empty($extkeyusage)) {
+  if !empty($altnames+$extkeyusage) {
     $req_ext = true
   } else {
     $req_ext = false
