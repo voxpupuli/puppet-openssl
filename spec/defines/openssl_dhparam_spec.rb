@@ -9,8 +9,8 @@ describe 'openssl::dhparam' do
     } }
     it 'should fail' do
       expect {
-              is_expected.to contain_file('/etc/ssl/dhparam.pem')
-      }.to raise_error(Puppet::Error, /got 'foo'/)
+        is_expected.to contain_file('/etc/ssl/dhparam.pem')
+      }.to raise_error(/got ['barz'|String]/)
     end
   end
   context 'when passing wrong value for ensure' do
@@ -87,7 +87,7 @@ describe 'openssl::dhparam' do
       )
     }
   end
-  
+
   context 'when using size' do
     let (:params) { {
       :path => '/etc/ssl/dhparam.pem',
