@@ -35,7 +35,7 @@ commonName                      = <%= @commonname %>
 emailAddress                    = <%= @email %>
 <% end -%>
 
-<% if $req_ext == true -%>
+<% if @req_ext == true -%>
 [ req_ext ]
 <% unless @altnames.empty? -%>
 subjectAltName = "<%= @altnames.collect! {|i| "DNS: #{i}" }.join(', ') -%>"
@@ -44,4 +44,3 @@ subjectAltName = "<%= @altnames.collect! {|i| "DNS: #{i}" }.join(', ') -%>"
 extendedKeyUsage = "<%= @extkeyusage.collect! {|x| "#{x}" }.join(', ') -%>"
 <% end -%>
 <% end -%>
-

@@ -13,7 +13,7 @@ describe 'openssl::certificate::x509' do
     it 'should fail' do
       expect {
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, /got 'barz'/)
+      }.to raise_error(/got ['barz'|String]/)
     end
   end
 
@@ -402,7 +402,7 @@ describe 'openssl::certificate::x509' do
       ).with_content(
         /subjectAltName\s+=\s+"DNS: a\.com, DNS: b\.com, DNS: c\.com"/
       ).with_content(
-	/extendedKeyUsage\s+=\s+"serverAuth, clientAuth"/
+        /extendedKeyUsage\s+=\s+"serverAuth, clientAuth"/
       )
     }
 
