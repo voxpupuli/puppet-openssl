@@ -107,6 +107,38 @@ describe 'The openssl provider for the ssl_pkey type' do
     end
   end
 
+  context 'when setting authentication to ec' do
+    key = OpenSSL::PKey::EC.new('secp384r1').generate_key # For mocking
+
+    it 'should create an ec key' do
+      resource[:authentication] = :ec
+      OpenSSL::PKey::EC.expects(:new).with('secp384r1', nil).returns(key)
+      File.expects(:open).with('/tmp/foo.key', 'w')
+      subject.create
+    end
+
+    context 'when setting curve' do
+      it 'should create with given curve' do
+        resource[:authentication] = :ec
+        resource[:curve] = 'prime239v1'
+        OpenSSL::PKey::EC.expects(:new).with('prime239v1', nil).returns(key)
+        File.expects(:open).with('/tmp/foo.key', 'w')
+        subject.create
+      end
+    end
+
+    context 'when setting password' do
+      it 'should create with given password' do
+        resource[:authentication] = :ec
+        resource[:password] = '2x$5{'
+        OpenSSL::PKey::EC.expects(:new).with('secp384r1').returns(key)
+        OpenSSL::Cipher.expects(:new).with('des3')
+        File.expects(:open).with('/tmp/foo.key', 'w')
+        subject.create
+      end
+    end
+  end
+
   it 'should delete files' do
     Pathname.any_instance.expects(:delete)
     subject.destroy

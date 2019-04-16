@@ -50,8 +50,8 @@ Puppet::Type.newtype(:x509_request) do
   end
 
   newparam(:authentication) do
-    desc "The authentication algorithm: 'rsa' or 'dsa'"
-    newvalues /[dr]sa/
+    desc "The authentication algorithm: 'rsa', 'dsa' or ec"
+    newvalues :rsa, :dsa, :ec
     defaultto :rsa
   end
 

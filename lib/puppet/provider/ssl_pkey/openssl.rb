@@ -12,6 +12,8 @@ Puppet::Type.type(:ssl_pkey).provide(:openssl) do
       OpenSSL::PKey::DSA.new(resource[:size])
     elsif resource[:authentication] == :rsa
       OpenSSL::PKey::RSA.new(resource[:size])
+    elsif resource[:authentication] == :ec
+      OpenSSL::PKey::EC.new(resource[:curve]).generate_key
     else
       raise Puppet::Error,
         "Unknown authentication type '#{resource[:authentication]}'"
