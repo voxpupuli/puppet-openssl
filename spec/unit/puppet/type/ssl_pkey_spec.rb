@@ -25,11 +25,18 @@ describe Puppet::Type.type(:ssl_pkey) do
     }.to raise_error(Puppet::Error, /Invalid value :foo/)
   end
 
+  it 'should accept an curve' do
+    subject[:curve] = :secp384r1
+    expect(subject[:curve]).to eq(:secp384r1)
+  end
+
   it 'should accept a valid authentication' do
     subject[:authentication] = :rsa
     expect(subject[:authentication]).to eq(:rsa)
     subject[:authentication] = :dsa
     expect(subject[:authentication]).to eq(:dsa)
+    subject[:authentication] = :ec
+    expect(subject[:authentication]).to eq(:ec)
   end
 
   it 'should not accept an invalid authentication' do

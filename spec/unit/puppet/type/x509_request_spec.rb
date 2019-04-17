@@ -57,6 +57,8 @@ describe Puppet::Type.type(:x509_request) do
     expect(subject[:authentication]).to eq(:rsa)
     subject[:authentication] = :dsa
     expect(subject[:authentication]).to eq(:dsa)
+    subject[:authentication] = :ec
+    expect(subject[:authentication]).to eq(:ec)
   end
 
   it 'should not accept an invalid authentication' do

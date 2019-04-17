@@ -10,6 +10,8 @@ Puppet::Type.type(:x509_request).provide(:openssl) do
       OpenSSL::PKey::DSA.new(file, resource[:password])
     elsif resource[:authentication] == :rsa
       OpenSSL::PKey::RSA.new(file, resource[:password])
+    elsif resource[:authentication] == :ec
+      OpenSSL::PKey::EC.new(file, resource[:password])
     else
       raise Puppet::Error,
             "Unknown authentication type '#{resource[:authentication]}'"
