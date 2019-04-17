@@ -1,3 +1,7 @@
+## 2019-04-16 - Release 1.12.0
+
+- Add ability to generate Elliptic Curve key pairs (#99)
+
 ## 2019-03-01 - Release 1.11.0
 
 - Support unencrypted CSRs (#84)
