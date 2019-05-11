@@ -10,6 +10,8 @@
 #  [*commonname*]     certificate CommonName
 #  [*altnames*]       certificate subjectAltName.
 #                     Can be an array or a single string.
+#  [*ip_altnames*]    certificate ipaddress altnames.
+#                     Can be an array or a single string.
 #  [*extkeyusage*]    certificate extended key usage
 #  # Value            Meaning
 #  -----              -------
@@ -96,6 +98,7 @@ define openssl::certificate::x509(
   Optional[String]               $locality = undef,
   Optional[String]               $unit = undef,
   Array                          $altnames = [],
+  Array                          $ip_altnames = [],
   Array                          $extkeyusage = [],
   Optional[String]               $email = undef,
   Integer                        $days = 365,
@@ -131,7 +134,7 @@ define openssl::certificate::x509(
   $_csr = pick($csr, "${_csr_dir}/${name}.csr")
   $_key = pick($key, "${_key_dir}/${name}.key")
 
-  if !empty($altnames+$extkeyusage) {
+  if !empty($altnames+$ip_altnames+$extkeyusage) {
     $req_ext = true
   } else {
     $req_ext = false

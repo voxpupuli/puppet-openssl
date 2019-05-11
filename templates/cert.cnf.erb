@@ -14,7 +14,7 @@ default_md              = sha256
 default_keyfile         = privkey.pem
 distinguished_name      = req_distinguished_name
 prompt                  = no
-<% if $req_ext == true -%>
+<% if @req_ext -%>
 req_extensions          = req_ext
 <% end -%>
 
@@ -35,12 +35,22 @@ commonName                      = <%= @commonname %>
 emailAddress                    = <%= @email %>
 <% end -%>
 
-<% if @req_ext == true -%>
+<% if @req_ext -%>
 [ req_ext ]
-<% unless @altnames.empty? -%>
-subjectAltName = "<%= @altnames.collect! {|i| "DNS: #{i}" }.join(', ') -%>"
+<% end -%>
+<% unless @altnames.empty? and @ip_altnames.empty? -%>
+subjectAltName = @alt_names
 <% end -%>
 <% unless @extkeyusage.empty? -%>
 extendedKeyUsage = "<%= @extkeyusage.collect! {|x| "#{x}" }.join(', ') -%>"
+<% end -%>
+
+<% unless @altnames.empty? and @ip_altnames.empty? -%>
+[alt_names]
+<% @altnames.collect!.each_with_index do |altname, index| -%>
+DNS.<%= "#{index + 1}" %> = <%= altname %>
+<% end -%>
+<% @ip_altnames.collect!.each_with_index do |ip_altname, index| -%>
+IP.<%= "#{index +1 }" %> = <%= ip_altname %>
 <% end -%>
 <% end -%>
