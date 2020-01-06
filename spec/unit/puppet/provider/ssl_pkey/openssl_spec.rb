@@ -2,8 +2,6 @@ require 'puppet'
 require 'pathname'
 require 'puppet/type/ssl_pkey'
 
-RSpec.configure { |c| c.mock_with :mocha }
-
 describe 'The openssl provider for the ssl_pkey type' do
   let (:path) { '/tmp/foo.key' }
   let (:resource) { Puppet::Type::Ssl_pkey.new({:path => path}) }
@@ -11,27 +9,27 @@ describe 'The openssl provider for the ssl_pkey type' do
   key = OpenSSL::PKey::RSA.new # For mocking
 
   it 'exists? should return true if key exists' do
-    Pathname.any_instance.expects(:exist?).returns(true)
+    allow_any_instance_of(Pathname).to receive(:exist?).and_return(true)
     expect(subject.exists?).to eq(true)
   end
 
   it 'exists? should return false if certificate does not exist' do
-    Pathname.any_instance.expects(:exist?).returns(false)
+    allow_any_instance_of(Pathname).to receive(:exist?).and_return(false)
     expect(subject.exists?).to eq(false)
   end
 
   context 'when creating a key with defaults' do
     it 'should create an rsa key' do
-      OpenSSL::PKey::RSA.expects(:new).with(2048, nil).returns(key)
-      File.expects(:open).with('/tmp/foo.key', 'w')
+      allow(OpenSSL::PKey::RSA).to receive(:new).with(2048).and_return(key)
+      allow(File).to receive(:open).with('/tmp/foo.key', 'w')
       subject.create
     end
 
     context 'when setting size' do
       it 'should create with given size' do
         resource[:size] = 1024
-        OpenSSL::PKey::RSA.expects(:new).with(1024, nil).returns(key)
-        File.expects(:open).with('/tmp/foo.key', 'w')
+        allow(OpenSSL::PKey::RSA).to receive(:new).with(1024).and_return(key)
+        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
         subject.create
       end
     end
@@ -39,9 +37,9 @@ describe 'The openssl provider for the ssl_pkey type' do
     context 'when setting password' do
       it 'should create with given password' do
         resource[:password] = '2x$5{'
-        OpenSSL::PKey::RSA.expects(:new).with(2048).returns(key)
-        OpenSSL::Cipher.expects(:new).with('des3')
-        File.expects(:open).with('/tmp/foo.key', 'w')
+        allow(OpenSSL::PKey::RSA).to receive(:new).with(2048).and_return(key)
+        allow(OpenSSL::Cipher).to receive(:new).with('des3')
+        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
         subject.create
       end
     end
@@ -50,8 +48,8 @@ describe 'The openssl provider for the ssl_pkey type' do
   context 'when setting authentication to rsa' do
     it 'should create an dsa key' do
       resource[:authentication] = :rsa
-      OpenSSL::PKey::RSA.expects(:new).with(2048, nil).returns(key)
-      File.expects(:open).with('/tmp/foo.key', 'w')
+      allow(OpenSSL::PKey::RSA).to receive(:new).with(2048).and_return(key)
+      allow(File).to receive(:open).with('/tmp/foo.key', 'w')
       subject.create
     end
 
@@ -59,8 +57,8 @@ describe 'The openssl provider for the ssl_pkey type' do
       it 'should create with given size' do
         resource[:authentication] = :rsa
         resource[:size] = 1024
-        OpenSSL::PKey::RSA.expects(:new).with(1024, nil).returns(key)
-        File.expects(:open).with('/tmp/foo.key', 'w')
+        allow(OpenSSL::PKey::RSA).to receive(:new).with(1024).and_return(key)
+        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
         subject.create
       end
     end
@@ -69,9 +67,9 @@ describe 'The openssl provider for the ssl_pkey type' do
       it 'should create with given password' do
         resource[:authentication] = :rsa
         resource[:password] = '2x$5{'
-        OpenSSL::PKey::RSA.expects(:new).with(2048).returns(key)
-        OpenSSL::Cipher.expects(:new).with('des3')
-        File.expects(:open).with('/tmp/foo.key', 'w')
+        allow(OpenSSL::PKey::RSA).to receive(:new).with(2048).and_return(key)
+        allow(OpenSSL::Cipher).to receive(:new).with('des3')
+        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
         subject.create
       end
     end
@@ -80,8 +78,8 @@ describe 'The openssl provider for the ssl_pkey type' do
   context 'when setting authentication to dsa' do
     it 'should create an dsa key' do
       resource[:authentication] = :dsa
-      OpenSSL::PKey::DSA.expects(:new).with(2048, nil).returns(key)
-      File.expects(:open).with('/tmp/foo.key', 'w')
+      allow(OpenSSL::PKey::DSA).to receive(:new).with(2048).and_return(key)
+      allow(File).to receive(:open).with('/tmp/foo.key', 'w')
       subject.create
     end
 
@@ -89,8 +87,8 @@ describe 'The openssl provider for the ssl_pkey type' do
       it 'should create with given size' do
         resource[:authentication] = :dsa
         resource[:size] = 1024
-        OpenSSL::PKey::DSA.expects(:new).with(1024, nil).returns(key)
-        File.expects(:open).with('/tmp/foo.key', 'w')
+        allow(OpenSSL::PKey::DSA).to receive(:new).with(1024).and_return(key)
+        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
         subject.create
       end
     end
@@ -99,9 +97,9 @@ describe 'The openssl provider for the ssl_pkey type' do
       it 'should create with given password' do
         resource[:authentication] = :dsa
         resource[:password] = '2x$5{'
-        OpenSSL::PKey::DSA.expects(:new).with(2048).returns(key)
-        OpenSSL::Cipher.expects(:new).with('des3')
-        File.expects(:open).with('/tmp/foo.key', 'w')
+        allow(OpenSSL::PKey::DSA).to receive(:new).with(2048).and_return(key)
+        allow(OpenSSL::Cipher).to receive(:new).with('des3')
+        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
         subject.create
       end
     end
@@ -112,8 +110,8 @@ describe 'The openssl provider for the ssl_pkey type' do
 
     it 'should create an ec key' do
       resource[:authentication] = :ec
-      OpenSSL::PKey::EC.expects(:new).with('secp384r1', nil).returns(key)
-      File.expects(:open).with('/tmp/foo.key', 'w')
+      allow(OpenSSL::PKey::EC).to receive(:new).with('secp384r1').and_return(key)
+      allow(File).to receive(:open).with('/tmp/foo.key', 'w')
       subject.create
     end
 
@@ -121,8 +119,8 @@ describe 'The openssl provider for the ssl_pkey type' do
       it 'should create with given curve' do
         resource[:authentication] = :ec
         resource[:curve] = 'prime239v1'
-        OpenSSL::PKey::EC.expects(:new).with('prime239v1', nil).returns(key)
-        File.expects(:open).with('/tmp/foo.key', 'w')
+        allow(OpenSSL::PKey::EC).to receive(:new).with('prime239v1').and_return(key)
+        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
         subject.create
       end
     end
@@ -131,16 +129,16 @@ describe 'The openssl provider for the ssl_pkey type' do
       it 'should create with given password' do
         resource[:authentication] = :ec
         resource[:password] = '2x$5{'
-        OpenSSL::PKey::EC.expects(:new).with('secp384r1').returns(key)
-        OpenSSL::Cipher.expects(:new).with('des3')
-        File.expects(:open).with('/tmp/foo.key', 'w')
+        allow(OpenSSL::PKey::EC).to receive(:new).with('secp384r1').and_return(key)
+        allow(OpenSSL::Cipher).to receive(:new).with('des3')
+        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
         subject.create
       end
     end
   end
 
   it 'should delete files' do
-    Pathname.any_instance.expects(:delete)
+    allow_any_instance_of(Pathname).to receive(:delete)
     subject.destroy
   end
 end
