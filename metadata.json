@@ -7,17 +7,10 @@
   "source": "https://github.com/camptocamp/puppet-openssl",
   "project_page": "https://github.com/camptocamp/puppet-openssl",
   "issues_url": "https://github.com/camptocamp/puppet-openssl/issues",
-  "description": "OpenSSL Module for Puppet",
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
       "version_requirement": ">= 2.0.0 < 6.0.0"
-    }
-  ],
-  "requirements": [
-    {
-      "name": "puppet",
-      "version_requirement": ">=4.0.0 <7.0.0"
     }
   ],
   "operatingsystem_support": [
@@ -52,5 +45,15 @@
         "7"
       ]
     }
-  ]
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">=4.0.0 <7.0.0"
+    }
+  ],
+  "description": "OpenSSL Module for Puppet",
+  "pdk-version": "1.14.1",
+  "template-url": "pdk-default#1.14.1",
+  "template-ref": "1.14.1-0-g0b5b39b"
 }
