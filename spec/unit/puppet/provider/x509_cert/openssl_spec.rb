@@ -1,9 +1,7 @@
+require 'spec_helper'
 require 'puppet/util/inifile'
-require 'puppet'
 require 'pathname'
 require 'puppet/type/x509_cert'
-
-RSpec.configure { |c| c.mock_with :mocha }
 
 describe 'The openssl provider for the x509_cert type' do
   let (:path) { '/tmp/foo.crt' }
@@ -12,20 +10,20 @@ describe 'The openssl provider for the x509_cert type' do
 
   context 'when not forcing key' do
     it 'exists? should return true if certificate exists and is synced' do
-      File.stubs(:read)
-      Pathname.any_instance.expects(:exist?).returns(true)
+      allow(File).to receive(:read)
+      allow_any_instance_of(Pathname).to receive(:exist?).and_return(true)
       c = OpenSSL::X509::Certificate.new # Fake certificate for mocking
-      OpenSSL::X509::Certificate.stubs(:new).returns(c)
+      allow(OpenSSL::X509::Certificate).to receive(:new).and_return(c)
       expect(subject.exists?).to eq(true)
     end
 
     it 'exists? should return false if certificate does not exist' do
-      Pathname.any_instance.expects(:exist?).returns(false)
+      allow_any_instance_of(Pathname).to receive(:exist?).and_return(false)
       expect(subject.exists?).to eq(false)
     end
 
     it 'should create a certificate with the proper options' do
-      subject.expects(:openssl).with([
+      allow(subject).to receive(:openssl).with([
         'req', '-config', '/tmp/foo.cnf', '-new', '-x509',
         '-days', 3650,
         '-key', '/tmp/foo.key',
@@ -38,7 +36,7 @@ describe 'The openssl provider for the x509_cert type' do
     context 'when using password' do
       it 'should create a certificate with the proper options' do
         resource[:password] = '2x6${'
-        subject.expects(:openssl).with([
+        allow(subject).to receive(:openssl).with([
           'req', '-config', '/tmp/foo.cnf', '-new', '-x509',
           '-days', 3650,
           '-key', '/tmp/foo.key',
@@ -54,35 +52,35 @@ describe 'The openssl provider for the x509_cert type' do
   context 'when forcing key' do
     it 'exists? should return true if certificate exists and is synced' do
       resource[:force] = true
-      File.stubs(:read)
-      Pathname.any_instance.expects(:exist?).returns(true)
+      allow(File).to receive(:read)
+      allow_any_instance_of(Pathname).to receive(:exist?).and_return(true)
       c = OpenSSL::X509::Certificate.new # Fake certificate for mocking
-      OpenSSL::X509::Certificate.stubs(:new).returns(c)
-      OpenSSL::PKey::RSA.expects(:new)
-      OpenSSL::X509::Certificate.any_instance.expects(:check_private_key).returns(true)
+      allow(OpenSSL::X509::Certificate).to receive(:new).and_return(c)
+      allow(OpenSSL::PKey::RSA).to receive(:new)
+      allow_any_instance_of(OpenSSL::X509::Certificate).to receive(:check_private_key).and_return(true)
       expect(subject.exists?).to eq(true)
     end
 
     it 'exists? should return false if certificate exists and is not synced' do
       resource[:force] = true
-      File.stubs(:read)
-      Pathname.any_instance.expects(:exist?).returns(true)
+      allow(File).to receive(:read)
+      allow_any_instance_of(Pathname).to receive(:exist?).and_return(true)
       c = OpenSSL::X509::Certificate.new # Fake certificate for mocking
-      OpenSSL::X509::Certificate.stubs(:new).returns(c)
-      OpenSSL::PKey::RSA.expects(:new)
-      OpenSSL::X509::Certificate.any_instance.expects(:check_private_key).returns(false)
+      allow(OpenSSL::X509::Certificate).to receive(:new).and_return(c)
+      allow(OpenSSL::PKey::RSA).to receive(:new)
+      allow_any_instance_of(OpenSSL::X509::Certificate).to receive(:check_private_key).and_return(false)
       expect(subject.exists?).to eq(false)
     end
 
     it 'exists? should return false if certificate does not exist' do
       resource[:force] = true
-      Pathname.any_instance.expects(:exist?).returns(false)
+      allow_any_instance_of(Pathname).to receive(:exist?).and_return(false)
       expect(subject.exists?).to eq(false)
     end
   end
 
   it 'should delete files' do
-    Pathname.any_instance.expects(:delete)
+    allow_any_instance_of(Pathname).to receive(:delete)
     subject.destroy
   end
 end
