@@ -2,6 +2,8 @@
 #
 # Sets up packages for openssl
 class openssl::packages {
+  assert_private()
+
   package { 'openssl':
     ensure => $openssl::package_ensure,
     name   => $openssl::package_name,

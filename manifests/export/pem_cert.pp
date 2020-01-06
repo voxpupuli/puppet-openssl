@@ -8,36 +8,33 @@
 #   [*in_pass*]   - PFX password
 #
 define openssl::export::pem_cert(
-  $pfx_cert,
-  $pem_cert  = $title,
-  $ensure    = present,
-  $in_pass   = false,
+  Stdlib::Absolutepath      $pfx_cert,
+  Stdlib::Absolutepath      $pem_cert = $title,
+  Enum['present', 'absent'] $ensure   = present,
+  Boolean                   $in_pass  = false,
 ) {
-  case $ensure {
-    'present': {
-      $passin_opt = $in_pass ? {
-        false   => '',
-        default => "-passin pass:'${in_pass}'",
-      }
-
-      $cmd = [
-        'openssl pkcs12',
-        "-in ${pfx_cert}",
-        "-out ${pem_cert}",
-        '-nokeys',
-        $passin_opt,
-      ]
-
-      exec {"Export ${pfx_cert} to ${pem_cert}":
-        command => inline_template('<%= @cmd.join(" ") %>'),
-        path    => $::path,
-        creates => $pem_cert,
-      }
+  if $ensure == 'present' {
+    $passin_opt = $in_pass ? {
+      false   => '',
+      default => "-passin pass:'${in_pass}'",
     }
-    'absent': {
-      file {$pem_cert:
-        ensure => absent,
-      }
+
+    $cmd = [
+      'openssl pkcs12',
+      "-in ${pfx_cert}",
+      "-out ${pem_cert}",
+      '-nokeys',
+      $passin_opt,
+    ]
+
+    exec {"Export ${pfx_cert} to ${pem_cert}":
+      command => inline_template('<%= @cmd.join(" ") %>'),
+      path    => $::path,
+      creates => $pem_cert,
+    }
+  } else {
+    file { $pem_cert:
+      ensure => absent,
     }
   }
 }
