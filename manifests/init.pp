@@ -16,10 +16,9 @@
 #   }
 #
 class openssl (
-  $package_name           = 'openssl',
-  $package_ensure         = present,
-  $ca_certificates_ensure = present,
+  String[1]                 $package_name           = 'openssl',
+  Enum['present', 'absent'] $package_ensure         = present,
+  Enum['present', 'absent'] $ca_certificates_ensure = present,
 ){
-  class { '::openssl::packages': }
-  -> Class['openssl']
+  contain '::openssl::packages'
 }
