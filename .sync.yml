@@ -5,6 +5,9 @@
   branches:
     - master
     - /^\d/
+  deploy_to_forge:
+    enabled: true
+    tag_regex: "^\\d"
 Gemfile:
   optional:
     ':development, :unit_tests':
