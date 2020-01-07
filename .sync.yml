@@ -6,8 +6,6 @@ Gemfile:
   optional:
     ':development, :unit_tests':
       - gem: inifile
-.rubocop.yml:
-  selected_profile: off
 #README.md:
 #  module_name: 'OpenSSL'
 #  endorsement: 'approved'

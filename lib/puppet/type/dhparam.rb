@@ -4,7 +4,7 @@ Puppet::Type.newtype(:dhparam) do
 
   ensurable
 
-  newparam(:path, :namevar => true) do
+  newparam(:path, namevar: true) do
     validate do |value|
       path = Pathname.new(value)
       unless path.absolute?
@@ -15,7 +15,7 @@ Puppet::Type.newtype(:dhparam) do
 
   newparam(:size) do
     desc 'The key size'
-    newvalues /\d+/
+    newvalues %r{\d+}
     defaultto 512
     validate do |value|
       size = value.to_i

@@ -2,7 +2,7 @@ require 'pathname'
 Puppet::Type.type(:dhparam).provide(:openssl) do
   desc 'Manages dhparam files with OpenSSL'
 
-  commands :openssl => 'openssl'
+  commands openssl: 'openssl'
 
   def exists?
     Pathname.new(resource[:path]).exist?
@@ -15,7 +15,7 @@ Puppet::Type.type(:dhparam).provide(:openssl) do
       resource[:size]
     ]
     if resource[:fastmode]
-      options.insert(1,'-dsaparam')
+      options.insert(1, '-dsaparam')
     end
 
     openssl options
