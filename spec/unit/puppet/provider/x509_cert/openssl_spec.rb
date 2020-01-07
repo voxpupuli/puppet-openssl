@@ -4,9 +4,10 @@ require 'pathname'
 require 'puppet/type/x509_cert'
 
 describe 'The openssl provider for the x509_cert type' do
-  let (:path) { '/tmp/foo.crt' }
-  let (:resource) { Puppet::Type::X509_cert.new({:path => path}) }
   subject { Puppet::Type.type(:x509_cert).provider(:openssl).new(resource) }
+
+  let(:path) { '/tmp/foo.crt' }
+  let(:resource) { Puppet::Type::X509_cert.new(path: path) }
 
   context 'when not forcing key' do
     it 'exists? should return true if certificate exists and is synced' do
@@ -22,28 +23,28 @@ describe 'The openssl provider for the x509_cert type' do
       expect(subject.exists?).to eq(false)
     end
 
-    it 'should create a certificate with the proper options' do
+    it 'creates a certificate with the proper options' do
       allow(subject).to receive(:openssl).with([
-        'req', '-config', '/tmp/foo.cnf', '-new', '-x509',
-        '-days', 3650,
-        '-key', '/tmp/foo.key',
-        '-out', '/tmp/foo.crt',
-        ['-extensions', 'req_ext'],
-      ])
+                                                 'req', '-config', '/tmp/foo.cnf', '-new', '-x509',
+                                                 '-days', 3650,
+                                                 '-key', '/tmp/foo.key',
+                                                 '-out', '/tmp/foo.crt',
+                                                 ['-extensions', 'req_ext']
+                                               ])
       subject.create
     end
 
     context 'when using password' do
-      it 'should create a certificate with the proper options' do
+      it 'creates a certificate with the proper options' do
         resource[:password] = '2x6${'
         allow(subject).to receive(:openssl).with([
-          'req', '-config', '/tmp/foo.cnf', '-new', '-x509',
-          '-days', 3650,
-          '-key', '/tmp/foo.key',
-          '-out', '/tmp/foo.crt',
-          ['-passin', 'pass:2x6${'],
-          ['-extensions', 'req_ext'],
-        ])
+                                                   'req', '-config', '/tmp/foo.cnf', '-new', '-x509',
+                                                   '-days', 3650,
+                                                   '-key', '/tmp/foo.key',
+                                                   '-out', '/tmp/foo.crt',
+                                                   ['-passin', 'pass:2x6${'],
+                                                   ['-extensions', 'req_ext']
+                                                 ])
         subject.create
       end
     end
@@ -79,7 +80,7 @@ describe 'The openssl provider for the x509_cert type' do
     end
   end
 
-  it 'should delete files' do
+  it 'deletes files' do
     allow_any_instance_of(Pathname).to receive(:delete)
     subject.destroy
   end

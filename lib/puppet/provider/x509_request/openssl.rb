@@ -2,7 +2,7 @@ require 'pathname'
 Puppet::Type.type(:x509_request).provide(:openssl) do
   desc 'Manages certificate signing requests with OpenSSL'
 
-  commands :openssl => 'openssl'
+  commands openssl: 'openssl'
 
   def self.private_key(resource)
     file = File.read(resource[:private_key])
@@ -20,27 +20,27 @@ Puppet::Type.type(:x509_request).provide(:openssl) do
 
   def self.check_private_key(resource)
     request = OpenSSL::X509::Request.new(File.read(resource[:path]))
-    priv = self.private_key(resource)
+    priv = private_key(resource)
     request.verify(priv)
   end
 
   def exists?
     if Pathname.new(resource[:path]).exist?
-      if resource[:force] and !self.class.check_private_key(resource)
+      if resource[:force] && !self.class.check_private_key(resource)
         return false
       end
-      return true
+      true
     else
-      return false
+      false
     end
   end
 
   def create
     cmd_args = [
-        'req', '-new',
-        '-key', resource[:private_key],
-        '-config', resource[:template],
-        '-out', resource[:path]
+      'req', '-new',
+      '-key', resource[:private_key],
+      '-config', resource[:template],
+      '-out', resource[:path]
     ]
 
     if resource[:password]
@@ -48,7 +48,7 @@ Puppet::Type.type(:x509_request).provide(:openssl) do
       cmd_args.push("pass:#{resource[:password]}")
     end
 
-    if not resource[:encrypted]
+    unless resource[:encrypted]
       cmd_args.push('-nodes')
     end
 
@@ -59,4 +59,3 @@ Puppet::Type.type(:x509_request).provide(:openssl) do
     Pathname.new(resource[:path]).delete
   end
 end
-

@@ -4,7 +4,7 @@ Puppet::Type.newtype(:x509_request) do
 
   ensurable
 
-  newparam(:path, :namevar => true) do
+  newparam(:path, namevar: true) do
     validate do |value|
       path = Pathname.new(value)
       unless path.absolute?
@@ -13,7 +13,7 @@ Puppet::Type.newtype(:x509_request) do
     end
   end
 
-  newparam(:force, :boolean => true) do
+  newparam(:force, boolean: true) do
     desc 'Whether to replace the certificate if the private key mismatches'
     newvalues(:true, :false)
     defaultto false
@@ -55,7 +55,7 @@ Puppet::Type.newtype(:x509_request) do
     defaultto :rsa
   end
 
-  newparam(:encrypted, :boolean => true) do
+  newparam(:encrypted, boolean: true) do
     desc 'Whether to generate the key unencrypted. This is needed by some applications like OpenLDAP'
     newvalues(:true, :false)
     defaultto true

@@ -1,14 +1,15 @@
-require "spec_helper"
-require "facter"
+require 'spec_helper'
+require 'facter'
 
 describe Facter::Util::Fact do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) { facts }
-      before {
+
+      before(:each) do
         Facter.clear
-      }
-      describe "openssl_version" do
+      end
+      describe 'openssl_version' do
         context 'with value' do
           before :each do
             allow(Facter::Util::Resolution).to receive(:which).with('openssl').and_return(true)
@@ -28,7 +29,7 @@ describe Facter::Util::Fact do
           }
         end
       end
-      describe "openssl_version rhel" do
+      describe 'openssl_version rhel' do
         context 'with value' do
           before :each do
             allow(Facter::Util::Resolution).to receive(:which).with('openssl').and_return(true)
@@ -39,7 +40,7 @@ describe Facter::Util::Fact do
           }
         end
       end
-      describe "openssl_version centos" do
+      describe 'openssl_version centos' do
         context 'with value' do
           before :each do
             allow(Facter::Util::Resolution).to receive(:which).with('openssl').and_return(true)

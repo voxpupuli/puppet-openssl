@@ -3,9 +3,10 @@ require 'pathname'
 require 'puppet/type/x509_request'
 
 describe 'The openssl provider for the x509_request type' do
-  let (:path) { '/tmp/foo.csr' }
-  let (:resource) { Puppet::Type::X509_request.new({:path => path}) }
   subject { Puppet::Type.type(:x509_request).provider(:openssl).new(resource) }
+
+  let(:path) { '/tmp/foo.csr' }
+  let(:resource) { Puppet::Type::X509_request.new(path: path) }
 
   context 'when not forcing key' do
     it 'exists? should return true if csr exists' do
@@ -18,7 +19,7 @@ describe 'The openssl provider for the x509_request type' do
       expect(subject.exists?).to eq(false)
     end
 
-    it 'should create a certificate with the proper options' do
+    it 'creates a certificate with the proper options' do
       allow(subject).to receive(:openssl).with(
         'req', '-new',
         '-key', '/tmp/foo.key',
@@ -30,7 +31,7 @@ describe 'The openssl provider for the x509_request type' do
   end
 
   context 'when using password' do
-    it 'should create a certificate with the proper options' do
+    it 'creates a certificate with the proper options' do
       resource[:password] = '2x6${'
       allow(subject).to receive(:openssl).with(
         'req', '-new',
@@ -73,9 +74,8 @@ describe 'The openssl provider for the x509_request type' do
     end
   end
 
-  it 'should delete files' do
+  it 'deletes files' do
     allow_any_instance_of(Pathname).to receive(:delete)
     subject.destroy
   end
 end
-

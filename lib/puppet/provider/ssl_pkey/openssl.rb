@@ -16,7 +16,7 @@ Puppet::Type.type(:ssl_pkey).provide(:openssl) do
       OpenSSL::PKey::EC.new(resource[:curve]).generate_key
     else
       raise Puppet::Error,
-        "Unknown authentication type '#{resource[:authentication]}'"
+            "Unknown authentication type '#{resource[:authentication]}'"
     end
   end
 

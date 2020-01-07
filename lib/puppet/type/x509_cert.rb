@@ -4,7 +4,7 @@ Puppet::Type.newtype(:x509_cert) do
 
   ensurable
 
-  newparam(:path, :namevar => true) do
+  newparam(:path, namevar: true) do
     desc 'The path to the certificate'
     validate do |value|
       path = Pathname.new(value)
@@ -30,11 +30,11 @@ Puppet::Type.newtype(:x509_cert) do
 
   newparam(:days) do
     desc 'The validity of the certificate'
-    newvalues(/\d+/)
+    newvalues(%r{\d+})
     defaultto(3650)
   end
 
-  newparam(:force, :boolean => true) do
+  newparam(:force, boolean: true) do
     desc 'Whether to replace the certificate if the private key mismatches'
     newvalues(:true, :false)
     defaultto false
@@ -44,7 +44,7 @@ Puppet::Type.newtype(:x509_cert) do
     desc 'The optional password for the private key'
   end
 
-  newparam(:req_ext, :boolean => true) do
+  newparam(:req_ext, boolean: true) do
     desc 'Whether adding v3 SAN from config'
     newvalues(:true, :false)
     defaultto false

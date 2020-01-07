@@ -21,19 +21,19 @@ Puppet::Functions.create_function(:cert_date_valid) do
     content = File.read(certfile)
     cert = OpenSSL::X509::Certificate.new(content)
 
-    if cert.not_before.nil? and cert.not_after.nil?
-      raise "No date found in certificate"
+    if cert.not_before.nil? && cert.not_after.nil?
+      raise 'No date found in certificate'
     end
 
-    now       = Time.now
+    now = Time.now
 
-    if (now > cert.not_after)
+    if now > cert.not_after
       # certificate is expired
       false
-    elsif (now < cert.not_before)
+    elsif now < cert.not_before
       # certificate is not yet valid
       false
-    elsif (cert.not_after <= cert.not_before)
+    elsif cert.not_after <= cert.not_before
       # certificate will never be valid
       false
     else
