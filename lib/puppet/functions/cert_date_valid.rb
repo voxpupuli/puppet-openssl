@@ -10,11 +10,11 @@ Puppet::Functions.create_function(:cert_date_valid) do
   # @return false if the certificate is expired or not yet valid,
   # or the number of seconds the certificate is still valid for.
   #
-  dispatch :is_valid do
+  dispatch :valid? do
     repeated_param 'String', :certfile
   end
 
-  def is_valid(certfile)
+  def valid?(certfile)
     require 'time'
     require 'openssl'
 
