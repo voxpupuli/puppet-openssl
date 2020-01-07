@@ -4,17 +4,19 @@ require 'puppet/type/ssl_pkey'
 
 describe 'The openssl provider for the ssl_pkey type' do
   let(:path) { '/tmp/foo.key' }
+  let(:pathname) { Pathname.new(path) }
   let(:resource) { Puppet::Type::Ssl_pkey.new(path: path) }
-
-  key = OpenSSL::PKey::RSA.new # For mocking
+  let(:key) { OpenSSL::PKey::RSA.new }
 
   it 'exists? should return true if key exists' do
-    allow_any_instance_of(Pathname).to receive(:exist?).and_return(true)
+    expect(Pathname).to receive(:new).twice.with(path).and_return(pathname)
+    expect(pathname).to receive(:exist?).and_return(true)
     expect(resource.provider.exists?).to eq(true)
   end
 
   it 'exists? should return false if certificate does not exist' do
-    allow_any_instance_of(Pathname).to receive(:exist?).and_return(false)
+    expect(Pathname).to receive(:new).twice.with(path).and_return(pathname)
+    expect(pathname).to receive(:exist?).and_return(false)
     expect(resource.provider.exists?).to eq(false)
   end
 
@@ -138,7 +140,8 @@ describe 'The openssl provider for the ssl_pkey type' do
   end
 
   it 'deletes files' do
-    allow_any_instance_of(Pathname).to receive(:delete)
+    expect(Pathname).to receive(:new).twice.with(path).and_return(pathname)
+    expect(pathname).to receive(:delete)
     resource.provider.destroy
   end
 end

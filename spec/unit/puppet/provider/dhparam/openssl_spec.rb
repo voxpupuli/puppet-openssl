@@ -5,6 +5,7 @@ require 'puppet/type/dhparam'
 provider_class = Puppet::Type.type(:dhparam).provider(:openssl)
 describe 'The openssl provider for the dhparam type' do
   let(:path) { '/tmp/dhparam.pem' }
+  let(:pathname) { Pathname.new(path) }
   let(:resource) { Puppet::Type::Dhparam.new(path: path) }
 
   context 'when using default size' do
@@ -31,7 +32,8 @@ describe 'The openssl provider for the dhparam type' do
   end
 
   it 'deletes file' do
-    allow_any_instance_of(Pathname).to receive(:delete)
+    expect(Pathname).to receive(:new).twice.and_return(pathname)
+    expect(pathname).to receive(:delete)
     resource.provider.destroy
   end
 end
