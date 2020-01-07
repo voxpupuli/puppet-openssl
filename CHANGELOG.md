@@ -1,3 +1,11 @@
+## 2020-01-07 - Release 1.13.0
+
+- Convert module to PDK (#105)
+- Port specs to rspec 3 syntax (#107)
+- Port cert_date_valid function to Puppet 4.x API (#106)
+- Cleanup some manifests, use data types (#104)
+- Rubocop fixes (#108)
+
 ## 2019-04-16 - Release 1.12.0
 
 - Add ability to generate Elliptic Curve key pairs (#99)
