@@ -1,14 +1,8 @@
-RSpec.configure do |c|
-  c.mock_with :rspec
-end
-
 # HACK: to enable all the expect syntax (like allow_any_instance_of) in rspec-puppet examples
 RSpec::Mocks::Syntax.enable_expect(RSpec::Puppet::ManifestMatchers)
 
 RSpec.configure do |config|
-  # supply tests with a possibility to test for the future parser
-  config.add_setting :puppet_future
-  config.puppet_future = Puppet.version.to_f >= 4.0
+  config.mock_with :rspec
 
   config.before :each do
     # Ensure that we don't accidentally cache facts and environment between
