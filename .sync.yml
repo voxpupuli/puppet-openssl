@@ -12,6 +12,8 @@ Gemfile:
   optional:
     ':development, :unit_tests':
       - gem: inifile
+Rakefile:
+  changelog_version_tag_pattern: '%s'
 #README.md:
 #  module_name: 'OpenSSL'
 #  endorsement: 'approved'
