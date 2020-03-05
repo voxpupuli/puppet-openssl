@@ -1,3 +1,9 @@
+## 2020-03-05 - Release 1.14.0
+
+- Update stdlib dependency (#109)
+- in_pass, out_pass and chaincert params to Optional[String] (#111)
+- Use pdk-template 1.15.0
+
 ## 2020-01-07 - Release 1.13.0
 
 - Convert module to PDK (#105)
