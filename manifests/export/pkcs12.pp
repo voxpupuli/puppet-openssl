@@ -15,23 +15,23 @@ define openssl::export::pkcs12(
   Stdlib::Absolutepath      $pkey,
   Stdlib::Absolutepath      $cert,
   Enum['present', 'absent'] $ensure    = present,
-  Boolean                   $chaincert = false,
-  Boolean                   $in_pass   = false,
-  Boolean                   $out_pass  = false,
+  Optional[String]          $chaincert = undef,
+  Optional[String]          $in_pass   = undef,
+  Optional[String]          $out_pass  = undef,
 ) {
   if $ensure == 'present' {
     $pass_opt = $in_pass ? {
-      false   => '',
+      undef   => '',
       default => "-passin pass:${in_pass}",
     }
 
     $passout_opt = $out_pass ? {
-      false   => '',
+      undef   => '',
       default => "-passout pass:${out_pass}",
     }
 
     $chain_opt = $chaincert ? {
-      false   => '',
+      undef   => '',
       default => "-chain -CAfile ${chaincert}",
     }
 

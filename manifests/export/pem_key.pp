@@ -12,17 +12,17 @@ define openssl::export::pem_key(
   Stdlib::Absolutepath      $pfx_cert,
   Stdlib::Absolutepath      $pem_key  = $title,
   Enum['present', 'absent'] $ensure   = present,
-  Boolean                   $in_pass  = false,
-  Boolean                   $out_pass = false,
+  Optional[String]          $in_pass  = undef,
+  Optional[String]          $out_pass = undef,
 ) {
   if $ensure == 'present' {
     $passin_opt = $in_pass ? {
-      false   => '',
+      undef   => '',
       default => "-passin pass:'${in_pass}'",
     }
 
     $passout_opt = $out_pass ? {
-      false   => '-nodes',
+      undef   => '-nodes',
       default => "-passout pass:'${out_pass}'",
     }
 
