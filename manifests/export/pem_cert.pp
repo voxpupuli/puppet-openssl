@@ -11,11 +11,11 @@ define openssl::export::pem_cert(
   Stdlib::Absolutepath      $pfx_cert,
   Stdlib::Absolutepath      $pem_cert = $title,
   Enum['present', 'absent'] $ensure   = present,
-  Boolean                   $in_pass  = false,
+  Optional[String]          $in_pass  = undef,
 ) {
   if $ensure == 'present' {
     $passin_opt = $in_pass ? {
-      false   => '',
+      undef   => '',
       default => "-passin pass:'${in_pass}'",
     }
 
