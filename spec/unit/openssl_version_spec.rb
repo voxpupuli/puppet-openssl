@@ -52,6 +52,17 @@ describe Facter.fact(:openssl_version) do
           }
         end
       end
+      describe 'openssl_version rhel8' do
+        context 'with value' do
+          before :each do
+            allow(Facter::Util::Resolution).to receive(:which).with('openssl').and_return(true)
+            allow(Facter::Util::Resolution).to receive(:exec).with('openssl version 2>&1').and_return('OpenSSL 1.1.1c FIPS  28 May 2019')
+          end
+          it {
+            expect(Facter.value(:openssl_version)).to eq('1.1.1c')
+          }
+        end
+      end
     end
   end
 end
