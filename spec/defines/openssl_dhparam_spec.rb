@@ -16,6 +16,7 @@ describe 'openssl::dhparam' do
       }.to raise_error(%r{got ['barz'|String]})
     end
   end
+
   context 'when passing wrong value for ensure' do
     let(:params) do
       {
@@ -30,6 +31,7 @@ describe 'openssl::dhparam' do
       }.to raise_error(Puppet::Error, %r{got 'foo'})
     end
   end
+
   context 'when passing non positive size' do
     let(:params) do
       {
@@ -44,6 +46,7 @@ describe 'openssl::dhparam' do
       }.to raise_error(Puppet::Error, %r{got Integer})
     end
   end
+
   context 'when passing wrong type for user' do
     let(:params) do
       {
@@ -58,6 +61,7 @@ describe 'openssl::dhparam' do
       }.to raise_error(Puppet::Error, %r{got Boolean})
     end
   end
+
   context 'when passing wrong type for group' do
     let(:params) do
       {
@@ -72,6 +76,7 @@ describe 'openssl::dhparam' do
       }.to raise_error(Puppet::Error, %r{got Boolean})
     end
   end
+
   context 'when passing wrong type for mode' do
     let(:params) do
       {
@@ -86,6 +91,7 @@ describe 'openssl::dhparam' do
       }.to raise_error(Puppet::Error, %r{got Boolean})
     end
   end
+
   context 'when using defaults' do
     let(:params) do
       {
@@ -159,6 +165,7 @@ describe 'openssl::dhparam' do
       )
     }
   end
+
   context 'when absent' do
     let(:params) do
       {
