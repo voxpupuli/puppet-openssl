@@ -62,6 +62,48 @@ describe 'openssl::dhparam' do
     end
   end
 
+  context 'when passing numeric owner' do
+    let(:params) do
+      {
+        path: '/etc/ssl/dhparam.pem',
+        owner: 0,
+      }
+    end
+
+    it {
+      is_expected.to contain_dhparam('/etc/ssl/dhparam.pem').with(
+        ensure: 'present',
+        size: 2048,
+      )
+    }
+    it {
+      is_expected.to contain_file('/etc/ssl/dhparam.pem').with(
+        owner: 0,
+      )
+    }
+  end
+
+  context 'when passing numeric group' do
+    let(:params) do
+      {
+        path: '/etc/ssl/dhparam.pem',
+        group: 0,
+      }
+    end
+
+    it {
+      is_expected.to contain_dhparam('/etc/ssl/dhparam.pem').with(
+        ensure: 'present',
+        size: 2048,
+      )
+    }
+    it {
+      is_expected.to contain_file('/etc/ssl/dhparam.pem').with(
+        group: 0,
+      )
+    }
+  end
+
   context 'when passing wrong type for group' do
     let(:params) do
       {
