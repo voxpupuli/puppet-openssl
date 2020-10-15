@@ -14,23 +14,29 @@ define openssl::export::pem_cert(
   Stdlib::Absolutepath      $pem_cert = $title,
   Enum['present', 'absent'] $ensure   = present,
   Optional[String]          $in_pass  = undef,
+  Optional[String]          $x509_opt = undef,
+  Optional[String]          $sslmodule = undef,
 ) {
-  if $der_cert ? {
-    $sslmodule = 'x509',
-    $in_cert = $der_cert,
+  if $der_cert {
+    $sslmodule = 'x509'
+    $in_cert   = $der_cert
+    $x509_opt ? {
+      undef   => '',
+      default => '-inform DER',
+    }
   } else {
     $sslmodule = 'pkcs12'
-    $in_cert = $pfx_cert,
+    $in_cert = $pfx_cert
     $passin_opt = $in_pass ? {
       undef   => '',
       default => "-nokeys -passin pass:'${in_pass}'",
     }
-    
   }
-  
+
   if $ensure == 'present' {
     $cmd = [
-      'openssl $sslmodule',
+      "openssl ${sslmodule}",
+      $x509_opt,
       "-in ${in_cert}",
       "-out ${pem_cert}",
       $passin_opt,
