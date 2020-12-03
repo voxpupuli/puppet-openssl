@@ -46,7 +46,7 @@ describe 'cert_date_valid' do
     it 'returns true if it is still valid' do
       expect(OpenSSL::X509::Certificate).to receive(:new).with('bleh').and_return(cert)
       cert.not_before = Time.now - 1000
-      cert.not_after = Time.now + 1000
+      cert.not_after = cert.not_before + 2000
       is_expected.to run.with_params('/path/to/cert').and_return(999)
     end
   end
