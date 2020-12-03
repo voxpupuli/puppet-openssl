@@ -16,7 +16,7 @@
 #   }
 #
 class openssl (
-  String[1]                 $package_name           = 'openssl',
+  Optional[String[1]]       $package_name           = undef,
   Enum['present', 'absent'] $package_ensure         = present,
   Enum['present', 'absent'] $ca_certificates_ensure = present,
 ){
