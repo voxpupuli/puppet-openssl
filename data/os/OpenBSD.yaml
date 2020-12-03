@@ -3,3 +3,4 @@
 # on openbsd libressl is used which is part of the OS
 # there is no libressl package available.
 openssl::package_name: ~
+openssl::configs::group: 'wheel'
