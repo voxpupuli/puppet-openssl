@@ -53,4 +53,19 @@ describe Puppet::Type.type(:x509_request) do
       resource[:force] = :foo
     end.to raise_error(Puppet::Error, %r{Invalid value :foo})
   end
+
+  it 'accepts mode' do
+    resource[:mode] = '0700'
+    expect(resource[:mode]).to eq('0700')
+  end
+
+  it 'accepts owner' do
+    resource[:owner] = 'someone'
+    expect(resource[:owner]).to eq('someone')
+  end
+
+  it 'accepts group' do
+    resource[:group] = 'party'
+    expect(resource[:group]).to eq('party')
+  end
 end

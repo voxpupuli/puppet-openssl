@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 require 'pathname'
-Puppet::Type.type(:x509_request).provide(:openssl) do
+require File.join(File.dirname(__FILE__), '..', '..', '..', 'puppet/provider/openssl')
+Puppet::Type.type(:x509_request).provide(
+  :openssl,
+  parent: Puppet::Provider::Openssl,
+) do
   desc 'Manages certificate signing requests with OpenSSL'
 
   commands openssl: 'openssl'
@@ -45,6 +49,8 @@ Puppet::Type.type(:x509_request).provide(:openssl) do
     # openssl(options) doesn't work because it's impossible to pass an env
     # https://github.com/puppetlabs/puppet/issues/9493
     execute([command('openssl')] + options, { failonfail: true, combine: true, custom_environment: env })
+
+    set_file_perm(resource[:path], resource[:owner], resource[:group], resource[:mode])
   end
 
   def destroy
