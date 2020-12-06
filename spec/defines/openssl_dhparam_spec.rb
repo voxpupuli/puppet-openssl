@@ -97,11 +97,6 @@ describe 'openssl::dhparam' do
       is_expected.to contain_dhparam('/etc/ssl/dhparam.pem').with(
         ensure: 'present',
         size: 2048,
-      )
-    }
-    it {
-      is_expected.to contain_file('/etc/ssl/dhparam.pem').with(
-        ensure: 'present',
         owner: 'root',
         group: 'root',
         mode: '0644',
@@ -121,11 +116,6 @@ describe 'openssl::dhparam' do
       is_expected.to contain_dhparam('/etc/ssl/dhparam.pem').with(
         ensure: 'present',
         size: 2048,
-      )
-    }
-    it {
-      is_expected.to contain_file('/etc/ssl/dhparam.pem').with(
-        ensure: 'present',
         owner: 'root',
         group: 'root',
         mode: '0644',
@@ -148,11 +138,6 @@ describe 'openssl::dhparam' do
       is_expected.to contain_dhparam('/etc/ssl/dhparam.pem').with(
         ensure: 'present',
         size: 2048,
-      )
-    }
-    it {
-      is_expected.to contain_file('/etc/ssl/dhparam.pem').with(
-        ensure: 'present',
         owner: 'www-data',
         group: 'adm',
         mode: '0640',
@@ -169,11 +154,6 @@ describe 'openssl::dhparam' do
 
     it {
       is_expected.to contain_dhparam('/etc/ssl/dhparam.pem').with(
-        ensure: 'absent',
-      )
-    }
-    it {
-      is_expected.to contain_file('/etc/ssl/dhparam.pem').with(
         ensure: 'absent',
       )
     }

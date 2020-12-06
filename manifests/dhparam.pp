@@ -28,14 +28,8 @@ define openssl::dhparam(
     ensure   => $ensure,
     size     => $size,
     fastmode => $fastmode,
-  }
-
-  # Set file access
-  file { $path:
-      ensure  => $ensure,
-      owner   => $owner,
-      group   => $group,
-      mode    => $mode,
-      require => Dhparam[$path];
+    owner    => $owner,
+    group    => $group,
+    mode     => $mode,
   }
 }
