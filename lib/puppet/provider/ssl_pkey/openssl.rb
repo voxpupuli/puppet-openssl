@@ -1,6 +1,10 @@
 require 'pathname'
 require 'openssl'
-Puppet::Type.type(:ssl_pkey).provide(:openssl) do
+require File.join(File.dirname(__FILE__), '..', '..', '..', 'puppet/provider/openssl')
+Puppet::Type.type(:ssl_pkey).provide(
+  :openssl,
+  parent: Puppet::Provider::Openssl,
+) do
   desc 'Manages private keys with OpenSSL'
 
   def self.dirname(resource)
@@ -39,6 +43,7 @@ Puppet::Type.type(:ssl_pkey).provide(:openssl) do
     File.open(resource[:path], 'w') do |f|
       f.write(pem)
     end
+    set_file_perm(resource[:path], resource[:owner], resource[:group], resource[:mode])
   end
 
   def destroy
