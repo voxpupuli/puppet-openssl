@@ -49,4 +49,20 @@ describe Puppet::Type.type(:ssl_pkey) do
     resource[:password] = 'foox2$bar'
     expect(resource[:password]).to eq('foox2$bar')
   end
+
+  it 'accepts mode' do
+    resource[:mode] = '0700'
+    expect(resource[:mode]).to eq('0700')
+  end
+
+  it 'accepts owner' do
+    resource[:owner] = 'someone'
+    expect(resource[:owner]).to eq('someone')
+  end
+
+  it 'accepts group' do
+    resource[:group] = 'party'
+    expect(resource[:group]).to eq('party')
+  end
+
 end
