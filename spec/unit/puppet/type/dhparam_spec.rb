@@ -38,4 +38,20 @@ describe Puppet::Type.type(:dhparam) do
       resource[:size] = 1.5
     end.to raise_error(Puppet::Error, %r{Size must be a positive integer: 1.5})
   end
+
+  it 'accepts mode' do
+    resource[:mode] = '0700'
+    expect(resource[:mode]).to eq('0700')
+  end
+
+  it 'accepts owner' do
+    resource[:owner] = 'someone'
+    expect(resource[:owner]).to eq('someone')
+  end
+
+  it 'accepts group' do
+    resource[:group] = 'party'
+    expect(resource[:group]).to eq('party')
+  end
+
 end
