@@ -70,6 +70,33 @@ Puppet::Type.newtype(:x509_cert) do
     defaultto :rsa
   end
 
+  newproperty(:owner) do
+    desc 'owner of the file'
+    validate do |value|
+      unless value =~ %r{^\w+}
+        raise ArgumentError, '%s is not a valid user name' % value
+      end
+    end
+  end
+
+  newproperty(:group) do
+    desc 'group of the file'
+    validate do |value|
+      unless value =~ %r{^\w+}
+        raise ArgumentError, '%s is not a valid group name' % value
+      end
+    end
+  end
+
+  newproperty(:mode) do
+    desc 'mode of the file'
+    validate do |value|
+      unless value =~ %r{^0\d\d\d$}
+        raise ArgumentError, '%s is not a valid file mode' % value
+      end
+    end
+  end
+
   autorequire(:file) do
     self[:template]
   end

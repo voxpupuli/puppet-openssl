@@ -1,5 +1,9 @@
 require 'pathname'
-Puppet::Type.type(:x509_cert).provide(:openssl) do
+require File.join(File.dirname(__FILE__), '..', '..', '..', 'puppet/provider/openssl')
+Puppet::Type.type(:x509_cert).provide(
+  :openssl,
+  parent: Puppet::Provider::Openssl,
+) do
   desc 'Manages certificates with OpenSSL'
 
   commands openssl: 'openssl'
@@ -78,6 +82,7 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
     options << ['-passin', "pass:#{resource[:password]}"] if resource[:password]
     options << ['-extensions', 'req_ext'] if resource[:req_ext] != :false
     openssl options
+    set_file_perm(resource[:path], resource[:owner], resource[:group], resource[:mode])
   end
 
   def destroy
