@@ -42,4 +42,8 @@ Puppet::Type.newtype(:ssl_pkey) do
   newparam(:password) do
     desc 'The optional password for the key'
   end
+
+  autorequire(:file) do
+    Pathname.new(self[:path]).parent.to_s
+  end
 end
