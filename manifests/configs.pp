@@ -69,11 +69,6 @@ class openssl::configs (
   Hash              $conffiles         = {},
 ){
 
-  # dpendencies: ensure config file is generated before potential usage
-  File<| tag=='openssl-configs' |> -> Ssl_pkey<| |>
-  File<| tag=='openssl-configs' |> -> X509_cert<| |>
-  File<| tag=='openssl-configs' |> -> X509_request<| |>
-
   $conffiles.each |String $filename, Hash $vals| {
     file { $filename:
       ensure  => pick($vals['ensure'], 'present'),
