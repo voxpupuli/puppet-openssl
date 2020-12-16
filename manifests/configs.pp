@@ -76,10 +76,10 @@ class openssl::configs (
 
   $conffiles.each | String $filename, Hash $vals| {
     file { $filename:
-      ensure  => pick($vals['ensure'],'present'),
-      owner   => pick($vals['owner'],$owner),
-      group   => pick($vals['group'],$group),
-      mode    => pick($vals['mode'],$mode),
+      ensure  => pick($vals['ensure'], 'present'),
+      owner   => pick($vals['owner'], $owner),
+      group   => pick($vals['group'], $group),
+      mode    => pick($vals['mode'], $mode),
       content => epp('openssl/cert.cnf.epp', {
         country           => $country,
         state             => $state,
