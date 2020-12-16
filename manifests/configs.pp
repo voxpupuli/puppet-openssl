@@ -74,7 +74,7 @@ class openssl::configs (
   File<| tag=='openssl-configs' |> -> X509_cert<| |>
   File<| tag=='openssl-configs' |> -> X509_request<| |>
 
-  $conffiles.each | String $filename, Hash $vals| {
+  $conffiles.each |String $filename, Hash $vals| {
     file { $filename:
       ensure  => pick($vals['ensure'], 'present'),
       owner   => pick($vals['owner'], $owner),
