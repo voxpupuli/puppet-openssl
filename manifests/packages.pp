@@ -4,9 +4,11 @@
 class openssl::packages {
   assert_private()
 
-  package { 'openssl':
-    ensure => $openssl::package_ensure,
-    name   => $openssl::package_name,
+  if $openssl::package_name {
+    package { 'openssl':
+      ensure => $openssl::package_ensure,
+      name   => $openssl::package_name,
+    }
   }
 
   if $::osfamily == 'Debian' or (
