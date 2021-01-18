@@ -16,6 +16,7 @@ describe 'openssl::dhparam' do
       }.to raise_error(%r{got ['barz'|String]})
     end
   end
+
   context 'when passing wrong value for ensure' do
     let(:params) do
       {
@@ -30,6 +31,7 @@ describe 'openssl::dhparam' do
       }.to raise_error(Puppet::Error, %r{got 'foo'})
     end
   end
+
   context 'when passing non positive size' do
     let(:params) do
       {
@@ -44,6 +46,7 @@ describe 'openssl::dhparam' do
       }.to raise_error(Puppet::Error, %r{got Integer})
     end
   end
+
   context 'when passing wrong type for user' do
     let(:params) do
       {
@@ -58,6 +61,49 @@ describe 'openssl::dhparam' do
       }.to raise_error(Puppet::Error, %r{got Boolean})
     end
   end
+
+  context 'when passing numeric owner' do
+    let(:params) do
+      {
+        path: '/etc/ssl/dhparam.pem',
+        owner: 0,
+      }
+    end
+
+    it {
+      is_expected.to contain_dhparam('/etc/ssl/dhparam.pem').with(
+        ensure: 'present',
+        size: 2048,
+      )
+    }
+    it {
+      is_expected.to contain_file('/etc/ssl/dhparam.pem').with(
+        owner: 0,
+      )
+    }
+  end
+
+  context 'when passing numeric group' do
+    let(:params) do
+      {
+        path: '/etc/ssl/dhparam.pem',
+        group: 0,
+      }
+    end
+
+    it {
+      is_expected.to contain_dhparam('/etc/ssl/dhparam.pem').with(
+        ensure: 'present',
+        size: 2048,
+      )
+    }
+    it {
+      is_expected.to contain_file('/etc/ssl/dhparam.pem').with(
+        group: 0,
+      )
+    }
+  end
+
   context 'when passing wrong type for group' do
     let(:params) do
       {
@@ -72,6 +118,7 @@ describe 'openssl::dhparam' do
       }.to raise_error(Puppet::Error, %r{got Boolean})
     end
   end
+
   context 'when passing wrong type for mode' do
     let(:params) do
       {
@@ -86,6 +133,7 @@ describe 'openssl::dhparam' do
       }.to raise_error(Puppet::Error, %r{got Boolean})
     end
   end
+
   context 'when using defaults' do
     let(:params) do
       {
@@ -159,6 +207,7 @@ describe 'openssl::dhparam' do
       )
     }
   end
+
   context 'when absent' do
     let(:params) do
       {
