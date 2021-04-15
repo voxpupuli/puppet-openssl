@@ -352,6 +352,106 @@ describe 'openssl::certificate::x509' do
     end
   end
 
+  context 'when passing numeric owner' do
+    let(:params) do
+      {
+        country: 'foo',
+        organization: 'bar',
+        commonname: 'baz',
+        owner: 0,
+      }
+    end
+
+    it {
+      is_expected.to contain_file('/etc/ssl/certs/foo.key').with(
+        ensure: 'present',
+        owner: 0,
+      )
+    }
+
+    it {
+      is_expected.to contain_file('/etc/ssl/certs/foo.crt').with(
+        ensure: 'present',
+        owner: 0,
+      )
+    }
+
+    it {
+      is_expected.to contain_file('/etc/ssl/certs/foo.csr').with(
+        ensure: 'present',
+        owner: 0,
+      )
+    }
+  end
+
+  context 'when passing numeric group' do
+    let(:params) do
+      {
+        country: 'foo',
+        organization: 'bar',
+        commonname: 'baz',
+        group: 0,
+      }
+    end
+
+    it {
+      is_expected.to contain_file('/etc/ssl/certs/foo.key').with(
+        ensure: 'present',
+        group: 0,
+      )
+    }
+
+    it {
+      is_expected.to contain_file('/etc/ssl/certs/foo.crt').with(
+        ensure: 'present',
+        group: 0,
+      )
+    }
+
+    it {
+      is_expected.to contain_file('/etc/ssl/certs/foo.csr').with(
+        ensure: 'present',
+        group: 0,
+      )
+    }
+  end
+
+  context 'when passing numeric key_owner' do
+    let(:params) do
+      {
+        country: 'foo',
+        organization: 'bar',
+        commonname: 'baz',
+        key_owner: 0,
+      }
+    end
+
+    it {
+      is_expected.to contain_file('/etc/ssl/certs/foo.key').with(
+        ensure: 'present',
+        owner: 0,
+      )
+    }
+  end
+
+  context 'when passing numeric key_group' do
+    let(:params) do
+      {
+        country: 'foo',
+        organization: 'bar',
+        commonname: 'baz',
+        key_group: 0,
+      }
+    end
+
+    it {
+      is_expected.to contain_file('/etc/ssl/certs/foo.key').with(
+        ensure: 'present',
+        group: 0,
+      )
+    }
+  end
+
   context 'when using defaults' do
     let(:params) do
       {

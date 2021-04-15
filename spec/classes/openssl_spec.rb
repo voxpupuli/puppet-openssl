@@ -7,7 +7,17 @@ describe 'openssl' do
 
       it { is_expected.to compile.with_all_deps }
 
-      it { is_expected.to contain_package('openssl').with_ensure('present') }
+      context 'on OpenBSD', if: facts[:osfamily] == 'OpenBSD' do
+        it { is_expected.to contain_package('openssl') }
+      end
+
+      context 'on not OpenBSD', if: facts[:osfamily] != 'OpenBSD' do
+        it {
+          is_expected.to contain_package('openssl')
+            .with_ensure('present')
+            .with_name('openssl')
+        }
+      end
 
       context 'on Debian', if: facts[:osfamily] == 'Debian' do
         it { is_expected.to contain_package('ca-certificates') }
