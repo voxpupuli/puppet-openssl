@@ -8,41 +8,50 @@
 #   [*pem_cert*]  - PEM/x509 certificate
 #   [*in_pass*]   - PFX password
 #
-define openssl::export::pem_cert(
-  Stdlib::Absolutepath      $pfx_cert,
-  Stdlib::Filesource        $der_cert,
-  Stdlib::Absolutepath      $pem_cert = $title,
-  Enum['present', 'absent'] $ensure   = present,
-  Optional[String]          $in_pass  = undef,
-  Optional[String]          $x509_opt = undef,
-  Optional[String]          $sslmodule = undef,
+define openssl::export::pem_cert (
+  Optional[Stdlib::Absolutepath]  $pfx_cert = undef,
+  Optional[Stdlib::Absolutepath]  $der_cert = undef,
+  Stdlib::Absolutepath            $pem_cert = $title,
+  Enum['present', 'absent']       $ensure   = present,
+  Optional[String]                $in_pass  = undef,
+
 ) {
-  if $der_cert {
+  #local variables
+
+  # If ensure = present and  der_cert and $pfx_cert as being specified, then throw error
+  if (($ensure == present) and ($der_cert == undef ) and ($pfx_cert == undef )) {
+    fail('Parameter Error: either pfx_cert or der_cert must be specified')
+  }
+
+  if (($der_cert != undef ) and ($pfx_cert != undef )) {
+    fail('Parameter Error: pfx_cert and der_cert are mutually-exclusive')
+  }
+
+  if ($der_cert != undef ) {
     $sslmodule = 'x509'
     $in_cert   = $der_cert
-    $x509_opt ? {
-      undef   => '',
-      default => '-inform DER',
-    }
+    $module_opt  = '-inform DER'
   } else {
-    $sslmodule = 'pkcs12'
-    $in_cert = $pfx_cert
-    $passin_opt = $in_pass ? {
-      undef   => '',
-      default => "-nokeys -passin pass:'${in_pass}'",
-    }
+    $sslmodule  = 'pkcs12'
+    $in_cert    = $pfx_cert
+    $module_opt   = ''
+  }
+
+  $passin_opt = $in_pass ? {
+    undef   => '',
+    default => "-nokeys -passin pass:'${in_pass}'",
   }
 
   if $ensure == 'present' {
     $cmd = [
       "openssl ${sslmodule}",
-      $x509_opt,
+      $module_opt,
       "-in ${in_cert}",
       "-out ${pem_cert}",
       $passin_opt,
     ]
 
-    exec {"Export ${in_cert} to ${pem_cert}":
+    exec { "Export ${in_cert} to ${pem_cert}":
       command => inline_template('<%= @cmd.join(" ") %>'),
       path    => $::path,
       creates => $pem_cert,

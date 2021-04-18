@@ -8,7 +8,7 @@
 #   [*in_pass*]   - PFX container password
 #   [*out_pass*]  - PEM key password
 #
-define openssl::export::pem_key(
+define openssl::export::pem_key (
   Stdlib::Absolutepath      $pfx_cert,
   Stdlib::Absolutepath      $pem_key  = $title,
   Enum['present', 'absent'] $ensure   = present,
@@ -35,7 +35,7 @@ define openssl::export::pem_key(
       $passout_opt,
     ]
 
-    exec {"Export ${pfx_cert} to ${pem_key}":
+    exec { "Export ${pfx_cert} to ${pem_key}":
       command => inline_template('<%= @cmd.join(" ") %>'),
       path    => $::path,
       creates => $pem_key,
