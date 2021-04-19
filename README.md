@@ -205,6 +205,16 @@ openssl::export::pem_cert { 'foo':
   in_pass  => 'my_pkcs12_password',
 }
 ```
+This definition exports PEM certificates from a DER certificate:
+
+```puppet
+openssl::export::pem_cert { 'foo':
+  ensure   => 'present',
+  der_cert => '/here/is/my/certstore.der',
+  pem_cert => '/here/is/my/cert.pem',
+}
+```
+
 
 ### openssl::export::pem_key
 

@@ -51,6 +51,12 @@
         "6.7",
         "6.8"
       ]
+    },
+    {
+      "operatingsystem": "Solaris",
+      "operatingsystemrelease": [
+        "11.4"
+      ]
     }
   ],
   "requirements": [
