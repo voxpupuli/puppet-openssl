@@ -18,8 +18,8 @@ define openssl::dhparam(
   Stdlib::Absolutepath      $path = $name,
   Enum['present', 'absent'] $ensure = present,
   Integer[1]                $size = 2048,
-  String                    $owner = 'root',
-  String                    $group = 'root',
+  Variant[String, Integer]  $owner = 'root',
+  Variant[String, Integer]  $group = 'root',
   String                    $mode = '0644',
   Boolean                   $fastmode = false,
 ) {

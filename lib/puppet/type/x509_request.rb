@@ -70,6 +70,10 @@ Puppet::Type.newtype(:x509_request) do
     self[:private_key]
   end
 
+  autorequire(:file) do
+    Pathname.new(self[:path]).parent.to_s
+  end
+
   def refresh
     provider.create
   end

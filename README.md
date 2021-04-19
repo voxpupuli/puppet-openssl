@@ -255,6 +255,19 @@ openssl::dhparam { '/path/to/dhparam.pem':
 }
 ```
 
+## Functions
+
+### cert_aia_caissuers
+
+The function parses a X509 certificate for the authorityInfoAccess extension and return with the URL found as caIssuers, or nil if no URL or extension found. Invoking as deferred function, this can be used to download the issuer certificate:
+
+```puppet
+  file { '/ssl/certs/caissuer.crt':
+    ensure => file,
+    source => Deferred('cert_aia_caissuers', ["/etc/ssl/certs/${facts['networking']['fqdn']}.crt"]),
+  }
+```
+
 ## Contributing
 
 Please report bugs and feature request using [GitHub issue
