@@ -10,16 +10,16 @@
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 2.0.0 < 7.0.0"
+      "version_requirement": ">= 6.0.0 < 8.0.0"
     }
   ],
   "operatingsystem_support": [
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "7",
         "8",
-        "9"
+        "9",
+        "10"
       ]
     },
     {
@@ -28,21 +28,23 @@
         "14.04",
         "16.04",
         "18.04",
-        "18.10"
+        "20.04"
       ]
     },
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
         "6",
-        "7"
+        "7",
+        "8"
       ]
     },
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
         "6",
-        "7"
+        "7",
+        "8"
       ]
     },
     {
@@ -56,7 +58,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">=4.0.0 <7.0.0"
+      "version_requirement": ">=6.0.0 <8.0.0"
     }
   ],
   "description": "OpenSSL Module for Puppet",
