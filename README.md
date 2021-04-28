@@ -138,6 +138,25 @@ x509_request { '/path/to/request.csr':
 }
 ```
 
+### cert\_file
+
+This type controls a file containing a serialed X.509 certificate. It accepts the source in eighter `PEM` or `DER` format and stores it in the desired serialisation format to the file.
+
+```puppet
+cert_file { '/path/to/certs/cacert_root1.pem':
+  ensure => present,
+  source => 'http://www.cacert.org/certs/root_X0F.der',
+  format => pem,
+}
+```
+
+Attributes:
+
+* `path` (namevar): path to the file where the certificate should be stored
+* `ensure`: `present` or `absent`
+* `source`: the URL the certificate should be downloaded
+* `format`: the storage format for the certificate file (`pem` or `der`)
+
 ## Definitions
 
 ### openssl::certificate::x509
