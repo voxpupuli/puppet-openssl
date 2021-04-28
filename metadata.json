@@ -60,7 +60,7 @@
     }
   ],
   "description": "OpenSSL Module for Puppet",
-  "pdk-version": "1.16.0",
-  "template-url": "pdk-default#1.16.0",
-  "template-ref": "tags/1.16.0-0-gaf44904"
+  "pdk-version": "2.1.0",
+  "template-url": "https://github.com/puppetlabs/pdk-templates#2.1.0",
+  "template-ref": "tags/2.1.0-0-ga675ea5"
 }
