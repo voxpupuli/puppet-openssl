@@ -38,7 +38,7 @@ Puppet::Type.newtype(:cert_file) do
   end # newparam(:source)
 
   newparam(:format) do
-    desc 'Format which the loaded certificate should be written to file.'
+    desc 'Format in which the loaded certificate should be written to file.'
     newvalues(:der, :pem)
     defaultto :pem
   end # newparam(:format)
