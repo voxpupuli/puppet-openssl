@@ -12,11 +12,11 @@ Puppet::Type.newtype(:cert_file) do
     end
 
     munge do |value|
-      if value.start_with?('//') && ::File.basename(value) == '/'
+      if value.start_with?('//') && File.basename(value) == '/'
         # This is a UNC path pointing to a share, so don't add a trailing slash
         File.expand_path(value)
       else
-        File.join(::File.split(::File.expand_path(value)))
+        File.join(File.split(File.expand_path(value)))
       end
     end
   end # newparam(:path)
