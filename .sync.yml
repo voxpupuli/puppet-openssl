@@ -12,6 +12,7 @@ Gemfile:
   optional:
     ':development, :unit_tests':
       - gem: inifile
+      - gem: webmock
     ':development':
       - gem: 'github_changelog_generator'
 

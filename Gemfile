@@ -32,6 +32,7 @@ group :system_tests do
 end
 group :development, :unit_tests do
   gem "inifile", require: false
+  gem "webmock", require: false
 end
 
 puppet_version = ENV['PUPPET_GEM_VERSION']
