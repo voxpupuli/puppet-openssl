@@ -8,7 +8,7 @@ Puppet::Type.type(:cert_file).provide :posix do
 
     debug "Checking file format #{resource[:path]}"
     localcert_file = File.read(resource[:path])
-    return false unless is_cert_format?(localcert_file, resource[:format])
+    return false unless cert_format?(localcert_file, resource[:format])
     localcert = OpenSSL::X509::Certificate.new(localcert_file)
     debug "File parsed as #{localcert.pretty_inspect}"
     localcert == remotecert
@@ -50,7 +50,7 @@ Puppet::Type.type(:cert_file).provide :posix do
     cert
   end
 
-  def is_cert_format?(blob, format)
+  def cert_format?(blob, format)
     OpenSSL::X509::Certificate.new(blob)
     (format == :pem) == (blob[0..9] == '-----BEGIN')
   rescue
