@@ -154,7 +154,7 @@ Attributes:
 
 * `path` (namevar): path to the file where the certificate should be stored
 * `ensure`: `present` or `absent`
-* `source`: the URL the certificate should be downloaded
+* `source`: the URL the certificate should be downloaded from
 * `format`: the storage format for the certificate file (`pem` or `der`)
 
 ## Definitions
