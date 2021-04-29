@@ -16,10 +16,10 @@ RSpec.configure do |config|
 
     RSpec::Mocks.setup
 
-    stub_request(:get, 'http://example.org/cert.der').
-      to_return(status: 200, body: File.new(File.join(File.dirname(__FILE__), 'fixtures/test-cert.der')), headers: {})
-      stub_request(:get, 'http://example.org/cert.pem').
-      to_return(status: 200, body: File.new(File.join(File.dirname(__FILE__), 'fixtures/test-cert.pem')), headers: {})
+    stub_request(:get, 'http://example.org/cert.der')
+      .to_return(status: 200, body: File.new(File.join(File.dirname(__FILE__), 'fixtures/test-cert.der')), headers: {})
+    stub_request(:get, 'http://example.org/cert.pem')
+      .to_return(status: 200, body: File.new(File.join(File.dirname(__FILE__), 'fixtures/test-cert.pem')), headers: {})
   end
 
   config.after :each do

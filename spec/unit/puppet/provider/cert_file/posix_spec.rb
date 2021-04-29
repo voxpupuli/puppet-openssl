@@ -26,6 +26,7 @@ describe 'The POSIX provider for type cert_file' do
   context('default format and DER provided') do
     let(:source) { 'http://example.org/cert.pem' }
     let(:resource) { Puppet::Type::Cert_file.new(path: path, source: source) }
+
     it 'stored file is formatted as PEM' do
       resource.provider.create
       expect(File.read(path)).to include '-----BEGIN'
