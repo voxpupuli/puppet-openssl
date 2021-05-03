@@ -27,7 +27,7 @@ define openssl::export::pem_cert (
     fail('Parameter Error: pfx_cert and der_cert are mutually-exclusive')
   }
 
-  if ($der_cert != undef ) {
+  if $der_cert {
     $sslmodule = 'x509'
     $in_cert   = $der_cert
     $module_opt  = '-inform DER'
