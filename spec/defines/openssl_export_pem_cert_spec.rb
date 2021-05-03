@@ -18,7 +18,7 @@ describe 'openssl::export::pem_cert' do
     it 'fails' do
       expect {
         is_expected.to contain_exec('Export /etc/ssl/certs/foo.pfx to /etc/ssl/certs/foo.pem')
-      }.to raise_error(Puppet::Error)
+      }.to raise_error(Puppet::Error, /either/)
     end
   end
 
