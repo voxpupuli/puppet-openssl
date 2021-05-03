@@ -23,7 +23,7 @@ define openssl::export::pem_cert (
     fail('Parameter Error: either pfx_cert or der_cert must be specified')
   }
 
-  if (($der_cert != undef ) and ($pfx_cert != undef )) {
+  if $der_cert and $pfx_cert {
     fail('Parameter Error: pfx_cert and der_cert are mutually-exclusive')
   }
 
