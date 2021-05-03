@@ -74,7 +74,7 @@ describe 'openssl::export::pem_cert' do
     }
   end
 
-  context 'when convert from DER to PEM' do
+  context 'when converting from DER to PEM' do
     let(:params) do
       {
         ensure:  :present,
