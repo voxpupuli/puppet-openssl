@@ -55,7 +55,7 @@ describe 'openssl::export::pem_cert' do
     }
   end
 
-  context 'Converting pkcs12 to PEM with password for just the certificate' do
+  context 'when converting pkcs12 to PEM with password for just the certificate' do
     let(:params) do
       {
         ensure:  :present,
