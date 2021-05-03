@@ -9,10 +9,10 @@
 #   [*in_pass*]   - PFX password
 #
 define openssl::export::pem_cert (
+  Enum['present', 'absent']       $ensure   = present,
+  Stdlib::Absolutepath            $pem_cert = $title,
   Optional[Stdlib::Absolutepath]  $pfx_cert = undef,
   Optional[Stdlib::Absolutepath]  $der_cert = undef,
-  Stdlib::Absolutepath            $pem_cert = $title,
-  Enum['present', 'absent']       $ensure   = present,
   Optional[String]                $in_pass  = undef,
 
 ) {
