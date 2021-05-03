@@ -91,7 +91,7 @@ describe 'openssl::export::pem_cert' do
     }
   end
 
-  context 'Ensure is absent to delete the PEM' do
+  context 'when ensuring absence' do
     let(:params) do
       {
         ensure:  'absent',
