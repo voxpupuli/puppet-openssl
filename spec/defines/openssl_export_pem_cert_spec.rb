@@ -34,7 +34,7 @@ describe 'openssl::export::pem_cert' do
     it 'fails' do
       expect {
         is_expected.to contain_exec('Export /etc/ssl/certs/foo.pfx to /etc/ssl/certs/foo.pem')
-      }.to raise_error(Puppet::Error, /mutually-exclusive/)
+      }.to raise_error(Puppet::Error, %r{mutually-exclusive})
     end
   end
 
