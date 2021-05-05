@@ -43,5 +43,8 @@ Puppet::Functions.create_function(:cert_aia_caissuers) do
       end
     end
     value
+  rescue => details
+    warn "Function cert_aia_caissuers failed to evaluate on #{certfile}. Caused by #{details}"
+    value
   end
 end
