@@ -18,33 +18,14 @@ Puppet::Functions.create_function(:cert_aia_caissuers) do
   end
 
   def ca_issuers(certfile)
-    value = nil
-
     require 'openssl'
+    require 'common'
 
     # parsing the certificate
     cert = OpenSSL::X509::Certificate.new(File.read(certfile))
-
-    # iterating over all extensions
-    cert.extensions.each do |ext|
-      # decoding the extension and looking into it
-      data = OpenSSL::ASN1.decode_all(ext)
-      data.entries.each do |access_description|
-        # skip to next extension unless AIA found
-        next unless access_description.entries[0].value == 'authorityInfoAccess'
-
-        # decode AIA
-        content = OpenSSL::ASN1.decode_all(access_description.entries[1].value)
-        content.entries.each do |aia|
-          aia.entries.each do |aia_access_description|
-            value = aia_access_description.entries[1].value if aia_access_description.entries[0].value == 'caIssuers'
-          end
-        end
-      end
-    end
-    value
-  rescue StandardError => e
-    warn "Function cert_aia_caissuers failed to evaluate on #{certfile}. Caused by #{e}"
-    value
+    issuer_from_ext(cert)
+  rescue => details
+    warn "Function cert_aia_caissuers failed to evaluate on #{certfile}. Caused by #{details}"
+    nil
   end
 end
