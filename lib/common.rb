@@ -3,7 +3,7 @@ require 'pp'
 
 def issuer_from_ext(cert)
   value = nil
-    # iterating over all extensions
+  # iterating over all extensions
   cert.extensions.each do |ext|
     # decoding the extension and looking into it
     data = OpenSSL::ASN1.decode_all(ext)

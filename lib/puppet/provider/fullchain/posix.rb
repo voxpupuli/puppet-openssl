@@ -14,7 +14,7 @@ Puppet::Type.type(:fullchain).provide :posix do
 
     # parse the top certificate from chain file
     cert = OpenSSL::X509::Certificate.new(File.read(resource[:path]))
-    
+
     # verify the top certificate against the chain
     store.verify(cert)
   end
@@ -38,7 +38,7 @@ Puppet::Type.type(:fullchain).provide :posix do
   private
 
   def chain(cert)
-    chain = Array.new
+    chain = []
     chain.push(cert)
     while cert.issuer != cert.subject
       issuerurl = issuer_from_ext(cert)
