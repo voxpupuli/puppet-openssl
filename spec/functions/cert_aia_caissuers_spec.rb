@@ -15,6 +15,12 @@ describe 'cert_aia_caissuers' do
     is_expected.to run.with_params(true).and_raise_error(ArgumentError)
   end
 
+  context 'when the argument does not exists' do
+    it 'returns nil if cert does not exists or readable' do
+      is_expected.to run.with_params('/path/to/cert').and_return(nil)
+    end
+  end
+
   context 'when the argument is correct' do
     let(:cert) { OpenSSL::X509::Certificate.new }
 
