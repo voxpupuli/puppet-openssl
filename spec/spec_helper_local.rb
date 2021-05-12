@@ -13,6 +13,11 @@ RSpec.configure do |config|
     Facter.clear_messages
 
     RSpec::Mocks.setup
+
+    if ENV['PUPPET_DEBUG']
+      Puppet::Util::Log.level = :debug
+      Puppet::Util::Log.newdestination(:console)
+    end
   end
 
   config.after :each do

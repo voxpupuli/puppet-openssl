@@ -107,6 +107,32 @@ describe 'The POSIX provider for type fullchain' do
       expect(resource.provider.exists?).to eq(false)
     end
 
+    it 'exists? should return true if proper fullchain file exists' do
+      allow_any_instance_of(Pathname).to receive(:exist?).and_return(true) # rubocop:disable RSpec/AnyInstance
+      allow_any_instance_of(OpenSSL::X509::Store).to receive(:add_file) do # rubocop:disable RSpec/AnyInstance
+        store = OpenSSL::X509::Store.new
+        store.add_cert(@user_crt) # rubocop:disable RSpec/InstanceVariable
+        store.add_cert(@int_crt) # rubocop:disable RSpec/InstanceVariable
+        store.add_cert(@root_crt) # rubocop:disable RSpec/InstanceVariable
+        store
+      end
+      allow(File).to receive(:read).with(path).and_return(fullchain_pem)
+      expect(resource.provider.exists?).to eq(true)
+    end
+
+    it 'exists? should return true if fullchain contains wrong intermediate' do
+      allow_any_instance_of(Pathname).to receive(:exist?).and_return(true) # rubocop:disable RSpec/AnyInstance
+      allow_any_instance_of(OpenSSL::X509::Store).to receive(:add_file) do # rubocop:disable RSpec/AnyInstance
+        store = OpenSSL::X509::Store.new
+        store.add_cert(@user_crt) # rubocop:disable RSpec/InstanceVariable
+        store.add_cert(@int2_crt) # rubocop:disable RSpec/InstanceVariable
+        store.add_cert(@root_crt) # rubocop:disable RSpec/InstanceVariable
+        store
+      end
+      allow(File).to receive(:read).with(path).and_return(fullchain_pem)
+      expect(resource.provider.exists?).to eq(false)
+    end
+
     it 'creates the correct fullchain file' do
       allow(File).to receive(:read).with(certificate).and_return(user_pem)
       fullchain_buf = StringIO.new

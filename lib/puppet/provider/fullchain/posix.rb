@@ -8,10 +8,10 @@ Puppet::Type.type(:fullchain).provide :posix do
   def exists?
     return false unless Pathname.new(resource[:path]).exist?
 
-    debug "File found, loading contents."
+    debug 'File found, loading contents.'
     # load the existing chain
     store = OpenSSL::X509::Store.new
-              .add_file(resource[:path])
+                                .add_file(resource[:path])
 
     # parse the top certificate from chain file
     cert = OpenSSL::X509::Certificate.new(File.read(resource[:path]))
