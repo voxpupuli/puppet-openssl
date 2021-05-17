@@ -2,7 +2,7 @@ require 'pp'
 require 'common'
 require 'openssl'
 
-Puppet::Type.type(:fullchain).provide :posix do
+Puppet::Type.type(:fullchain).provide(:posix) do
   confine feature: :posix
 
   def exists?
