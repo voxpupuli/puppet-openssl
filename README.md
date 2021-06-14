@@ -4,7 +4,7 @@
 [![Puppet Forge Downloads](http://img.shields.io/puppetforge/dt/camptocamp/openssl.svg)](https://forge.puppetlabs.com/camptocamp/openssl)
 [![Build Status](https://img.shields.io/travis/camptocamp/puppet-openssl/master.svg)](https://travis-ci.org/camptocamp/puppet-openssl)
 [![Puppet Forge Endorsement](https://img.shields.io/puppetforge/e/camptocamp/openssl.svg)](https://forge.puppetlabs.com/camptocamp/openssl)
-[![By Camptocamp](https://img.shields.io/badge/by-camptocamp-fb7047.svg)](http://www.camptocamp.com)
+[![Donated by Camptocamp](https://img.shields.io/badge/donated%20by-camptocamp-fb7047.svg)](#transfer-notice)
 
 **This module manages OpenSSL.**
 
@@ -305,3 +305,12 @@ tracker](https://github.com/camptocamp/puppet-openssl/issues).
 For pull requests, it is very much appreciated to check your Puppet manifest
 with [puppet-lint](https://github.com/rodjek/puppet-lint) to follow the recommended Puppet style guidelines from the
 [Puppet Labs style guide](http://docs.puppetlabs.com/guides/style_guide.html).
+
+
+## Transfer Notice
+
+This plugin was originally authored by [Camptocamp](http://www.camptocamp.com).
+The maintainer preferred that Puppet Community take ownership of the module for future improvement and maintenance.
+Existing pull requests and issues were transferred over, please fork and continue to contribute here instead of Camptocamp.
+
+Previously: https://github.com/camptocamp/puppet-openssl
