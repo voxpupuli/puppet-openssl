@@ -19,9 +19,7 @@ Puppet::Type.newtype(:ssl_pkey) do
     newvalues :rsa, :dsa, :ec
     defaultto :rsa
 
-    munge do |val|
-      val.to_sym
-    end
+    munge(&:to_sym)
   end
 
   newparam(:size) do
@@ -29,9 +27,7 @@ Puppet::Type.newtype(:ssl_pkey) do
     newvalues %r{\d+}
     defaultto 2048
 
-    munge do |val|
-      val.to_i
-    end
+    munge(&:to_i)
   end
 
   newparam(:curve) do

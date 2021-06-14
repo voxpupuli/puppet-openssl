@@ -48,9 +48,7 @@ Puppet::Type.type(:x509_request).provide(:openssl) do
       cmd_args.push("pass:#{resource[:password]}")
     end
 
-    unless resource[:encrypted]
-      cmd_args.push('-nodes')
-    end
+    cmd_args.push('-nodes') unless resource[:encrypted]
 
     openssl(*cmd_args)
   end

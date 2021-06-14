@@ -7,7 +7,7 @@ Puppet::Type.newtype(:cert_file) do
     desc 'Path to the file to manage'
     validate do |value|
       unless Puppet::Util.absolute_path?(value)
-        raise Puppet::Error, _("File paths must be fully qualified, not '%{path}'") % { path: value }
+        raise Puppet::Error, format(_("File paths must be fully qualified, not '%{path}'"), path: value)
       end
     end
 
@@ -31,7 +31,7 @@ Puppet::Type.newtype(:cert_file) do
 
       raise "Cannot use relative URLs '#{source}'" unless uri.absolute?
       raise "Cannot use opaque URLs '#{source}'" unless uri.hierarchical?
-      unless ['http', 'https'].include?(uri.scheme)
+      unless %w[http https].include?(uri.scheme)
         raise "Cannot use URLs of type '#{uri.scheme}' as source for fileserving"
       end
     end

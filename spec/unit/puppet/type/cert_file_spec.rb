@@ -13,18 +13,18 @@ describe Puppet::Type.type(:cert_file) do
     expect(resource[:ensure]).to eq(:absent)
   end
   it 'does not accept relative path' do
-    expect {
+    expect do
       Puppet::Type.type(:cert_file).new(path: 'foo')
-    }.to raise_error(Puppet::Error, %r{File paths must be fully qualified, not 'foo'})
+    end.to raise_error(Puppet::Error, %r{File paths must be fully qualified, not 'foo'})
   end
   it 'accepts source URI' do
     resource[:source] = 'http://www.cacert.org/certs/root_X0F.der'
     expect(resource[:source]).to eq('http://www.cacert.org/certs/root_X0F.der')
   end
   it 'does not accept ftp URI' do
-    expect {
+    expect do
       resource[:source] = 'ftp://foo.bar/cert'
-    }.to raise_error(Puppet::Error, %r{Cannot use URLs of type 'ftp' as source for fileserving})
+    end.to raise_error(Puppet::Error, %r{Cannot use URLs of type 'ftp' as source for fileserving})
   end
   it 'accepts format attribute PEM' do
     resource[:format] = :pem
@@ -35,8 +35,8 @@ describe Puppet::Type.type(:cert_file) do
     expect(resource[:format]).to eq(:der)
   end
   it 'does not accept format other than PEM or DER' do
-    expect {
+    expect do
       resource[:format] = :foo
-    }.to raise_error(Puppet::ResourceError, %r{Invalid value :foo. Valid values are der, pem.})
+    end.to raise_error(Puppet::ResourceError, %r{Invalid value :foo. Valid values are der, pem.})
   end
 end

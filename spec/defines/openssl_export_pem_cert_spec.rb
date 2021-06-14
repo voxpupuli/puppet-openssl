@@ -16,9 +16,9 @@ describe 'openssl::export::pem_cert' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_exec('Export /etc/ssl/certs/foo.pfx to /etc/ssl/certs/foo.pem')
-      }.to raise_error(Puppet::Error, %r{either})
+      end.to raise_error(Puppet::Error, %r{either})
     end
   end
 
@@ -32,9 +32,9 @@ describe 'openssl::export::pem_cert' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_exec('Export /etc/ssl/certs/foo.pfx to /etc/ssl/certs/foo.pem')
-      }.to raise_error(Puppet::Error, %r{mutually-exclusive})
+      end.to raise_error(Puppet::Error, %r{mutually-exclusive})
     end
   end
 
@@ -50,7 +50,7 @@ describe 'openssl::export::pem_cert' do
       is_expected.to contain_exec('Export /etc/ssl/certs/foo.pfx to /etc/ssl/certs/foo.pem').with(
         command: 'openssl pkcs12  -in /etc/ssl/certs/foo.pfx -out /etc/ssl/certs/foo.pem ',
         creates: '/etc/ssl/certs/foo.pem',
-        path: '/usr/bin:/bin:/usr/sbin:/sbin',
+        path: '/usr/bin:/bin:/usr/sbin:/sbin'
       )
     }
   end
@@ -69,7 +69,7 @@ describe 'openssl::export::pem_cert' do
       is_expected.to contain_exec('Export /etc/ssl/certs/foo.pfx to /etc/ssl/certs/foo.pem').with(
         command: "openssl pkcs12  -in /etc/ssl/certs/foo.pfx -out /etc/ssl/certs/foo.pem -nokeys -passin pass:'5r$}^'",
         creates: '/etc/ssl/certs/foo.pem',
-        path: '/usr/bin:/bin:/usr/sbin:/sbin',
+        path: '/usr/bin:/bin:/usr/sbin:/sbin'
       )
     }
   end
@@ -86,7 +86,7 @@ describe 'openssl::export::pem_cert' do
       is_expected.to contain_exec('Export /etc/ssl/certs/foo.der to /etc/ssl/certs/foo.pem').with(
         command: 'openssl x509 -inform DER -in /etc/ssl/certs/foo.der -out /etc/ssl/certs/foo.pem ',
         creates: '/etc/ssl/certs/foo.pem',
-        path: '/usr/bin:/bin:/usr/sbin:/sbin',
+        path: '/usr/bin:/bin:/usr/sbin:/sbin'
       )
     }
   end
@@ -100,7 +100,7 @@ describe 'openssl::export::pem_cert' do
 
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.pem').with(
-        ensure: 'absent',
+        ensure: 'absent'
       )
     }
   end

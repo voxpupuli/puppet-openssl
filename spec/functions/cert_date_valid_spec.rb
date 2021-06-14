@@ -18,7 +18,7 @@ describe 'cert_date_valid' do
   context 'when the argument is correct' do
     let(:cert) { OpenSSL::X509::Certificate.new }
 
-    before(:each) do
+    before do
       allow(File).to receive(:read).and_return('bleh')
     end
 

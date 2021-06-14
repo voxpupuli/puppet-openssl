@@ -28,7 +28,7 @@ describe 'The POSIX provider for type cert_file' do
   let(:resource) { Puppet::Type::Cert_file.new(path: path, source: source) }
 
   it 'exists? returns false on arbitraty path' do
-    allow_any_instance_of(Pathname).to receive(:exist?).and_return(false) # rubocop:disable RSpec/AnyInstance
+    allow_any_instance_of(Pathname).to receive(:exist?).and_return(false)
     expect(resource.provider.exists?).to eq(false)
   end
 

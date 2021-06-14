@@ -21,21 +21,21 @@ describe 'openssl::configs' do
       it { is_expected.to compile }
 
       it {
-        is_expected.to contain_file('/path/to/openssl.conf')
-          .with_ensure('present')
-          .with_owner('root')
-          .with_mode('0640')
+        is_expected.to contain_file('/path/to/openssl.conf').
+          with_ensure('present').
+          with_owner('root').
+          with_mode('0640')
       }
       it {
-        is_expected.to contain_file('/other/path/to/openssl.conf')
-          .with_ensure('present')
-          .with_owner('root')
-          .with_group('vpn')
-          .with_mode('0640')
+        is_expected.to contain_file('/other/path/to/openssl.conf').
+          with_ensure('present').
+          with_owner('root').
+          with_group('vpn').
+          with_mode('0640')
       }
       it {
-        is_expected.to contain_file('/absent.conf')
-          .with_ensure('absent')
+        is_expected.to contain_file('/absent.conf').
+          with_ensure('absent')
       }
     end
   end

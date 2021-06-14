@@ -4,9 +4,9 @@ describe Puppet::Type.type(:x509_request) do
   let(:resource) { Puppet::Type.type(:x509_request).new(path: '/tmp/foo.csr') }
 
   it 'does not accept a non absolute path' do
-    expect {
+    expect do
       Puppet::Type.type(:x509_request).new(path: 'foo')
-    }.to raise_error(Puppet::Error, %r{Path must be absolute: foo})
+    end.to raise_error(Puppet::Error, %r{Path must be absolute: foo})
   end
 
   it 'accepts ensure' do
@@ -20,9 +20,9 @@ describe Puppet::Type.type(:x509_request) do
   end
 
   it 'does not accept non absolute private key' do
-    expect {
+    expect do
       resource[:private_key] = 'foo.key'
-    }.to raise_error(Puppet::Error, %r{Path must be absolute: foo\.key})
+    end.to raise_error(Puppet::Error, %r{Path must be absolute: foo\.key})
   end
 
   it 'accepts valid template' do
@@ -31,9 +31,9 @@ describe Puppet::Type.type(:x509_request) do
   end
 
   it 'does not accept non absolute template' do
-    expect {
+    expect do
       resource[:template] = 'foo.cnf'
-    }.to raise_error(Puppet::Error, %r{Path must be absolute: foo\.cnf})
+    end.to raise_error(Puppet::Error, %r{Path must be absolute: foo\.cnf})
   end
 
   it 'accepts a password' do
@@ -47,9 +47,9 @@ describe Puppet::Type.type(:x509_request) do
   end
 
   it 'does not accept a bad force parameter' do
-    expect {
+    expect do
       resource[:force] = :foo
-    }.to raise_error(Puppet::Error, %r{Invalid value :foo})
+    end.to raise_error(Puppet::Error, %r{Invalid value :foo})
   end
 
   it 'accepts a valid authentication' do
@@ -62,8 +62,8 @@ describe Puppet::Type.type(:x509_request) do
   end
 
   it 'does not accept an invalid authentication' do
-    expect {
+    expect do
       resource[:authentication] = :foo
-    }.to raise_error(Puppet::Error, %r{Invalid value :foo})
+    end.to raise_error(Puppet::Error, %r{Invalid value :foo})
   end
 end
