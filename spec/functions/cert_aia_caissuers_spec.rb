@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+# rubocop:disable RSpec/MessageSpies
 describe 'cert_aia_caissuers' do
   it { is_expected.not_to eq(nil) }
 

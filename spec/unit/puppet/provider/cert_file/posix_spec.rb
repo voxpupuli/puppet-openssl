@@ -3,9 +3,8 @@ require 'puppet/type/cert_file'
 require 'pathname'
 require 'webmock/rspec'
 require 'openssl'
-
 describe 'The POSIX provider for type cert_file' do
-  before(:each) do
+  before do
     test_keys = OpenSSL::PKey::RSA.new(2049)
     test_cert = OpenSSL::X509::Certificate.new
     test_cert.version = 2
@@ -16,11 +15,11 @@ describe 'The POSIX provider for type cert_file' do
     test_cert.not_after = test_cert.not_before + 3600 # 1 hour
     test_cert.sign(test_keys, OpenSSL::Digest::SHA256.new)
 
-    resp_header = { 'Content-Type': 'application/x-x509-ca-cert' }
-    stub_request(:get, 'http://example.org/cert.der')
-      .to_return(status: 200, body: test_cert.to_der, headers: resp_header)
-    stub_request(:get, 'http://example.org/cert.pem')
-      .to_return(status: 200, body: test_cert.to_pem, headers: resp_header)
+    resp_header = { 'Content-Type' => 'application/x-x509-ca-cert' }
+    stub_request(:get, 'http://example.org/cert.der').
+      to_return(status: 200, body: test_cert.to_der, headers: resp_header)
+    stub_request(:get, 'http://example.org/cert.pem').
+      to_return(status: 200, body: test_cert.to_pem, headers: resp_header)
   end
 
   let(:path) { '/tmp/test.pem' }
@@ -28,7 +27,7 @@ describe 'The POSIX provider for type cert_file' do
   let(:resource) { Puppet::Type::Cert_file.new(path: path, source: source) }
 
   it 'exists? returns false on arbitraty path' do
-    allow_any_instance_of(Pathname).to receive(:exist?).and_return(false)
+    allow_any_instance_of(Pathname).to receive(:exist?).and_return(false) # rubocop:disable RSpec/AnyInstance
     expect(resource.provider.exists?).to eq(false)
   end
 

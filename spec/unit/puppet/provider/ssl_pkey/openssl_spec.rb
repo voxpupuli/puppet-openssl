@@ -2,6 +2,7 @@ require 'puppet'
 require 'pathname'
 require 'puppet/type/ssl_pkey'
 
+# rubocop:disable RSpec/MessageSpies
 describe 'The openssl provider for the ssl_pkey type' do
   let(:path) { '/tmp/foo.key' }
   let(:pathname) { Pathname.new(path) }

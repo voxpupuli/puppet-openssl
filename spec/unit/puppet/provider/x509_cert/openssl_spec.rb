@@ -3,6 +3,7 @@ require 'puppet/util/inifile'
 require 'pathname'
 require 'puppet/type/x509_cert'
 
+# rubocop:disable RSpec/MessageSpies
 provider_class = Puppet::Type.type(:x509_cert).provider(:openssl)
 describe 'The openssl provider for the x509_cert type' do
   let(:path) { '/tmp/foo.crt' }

@@ -2,6 +2,7 @@ require 'puppet'
 require 'pathname'
 require 'puppet/type/dhparam'
 
+# rubocop:disable RSpec/MessageSpies
 provider_class = Puppet::Type.type(:dhparam).provider(:openssl)
 describe 'The openssl provider for the dhparam type' do
   let(:path) { '/tmp/dhparam.pem' }

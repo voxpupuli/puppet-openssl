@@ -1,5 +1,5 @@
 require 'spec_helper'
-
+# rubocop:disable RSpec/MessageSpies
 describe 'cert_date_valid' do
   it { is_expected.not_to eq(nil) }
 

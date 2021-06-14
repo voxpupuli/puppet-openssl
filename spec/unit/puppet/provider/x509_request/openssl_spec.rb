@@ -2,6 +2,7 @@ require 'puppet'
 require 'pathname'
 require 'puppet/type/x509_request'
 
+# rubocop:disable RSpec/MessageSpies
 provider_class = Puppet::Type.type(:x509_request).provider(:openssl)
 describe 'The openssl provider for the x509_request type' do
   let(:path) { '/tmp/foo.csr' }
