@@ -87,7 +87,7 @@
 #
 #   - `puppetlabs/stdlib`
 #
-define openssl::certificate::x509(
+define openssl::certificate::x509 (
   String                             $country,
   String                             $organization,
   String                             $commonname,
@@ -118,8 +118,7 @@ define openssl::certificate::x509(
   Boolean                            $force = true,
   String                             $cnf_tpl = 'openssl/cert.cnf.erb',
   Boolean                            $encrypted = true,
-  ) {
-
+) {
   $_key_owner = pick($key_owner, $owner)
   $_key_group = pick($key_group, $group)
   $_cnf_dir = pick($cnf_dir, $base_dir)

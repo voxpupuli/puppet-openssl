@@ -10,7 +10,7 @@
 #   [*out_pass*]  - PKCS12 password
 #   [*chaincert*] - chain certificate to include in pkcs12
 #
-define openssl::export::pkcs12(
+define openssl::export::pkcs12 (
   Stdlib::Absolutepath      $basedir,
   Stdlib::Absolutepath      $pkey,
   Stdlib::Absolutepath      $cert,
@@ -47,7 +47,7 @@ define openssl::export::pkcs12(
       $passout_opt,
     ]
 
-    exec {"Export ${name} to ${basedir}/${name}.p12":
+    exec { "Export ${name} to ${basedir}/${name}.p12":
       command => inline_template('<%= @cmd.join(" ") %>'),
       path    => $::path,
       creates => "${basedir}/${name}.p12",
