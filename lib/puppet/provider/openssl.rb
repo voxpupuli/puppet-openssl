@@ -13,7 +13,7 @@ class Puppet::Provider::Openssl < Puppet::Provider
   end
 
   def owner=(should)
-    File.send(:chown, uid(should), nil, resource[:path])
+    File.chown(uid(should), nil, resource[:path])
   rescue => detail
     raise Puppet::Error, _("Failed to set owner to '%{should}': %{detail}") % { should: should, detail: detail }, detail.backtrace
   end
@@ -27,7 +27,7 @@ class Puppet::Provider::Openssl < Puppet::Provider
   end
 
   def group=(should)
-    File.send(:chown, nil, gid(should), resource[:path])
+    File.chown(nil, gid(should), resource[:path])
   rescue => detail
     raise Puppet::Error, _("Failed to set group to '%{should}': %{detail}") % { should: should, detail: detail }, detail.backtrace
   end
@@ -47,8 +47,8 @@ class Puppet::Provider::Openssl < Puppet::Provider
   end
 
   def set_file_perm(filename, owner = nil, group = nil, mode = nil)
-    File.send(:chown, uid(owner), nil, filename) if owner
-    File.send(:chown, nil, gid(group), filename) if group
+    File.chown(uid(owner), nil, resource[:path]) if owner
+    File.chown(nil, gid(group), resource[:path]) if group
     File.chmod(Integer('0' + mode), filename) if mode
   end
 end
