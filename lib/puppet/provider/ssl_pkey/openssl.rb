@@ -2,7 +2,7 @@
 
 require 'pathname'
 require 'openssl'
-require File.join(File.dirname(__FILE__), '..', '..', '..', 'puppet/provider/openssl')
+require File.join(__dir__, '..', '..', '..', 'puppet/provider/openssl')
 Puppet::Type.type(:ssl_pkey).provide(
   :openssl,
   parent: Puppet::Provider::Openssl,
