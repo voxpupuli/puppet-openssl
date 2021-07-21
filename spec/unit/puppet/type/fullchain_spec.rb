@@ -23,6 +23,22 @@ describe Puppet::Type.type(:fullchain) do
     it 'accepts absolute path' do
       expect(resource[:path]).to eq('/path/to/certs/fullchain.pem')
     end
+    it 'should remove leading double slashes' do
+      resource[:path] = '//foo/bar'
+      expect(resource[:path]).to eq('/foo/bar')
+    end
+    it 'should remove leading triple slashes' do
+      resource[:path] = '///foo/bar'
+      expect(resource[:path]).to eq('/foo/bar')
+    end
+    it 'should remove double slashes' do
+      resource[:path] = '/foo//bar'
+      expect(resource[:path]).to eq('/foo/bar')
+    end
+    it 'should remove  triple slashes' do
+      resource[:path] = '/foo///bar'
+      expect(resource[:path]).to eq('/foo/bar')
+    end
   end
   describe 'Parameter validation for certificate' do
     it 'does not accept relative path' do
