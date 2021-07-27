@@ -19,7 +19,7 @@ Puppet::Functions.create_function(:cert_aia_caissuers) do
 
   def ca_issuers(certfile)
     require 'openssl'
-    require 'common'
+    require 'puppet_x/common'
 
     # parsing the certificate
     cert = OpenSSL::X509::Certificate.new(File.read(certfile))

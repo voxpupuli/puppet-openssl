@@ -1,5 +1,5 @@
 require 'pp'
-require 'common'
+require 'puppet_x/common'
 require 'openssl'
 
 Puppet::Type.type(:fullchain).provide(:posix) do
