@@ -11,15 +11,14 @@ class openssl::packages {
     }
   }
 
-  if $::osfamily == 'Debian' or (
-  $::osfamily == 'RedHat' and versioncmp($::operatingsystemrelease, '6.0') >= 0) {
+  if $facts['os']['family'] in ['Debian', 'RedHat'] {
     ensure_packages(['ca-certificates'], {
       ensure => $openssl::ca_certificates_ensure,
     })
 
-    if $::osfamily == 'Debian' {
+    if $facts['os']['family'] == 'Debian' {
       exec { 'update-ca-certificates':
-        path        => $::path,
+        path        => $facts['path'],
         refreshonly => true,
         require     => Package['ca-certificates'],
       }
