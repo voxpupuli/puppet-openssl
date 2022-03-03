@@ -3,10 +3,10 @@
 # @param package_name
 #   openssl package name
 #
-# @package_ensure
+# @param package_ensure
 #   openssl package ensure
 #
-# @ca_certificates_ensure
+# @param ca_certificates_ensure
 #   ca-certificates package ensure
 #
 # @example basic usage
