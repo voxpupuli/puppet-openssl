@@ -37,7 +37,7 @@ define openssl::export::pem_key (
 
     exec { "Export ${pfx_cert} to ${pem_key}":
       command => inline_template('<%= @cmd.join(" ") %>'),
-      path    => $::path,
+      path    => $facts['path'],
       creates => $pem_key,
     }
   } else {

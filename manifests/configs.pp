@@ -79,7 +79,8 @@ class openssl::configs (
       owner   => pick($vals['owner'], $owner),
       group   => pick($vals['group'], $group),
       mode    => pick($vals['mode'], $mode),
-      content => epp('openssl/cert.cnf.epp', {
+      content => epp('openssl/cert.cnf.epp',
+        {
           country           => $country,
           state             => $state,
           locality          => $locality,

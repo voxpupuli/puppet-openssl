@@ -53,7 +53,7 @@ define openssl::export::pem_cert (
 
     exec { "Export ${in_cert} to ${pem_cert}":
       command => inline_template('<%= @cmd.join(" ") %>'),
-      path    => $::path,
+      path    => $facts['path'],
       creates => $pem_cert,
     }
   } else {
