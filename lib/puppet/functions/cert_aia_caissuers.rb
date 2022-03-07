@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # @summary Extrating the caIssuers entry from Authority Information Access extension of X509 certificate
 #
 # Extract a X509 certificate for x509v3 extensions, search for Authority Information Access extension and return the

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pathname'
 Puppet::Type.type(:x509_cert).provide(:openssl) do
   desc 'Manages certificates with OpenSSL'

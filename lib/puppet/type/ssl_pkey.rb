@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pathname'
 Puppet::Type.newtype(:ssl_pkey) do
   desc 'An SSL private key'

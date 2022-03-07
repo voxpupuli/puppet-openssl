@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'puppet'
 require 'puppet/type/x509_cert'
 describe Puppet::Type.type(:x509_cert) do

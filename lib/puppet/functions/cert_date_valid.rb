@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # @summary
 #
 #   Checks SSL cetificate date validity.

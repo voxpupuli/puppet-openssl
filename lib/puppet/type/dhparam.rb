@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pathname'
 Puppet::Type.newtype(:dhparam) do
   desc 'A Diffie Helman parameter file'

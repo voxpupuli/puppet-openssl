@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'puppet'
 require 'pathname'
 require 'puppet/type/ssl_pkey'

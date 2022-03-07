@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pathname'
 Puppet::Type.type(:x509_request).provide(:openssl) do
   desc 'Manages certificate signing requests with OpenSSL'

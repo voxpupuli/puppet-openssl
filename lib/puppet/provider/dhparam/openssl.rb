@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pathname'
 Puppet::Type.type(:dhparam).provide(:openssl) do
   desc 'Manages dhparam files with OpenSSL'

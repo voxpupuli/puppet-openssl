@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'puppet'
 require 'puppet/type/dhparam'
 describe Puppet::Type.type(:dhparam) do

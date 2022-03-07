@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pathname'
 require 'openssl'
 Puppet::Type.type(:ssl_pkey).provide(:openssl) do

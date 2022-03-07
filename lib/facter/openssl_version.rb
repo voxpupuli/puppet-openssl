@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Facter.add(:openssl_version) do
   setcode do
     if Facter::Util::Resolution.which('openssl')

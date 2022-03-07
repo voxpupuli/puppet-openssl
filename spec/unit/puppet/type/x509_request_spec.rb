@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'puppet'
 require 'puppet/type/x509_request'
 describe Puppet::Type.type(:x509_request) do

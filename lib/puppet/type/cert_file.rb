@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Puppet::Type.newtype(:cert_file) do
   @doc = 'Manages X.509 certificate files downloaded from a source location, saved in the specified format.'
 
