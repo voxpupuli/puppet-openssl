@@ -24,11 +24,13 @@ describe Puppet::Type.type(:dhparam) do
       resource[:size] = 0
     end.to raise_error(Puppet::Error, %r{Size must be a positive integer: 0})
   end
+
   it 'does not accept an negative size' do
     expect do
       resource[:size] = -1
     end.to raise_error(Puppet::Error, %r{Size must be a positive integer: -1})
   end
+
   it 'does not accept a non-integer size' do
     expect do
       resource[:size] = 1.5

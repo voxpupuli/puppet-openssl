@@ -11,7 +11,7 @@ describe 'openssl::configs' do
           country: 'CH',
           organization: 'Existing Ltd',
           conffiles: {
-            '/path/to/openssl.conf' =>  { 'country' => 'US', 'commonname' => 'servername.xyz.org' },
+            '/path/to/openssl.conf' => { 'country' => 'US', 'commonname' => 'servername.xyz.org' },
             '/other/path/to/openssl.conf' => { 'group' => 'vpn', 'commonname' => ['test.ch', 'test2.ch'] },
             '/absent.conf' => { 'ensure' => 'absent', 'commonname' => 'blah' },
           },
@@ -26,6 +26,7 @@ describe 'openssl::configs' do
           with_owner('root').
           with_mode('0640')
       }
+
       it {
         is_expected.to contain_file('/other/path/to/openssl.conf').
           with_ensure('present').
@@ -33,6 +34,7 @@ describe 'openssl::configs' do
           with_group('vpn').
           with_mode('0640')
       }
+
       it {
         is_expected.to contain_file('/absent.conf').
           with_ensure('absent')

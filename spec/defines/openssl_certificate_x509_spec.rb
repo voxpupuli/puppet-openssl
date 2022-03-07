@@ -16,7 +16,7 @@ describe 'openssl::certificate::x509' do
     it 'fails' do
       expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(%r{got ['barz'|String]})
+      end.to raise_error(%r{got ['barz|Sting]})
     end
   end
 

@@ -11,7 +11,7 @@ describe 'openssl::export::pem_cert' do
   context 'when enable and no pfx or der cert' do
     let(:params) do
       {
-        ensure:  :present,
+        ensure: :present,
       }
     end
 
@@ -25,7 +25,7 @@ describe 'openssl::export::pem_cert' do
   context 'when enable and pfx and der cert is provided' do
     let(:params) do
       {
-        ensure:  :present,
+        ensure: :present,
         pfx_cert: '/etc/ssl/certs/foo.pfx',
         der_cert: '/etc/ssl/certs/foo.der',
       }
@@ -41,7 +41,7 @@ describe 'openssl::export::pem_cert' do
   context 'when using defaults pkcs12 to PEM' do
     let(:params) do
       {
-        ensure:  :present,
+        ensure: :present,
         pfx_cert: '/etc/ssl/certs/foo.pfx',
       }
     end
@@ -58,7 +58,7 @@ describe 'openssl::export::pem_cert' do
   context 'when converting pkcs12 to PEM with password for just the certificate' do
     let(:params) do
       {
-        ensure:  :present,
+        ensure: :present,
         pfx_cert: '/etc/ssl/certs/foo.pfx',
         in_pass: '5r$}^',
 
@@ -77,7 +77,7 @@ describe 'openssl::export::pem_cert' do
   context 'when converting from DER to PEM' do
     let(:params) do
       {
-        ensure:  :present,
+        ensure: :present,
         der_cert: '/etc/ssl/certs/foo.der',
       }
     end
@@ -94,7 +94,7 @@ describe 'openssl::export::pem_cert' do
   context 'when ensuring absence' do
     let(:params) do
       {
-        ensure:  'absent',
+        ensure: 'absent',
       }
     end
 

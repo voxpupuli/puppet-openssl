@@ -4,16 +4,16 @@ describe 'openssl::certificates' do
   let :params do
     {
       x509_certs: { '/path/to/certificate.crt' => { 'ensure' => 'present',
-                                                    'country'      => 'CH',
+                                                    'country' => 'CH',
                                                     'organization' => 'Corp',
-                                                    'commonname'   => 'foo',
-                                                    'password'     => 'j(D$',
-                                                    'days'         => 4536,
-                                                    'force'        => false },
-                    '/a/other/certificate.crt' => { 'ensure'       => 'present',
-                                                    'country'      => 'FR',
+                                                    'commonname' => 'foo',
+                                                    'password' => 'j(D$',
+                                                    'days' => 4536,
+                                                    'force' => false },
+                    '/a/other/certificate.crt' => { 'ensure' => 'present',
+                                                    'country' => 'FR',
                                                     'organization' => 'OtherCorp',
-                                                    'commonname'   => 'bar' } },
+                                                    'commonname' => 'bar' } },
     }
   end
 

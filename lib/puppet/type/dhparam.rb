@@ -7,9 +7,7 @@ Puppet::Type.newtype(:dhparam) do
   newparam(:path, namevar: true) do
     validate do |value|
       path = Pathname.new(value)
-      unless path.absolute?
-        raise ArgumentError, "Path must be absolute: #{path}"
-      end
+      raise ArgumentError, "Path must be absolute: #{path}" unless path.absolute?
     end
   end
 
@@ -19,9 +17,7 @@ Puppet::Type.newtype(:dhparam) do
     defaultto 512
     validate do |value|
       size = value.to_i
-      if size <= 0 || value.to_s != size.to_s
-        raise ArgumentError, "Size must be a positive integer: #{value.inspect}"
-      end
+      raise ArgumentError, "Size must be a positive integer: #{value.inspect}" if size <= 0 || value.to_s != size.to_s
     end
   end
 
@@ -29,9 +25,7 @@ Puppet::Type.newtype(:dhparam) do
     desc 'Enable fast mode'
     defaultto false
     validate do |value|
-      if !value.is_a?(TrueClass) && !value.is_a?(FalseClass)
-        raise ArgumentError, "Fastmode must be a boolean: #{value.inspect} #{value.class}"
-      end
+      raise ArgumentError, "Fastmode must be a boolean: #{value.inspect} #{value.class}" if !value.is_a?(TrueClass) && !value.is_a?(FalseClass)
     end
   end
 

@@ -8,9 +8,7 @@ Puppet::Type.newtype(:ssl_pkey) do
     desc 'The path to the key'
     validate do |value|
       path = Pathname.new(value)
-      unless path.absolute?
-        raise ArgumentError, "Path must be absolute: #{path}"
-      end
+      raise ArgumentError, "Path must be absolute: #{path}" unless path.absolute?
     end
   end
 

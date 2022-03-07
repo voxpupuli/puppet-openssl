@@ -13,7 +13,7 @@ describe 'The POSIX provider for type cert_file' do
     test_cert.public_key = test_keys.public_key
     test_cert.not_before = Time.now
     test_cert.not_after = test_cert.not_before + 3600 # 1 hour
-    test_cert.sign(test_keys, OpenSSL::Digest::SHA256.new)
+    test_cert.sign(test_keys, OpenSSL::Digest.new('SHA256'))
 
     resp_header = { 'Content-Type' => 'application/x-x509-ca-cert' }
     stub_request(:get, 'http://example.org/cert.der').
@@ -42,6 +42,7 @@ describe 'The POSIX provider for type cert_file' do
       expect(File.read(path)).to include '-----BEGIN'
     end
   end
+
   context('default format and DER provided') do
     let(:source) { 'http://example.org/cert.pem' }
     let(:resource) { Puppet::Type::Cert_file.new(path: path, source: source) }
@@ -51,6 +52,7 @@ describe 'The POSIX provider for type cert_file' do
       expect(File.read(path)).to include '-----BEGIN'
     end
   end
+
   context('DER format requested and PEM provided') do
     let(:path) { '/tmp/test.der' }
     let(:source) { 'http://example.org/cert.pem' }
@@ -61,6 +63,7 @@ describe 'The POSIX provider for type cert_file' do
       expect(File.read(path)).not_to include '-----BEGIN'
     end
   end
+
   context('DER format requested and DER provided') do
     let(:path) { '/tmp/test.der' }
     let(:source) { 'http://example.org/cert.der' }

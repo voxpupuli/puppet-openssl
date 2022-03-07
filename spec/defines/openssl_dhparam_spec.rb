@@ -13,7 +13,7 @@ describe 'openssl::dhparam' do
     it 'fails' do
       expect do
         is_expected.to contain_file('/etc/ssl/dhparam.pem')
-      end.to raise_error(%r{got ['barz'|String]})
+      end.to raise_error(%r{got ['barz|Sting]})
     end
   end
 
@@ -76,6 +76,7 @@ describe 'openssl::dhparam' do
         size: 2048
       )
     }
+
     it {
       is_expected.to contain_file('/etc/ssl/dhparam.pem').with(
         owner: 0
@@ -97,6 +98,7 @@ describe 'openssl::dhparam' do
         size: 2048
       )
     }
+
     it {
       is_expected.to contain_file('/etc/ssl/dhparam.pem').with(
         group: 0
@@ -147,6 +149,7 @@ describe 'openssl::dhparam' do
         size: 2048
       )
     }
+
     it {
       is_expected.to contain_file('/etc/ssl/dhparam.pem').with(
         ensure: 'present',
@@ -171,6 +174,7 @@ describe 'openssl::dhparam' do
         size: 2048
       )
     }
+
     it {
       is_expected.to contain_file('/etc/ssl/dhparam.pem').with(
         ensure: 'present',
@@ -198,6 +202,7 @@ describe 'openssl::dhparam' do
         size: 2048
       )
     }
+
     it {
       is_expected.to contain_file('/etc/ssl/dhparam.pem').with(
         ensure: 'present',
@@ -221,6 +226,7 @@ describe 'openssl::dhparam' do
         ensure: 'absent'
       )
     }
+
     it {
       is_expected.to contain_file('/etc/ssl/dhparam.pem').with(
         ensure: 'absent'

@@ -35,16 +35,14 @@ Puppet::Functions.create_function(:cert_aia_caissuers) do
         content = OpenSSL::ASN1.decode_all(access_description.entries[1].value)
         content.entries.each do |aia|
           aia.entries.each do |aia_access_description|
-            if aia_access_description.entries[0].value == 'caIssuers'
-              value = aia_access_description.entries[1].value
-            end
+            value = aia_access_description.entries[1].value if aia_access_description.entries[0].value == 'caIssuers'
           end
         end
       end
     end
     value
-  rescue => details
-    warn "Function cert_aia_caissuers failed to evaluate on #{certfile}. Caused by #{details}"
+  rescue StandardError => e
+    warn "Function cert_aia_caissuers failed to evaluate on #{certfile}. Caused by #{e}"
     value
   end
 end
