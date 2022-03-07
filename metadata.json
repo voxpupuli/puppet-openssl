@@ -64,11 +64,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">=6.0.0 <8.0.0"
+      "version_requirement": ">= 6.1.0 < 8.0.0"
     }
-  ],
-  "description": "OpenSSL Module for Puppet",
-  "pdk-version": "2.1.0",
-  "template-url": "https://github.com/puppetlabs/pdk-templates#2.1.0",
-  "template-ref": "tags/2.1.0-0-ga675ea5"
+  ]
 }
