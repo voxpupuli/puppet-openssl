@@ -5,7 +5,6 @@ require 'puppet/util/inifile'
 require 'pathname'
 require 'puppet/type/x509_cert'
 
-# rubocop:disable RSpec/MessageSpies
 provider_class = Puppet::Type.type(:x509_cert).provider(:openssl)
 describe 'The openssl provider for the x509_cert type' do
   let(:path) { '/tmp/foo.crt' }
@@ -27,7 +26,7 @@ describe 'The openssl provider for the x509_cert type' do
     end
 
     it 'creates a certificate with the proper options' do
-      expect(provider_class).to receive(:openssl).with([
+      expect(provider_class).to receive(:openssl).with([ # rubocop:disable RSpec/MessageSpies
                                                          'req', '-config', '/tmp/foo.cnf', '-new', '-x509',
                                                          '-days', 3650,
                                                          '-key', '/tmp/foo.key',
@@ -40,7 +39,7 @@ describe 'The openssl provider for the x509_cert type' do
     context 'when using password' do
       it 'creates a certificate with the proper options' do
         resource[:password] = '2x6${'
-        expect(provider_class).to receive(:openssl).with([
+        expect(provider_class).to receive(:openssl).with([ # rubocop:disable RSpec/MessageSpies
                                                            'req', '-config', '/tmp/foo.cnf', '-new', '-x509',
                                                            '-days', 3650,
                                                            '-key', '/tmp/foo.key',
@@ -60,7 +59,7 @@ describe 'The openssl provider for the x509_cert type' do
       allow_any_instance_of(Pathname).to receive(:exist?).and_return(true) # rubocop:disable RSpec/AnyInstance
       allow(OpenSSL::X509::Certificate).to receive(:new).and_return(cert)
       allow(OpenSSL::PKey::RSA).to receive(:new)
-      expect(cert).to receive(:check_private_key).and_return(true)
+      expect(cert).to receive(:check_private_key).and_return(true) # rubocop:disable RSpec/MessageSpies, RSpec/StubbedMock
       expect(resource.provider.exists?).to eq(true)
     end
 
@@ -70,7 +69,7 @@ describe 'The openssl provider for the x509_cert type' do
       allow_any_instance_of(Pathname).to receive(:exist?).and_return(true) # rubocop:disable RSpec/AnyInstance
       allow(OpenSSL::X509::Certificate).to receive(:new).and_return(cert)
       allow(OpenSSL::PKey::RSA).to receive(:new)
-      expect(cert).to receive(:check_private_key).and_return(false)
+      expect(cert).to receive(:check_private_key).and_return(false) # rubocop:disable RSpec/StubbedMock, RSpec/MessageSpies
       expect(resource.provider.exists?).to eq(false)
     end
 

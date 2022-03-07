@@ -30,10 +30,10 @@ Puppet::Functions.create_function(:cert_date_valid) do
     if now > cert.not_after
       # certificate is expired
       false
-    elsif now < cert.not_before
+    elsif now < cert.not_before # rubocop:disable Lint/DuplicateBranch
       # certificate is not yet valid
       false
-    elsif cert.not_after <= cert.not_before
+    elsif cert.not_after <= cert.not_before # rubocop:disable Lint/DuplicateBranch
       # certificate will never be valid
       false
     else

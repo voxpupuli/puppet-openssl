@@ -4,7 +4,6 @@ require 'puppet'
 require 'pathname'
 require 'puppet/type/ssl_pkey'
 
-# rubocop:disable RSpec/MessageSpies
 describe 'The openssl provider for the ssl_pkey type' do
   let(:path) { '/tmp/foo.key' }
   let(:pathname) { Pathname.new(path) }
@@ -12,14 +11,14 @@ describe 'The openssl provider for the ssl_pkey type' do
   let(:key) { OpenSSL::PKey::RSA.new }
 
   it 'exists? should return true if key exists' do
-    expect(Pathname).to receive(:new).twice.with(path).and_return(pathname)
-    expect(pathname).to receive(:exist?).and_return(true)
+    expect(Pathname).to receive(:new).twice.with(path).and_return(pathname) # rubocop:disable RSpec/MessageSpies
+    expect(pathname).to receive(:exist?).and_return(true) # rubocop:disable RSpec/MessageSpies, RSpec/StubbedMock
     expect(resource.provider.exists?).to eq(true)
   end
 
   it 'exists? should return false if certificate does not exist' do
-    expect(Pathname).to receive(:new).twice.with(path).and_return(pathname)
-    expect(pathname).to receive(:exist?).and_return(false)
+    expect(Pathname).to receive(:new).twice.with(path).and_return(pathname) # rubocop:disable RSpec/MessageSpies
+    expect(pathname).to receive(:exist?).and_return(false) # rubocop:disable RSpec/MessageSpies, RSpec/StubbedMock
     expect(resource.provider.exists?).to eq(false)
   end
 
@@ -143,8 +142,8 @@ describe 'The openssl provider for the ssl_pkey type' do
   end
 
   it 'deletes files' do
-    expect(Pathname).to receive(:new).twice.with(path).and_return(pathname)
-    expect(pathname).to receive(:delete)
+    expect(Pathname).to receive(:new).twice.with(path).and_return(pathname) # rubocop:disable RSpec/MessageSpies
+    expect(pathname).to receive(:delete) # rubocop:disable RSpec/MessageSpies
     resource.provider.destroy
   end
 end
