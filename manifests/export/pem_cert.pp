@@ -19,7 +19,7 @@ define openssl::export::pem_cert (
   #local variables
 
   # If ensure = present and  der_cert and $pfx_cert as being specified, then throw error
-    if $ensure == present and !$der_cert and !$pfx_cert {
+  if $ensure == present and !$der_cert and !$pfx_cert {
     fail('Parameter Error: either pfx_cert or der_cert must be specified')
   }
 
@@ -53,7 +53,7 @@ define openssl::export::pem_cert (
 
     exec { "Export ${in_cert} to ${pem_cert}":
       command => inline_template('<%= @cmd.join(" ") %>'),
-      path    => $::path,
+      path    => $facts['path'],
       creates => $pem_cert,
     }
   } else {

@@ -14,7 +14,7 @@
 #
 #   - `puppetlabs/stdlib`
 #
-define openssl::dhparam(
+define openssl::dhparam (
   Stdlib::Absolutepath      $path = $name,
   Enum['present', 'absent'] $ensure = present,
   Integer[1]                $size = 2048,
@@ -23,7 +23,6 @@ define openssl::dhparam(
   String                    $mode = '0644',
   Boolean                   $fastmode = false,
 ) {
-
   dhparam { $path:
     ensure   => $ensure,
     size     => $size,
@@ -32,10 +31,10 @@ define openssl::dhparam(
 
   # Set file access
   file { $path:
-      ensure  => $ensure,
-      owner   => $owner,
-      group   => $group,
-      mode    => $mode,
-      require => Dhparam[$path];
+    ensure  => $ensure,
+    owner   => $owner,
+    group   => $group,
+    mode    => $mode,
+    require => Dhparam[$path];
   }
 }

@@ -67,8 +67,7 @@ class openssl::configs (
   Optional[Array]   $keyusages         = undef,
   Optional[Array]   $subjectaltnames   = undef,
   Hash              $conffiles         = {},
-){
-
+) {
   # dpendencies: ensure config file is generated before potential usage
   File<| tag=='openssl-configs' |> -> Ssl_pkey<| |>
   File<| tag=='openssl-configs' |> -> X509_cert<| |>
@@ -80,22 +79,23 @@ class openssl::configs (
       owner   => pick($vals['owner'], $owner),
       group   => pick($vals['group'], $group),
       mode    => pick($vals['mode'], $mode),
-      content => epp('openssl/cert.cnf.epp', {
-        country           => $country,
-        state             => $state,
-        locality          => $locality,
-        organization      => $organization,
-        unit              => $unit,
-        email             => $email,
-        default_bits      => $default_bits,
-        default_md        => $default_md,
-        default_keyfile   => $default_keyfile,
-        basicconstraints  => $basicconstraints,
-        extendedkeyusages => $extendedkeyusages,
-        keyusages         => $keyusages,
-        subjectaltnames   => $subjectaltnames,
-      } + delete($vals,['ensure', 'owner', 'group', 'mode']),
-    ),
+      content => epp('openssl/cert.cnf.epp',
+        {
+          country           => $country,
+          state             => $state,
+          locality          => $locality,
+          organization      => $organization,
+          unit              => $unit,
+          email             => $email,
+          default_bits      => $default_bits,
+          default_md        => $default_md,
+          default_keyfile   => $default_keyfile,
+          basicconstraints  => $basicconstraints,
+          extendedkeyusages => $extendedkeyusages,
+          keyusages         => $keyusages,
+          subjectaltnames   => $subjectaltnames,
+        } + delete($vals,['ensure', 'owner', 'group', 'mode']),
+      ),
       tag     => 'openssl-configs',
     }
   }
