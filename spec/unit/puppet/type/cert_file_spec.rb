@@ -19,7 +19,7 @@ describe Puppet::Type.type(:cert_file) do
   it 'does not accept relative path' do
     expect do
       Puppet::Type.type(:cert_file).new(path: 'foo')
-    end.to raise_error(Puppet::Error, %r{File paths must be fully qualified, not 'foo'})
+    end.to raise_error(Puppet::ResourceError, %r{Parameter path failed on Cert_file\[foo\]})
   end
 
   it 'accepts source URI' do
