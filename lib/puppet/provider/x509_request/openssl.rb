@@ -8,11 +8,12 @@ Puppet::Type.type(:x509_request).provide(:openssl) do
 
   def self.private_key(resource)
     file = File.read(resource[:private_key])
-    if resource[:authentication] == :dsa
+    case resource[:authentication]
+    when :dsa
       OpenSSL::PKey::DSA.new(file, resource[:password])
-    elsif resource[:authentication] == :rsa
+    when :rsa
       OpenSSL::PKey::RSA.new(file, resource[:password])
-    elsif resource[:authentication] == :ec
+    when :ec
       OpenSSL::PKey::EC.new(file, resource[:password])
     else
       raise Puppet::Error,

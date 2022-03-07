@@ -19,7 +19,7 @@ Puppet::Type.newtype(:cert_file) do
         File.join(File.split(File.expand_path(value)))
       end
     end
-  end # newparam(:path)
+  end
 
   newparam(:source) do
     validate do |source|
@@ -33,11 +33,11 @@ Puppet::Type.newtype(:cert_file) do
       raise "Cannot use opaque URLs '#{source}'" unless uri.hierarchical?
       raise "Cannot use URLs of type '#{uri.scheme}' as source for fileserving" unless %w[http https].include?(uri.scheme)
     end
-  end # newparam(:source)
+  end
 
   newparam(:format) do
     desc 'Format in which the loaded certificate should be written to file.'
     newvalues(:der, :pem)
     defaultto :pem
-  end # newparam(:format)
+  end
 end
