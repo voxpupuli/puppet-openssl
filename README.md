@@ -1,9 +1,13 @@
 # OpenSSL Puppet Module
 
-[![Puppet Forge Version](http://img.shields.io/puppetforge/v/camptocamp/openssl.svg)](https://forge.puppetlabs.com/camptocamp/openssl)
-[![Puppet Forge Downloads](http://img.shields.io/puppetforge/dt/camptocamp/openssl.svg)](https://forge.puppetlabs.com/camptocamp/openssl)
-[![Build Status](https://img.shields.io/travis/camptocamp/puppet-openssl/master.svg)](https://travis-ci.org/camptocamp/puppet-openssl)
-[![Puppet Forge Endorsement](https://img.shields.io/puppetforge/e/camptocamp/openssl.svg)](https://forge.puppetlabs.com/camptocamp/openssl)
+[![Build Status](https://github.com/voxpupuli/puppet-openssl/workflows/CI/badge.svg)](https://github.com/voxpupuli/puppet-openssl/actions?query=workflow%3ACI)
+[![Release](https://github.com/voxpupuli/puppet-openssl/actions/workflows/release.yml/badge.svg)](https://github.com/voxpupuli/puppet-openssl/actions/workflows/release.yml)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/openssl.svg)](https://forge.puppetlabs.com/puppet/openssl)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/openssl.svg)](https://forge.puppetlabs.com/puppet/openssl)
+[![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/openssl.svg)](https://forge.puppetlabs.com/puppet/openssl)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/openssl.svg)](https://forge.puppetlabs.com/puppet/openssl)
+[![puppetmodule.info docs](http://www.puppetmodule.info/images/badge.png)](http://www.puppetmodule.info/m/puppet-openssl)
+[![AGPL v3 License](https://img.shields.io/github/license/voxpupuli/puppet-openssl.svg)](LICENSE)
 [![Donated by Camptocamp](https://img.shields.io/badge/donated%20by-camptocamp-fb7047.svg)](#transfer-notice)
 
 **This module manages OpenSSL.**
@@ -13,13 +17,13 @@
 Make sure openssl is installed:
 
 ```puppet
-include ::openssl
+include openssl
 ```
 
 Specify openssl and ca-certificates package versions:
 
 ```puppet
-class { '::openssl':
+class { 'openssl':
   package_ensure         => latest,
   ca_certificates_ensure => latest,
 }
@@ -43,7 +47,7 @@ class { '::openssl::certificates':
 Specify openssl and compat package
 
 ```puppet
-class { '::openssl':
+class { 'openssl':
   package_name  => ['openssl', 'openssl-compat', ],
 }
 ```
@@ -300,10 +304,10 @@ The function parses a X509 certificate for the authorityInfoAccess extension and
 ## Contributing
 
 Please report bugs and feature request using [GitHub issue
-tracker](https://github.com/camptocamp/puppet-openssl/issues).
+tracker](https://github.com/voxpupuli/puppet-openssl/issues).
 
 For pull requests, it is very much appreciated to check your Puppet manifest
-with [puppet-lint](https://github.com/rodjek/puppet-lint) to follow the recommended Puppet style guidelines from the
+with [puppet-lint](https://github.com/puppetlabs/puppet-lint) to follow the recommended Puppet style guidelines from the
 [Puppet Labs style guide](http://docs.puppetlabs.com/guides/style_guide.html).
 
 
