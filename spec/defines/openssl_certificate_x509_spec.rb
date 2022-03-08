@@ -15,11 +15,7 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(%r{got ['barz|Sting]})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got ['barz|Sting]}) }
   end
 
   context 'when not passing a country' do
@@ -31,11 +27,7 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(Puppet::Error, %r{\bcountry\b})
-    end
+    it { is_expected.to compile.and_raise_error(%r{\bcountry\b}) }
   end
 
   context 'when passing wrong type for country' do
@@ -48,11 +40,7 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(Puppet::Error, %r{got Boolean})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
   end
 
   context 'when not passing an organization' do
@@ -64,11 +52,7 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(Puppet::Error, %r{\borganization\b})
-    end
+    it { is_expected.to compile.and_raise_error(%r{\borganization\b}) }
   end
 
   context 'when passing wrong type for organization' do
@@ -81,11 +65,7 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(Puppet::Error, %r{got Boolean})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
   end
 
   context 'when not passing an commonname' do
@@ -97,11 +77,7 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(Puppet::Error, %r{\bcommonname\b})
-    end
+    it { is_expected.to compile.and_raise_error(%r{\bcommonname\b}) }
   end
 
   context 'when passing wrong type for commonname' do
@@ -114,11 +90,7 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(Puppet::Error, %r{got Boolean})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
   end
 
   context 'when passing wrong value for ensure' do
@@ -132,11 +104,7 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(Puppet::Error, %r{got 'foo'})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got 'foo'}) }
   end
 
   context 'when passing wrong type for state' do
@@ -150,11 +118,7 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(Puppet::Error, %r{got Boolean})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
   end
 
   context 'when passing wrong type for locality' do
@@ -168,11 +132,7 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(Puppet::Error, %r{got Boolean})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
   end
 
   context 'when passing wrong type for unit' do
@@ -186,11 +146,7 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(Puppet::Error, %r{got Boolean})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
   end
 
   context 'when passing wrong type for altnames' do
@@ -204,11 +160,7 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(Puppet::Error, %r{got Boolean})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
   end
 
   context 'when passing wrong type for extkeyusage' do
@@ -222,11 +174,7 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(Puppet::Error, %r{got Boolean})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
   end
 
   context 'when passing wrong type for email' do
@@ -240,11 +188,7 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(Puppet::Error, %r{got Boolean})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
   end
 
   context 'when passing wrong type for days' do
@@ -258,11 +202,7 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(Puppet::Error, %r{got Boolean})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
   end
 
   context 'when passing wrong type for base_dir' do
@@ -275,11 +215,7 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(Puppet::Error, %r{got Boolean})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
   end
 
   context 'when passing wrong type for owner' do
@@ -293,11 +229,7 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(Puppet::Error, %r{got Boolean})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
   end
 
   context 'when passing wrong type for password' do
@@ -311,11 +243,7 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(Puppet::Error, %r{got Boolean})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
   end
 
   context 'when passing wrong type for force' do
@@ -329,11 +257,7 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(Puppet::Error, %r{got String})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got String}) }
   end
 
   context 'when passing wrong type for key_size' do
@@ -347,11 +271,7 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      end.to raise_error(Puppet::Error, %r{got Boolean})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
   end
 
   context 'when passing numeric owner' do

@@ -12,11 +12,7 @@ describe 'openssl::dhparam' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/dhparam.pem')
-      end.to raise_error(%r{got ['barz|Sting]})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got ['barz|Sting]}) }
   end
 
   context 'when passing wrong value for ensure' do
@@ -27,11 +23,7 @@ describe 'openssl::dhparam' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/dhparam.pem')
-      end.to raise_error(Puppet::Error, %r{got 'foo'})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got 'foo'}) }
   end
 
   context 'when passing non positive size' do
@@ -42,11 +34,7 @@ describe 'openssl::dhparam' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/dhparam.pem')
-      end.to raise_error(Puppet::Error, %r{got Integer})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got Integer}) }
   end
 
   context 'when passing wrong type for user' do
@@ -57,11 +45,7 @@ describe 'openssl::dhparam' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/dhparam.pem')
-      end.to raise_error(Puppet::Error, %r{got Boolean})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
   end
 
   context 'when passing numeric owner' do
@@ -116,11 +100,7 @@ describe 'openssl::dhparam' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/dhparam.pem')
-      end.to raise_error(Puppet::Error, %r{got Boolean})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
   end
 
   context 'when passing wrong type for mode' do
@@ -131,11 +111,7 @@ describe 'openssl::dhparam' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_file('/etc/ssl/dhparam.pem')
-      end.to raise_error(Puppet::Error, %r{got Boolean})
-    end
+    it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
   end
 
   context 'when using defaults' do
