@@ -24,8 +24,6 @@ describe 'cert_date_valid' do
     end
 
     it 'returns false if cert is not valid anymore' do
-      # rubocop:disable RSpec/StubbedMock
-      # rubocop:disable RSpec/MessageSpies
       expect(OpenSSL::X509::Certificate).to receive(:new).with('bleh').and_return(cert)
       cert.not_before = Time.now - 3600
       cert.not_after = Time.now - 1000
@@ -48,8 +46,6 @@ describe 'cert_date_valid' do
 
     it 'returns true if it is still valid' do
       expect(OpenSSL::X509::Certificate).to receive(:new).with('bleh').and_return(cert)
-      # rubocop:enable RSpec/StubbedMock
-      # rubocop:enable RSpec/MessageSpies
       cert.not_before = Time.now - 1000
       cert.not_after = cert.not_before + 2000
       is_expected.to run.with_params('/path/to/cert').and_return(999)

@@ -22,7 +22,7 @@ describe 'The openssl provider for the x509_request type' do
     end
 
     it 'creates a certificate with the proper options' do
-      expect(provider_class).to receive(:openssl).with( # rubocop:disable RSpec/MessageSpies
+      expect(provider_class).to receive(:openssl).with(
         'req', '-new',
         '-key', '/tmp/foo.key',
         '-config', '/tmp/foo.cnf',
@@ -35,7 +35,7 @@ describe 'The openssl provider for the x509_request type' do
   context 'when using password' do
     it 'creates a certificate with the proper options' do
       resource[:password] = '2x6${'
-      expect(provider_class).to receive(:openssl).with( # rubocop:disable RSpec/MessageSpies
+      expect(provider_class).to receive(:openssl).with(
         'req', '-new',
         '-key', '/tmp/foo.key',
         '-config', '/tmp/foo.cnf',
@@ -53,7 +53,7 @@ describe 'The openssl provider for the x509_request type' do
       allow_any_instance_of(Pathname).to receive(:exist?).and_return(true) # rubocop:disable RSpec/AnyInstance
       allow(OpenSSL::X509::Request).to receive(:new).and_return(cert)
       allow(OpenSSL::PKey::RSA).to receive(:new)
-      expect(cert).to receive(:verify).and_return(true) # rubocop:disable RSpec/StubbedMock, RSpec/MessageSpies
+      expect(cert).to receive(:verify).and_return(true)
       expect(resource.provider.exists?).to eq(true)
     end
 
@@ -63,7 +63,7 @@ describe 'The openssl provider for the x509_request type' do
       allow_any_instance_of(Pathname).to receive(:exist?).and_return(true) # rubocop:disable RSpec/AnyInstance
       allow(OpenSSL::X509::Request).to receive(:new).and_return(cert)
       allow(OpenSSL::PKey::RSA).to receive(:new)
-      expect(cert).to receive(:verify).and_return(false) # rubocop:disable RSpec/StubbedMock, RSpec/MessageSpies
+      expect(cert).to receive(:verify).and_return(false)
       expect(resource.provider.exists?).to eq(false)
     end
 

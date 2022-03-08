@@ -31,16 +31,12 @@ describe 'cert_aia_caissuers' do
     end
 
     it 'returns nil if cert does not contains AIA extension' do
-      # rubocop:disable RSpec/StubbedMock
-      # rubocop:disable RSpec/MessageSpies
       expect(OpenSSL::X509::Certificate).to receive(:new).with('foo').and_return(cert)
       is_expected.to run.with_params('/path/to/cert').and_return(nil)
     end
 
     it 'returns caIssuers URL if cert contains it' do
       expect(OpenSSL::X509::Certificate).to receive(:new).with('foo').and_return(cert)
-      # rubocop:enable RSpec/StubbedMock
-      # rubocop:enable RSpec/MessageSpies
       extension_factory = OpenSSL::X509::ExtensionFactory.new
       aia = extension_factory.create_extension(
         'authorityInfoAccess',

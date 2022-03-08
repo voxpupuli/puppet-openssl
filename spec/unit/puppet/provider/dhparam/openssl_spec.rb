@@ -12,7 +12,7 @@ describe 'The openssl provider for the dhparam type' do
 
   context 'when using default size' do
     it 'creates dhpram with the proper options' do
-      expect(provider_class).to receive(:openssl).with(['dhparam', '-out', '/tmp/dhparam.pem', 512]) # rubocop:disable RSpec/MessageSpies
+      expect(provider_class).to receive(:openssl).with(['dhparam', '-out', '/tmp/dhparam.pem', 512])
       resource.provider.create
     end
   end
@@ -26,8 +26,8 @@ describe 'The openssl provider for the dhparam type' do
   end
 
   it 'deletes file' do
-    expect(Pathname).to receive(:new).twice.and_return(pathname) # rubocop:disable RSpec/MessageSpies
-    expect(pathname).to receive(:delete) # rubocop:disable RSpec/MessageSpies
+    expect(Pathname).to receive(:new).twice.and_return(pathname)
+    expect(pathname).to receive(:delete)
     resource.provider.destroy
   end
 end

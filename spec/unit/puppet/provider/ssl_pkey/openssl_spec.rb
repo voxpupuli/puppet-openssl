@@ -11,14 +11,14 @@ describe 'The openssl provider for the ssl_pkey type' do
   let(:key) { OpenSSL::PKey::RSA.new }
 
   it 'exists? should return true if key exists' do
-    expect(Pathname).to receive(:new).twice.with(path).and_return(pathname) # rubocop:disable RSpec/MessageSpies
-    expect(pathname).to receive(:exist?).and_return(true) # rubocop:disable RSpec/MessageSpies, RSpec/StubbedMock
+    expect(Pathname).to receive(:new).twice.with(path).and_return(pathname)
+    expect(pathname).to receive(:exist?).and_return(true)
     expect(resource.provider.exists?).to eq(true)
   end
 
   it 'exists? should return false if certificate does not exist' do
-    expect(Pathname).to receive(:new).twice.with(path).and_return(pathname) # rubocop:disable RSpec/MessageSpies
-    expect(pathname).to receive(:exist?).and_return(false) # rubocop:disable RSpec/MessageSpies, RSpec/StubbedMock
+    expect(Pathname).to receive(:new).twice.with(path).and_return(pathname)
+    expect(pathname).to receive(:exist?).and_return(false)
     expect(resource.provider.exists?).to eq(false)
   end
 
@@ -142,8 +142,8 @@ describe 'The openssl provider for the ssl_pkey type' do
   end
 
   it 'deletes files' do
-    expect(Pathname).to receive(:new).twice.with(path).and_return(pathname) # rubocop:disable RSpec/MessageSpies
-    expect(pathname).to receive(:delete) # rubocop:disable RSpec/MessageSpies
+    expect(Pathname).to receive(:new).twice.with(path).and_return(pathname)
+    expect(pathname).to receive(:delete)
     resource.provider.destroy
   end
 end
