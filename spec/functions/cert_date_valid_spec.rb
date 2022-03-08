@@ -1,5 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
+require 'spec_helper'
 describe 'cert_date_valid' do
   it { is_expected.not_to eq(nil) }
 
@@ -18,7 +19,7 @@ describe 'cert_date_valid' do
   context 'when the argument is correct' do
     let(:cert) { OpenSSL::X509::Certificate.new }
 
-    before(:each) do
+    before do
       allow(File).to receive(:read).and_return('bleh')
     end
 

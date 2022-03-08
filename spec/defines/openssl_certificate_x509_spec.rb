@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'openssl::certificate::x509' do
@@ -14,9 +16,9 @@ describe 'openssl::certificate::x509' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(%r{got ['barz'|String]})
+      end.to raise_error(%r{got ['barz|Sting]})
     end
   end
 
@@ -30,9 +32,9 @@ describe 'openssl::certificate::x509' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, %r{\bcountry\b})
+      end.to raise_error(Puppet::Error, %r{\bcountry\b})
     end
   end
 
@@ -47,9 +49,9 @@ describe 'openssl::certificate::x509' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, %r{got Boolean})
+      end.to raise_error(Puppet::Error, %r{got Boolean})
     end
   end
 
@@ -63,9 +65,9 @@ describe 'openssl::certificate::x509' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, %r{\borganization\b})
+      end.to raise_error(Puppet::Error, %r{\borganization\b})
     end
   end
 
@@ -80,9 +82,9 @@ describe 'openssl::certificate::x509' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, %r{got Boolean})
+      end.to raise_error(Puppet::Error, %r{got Boolean})
     end
   end
 
@@ -96,9 +98,9 @@ describe 'openssl::certificate::x509' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, %r{\bcommonname\b})
+      end.to raise_error(Puppet::Error, %r{\bcommonname\b})
     end
   end
 
@@ -113,9 +115,9 @@ describe 'openssl::certificate::x509' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, %r{got Boolean})
+      end.to raise_error(Puppet::Error, %r{got Boolean})
     end
   end
 
@@ -131,9 +133,9 @@ describe 'openssl::certificate::x509' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, %r{got 'foo'})
+      end.to raise_error(Puppet::Error, %r{got 'foo'})
     end
   end
 
@@ -149,9 +151,9 @@ describe 'openssl::certificate::x509' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, %r{got Boolean})
+      end.to raise_error(Puppet::Error, %r{got Boolean})
     end
   end
 
@@ -167,9 +169,9 @@ describe 'openssl::certificate::x509' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, %r{got Boolean})
+      end.to raise_error(Puppet::Error, %r{got Boolean})
     end
   end
 
@@ -185,9 +187,9 @@ describe 'openssl::certificate::x509' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, %r{got Boolean})
+      end.to raise_error(Puppet::Error, %r{got Boolean})
     end
   end
 
@@ -203,9 +205,9 @@ describe 'openssl::certificate::x509' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, %r{got Boolean})
+      end.to raise_error(Puppet::Error, %r{got Boolean})
     end
   end
 
@@ -221,9 +223,9 @@ describe 'openssl::certificate::x509' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, %r{got Boolean})
+      end.to raise_error(Puppet::Error, %r{got Boolean})
     end
   end
 
@@ -239,9 +241,9 @@ describe 'openssl::certificate::x509' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, %r{got Boolean})
+      end.to raise_error(Puppet::Error, %r{got Boolean})
     end
   end
 
@@ -257,9 +259,9 @@ describe 'openssl::certificate::x509' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, %r{got Boolean})
+      end.to raise_error(Puppet::Error, %r{got Boolean})
     end
   end
 
@@ -274,9 +276,9 @@ describe 'openssl::certificate::x509' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, %r{got Boolean})
+      end.to raise_error(Puppet::Error, %r{got Boolean})
     end
   end
 
@@ -292,9 +294,9 @@ describe 'openssl::certificate::x509' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, %r{got Boolean})
+      end.to raise_error(Puppet::Error, %r{got Boolean})
     end
   end
 
@@ -310,9 +312,9 @@ describe 'openssl::certificate::x509' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, %r{got Boolean})
+      end.to raise_error(Puppet::Error, %r{got Boolean})
     end
   end
 
@@ -328,9 +330,9 @@ describe 'openssl::certificate::x509' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, %r{got String})
+      end.to raise_error(Puppet::Error, %r{got String})
     end
   end
 
@@ -346,9 +348,9 @@ describe 'openssl::certificate::x509' do
     end
 
     it 'fails' do
-      expect {
+      expect do
         is_expected.to contain_file('/etc/ssl/certs/foo.cnf')
-      }.to raise_error(Puppet::Error, %r{got Boolean})
+      end.to raise_error(Puppet::Error, %r{got Boolean})
     end
   end
 
@@ -365,21 +367,21 @@ describe 'openssl::certificate::x509' do
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.key').with(
         ensure: 'present',
-        owner: 0,
+        owner: 0
       )
     }
 
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.crt').with(
         ensure: 'present',
-        owner: 0,
+        owner: 0
       )
     }
 
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.csr').with(
         ensure: 'present',
-        owner: 0,
+        owner: 0
       )
     }
   end
@@ -397,21 +399,21 @@ describe 'openssl::certificate::x509' do
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.key').with(
         ensure: 'present',
-        group: 0,
+        group: 0
       )
     }
 
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.crt').with(
         ensure: 'present',
-        group: 0,
+        group: 0
       )
     }
 
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.csr').with(
         ensure: 'present',
-        group: 0,
+        group: 0
       )
     }
   end
@@ -429,7 +431,7 @@ describe 'openssl::certificate::x509' do
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.key').with(
         ensure: 'present',
-        owner: 0,
+        owner: 0
       )
     }
   end
@@ -447,7 +449,7 @@ describe 'openssl::certificate::x509' do
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.key').with(
         ensure: 'present',
-        group: 0,
+        group: 0
       )
     }
   end
@@ -464,20 +466,20 @@ describe 'openssl::certificate::x509' do
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.cnf').with(
         ensure: 'present',
-        owner: 'root',
+        owner: 'root'
       ).with_content(
-        %r{countryName\s+=\s+com},
+        %r{countryName\s+=\s+com}
       ).with_content(
-        %r{organizationName\s+=\s+bar},
+        %r{organizationName\s+=\s+bar}
       ).with_content(
-        %r{commonName\s+=\s+baz},
+        %r{commonName\s+=\s+baz}
       )
     }
 
     it {
       is_expected.to contain_ssl_pkey('/etc/ssl/certs/foo.key').with(
         ensure: 'present',
-        password: nil,
+        password: nil
       )
     }
 
@@ -488,7 +490,7 @@ describe 'openssl::certificate::x509' do
         private_key: '/etc/ssl/certs/foo.key',
         days: 365,
         password: nil,
-        force: true,
+        force: true
       )
     }
 
@@ -498,28 +500,28 @@ describe 'openssl::certificate::x509' do
         template: '/etc/ssl/certs/foo.cnf',
         private_key: '/etc/ssl/certs/foo.key',
         password: nil,
-        force: true,
+        force: true
       )
     }
 
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.key').with(
         ensure: 'present',
-        owner: 'root',
+        owner: 'root'
       )
     }
 
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.crt').with(
         ensure: 'present',
-        owner: 'root',
+        owner: 'root'
       )
     }
 
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.csr').with(
         ensure: 'present',
-        owner: 'root',
+        owner: 'root'
       )
     }
   end
@@ -534,7 +536,7 @@ describe 'openssl::certificate::x509' do
         locality: 'here',
         unit: 'braz',
         altnames: ['a.com', 'b.com', 'c.com'],
-        extkeyusage: ['serverAuth', 'clientAuth'],
+        extkeyusage: %w[serverAuth clientAuth],
         email: 'contact@foo.com',
         days: 4567,
         key_size: 4096,
@@ -548,25 +550,25 @@ describe 'openssl::certificate::x509' do
     it {
       is_expected.to contain_file('/tmp/foobar/foo.cnf').with(
         ensure: 'present',
-        owner: 'www-data',
+        owner: 'www-data'
       ).with_content(
-        %r{countryName\s+=\s+com},
+        %r{countryName\s+=\s+com}
       ).with_content(
-        %r{stateOrProvinceName\s+=\s+FR},
+        %r{stateOrProvinceName\s+=\s+FR}
       ).with_content(
-        %r{localityName\s+=\s+here},
+        %r{localityName\s+=\s+here}
       ).with_content(
-        %r{organizationName\s+=\s+bar},
+        %r{organizationName\s+=\s+bar}
       ).with_content(
-        %r{organizationalUnitName\s+=\s+braz},
+        %r{organizationalUnitName\s+=\s+braz}
       ).with_content(
-        %r{commonName\s+=\s+baz},
+        %r{commonName\s+=\s+baz}
       ).with_content(
-        %r{emailAddress\s+=\s+contact@foo\.com},
+        %r{emailAddress\s+=\s+contact@foo\.com}
       ).with_content(
-        %r{subjectAltName\s+=\s+"DNS: a\.com, DNS: b\.com, DNS: c\.com"},
+        %r{subjectAltName\s+=\s+"DNS: a\.com, DNS: b\.com, DNS: c\.com"}
       ).with_content(
-        %r{extendedKeyUsage\s+=\s+"serverAuth, clientAuth"},
+        %r{extendedKeyUsage\s+=\s+"serverAuth, clientAuth"}
       )
     }
 
@@ -574,7 +576,7 @@ describe 'openssl::certificate::x509' do
       is_expected.to contain_ssl_pkey('/tmp/foobar/foo.key').with(
         ensure: 'present',
         password: '5r$}^',
-        size: 4096,
+        size: 4096
       )
     }
 
@@ -585,7 +587,7 @@ describe 'openssl::certificate::x509' do
         private_key: '/tmp/foobar/foo.key',
         days: 4567,
         password: '5r$}^',
-        force: false,
+        force: false
       )
     }
 
@@ -595,28 +597,28 @@ describe 'openssl::certificate::x509' do
         template: '/tmp/foobar/foo.cnf',
         private_key: '/tmp/foobar/foo.key',
         password: '5r$}^',
-        force: false,
+        force: false
       )
     }
 
     it {
       is_expected.to contain_file('/tmp/foobar/foo.key').with(
         ensure: 'present',
-        owner: 'www-data',
+        owner: 'www-data'
       )
     }
 
     it {
       is_expected.to contain_file('/tmp/foobar/foo.crt').with(
         ensure: 'present',
-        owner: 'www-data',
+        owner: 'www-data'
       )
     }
 
     it {
       is_expected.to contain_file('/tmp/foobar/foo.csr').with(
         ensure: 'present',
-        owner: 'www-data',
+        owner: 'www-data'
       )
     }
   end

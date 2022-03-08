@@ -1,24 +1,5 @@
 ---
-.travis.yml:
-  user: camptocamp
-  secure: "XgiXVp8K+UjVAQFVC4qBt6BPNBMhNGBHgpKlB5f4bpiY2wIZjlLNLdhilBnPqZcuJAmauTcdhmI0C7Iys4aKPsS/oQtZAjRjPvgXtvA2iza+aiPUrrjQASDOWlfuGRj1yMqNXDDDC18RZO+ajoruLO32Xvi2nf9exxm64BrSehw="
-  branches:
-    - master
-    - /^\d/
-  deploy_to_forge:
-    enabled: true
-    tag_regex: "^\\d"
 Gemfile:
   optional:
-    ':development, :unit_tests':
-      - gem: inifile
+    ':test':
       - gem: webmock
-    ':development':
-      - gem: 'github_changelog_generator'
-
-Rakefile:
-  changelog_version_tag_pattern: '%s'
-#README.md:
-#  module_name: 'OpenSSL'
-#  endorsement: 'approved'
-#  include: ['.sync/types.md', '.sync/definitions.md']

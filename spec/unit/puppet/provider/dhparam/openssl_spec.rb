@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'puppet'
 require 'pathname'
 require 'puppet/type/dhparam'
@@ -10,11 +12,7 @@ describe 'The openssl provider for the dhparam type' do
 
   context 'when using default size' do
     it 'creates dhpram with the proper options' do
-      expect(provider_class).to receive(:openssl).with([
-                                                         'dhparam',
-                                                         '-out', '/tmp/dhparam.pem',
-                                                         512
-                                                       ])
+      expect(provider_class).to receive(:openssl).with(['dhparam', '-out', '/tmp/dhparam.pem', 512])
       resource.provider.create
     end
   end
@@ -22,11 +20,7 @@ describe 'The openssl provider for the dhparam type' do
   context 'when setting size' do
     it 'creates dhpram with the proper options' do
       resource[:size] = 2048
-      allow(provider_class).to receive(:openssl).with([
-                                                        'dhparam',
-                                                        '-out', '/tmp/dhparam.pem',
-                                                        2048
-                                                      ])
+      allow(provider_class).to receive(:openssl).with(['dhparam', '-out', '/tmp/dhparam.pem', 2048])
       resource.provider.create
     end
   end

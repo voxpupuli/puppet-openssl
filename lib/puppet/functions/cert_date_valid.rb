@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # @summary
 #
 #   Checks SSL cetificate date validity.
@@ -21,19 +23,17 @@ Puppet::Functions.create_function(:cert_date_valid) do
     content = File.read(certfile)
     cert = OpenSSL::X509::Certificate.new(content)
 
-    if cert.not_before.nil? && cert.not_after.nil?
-      raise 'No date found in certificate'
-    end
+    raise 'No date found in certificate' if cert.not_before.nil? && cert.not_after.nil?
 
     now = Time.now
 
     if now > cert.not_after
       # certificate is expired
       false
-    elsif now < cert.not_before
+    elsif now < cert.not_before # rubocop:disable Lint/DuplicateBranch
       # certificate is not yet valid
       false
-    elsif cert.not_after <= cert.not_before
+    elsif cert.not_after <= cert.not_before # rubocop:disable Lint/DuplicateBranch
       # certificate will never be valid
       false
     else

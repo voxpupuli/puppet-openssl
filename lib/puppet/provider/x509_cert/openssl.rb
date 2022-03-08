@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pathname'
 Puppet::Type.type(:x509_cert).provide(:openssl) do
   desc 'Manages certificates with OpenSSL'
@@ -6,11 +8,12 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
 
   def self.private_key(resource)
     file = File.read(resource[:private_key])
-    if resource[:authentication] == :dsa
+    case resource[:authentication]
+    when :dsa
       OpenSSL::PKey::DSA.new(file, resource[:password])
-    elsif resource[:authentication] == :rsa
+    when :rsa
       OpenSSL::PKey::RSA.new(file, resource[:password])
-    elsif resource[:authentication] == :ec
+    when :ec
       OpenSSL::PKey::EC.new(file, resource[:password])
     else
       raise Puppet::Error,
@@ -41,12 +44,12 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
     require 'puppet/util/inifile'
     ini_file = Puppet::Util::IniConfig::PhysicalFile.new(resource[:template])
     if (req_ext = ini_file.get_section('req_ext'))
-      if (value = req_ext['subjectAltName'])
-        return false if value.delete(' ').gsub(%r{^"|"$}, '') != alt_name.delete(' ').gsub(%r{^"|"$}, '').gsub('IPAddress', 'IP')
+      if (value = req_ext['subjectAltName']) && (value.delete(' ').gsub(%r{^"|"$}, '') != alt_name.delete(' ').gsub(%r{^"|"$}, '').gsub('IPAddress', 'IP'))
+        return false
       end
     elsif (req_dn = ini_file.get_section('req_distinguished_name'))
-      if (value = req_dn['commonName'])
-        return false if value != cdata['CN']
+      if (value = req_dn['commonName']) && (value != cdata['CN'])
+        return false
       end
     end
     true
@@ -54,12 +57,9 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
 
   def exists?
     if Pathname.new(resource[:path]).exist?
-      if resource[:force] && !self.class.check_private_key(resource)
-        return false
-      end
-      unless self.class.old_cert_is_equal(resource)
-        return false
-      end
+      return false if resource[:force] && !self.class.check_private_key(resource)
+      return false unless self.class.old_cert_is_equal(resource)
+
       true
     else
       false

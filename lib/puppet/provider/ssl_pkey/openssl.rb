@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pathname'
 require 'openssl'
 Puppet::Type.type(:ssl_pkey).provide(:openssl) do
@@ -8,11 +10,12 @@ Puppet::Type.type(:ssl_pkey).provide(:openssl) do
   end
 
   def self.generate_key(resource)
-    if resource[:authentication] == :dsa
+    case resource[:authentication]
+    when :dsa
       OpenSSL::PKey::DSA.new(resource[:size])
-    elsif resource[:authentication] == :rsa
+    when :rsa
       OpenSSL::PKey::RSA.new(resource[:size])
-    elsif resource[:authentication] == :ec
+    when :ec
       OpenSSL::PKey::EC.new(resource[:curve]).generate_key
     else
       raise Puppet::Error,

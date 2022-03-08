@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pathname'
 Puppet::Type.type(:x509_request).provide(:openssl) do
   desc 'Manages certificate signing requests with OpenSSL'
@@ -6,11 +8,12 @@ Puppet::Type.type(:x509_request).provide(:openssl) do
 
   def self.private_key(resource)
     file = File.read(resource[:private_key])
-    if resource[:authentication] == :dsa
+    case resource[:authentication]
+    when :dsa
       OpenSSL::PKey::DSA.new(file, resource[:password])
-    elsif resource[:authentication] == :rsa
+    when :rsa
       OpenSSL::PKey::RSA.new(file, resource[:password])
-    elsif resource[:authentication] == :ec
+    when :ec
       OpenSSL::PKey::EC.new(file, resource[:password])
     else
       raise Puppet::Error,
@@ -26,9 +29,8 @@ Puppet::Type.type(:x509_request).provide(:openssl) do
 
   def exists?
     if Pathname.new(resource[:path]).exist?
-      if resource[:force] && !self.class.check_private_key(resource)
-        return false
-      end
+      return false if resource[:force] && !self.class.check_private_key(resource)
+
       true
     else
       false
@@ -48,9 +50,7 @@ Puppet::Type.type(:x509_request).provide(:openssl) do
       cmd_args.push("pass:#{resource[:password]}")
     end
 
-    unless resource[:encrypted]
-      cmd_args.push('-nodes')
-    end
+    cmd_args.push('-nodes') unless resource[:encrypted]
 
     openssl(*cmd_args)
   end

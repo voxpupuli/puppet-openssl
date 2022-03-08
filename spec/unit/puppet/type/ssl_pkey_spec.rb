@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 require 'puppet'
 require 'puppet/type/ssl_pkey'
 describe Puppet::Type.type(:ssl_pkey) do
   let(:resource) { Puppet::Type.type(:ssl_pkey).new(path: '/tmp/foo.key') }
 
   it 'does not accept a non absolute path' do
-    expect {
+    expect do
       Puppet::Type.type(:ssl_pkey).new(path: 'foo')
-    }.to raise_error(Puppet::Error, %r{Path must be absolute: foo})
+    end.to raise_error(Puppet::Error, %r{Path must be absolute: foo})
   end
 
   it 'accepts ensure' do
@@ -20,9 +22,9 @@ describe Puppet::Type.type(:ssl_pkey) do
   end
 
   it 'does not accept an invalid size' do
-    expect {
+    expect do
       resource[:size] = :foo
-    }.to raise_error(Puppet::Error, %r{Invalid value :foo})
+    end.to raise_error(Puppet::Error, %r{Invalid value :foo})
   end
 
   it 'accepts an curve' do
@@ -40,9 +42,9 @@ describe Puppet::Type.type(:ssl_pkey) do
   end
 
   it 'does not accept an invalid authentication' do
-    expect {
+    expect do
       resource[:authentication] = :foo
-    }.to raise_error(Puppet::Error, %r{Invalid value :foo})
+    end.to raise_error(Puppet::Error, %r{Invalid value :foo})
   end
 
   it 'accepts a password' do
