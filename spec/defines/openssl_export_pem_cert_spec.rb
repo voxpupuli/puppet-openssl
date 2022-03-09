@@ -17,11 +17,7 @@ describe 'openssl::export::pem_cert' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_exec('Export /etc/ssl/certs/foo.pfx to /etc/ssl/certs/foo.pem')
-      end.to raise_error(Puppet::Error, %r{either})
-    end
+    it { is_expected.to compile.and_raise_error(%r{either}) }
   end
 
   context 'when enable and pfx and der cert is provided' do
@@ -33,11 +29,7 @@ describe 'openssl::export::pem_cert' do
       }
     end
 
-    it 'fails' do
-      expect do
-        is_expected.to contain_exec('Export /etc/ssl/certs/foo.pfx to /etc/ssl/certs/foo.pem')
-      end.to raise_error(Puppet::Error, %r{mutually-exclusive})
-    end
+    it { is_expected.to compile.and_raise_error(%r{mutually-exclusive}) }
   end
 
   context 'when using defaults pkcs12 to PEM' do
