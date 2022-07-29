@@ -108,7 +108,7 @@ define openssl::certificate::x509 (
   Optional[Stdlib::Absolutepath]     $crt = undef,
   Optional[Stdlib::Absolutepath]     $csr = undef,
   Optional[Stdlib::Absolutepath]     $key = undef,
-  Integer                            $key_size = 2048,
+  Integer                            $key_size = 3072,
   Variant[String, Integer]           $owner = 'root',
   Variant[String, Integer]           $group = 'root',
   Optional[Variant[String, Integer]] $key_owner = undef,
