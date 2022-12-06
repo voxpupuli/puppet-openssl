@@ -40,7 +40,7 @@ Puppet::Type.type(:cert_file).provide :posix do
 
   def remotecert
     cert = nil
-    Puppet.runtime[:http].get(URI(resource[:source])) do |response|
+    Puppet.runtime[:http].get(URI(resource[:source]), options: { include_system_store: true }) do |response|
       if response.success?
         response.read_body do |data|
           cert = OpenSSL::X509::Certificate.new(data)
