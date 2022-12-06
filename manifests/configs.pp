@@ -94,7 +94,7 @@ class openssl::configs (
           extendedkeyusages => $extendedkeyusages,
           keyusages         => $keyusages,
           subjectaltnames   => $subjectaltnames,
-        } + delete($vals,['ensure', 'owner', 'group', 'mode']),
+        } + delete($vals, ['ensure', 'owner', 'group', 'mode']),
       ),
       tag     => 'openssl-configs',
     }

@@ -14,7 +14,7 @@ default_md              = sha256
 default_keyfile         = privkey.pem
 distinguished_name      = req_distinguished_name
 prompt                  = no
-<% if $req_ext == true -%>
+<% if @req_ext == true -%>
 req_extensions          = req_ext
 <% end -%>
 
