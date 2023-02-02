@@ -1,6 +1,4 @@
-# == Class: openssl::packages
-#
-# Sets up packages for openssl
+# @summary Sets up packages for openssl
 class openssl::packages {
   assert_private()
 

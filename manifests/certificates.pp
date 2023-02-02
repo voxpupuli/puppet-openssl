@@ -1,12 +1,8 @@
-# == Class: openssl::certificates
+# @summary Generates x509 certificates based on class parameters
 #
-# Generates x509 certificates based on class parameters
+# @param x509_certs
 #
-# === Parameters
-#  [*x509_certs*]
-#
-# === Example
-#
+# @example basic usage
 #   class { '::openssl::certificate':
 #     x509_certs => { '/path/to/certificate.crt' => {  ensure      => 'present',
 #                                                      password    => 'j(D$',

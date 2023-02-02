@@ -1,68 +1,96 @@
-# == Definition: openssl::certificate::x509
+# @summary Creates a certificate, key and CSR according to datas provided.
 #
-# Creates a certificate, key and CSR according to datas provided.
+# @param ensure
+#   ensure wether certif and its config are present or not
+# @param country
+#   certificate countryName
+# @param state
+#   certificate stateOrProvinceName
+# @param locality
+#   certificate localityName
+# @param commonname
+#   certificate CommonName
+# @param altnames
+#   certificate subjectAltName.
+#   Can be an array or a single string.
+# @param extkeyusage
+#   certificate extended key usage
+#   Value           | Meaning
+#   ----------------|-------------------------------------
+#   serverAuth      | SSL/TLS Web Server Authentication.
+#   clientAuth      | SL/TLS Web Client Authentication.
+#   codeSigning     | Code signing.
+#   emailProtection | E-mail Protection (S/MIME).
+#   timeStamping    | Trusted Timestamping
+#   OCSPSigning     | OCSP Signing
+#   ipsecIKE        | ipsec Internet Key Exchange
+#   msCodeInd       | Microsoft Individual Code Signing (authenticode)
+#   msCodeCom       | Microsoft Commercial Code Signing (authenticode)
+#   msCTLSign       | Microsoft Trust List Signing
+#   msEFS           | Microsoft Encrypted File System
 #
-# === Parameters
-#  [*ensure*]         ensure wether certif and its config are present or not
-#  [*country*]        certificate countryName
-#  [*state*]          certificate stateOrProvinceName
-#  [*locality*]       certificate localityName
-#  [*commonname*]     certificate CommonName
-#  [*altnames*]       certificate subjectAltName.
-#                     Can be an array or a single string.
-#  [*extkeyusage*]    certificate extended key usage
-#  # Value            Meaning
-#  -----              -------
-#  serverAuth         SSL/TLS Web Server Authentication.
-#  clientAuth         SL/TLS Web Client Authentication.
-#  codeSigning        Code signing.
-#  emailProtection    E-mail Protection (S/MIME).
-#  timeStamping       Trusted Timestamping
-#  OCSPSigning        OCSP Signing
-#  ipsecIKE           ipsec Internet Key Exchange
-#  msCodeInd          Microsoft Individual Code Signing (authenticode)
-#  msCodeCom          Microsoft Commercial Code Signing (authenticode)
-#  msCTLSign          Microsoft Trust List Signing
-#  msEFS              Microsoft Encrypted File System
+# @param organization
+#   certificate organizationName
+# @param unit
+#   certificate organizationalUnitName
+# @param email
+#   certificate emailAddress
+# @param days
+#   certificate validity
+# @param base_dir
+#   where cnf, crt, csr and key should be placed.
+#   Directory must exist
+# @param key_size
+#   Size of the key to generate.
+# @param owner
+#   cnf, crt, csr and key owner. User must exist
+# @param group
+#   cnf, crt, csr and key group. Group must exist
+# @param key_owner
+#   key owner. User must exist. defaults to $owner
+# @param key_group
+#   key group. Group must exist. defaults to $group
+# @param key_mode
+#   key group.
+# @param password
+#   private key password. undef means no passphrase
+#   will be used to encrypt private key.
+# @param force
+#   whether to override certificate and request
+#   if private key changes
+# @param cnf_tpl
+#   Specify an other template to generate ".cnf" file.
+# @param cnf_dir
+#   where cnf should be placed.
+#   Directory must exist, defaults to $base_dir.
+# @param crt_dir
+#   where crt should be placed.
+#   Directory must exist, defaults to $base_dir.
+# @param csr_dir
+#   where csr should be placed.
+#   Directory must exist, defaults to $base_dir.
+# @param key_dir
+#   where key should be placed.
+#   Directory must exist, defaults to $base_dir.
+# @param cnf
+#   override cnf path entirely.
+#   Directory must exist, defaults to $cnf_dir/$title.cnf
+# @param crt
+#   override crt path entirely.
+#   Directory must exist, defaults to $crt_dir/$title.crt
+# @param csr
+#   override csr path entirely.
+#   Directory must exist, defaults to $csr_dir/$title.csr
+# @param key
+#   override key path entirely.
+#   Directory must exist, defaults to $key_dir/$title.key
+# @param encrypted
+#   Flag requesting the exported key to be unencrypted by
+#   specifying the -nodes option during the CSR generation. Turning
+#   off encryption is needed by some applications, such as OpenLDAP.
+#   Defaults to true (key is encrypted)
 #
-#  [*organization*]   certificate organizationName
-#  [*unit*]           certificate organizationalUnitName
-#  [*email*]          certificate emailAddress
-#  [*days*]           certificate validity
-#  [*base_dir*]       where cnf, crt, csr and key should be placed.
-#                     Directory must exist
-#  [*owner*]          cnf, crt, csr and key owner. User must exist
-#  [*group*]          cnf, crt, csr and key group. Group must exist
-#  [*key_owner*]      key owner. User must exist. defaults to $owner
-#  [*key_group*]      key group. Group must exist. defaults to $group
-#  [*key_mode*]       key group.
-#  [*password*]       private key password. undef means no passphrase
-#                     will be used to encrypt private key.
-#  [*force*]          whether to override certificate and request
-#                     if private key changes
-#  [*cnf_tpl*]        Specify an other template to generate ".cnf" file.
-#  [*cnf_dir*]        where cnf should be placed.
-#                     Directory must exist, defaults to $base_dir.
-#  [*crt_dir*]        where crt should be placed.
-#                     Directory must exist, defaults to $base_dir.
-#  [*csr_dir*]        where csr should be placed.
-#                     Directory must exist, defaults to $base_dir.
-#  [*key_dir*]        where key should be placed.
-#                     Directory must exist, defaults to $base_dir.
-#  [*cnf*]            override cnf path entirely.
-#                     Directory must exist, defaults to $cnf_dir/$title.cnf
-#  [*crt*]            override crt path entirely.
-#                     Directory must exist, defaults to $crt_dir/$title.crt
-#  [*csr*]            override csr path entirely.
-#                     Directory must exist, defaults to $csr_dir/$title.csr
-#  [*key*]            override key path entirely.
-#                     Directory must exist, defaults to $key_dir/$title.key
-#  [*encrypted*]      Flag requesting the exported key to be unencrypted by
-#                     specifying the -nodes option during the CSR generation. Turning
-#                     off encryption is needed by some applications, such as OpenLDAP.
-#                     Defaults to true (key is encrypted)
-#
-# === Example
+# @example basic usage
 #
 #   openssl::certificate::x509 { 'foo.bar':
 #     ensure       => present,
@@ -73,19 +101,15 @@
 #     owner        => 'www-data',
 #   }
 #
-# This will create files "foo.bar.cnf", "foo.bar.crt", "foo.bar.key"
-# and "foo.bar.csr" in /var/www/ssl/.
-# All files will belong to user "www-data".
+#   This will create files "foo.bar.cnf", "foo.bar.crt", "foo.bar.key"
+#   and "foo.bar.csr" in /var/www/ssl/.
+#   All files will belong to user "www-data".
 #
-# Those files can be used as is for apache, openldap and so on.
+#   Those files can be used as is for apache, openldap and so on.
 #
-# If you wish to ensure a key is read-only to a process:
-# set $key_group to match the group of the process,
-# and set $key_mode to '0640'.
-#
-# === Requires
-#
-#   - `puppetlabs/stdlib`
+#   If you wish to ensure a key is read-only to a process:
+#   set $key_group to match the group of the process,
+#   and set $key_mode to '0640'.
 #
 define openssl::certificate::x509 (
   String                             $country,

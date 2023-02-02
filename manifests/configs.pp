@@ -1,46 +1,42 @@
-# == Class: openssl::configs
+# @summary Generates openssl.conf files using defaults
 #
-# Generates openssl.conf files using defaults
-#
-# === Parameters
-# [*owner*]
+# @param owner
 #   default owner for the configuration files
-# [*group*]
+# @param group
 #   default group for the configuration files
-# [*mode*]
+# @param mode
 #   default mode for the configuration files
-# [*country*]
+# @param country
 #   default value for country
-# [*state*]
+# @param state
 #   default value for state
-# [*locality*]
+# @param locality
 #   default value for locality
-# [*organization*]
+# @param organization
 #   default value for organization
-# [*unit*]
+# @param unit
 #   default value for unit
-# [*email*]
+# @param email
 #   default value for email
-# [*default_bits*]
+# @param default_bits
 #   default key size to generate
-# [*default_md*]
+# @param default_md
 #   default message digest to use
-# [*default_keyfile*]
+# @param default_keyfile
 #   default name for the keyfile
-# [*basicconstraints*]
+# @param basicconstraints
 #   version 3 certificate extension basic constraints
-# [*extendedkeyusages*]
+# @param extendedkeyusages
 #   version 3 certificate extension extended key usage
-# [*keyusages*]
+# @param keyusages
 #   version 3 certificate extension key usage
-# [*subjectaltnames*]
+# @param subjectaltnames
 #   version 3 certificate extension for alternative names
 #   currently supported are IP (v4) and DNS
-# [*conffiles*]
+# @param conffiles
 #   config files to generate
 #
-# === Example
-#
+# @example basic usage
 #   class { '::openssl::configs':
 #     conffiles => { '/path/to/openssl.conf' => { ensure     => 'present',
 #                                                 commonname => 'somewhere.org',},
