@@ -1,12 +1,15 @@
-# == Definition: openssl::export::pem_cert
+# @summary Export certificate(s) to PEM/x509 format
 #
-# Export certificate(s) to PEM/x509 format
-#
-# == Parameters
-#   [*pfx_cert*]  - PFX certificate/key container
-#   [*der_cert*]  - DER certificate
-#   [*pem_cert*]  - PEM/x509 certificate
-#   [*in_pass*]   - PFX password
+# @param ensure
+#   Whether the certificate file should exist
+# @param pfx_cert
+#   PFX certificate/key container
+# @param der_cert
+#   DER certificate
+# @param pem_cert
+#   PEM/x509 certificate
+# @param in_pass
+#   PFX password
 #
 define openssl::export::pem_cert (
   Enum['present', 'absent']       $ensure   = present,

@@ -22,6 +22,7 @@ Puppet::Type.newtype(:cert_file) do
   end
 
   newparam(:source) do
+    desc 'The source file'
     validate do |source|
       begin
         uri = URI.parse(Puppet::Util.uri_encode(source))

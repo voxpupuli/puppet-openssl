@@ -1,12 +1,15 @@
-# == Definition: openssl::export::pem_key
+# @summary Export a key to PEM format
 #
-# Export a key to PEM format
-#
-# == Parameters
-#   [*pfx_cert*]  - PFX certificate/key container
-#   [*pem_key*]   - PEM certificate
-#   [*in_pass*]   - PFX container password
-#   [*out_pass*]  - PEM key password
+# @param pfx_cert
+#   PFX certificate/key container
+# @param pem_key
+#   PEM certificate
+# @param ensure
+#   Whether the key file should exist
+# @param in_pass
+#   PFX container password
+# @param out_pass
+#   PEM key password
 #
 define openssl::export::pem_key (
   Stdlib::Absolutepath      $pfx_cert,

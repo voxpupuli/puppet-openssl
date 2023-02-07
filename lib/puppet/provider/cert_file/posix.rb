@@ -3,6 +3,8 @@
 require 'pp'
 
 Puppet::Type.type(:cert_file).provide :posix do
+  desc 'POSIX provider for certificate files'
+
   confine feature: :posix
 
   def exists?

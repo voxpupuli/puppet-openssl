@@ -1,14 +1,19 @@
-# == Definition: openssl::export::pkcs12
+# @summary Export a key pair to PKCS12 format
 #
-# Export a key pair to PKCS12 format
-#
-# == Parameters
-#   [*basedir*]   - directory where you want the export to be done. Must exists
-#   [*pkey*]      - private key
-#   [*cert*]      - certificate
-#   [*in_pass*]   - private key password
-#   [*out_pass*]  - PKCS12 password
-#   [*chaincert*] - chain certificate to include in pkcs12
+# @param basedir
+#   Directory where you want the export to be done. Must exists
+# @param pkey
+#   Private key
+# @param cert
+#   Certificate
+# @param ensure
+#   Whether the PKCS12 file should exist
+# @param in_pass
+#   Private key password
+# @param out_pass
+#   PKCS12 password
+# @param chaincert
+#   Chain certificate to include in pkcs12
 #
 define openssl::export::pkcs12 (
   Stdlib::Absolutepath      $basedir,

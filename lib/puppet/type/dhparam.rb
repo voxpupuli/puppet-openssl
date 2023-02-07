@@ -7,6 +7,7 @@ Puppet::Type.newtype(:dhparam) do
   ensurable
 
   newparam(:path, namevar: true) do
+    desc 'The path of the file'
     validate do |value|
       path = Pathname.new(value)
       raise ArgumentError, "Path must be absolute: #{path}" unless path.absolute?
