@@ -89,6 +89,12 @@
 #   specifying the -nodes option during the CSR generation. Turning
 #   off encryption is needed by some applications, such as OpenLDAP.
 #   Defaults to true (key is encrypted)
+# @param ca
+#   Path to CA certificate for signing. Undef means no CA will be
+#   provided for signing the certificate.
+# @param cakey
+#   Path to CA private key for signing. Undef mean no CAkey will be
+#   provided.
 #
 # @example basic usage
 #
@@ -142,6 +148,8 @@ define openssl::certificate::x509 (
   Boolean                            $force = true,
   String                             $cnf_tpl = 'openssl/cert.cnf.erb',
   Boolean                            $encrypted = true,
+  Optional[Stdlib::Absolutepath]     $ca = undef,
+  Optional[Stdlib::Absolutepath]     $cakey = undef,
 ) {
   $_key_owner = pick($key_owner, $owner)
   $_key_group = pick($key_group, $group)
@@ -182,6 +190,8 @@ define openssl::certificate::x509 (
     req_ext     => $req_ext,
     force       => $force,
     require     => File[$_cnf],
+    ca          => $ca,
+    cakey       => $cakey,
   }
 
   x509_request { $_csr:
