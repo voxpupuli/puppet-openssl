@@ -368,6 +368,8 @@ The following parameters are available in the `openssl::certificate::x509` defin
 * [`csr`](#-openssl--certificate--x509--csr)
 * [`key`](#-openssl--certificate--x509--key)
 * [`encrypted`](#-openssl--certificate--x509--encrypted)
+* [`ca`](#-openssl--certificate--x509--ca)
+* [`cakey`](#-openssl--certificate--x509--cakey)
 
 ##### <a name="-openssl--certificate--x509--ensure"></a>`ensure`
 
@@ -630,6 +632,24 @@ off encryption is needed by some applications, such as OpenLDAP.
 Defaults to true (key is encrypted)
 
 Default value: `true`
+
+##### <a name="-openssl--certificate--x509--ca"></a>`ca`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to CA certificate for signing. Undef means no CA will be
+provided for signing the certificate.
+
+Default value: `undef`
+
+##### <a name="-openssl--certificate--x509--cakey"></a>`cakey`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to CA private key for signing. Undef mean no CAkey will be
+provided.
+
+Default value: `undef`
 
 ### <a name="openssl--config"></a>`openssl::config`
 
@@ -1233,6 +1253,8 @@ Default value: `present`
 The following parameters are available in the `x509_cert` type.
 
 * [`authentication`](#-x509_cert--authentication)
+* [`ca`](#-x509_cert--ca)
+* [`cakey`](#-x509_cert--cakey)
 * [`days`](#-x509_cert--days)
 * [`force`](#-x509_cert--force)
 * [`password`](#-x509_cert--password)
@@ -1249,6 +1271,14 @@ Valid values: `rsa`, `dsa`, `ec`
 The authentication algorithm: 'rsa', 'dsa or ec'
 
 Default value: `rsa`
+
+##### <a name="-x509_cert--ca"></a>`ca`
+
+The optional ca certificate filepath
+
+##### <a name="-x509_cert--cakey"></a>`cakey`
+
+The optional ca private key filepath
 
 ##### <a name="-x509_cert--days"></a>`days`
 
