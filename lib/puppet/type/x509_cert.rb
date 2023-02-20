@@ -66,6 +66,10 @@ Puppet::Type.newtype(:x509_cert) do
     defaultto :rsa
   end
 
+  newparam(:ca) do
+    desc 'The optional ca certificate filepath'
+  end
+
   autorequire(:file) do
     self[:template]
   end
