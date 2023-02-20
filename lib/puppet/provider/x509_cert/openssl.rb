@@ -78,6 +78,7 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
     options << ['-passin', "pass:#{resource[:password]}"] if resource[:password]
     options << ['-extensions', 'req_ext'] if resource[:req_ext] != :false
     options << ['-CA', 'ca'] if resource[:ca]
+    options << ['-CAkey', 'cakey'] if resource [:cakey]
     openssl options
   end
 
