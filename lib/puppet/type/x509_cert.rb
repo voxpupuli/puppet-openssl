@@ -69,7 +69,7 @@ Puppet::Type.newtype(:x509_cert) do
   newparam(:ca) do
     desc 'The optional ca certificate filepath'
   end
-  
+
   newparam(:cakey) do
     desc 'The optional ca private key filepath'
   end
