@@ -82,13 +82,15 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
     certoptions = [
       'x509',
       '-req',
-      '-CAcreateserial',
       '-days', resource[:days],
       '-in', resource[:csr],
       '-out', resource[:path]
     ]
-    certoptions << ['-CA', resource[:ca]] if resource[:ca]
-    certoptions << ['-CAkey', resource[:cakey]] if resource[:cakey]
+    if resource[:ca]
+      certoptions << ['CAcreateserial']
+      certoptions << ['-CA', resource[:ca]]
+      certoptions << ['-CAkey', resource[:cakey]]
+    end
     openssl certoptions
   end
 
