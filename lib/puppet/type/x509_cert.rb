@@ -26,6 +26,18 @@ Puppet::Type.newtype(:x509_cert) do
     end
   end
 
+  newparam(:csr) do
+    desc 'The path to the certificate signing request'
+    defaultto do
+      path = Pathname.new(@resource[:path])
+      "#{path.dirname}/#{path.basename(path.extname)}.csr"
+    end
+    validate do |value|
+      path = Pathname.new(value)
+      raise ArgumentError, "Path must be absolute: #{path}" unless path.absolute?
+    end
+  end
+
   newparam(:days) do
     desc 'The validity of the certificate'
     newvalues(%r{\d+})
