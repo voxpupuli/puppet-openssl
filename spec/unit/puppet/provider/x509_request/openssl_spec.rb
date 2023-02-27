@@ -22,12 +22,12 @@ describe 'The openssl provider for the x509_request type' do
     end
 
     it 'creates a certificate with the proper options' do
-      expect(provider_class).to receive(:openssl).with(
-        'req', '-new',
-        '-key', '/tmp/foo.key',
-        '-config', '/tmp/foo.cnf',
-        '-out', '/tmp/foo.csr'
-      )
+      expect(provider_class).to receive(:openssl).with([
+                                                         'req', '-new',
+                                                         '-key', '/tmp/foo.key',
+                                                         '-config', '/tmp/foo.cnf',
+                                                         '-out', '/tmp/foo.csr'
+                                                       ])
       resource.provider.create
     end
   end
@@ -35,13 +35,13 @@ describe 'The openssl provider for the x509_request type' do
   context 'when using password' do
     it 'creates a certificate with the proper options' do
       resource[:password] = '2x6${'
-      expect(provider_class).to receive(:openssl).with(
-        'req', '-new',
-        '-key', '/tmp/foo.key',
-        '-config', '/tmp/foo.cnf',
-        '-out', '/tmp/foo.csr',
-        '-passin', 'pass:2x6${'
-      )
+      expect(provider_class).to receive(:openssl).with([
+                                                         'req', '-new',
+                                                         '-key', '/tmp/foo.key',
+                                                         '-config', '/tmp/foo.cnf',
+                                                         '-out', '/tmp/foo.csr',
+                                                         ['-passin', 'pass:2x6${']
+                                                       ])
       resource.provider.create
     end
   end
