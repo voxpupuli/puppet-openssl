@@ -1204,6 +1204,18 @@ The basic property that the resource should be in.
 
 Default value: `present`
 
+##### `group`
+
+group of the file
+
+##### `mode`
+
+mode of the file
+
+##### `owner`
+
+owner of the file
+
 #### Parameters
 
 The following parameters are available in the `dhparam` type.
@@ -1251,6 +1263,18 @@ Valid values: `present`, `absent`
 The basic property that the resource should be in.
 
 Default value: `present`
+
+##### `group`
+
+group of the file
+
+##### `mode`
+
+mode of the file
+
+##### `owner`
+
+owner of the file
 
 #### Parameters
 
@@ -1313,6 +1337,18 @@ Valid values: `present`, `absent`
 The basic property that the resource should be in.
 
 Default value: `present`
+
+##### `group`
+
+group of the file
+
+##### `mode`
+
+mode of the file
+
+##### `owner`
+
+owner of the file
 
 #### Parameters
 
@@ -1407,6 +1443,18 @@ Valid values: `present`, `absent`
 The basic property that the resource should be in.
 
 Default value: `present`
+
+##### `group`
+
+group of the file
+
+##### `mode`
+
+mode of the file
+
+##### `owner`
+
+owner of the file
 
 #### Parameters
 
