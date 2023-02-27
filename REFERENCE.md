@@ -7,17 +7,17 @@
 ### Classes
 
 * [`openssl`](#openssl): Installs openssl and ensures bundled certificate list is world readable
-* [`openssl::certificates`](#openssl--certificates): Generates x509 certificates based on class parameters
-* [`openssl::configs`](#openssl--configs): Generates openssl.conf files using defaults
-* [`openssl::packages`](#openssl--packages): Sets up packages for openssl
+* [`openssl::certificates`](#opensslcertificates): Generates x509 certificates based on class parameters
+* [`openssl::configs`](#opensslconfigs): Generates openssl.conf files using defaults
+* [`openssl::packages`](#opensslpackages): Sets up packages for openssl
 
 ### Defined types
 
-* [`openssl::certificate::x509`](#openssl--certificate--x509): Creates a certificate, key and CSR according to datas provided.
-* [`openssl::dhparam`](#openssl--dhparam): Creates Diffie Helman parameters.
-* [`openssl::export::pem_cert`](#openssl--export--pem_cert): Export certificate(s) to PEM/x509 format
-* [`openssl::export::pem_key`](#openssl--export--pem_key): Export a key to PEM format
-* [`openssl::export::pkcs12`](#openssl--export--pkcs12): Export a key pair to PKCS12 format
+* [`openssl::certificate::x509`](#opensslcertificatex509): Creates a certificate, key and CSR according to datas provided.
+* [`openssl::dhparam`](#openssldhparam): Creates Diffie Helman parameters.
+* [`openssl::export::pem_cert`](#opensslexportpem_cert): Export certificate(s) to PEM/x509 format
+* [`openssl::export::pem_key`](#opensslexportpem_key): Export a key to PEM format
+* [`openssl::export::pkcs12`](#opensslexportpkcs12): Export a key pair to PKCS12 format
 
 ### Resource types
 
@@ -54,19 +54,19 @@ class { 'openssl':
 
 The following parameters are available in the `openssl` class:
 
-* [`package_name`](#-openssl--package_name)
-* [`package_ensure`](#-openssl--package_ensure)
-* [`ca_certificates_ensure`](#-openssl--ca_certificates_ensure)
+* [`package_name`](#package_name)
+* [`package_ensure`](#package_ensure)
+* [`ca_certificates_ensure`](#ca_certificates_ensure)
 
-##### <a name="-openssl--package_name"></a>`package_name`
+##### <a name="package_name"></a>`package_name`
 
 Data type: `Optional[String[1]]`
 
 openssl package name
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--package_ensure"></a>`package_ensure`
+##### <a name="package_ensure"></a>`package_ensure`
 
 Data type: `String[1]`
 
@@ -74,7 +74,7 @@ openssl package ensure
 
 Default value: `installed`
 
-##### <a name="-openssl--ca_certificates_ensure"></a>`ca_certificates_ensure`
+##### <a name="ca_certificates_ensure"></a>`ca_certificates_ensure`
 
 Data type: `String[1]`
 
@@ -82,7 +82,7 @@ ca-certificates package ensure
 
 Default value: `installed`
 
-### <a name="openssl--certificates"></a>`openssl::certificates`
+### <a name="opensslcertificates"></a>`openssl::certificates`
 
 Generates x509 certificates based on class parameters
 
@@ -107,9 +107,9 @@ class { '::openssl::certificate':
 
 The following parameters are available in the `openssl::certificates` class:
 
-* [`x509_certs`](#-openssl--certificates--x509_certs)
+* [`x509_certs`](#x509_certs)
 
-##### <a name="-openssl--certificates--x509_certs"></a>`x509_certs`
+##### <a name="x509_certs"></a>`x509_certs`
 
 Data type: `Hash`
 
@@ -117,7 +117,7 @@ Data type: `Hash`
 
 Default value: `{}`
 
-### <a name="openssl--configs"></a>`openssl::configs`
+### <a name="opensslconfigs"></a>`openssl::configs`
 
 Generates openssl.conf files using defaults
 
@@ -139,25 +139,25 @@ class { '::openssl::configs':
 
 The following parameters are available in the `openssl::configs` class:
 
-* [`owner`](#-openssl--configs--owner)
-* [`group`](#-openssl--configs--group)
-* [`mode`](#-openssl--configs--mode)
-* [`country`](#-openssl--configs--country)
-* [`state`](#-openssl--configs--state)
-* [`locality`](#-openssl--configs--locality)
-* [`organization`](#-openssl--configs--organization)
-* [`unit`](#-openssl--configs--unit)
-* [`email`](#-openssl--configs--email)
-* [`default_bits`](#-openssl--configs--default_bits)
-* [`default_md`](#-openssl--configs--default_md)
-* [`default_keyfile`](#-openssl--configs--default_keyfile)
-* [`basicconstraints`](#-openssl--configs--basicconstraints)
-* [`extendedkeyusages`](#-openssl--configs--extendedkeyusages)
-* [`keyusages`](#-openssl--configs--keyusages)
-* [`subjectaltnames`](#-openssl--configs--subjectaltnames)
-* [`conffiles`](#-openssl--configs--conffiles)
+* [`owner`](#owner)
+* [`group`](#group)
+* [`mode`](#mode)
+* [`country`](#country)
+* [`state`](#state)
+* [`locality`](#locality)
+* [`organization`](#organization)
+* [`unit`](#unit)
+* [`email`](#email)
+* [`default_bits`](#default_bits)
+* [`default_md`](#default_md)
+* [`default_keyfile`](#default_keyfile)
+* [`basicconstraints`](#basicconstraints)
+* [`extendedkeyusages`](#extendedkeyusages)
+* [`keyusages`](#keyusages)
+* [`subjectaltnames`](#subjectaltnames)
+* [`conffiles`](#conffiles)
 
-##### <a name="-openssl--configs--owner"></a>`owner`
+##### <a name="owner"></a>`owner`
 
 Data type: `String`
 
@@ -165,7 +165,7 @@ default owner for the configuration files
 
 Default value: `'root'`
 
-##### <a name="-openssl--configs--group"></a>`group`
+##### <a name="group"></a>`group`
 
 Data type: `String`
 
@@ -173,7 +173,7 @@ default group for the configuration files
 
 Default value: `'root'`
 
-##### <a name="-openssl--configs--mode"></a>`mode`
+##### <a name="mode"></a>`mode`
 
 Data type: `String`
 
@@ -181,55 +181,55 @@ default mode for the configuration files
 
 Default value: `'0640'`
 
-##### <a name="-openssl--configs--country"></a>`country`
+##### <a name="country"></a>`country`
 
 Data type: `Optional[String]`
 
 default value for country
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--configs--state"></a>`state`
+##### <a name="state"></a>`state`
 
 Data type: `Optional[String]`
 
 default value for state
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--configs--locality"></a>`locality`
+##### <a name="locality"></a>`locality`
 
 Data type: `Optional[String]`
 
 default value for locality
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--configs--organization"></a>`organization`
+##### <a name="organization"></a>`organization`
 
 Data type: `Optional[String]`
 
 default value for organization
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--configs--unit"></a>`unit`
+##### <a name="unit"></a>`unit`
 
 Data type: `Optional[String]`
 
 default value for unit
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--configs--email"></a>`email`
+##### <a name="email"></a>`email`
 
 Data type: `Optional[String]`
 
 default value for email
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--configs--default_bits"></a>`default_bits`
+##### <a name="default_bits"></a>`default_bits`
 
 Data type: `Integer`
 
@@ -237,7 +237,7 @@ default key size to generate
 
 Default value: `4096`
 
-##### <a name="-openssl--configs--default_md"></a>`default_md`
+##### <a name="default_md"></a>`default_md`
 
 Data type: `String`
 
@@ -245,7 +245,7 @@ default message digest to use
 
 Default value: `'sha512'`
 
-##### <a name="-openssl--configs--default_keyfile"></a>`default_keyfile`
+##### <a name="default_keyfile"></a>`default_keyfile`
 
 Data type: `String`
 
@@ -253,40 +253,40 @@ default name for the keyfile
 
 Default value: `'privkey.pem'`
 
-##### <a name="-openssl--configs--basicconstraints"></a>`basicconstraints`
+##### <a name="basicconstraints"></a>`basicconstraints`
 
 Data type: `Optional[Array]`
 
 version 3 certificate extension basic constraints
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--configs--extendedkeyusages"></a>`extendedkeyusages`
+##### <a name="extendedkeyusages"></a>`extendedkeyusages`
 
 Data type: `Optional[Array]`
 
 version 3 certificate extension extended key usage
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--configs--keyusages"></a>`keyusages`
+##### <a name="keyusages"></a>`keyusages`
 
 Data type: `Optional[Array]`
 
 version 3 certificate extension key usage
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--configs--subjectaltnames"></a>`subjectaltnames`
+##### <a name="subjectaltnames"></a>`subjectaltnames`
 
 Data type: `Optional[Array]`
 
 version 3 certificate extension for alternative names
 currently supported are IP (v4) and DNS
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--configs--conffiles"></a>`conffiles`
+##### <a name="conffiles"></a>`conffiles`
 
 Data type: `Hash`
 
@@ -294,13 +294,13 @@ config files to generate
 
 Default value: `{}`
 
-### <a name="openssl--packages"></a>`openssl::packages`
+### <a name="opensslpackages"></a>`openssl::packages`
 
 Sets up packages for openssl
 
 ## Defined types
 
-### <a name="openssl--certificate--x509"></a>`openssl::certificate::x509`
+### <a name="opensslcertificatex509"></a>`openssl::certificate::x509`
 
 Creates a certificate, key and CSR according to datas provided.
 
@@ -334,38 +334,38 @@ and set $key_mode to '0640'.
 
 The following parameters are available in the `openssl::certificate::x509` defined type:
 
-* [`ensure`](#-openssl--certificate--x509--ensure)
-* [`country`](#-openssl--certificate--x509--country)
-* [`state`](#-openssl--certificate--x509--state)
-* [`locality`](#-openssl--certificate--x509--locality)
-* [`commonname`](#-openssl--certificate--x509--commonname)
-* [`altnames`](#-openssl--certificate--x509--altnames)
-* [`extkeyusage`](#-openssl--certificate--x509--extkeyusage)
-* [`organization`](#-openssl--certificate--x509--organization)
-* [`unit`](#-openssl--certificate--x509--unit)
-* [`email`](#-openssl--certificate--x509--email)
-* [`days`](#-openssl--certificate--x509--days)
-* [`base_dir`](#-openssl--certificate--x509--base_dir)
-* [`key_size`](#-openssl--certificate--x509--key_size)
-* [`owner`](#-openssl--certificate--x509--owner)
-* [`group`](#-openssl--certificate--x509--group)
-* [`key_owner`](#-openssl--certificate--x509--key_owner)
-* [`key_group`](#-openssl--certificate--x509--key_group)
-* [`key_mode`](#-openssl--certificate--x509--key_mode)
-* [`password`](#-openssl--certificate--x509--password)
-* [`force`](#-openssl--certificate--x509--force)
-* [`cnf_tpl`](#-openssl--certificate--x509--cnf_tpl)
-* [`cnf_dir`](#-openssl--certificate--x509--cnf_dir)
-* [`crt_dir`](#-openssl--certificate--x509--crt_dir)
-* [`csr_dir`](#-openssl--certificate--x509--csr_dir)
-* [`key_dir`](#-openssl--certificate--x509--key_dir)
-* [`cnf`](#-openssl--certificate--x509--cnf)
-* [`crt`](#-openssl--certificate--x509--crt)
-* [`csr`](#-openssl--certificate--x509--csr)
-* [`key`](#-openssl--certificate--x509--key)
-* [`encrypted`](#-openssl--certificate--x509--encrypted)
+* [`ensure`](#ensure)
+* [`country`](#country)
+* [`state`](#state)
+* [`locality`](#locality)
+* [`commonname`](#commonname)
+* [`altnames`](#altnames)
+* [`extkeyusage`](#extkeyusage)
+* [`organization`](#organization)
+* [`unit`](#unit)
+* [`email`](#email)
+* [`days`](#days)
+* [`base_dir`](#base_dir)
+* [`key_size`](#key_size)
+* [`owner`](#owner)
+* [`group`](#group)
+* [`key_owner`](#key_owner)
+* [`key_group`](#key_group)
+* [`key_mode`](#key_mode)
+* [`password`](#password)
+* [`force`](#force)
+* [`cnf_tpl`](#cnf_tpl)
+* [`cnf_dir`](#cnf_dir)
+* [`crt_dir`](#crt_dir)
+* [`csr_dir`](#csr_dir)
+* [`key_dir`](#key_dir)
+* [`cnf`](#cnf)
+* [`crt`](#crt)
+* [`csr`](#csr)
+* [`key`](#key)
+* [`encrypted`](#encrypted)
 
-##### <a name="-openssl--certificate--x509--ensure"></a>`ensure`
+##### <a name="ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
@@ -373,35 +373,35 @@ ensure wether certif and its config are present or not
 
 Default value: `present`
 
-##### <a name="-openssl--certificate--x509--country"></a>`country`
+##### <a name="country"></a>`country`
 
 Data type: `String`
 
 certificate countryName
 
-##### <a name="-openssl--certificate--x509--state"></a>`state`
+##### <a name="state"></a>`state`
 
 Data type: `Optional[String]`
 
 certificate stateOrProvinceName
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--certificate--x509--locality"></a>`locality`
+##### <a name="locality"></a>`locality`
 
 Data type: `Optional[String]`
 
 certificate localityName
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--certificate--x509--commonname"></a>`commonname`
+##### <a name="commonname"></a>`commonname`
 
 Data type: `String`
 
 certificate CommonName
 
-##### <a name="-openssl--certificate--x509--altnames"></a>`altnames`
+##### <a name="altnames"></a>`altnames`
 
 Data type: `Array`
 
@@ -410,7 +410,7 @@ Can be an array or a single string.
 
 Default value: `[]`
 
-##### <a name="-openssl--certificate--x509--extkeyusage"></a>`extkeyusage`
+##### <a name="extkeyusage"></a>`extkeyusage`
 
 Data type: `Array`
 
@@ -431,29 +431,29 @@ msEFS           | Microsoft Encrypted File System
 
 Default value: `[]`
 
-##### <a name="-openssl--certificate--x509--organization"></a>`organization`
+##### <a name="organization"></a>`organization`
 
 Data type: `String`
 
 certificate organizationName
 
-##### <a name="-openssl--certificate--x509--unit"></a>`unit`
+##### <a name="unit"></a>`unit`
 
 Data type: `Optional[String]`
 
 certificate organizationalUnitName
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--certificate--x509--email"></a>`email`
+##### <a name="email"></a>`email`
 
 Data type: `Optional[String]`
 
 certificate emailAddress
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--certificate--x509--days"></a>`days`
+##### <a name="days"></a>`days`
 
 Data type: `Integer`
 
@@ -461,7 +461,7 @@ certificate validity
 
 Default value: `365`
 
-##### <a name="-openssl--certificate--x509--base_dir"></a>`base_dir`
+##### <a name="base_dir"></a>`base_dir`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -470,7 +470,7 @@ Directory must exist
 
 Default value: `'/etc/ssl/certs'`
 
-##### <a name="-openssl--certificate--x509--key_size"></a>`key_size`
+##### <a name="key_size"></a>`key_size`
 
 Data type: `Integer`
 
@@ -478,7 +478,7 @@ Size of the key to generate.
 
 Default value: `2048`
 
-##### <a name="-openssl--certificate--x509--owner"></a>`owner`
+##### <a name="owner"></a>`owner`
 
 Data type: `Variant[String, Integer]`
 
@@ -486,7 +486,7 @@ cnf, crt, csr and key owner. User must exist
 
 Default value: `'root'`
 
-##### <a name="-openssl--certificate--x509--group"></a>`group`
+##### <a name="group"></a>`group`
 
 Data type: `Variant[String, Integer]`
 
@@ -494,23 +494,23 @@ cnf, crt, csr and key group. Group must exist
 
 Default value: `'root'`
 
-##### <a name="-openssl--certificate--x509--key_owner"></a>`key_owner`
+##### <a name="key_owner"></a>`key_owner`
 
 Data type: `Optional[Variant[String, Integer]]`
 
 key owner. User must exist. defaults to $owner
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--certificate--x509--key_group"></a>`key_group`
+##### <a name="key_group"></a>`key_group`
 
 Data type: `Optional[Variant[String, Integer]]`
 
 key group. Group must exist. defaults to $group
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--certificate--x509--key_mode"></a>`key_mode`
+##### <a name="key_mode"></a>`key_mode`
 
 Data type: `String`
 
@@ -518,25 +518,25 @@ key group.
 
 Default value: `'0600'`
 
-##### <a name="-openssl--certificate--x509--password"></a>`password`
+##### <a name="password"></a>`password`
 
 Data type: `Optional[String]`
 
 private key password. undef means no passphrase
 will be used to encrypt private key.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--certificate--x509--force"></a>`force`
+##### <a name="force"></a>`force`
 
 Data type: `Boolean`
 
 whether to override certificate and request
 if private key changes
 
-Default value: `true`
+Default value: ``true``
 
-##### <a name="-openssl--certificate--x509--cnf_tpl"></a>`cnf_tpl`
+##### <a name="cnf_tpl"></a>`cnf_tpl`
 
 Data type: `String`
 
@@ -544,79 +544,79 @@ Specify an other template to generate ".cnf" file.
 
 Default value: `'openssl/cert.cnf.erb'`
 
-##### <a name="-openssl--certificate--x509--cnf_dir"></a>`cnf_dir`
+##### <a name="cnf_dir"></a>`cnf_dir`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 where cnf should be placed.
 Directory must exist, defaults to $base_dir.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--certificate--x509--crt_dir"></a>`crt_dir`
+##### <a name="crt_dir"></a>`crt_dir`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 where crt should be placed.
 Directory must exist, defaults to $base_dir.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--certificate--x509--csr_dir"></a>`csr_dir`
+##### <a name="csr_dir"></a>`csr_dir`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 where csr should be placed.
 Directory must exist, defaults to $base_dir.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--certificate--x509--key_dir"></a>`key_dir`
+##### <a name="key_dir"></a>`key_dir`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 where key should be placed.
 Directory must exist, defaults to $base_dir.
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--certificate--x509--cnf"></a>`cnf`
+##### <a name="cnf"></a>`cnf`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 override cnf path entirely.
 Directory must exist, defaults to $cnf_dir/$title.cnf
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--certificate--x509--crt"></a>`crt`
+##### <a name="crt"></a>`crt`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 override crt path entirely.
 Directory must exist, defaults to $crt_dir/$title.crt
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--certificate--x509--csr"></a>`csr`
+##### <a name="csr"></a>`csr`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 override csr path entirely.
 Directory must exist, defaults to $csr_dir/$title.csr
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--certificate--x509--key"></a>`key`
+##### <a name="key"></a>`key`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 override key path entirely.
 Directory must exist, defaults to $key_dir/$title.key
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--certificate--x509--encrypted"></a>`encrypted`
+##### <a name="encrypted"></a>`encrypted`
 
 Data type: `Boolean`
 
@@ -625,9 +625,9 @@ specifying the -nodes option during the CSR generation. Turning
 off encryption is needed by some applications, such as OpenLDAP.
 Defaults to true (key is encrypted)
 
-Default value: `true`
+Default value: ``true``
 
-### <a name="openssl--dhparam"></a>`openssl::dhparam`
+### <a name="openssldhparam"></a>`openssl::dhparam`
 
 Creates Diffie Helman parameters.
 
@@ -635,15 +635,15 @@ Creates Diffie Helman parameters.
 
 The following parameters are available in the `openssl::dhparam` defined type:
 
-* [`path`](#-openssl--dhparam--path)
-* [`ensure`](#-openssl--dhparam--ensure)
-* [`size`](#-openssl--dhparam--size)
-* [`owner`](#-openssl--dhparam--owner)
-* [`group`](#-openssl--dhparam--group)
-* [`mode`](#-openssl--dhparam--mode)
-* [`fastmode`](#-openssl--dhparam--fastmode)
+* [`path`](#path)
+* [`ensure`](#ensure)
+* [`size`](#size)
+* [`owner`](#owner)
+* [`group`](#group)
+* [`mode`](#mode)
+* [`fastmode`](#fastmode)
 
-##### <a name="-openssl--dhparam--path"></a>`path`
+##### <a name="path"></a>`path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -651,7 +651,7 @@ path to write DH parameters to
 
 Default value: `$name`
 
-##### <a name="-openssl--dhparam--ensure"></a>`ensure`
+##### <a name="ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
@@ -659,7 +659,7 @@ ensure whether DH paramers file is present or absent
 
 Default value: `present`
 
-##### <a name="-openssl--dhparam--size"></a>`size`
+##### <a name="size"></a>`size`
 
 Data type: `Integer[1]`
 
@@ -667,7 +667,7 @@ number of bits for the parameter set
 
 Default value: `2048`
 
-##### <a name="-openssl--dhparam--owner"></a>`owner`
+##### <a name="owner"></a>`owner`
 
 Data type: `Variant[String, Integer]`
 
@@ -675,7 +675,7 @@ file owner. User must exist
 
 Default value: `'root'`
 
-##### <a name="-openssl--dhparam--group"></a>`group`
+##### <a name="group"></a>`group`
 
 Data type: `Variant[String, Integer]`
 
@@ -683,7 +683,7 @@ file group. Group must exist
 
 Default value: `'root'`
 
-##### <a name="-openssl--dhparam--mode"></a>`mode`
+##### <a name="mode"></a>`mode`
 
 Data type: `String`
 
@@ -691,15 +691,15 @@ file mode.
 
 Default value: `'0644'`
 
-##### <a name="-openssl--dhparam--fastmode"></a>`fastmode`
+##### <a name="fastmode"></a>`fastmode`
 
 Data type: `Boolean`
 
 Use "fastmode" for dhparam generation
 
-Default value: `false`
+Default value: ``false``
 
-### <a name="openssl--export--pem_cert"></a>`openssl::export::pem_cert`
+### <a name="opensslexportpem_cert"></a>`openssl::export::pem_cert`
 
 Export certificate(s) to PEM/x509 format
 
@@ -707,13 +707,13 @@ Export certificate(s) to PEM/x509 format
 
 The following parameters are available in the `openssl::export::pem_cert` defined type:
 
-* [`ensure`](#-openssl--export--pem_cert--ensure)
-* [`pfx_cert`](#-openssl--export--pem_cert--pfx_cert)
-* [`der_cert`](#-openssl--export--pem_cert--der_cert)
-* [`pem_cert`](#-openssl--export--pem_cert--pem_cert)
-* [`in_pass`](#-openssl--export--pem_cert--in_pass)
+* [`ensure`](#ensure)
+* [`pfx_cert`](#pfx_cert)
+* [`der_cert`](#der_cert)
+* [`pem_cert`](#pem_cert)
+* [`in_pass`](#in_pass)
 
-##### <a name="-openssl--export--pem_cert--ensure"></a>`ensure`
+##### <a name="ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
@@ -721,23 +721,23 @@ Whether the certificate file should exist
 
 Default value: `present`
 
-##### <a name="-openssl--export--pem_cert--pfx_cert"></a>`pfx_cert`
+##### <a name="pfx_cert"></a>`pfx_cert`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 PFX certificate/key container
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--export--pem_cert--der_cert"></a>`der_cert`
+##### <a name="der_cert"></a>`der_cert`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 DER certificate
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--export--pem_cert--pem_cert"></a>`pem_cert`
+##### <a name="pem_cert"></a>`pem_cert`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -745,15 +745,15 @@ PEM/x509 certificate
 
 Default value: `$title`
 
-##### <a name="-openssl--export--pem_cert--in_pass"></a>`in_pass`
+##### <a name="in_pass"></a>`in_pass`
 
 Data type: `Optional[String]`
 
 PFX password
 
-Default value: `undef`
+Default value: ``undef``
 
-### <a name="openssl--export--pem_key"></a>`openssl::export::pem_key`
+### <a name="opensslexportpem_key"></a>`openssl::export::pem_key`
 
 Export a key to PEM format
 
@@ -761,19 +761,19 @@ Export a key to PEM format
 
 The following parameters are available in the `openssl::export::pem_key` defined type:
 
-* [`pfx_cert`](#-openssl--export--pem_key--pfx_cert)
-* [`pem_key`](#-openssl--export--pem_key--pem_key)
-* [`ensure`](#-openssl--export--pem_key--ensure)
-* [`in_pass`](#-openssl--export--pem_key--in_pass)
-* [`out_pass`](#-openssl--export--pem_key--out_pass)
+* [`pfx_cert`](#pfx_cert)
+* [`pem_key`](#pem_key)
+* [`ensure`](#ensure)
+* [`in_pass`](#in_pass)
+* [`out_pass`](#out_pass)
 
-##### <a name="-openssl--export--pem_key--pfx_cert"></a>`pfx_cert`
+##### <a name="pfx_cert"></a>`pfx_cert`
 
 Data type: `Stdlib::Absolutepath`
 
 PFX certificate/key container
 
-##### <a name="-openssl--export--pem_key--pem_key"></a>`pem_key`
+##### <a name="pem_key"></a>`pem_key`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -781,7 +781,7 @@ PEM certificate
 
 Default value: `$title`
 
-##### <a name="-openssl--export--pem_key--ensure"></a>`ensure`
+##### <a name="ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
@@ -789,23 +789,23 @@ Whether the key file should exist
 
 Default value: `present`
 
-##### <a name="-openssl--export--pem_key--in_pass"></a>`in_pass`
+##### <a name="in_pass"></a>`in_pass`
 
 Data type: `Optional[String]`
 
 PFX container password
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--export--pem_key--out_pass"></a>`out_pass`
+##### <a name="out_pass"></a>`out_pass`
 
 Data type: `Optional[String]`
 
 PEM key password
 
-Default value: `undef`
+Default value: ``undef``
 
-### <a name="openssl--export--pkcs12"></a>`openssl::export::pkcs12`
+### <a name="opensslexportpkcs12"></a>`openssl::export::pkcs12`
 
 Export a key pair to PKCS12 format
 
@@ -813,33 +813,33 @@ Export a key pair to PKCS12 format
 
 The following parameters are available in the `openssl::export::pkcs12` defined type:
 
-* [`basedir`](#-openssl--export--pkcs12--basedir)
-* [`pkey`](#-openssl--export--pkcs12--pkey)
-* [`cert`](#-openssl--export--pkcs12--cert)
-* [`ensure`](#-openssl--export--pkcs12--ensure)
-* [`in_pass`](#-openssl--export--pkcs12--in_pass)
-* [`out_pass`](#-openssl--export--pkcs12--out_pass)
-* [`chaincert`](#-openssl--export--pkcs12--chaincert)
+* [`basedir`](#basedir)
+* [`pkey`](#pkey)
+* [`cert`](#cert)
+* [`ensure`](#ensure)
+* [`in_pass`](#in_pass)
+* [`out_pass`](#out_pass)
+* [`chaincert`](#chaincert)
 
-##### <a name="-openssl--export--pkcs12--basedir"></a>`basedir`
+##### <a name="basedir"></a>`basedir`
 
 Data type: `Stdlib::Absolutepath`
 
 Directory where you want the export to be done. Must exists
 
-##### <a name="-openssl--export--pkcs12--pkey"></a>`pkey`
+##### <a name="pkey"></a>`pkey`
 
 Data type: `Stdlib::Absolutepath`
 
 Private key
 
-##### <a name="-openssl--export--pkcs12--cert"></a>`cert`
+##### <a name="cert"></a>`cert`
 
 Data type: `Stdlib::Absolutepath`
 
 Certificate
 
-##### <a name="-openssl--export--pkcs12--ensure"></a>`ensure`
+##### <a name="ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
@@ -847,29 +847,29 @@ Whether the PKCS12 file should exist
 
 Default value: `present`
 
-##### <a name="-openssl--export--pkcs12--in_pass"></a>`in_pass`
+##### <a name="in_pass"></a>`in_pass`
 
 Data type: `Optional[String]`
 
 Private key password
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--export--pkcs12--out_pass"></a>`out_pass`
+##### <a name="out_pass"></a>`out_pass`
 
 Data type: `Optional[String]`
 
 PKCS12 password
 
-Default value: `undef`
+Default value: ``undef``
 
-##### <a name="-openssl--export--pkcs12--chaincert"></a>`chaincert`
+##### <a name="chaincert"></a>`chaincert`
 
 Data type: `Optional[String]`
 
 Chain certificate to include in pkcs12
 
-Default value: `undef`
+Default value: ``undef``
 
 ## Resource types
 
@@ -893,12 +893,12 @@ Default value: `present`
 
 The following parameters are available in the `cert_file` type.
 
-* [`format`](#-cert_file--format)
-* [`path`](#-cert_file--path)
-* [`provider`](#-cert_file--provider)
-* [`source`](#-cert_file--source)
+* [`format`](#format)
+* [`path`](#path)
+* [`provider`](#provider)
+* [`source`](#source)
 
-##### <a name="-cert_file--format"></a>`format`
+##### <a name="format"></a>`format`
 
 Valid values: `der`, `pem`
 
@@ -906,16 +906,16 @@ Format in which the loaded certificate should be written to file.
 
 Default value: `pem`
 
-##### <a name="-cert_file--path"></a>`path`
+##### <a name="path"></a>`path`
 
 Path to the file to manage
 
-##### <a name="-cert_file--provider"></a>`provider`
+##### <a name="provider"></a>`provider`
 
 The specific backend to use for this `cert_file` resource. You will seldom need to specify this --- Puppet will usually
 discover the appropriate provider for your platform.
 
-##### <a name="-cert_file--source"></a>`source`
+##### <a name="source"></a>`source`
 
 The source file
 
@@ -935,31 +935,43 @@ The basic property that the resource should be in.
 
 Default value: `present`
 
+##### `group`
+
+group of the file
+
+##### `mode`
+
+mode of the file
+
+##### `owner`
+
+owner of the file
+
 #### Parameters
 
 The following parameters are available in the `dhparam` type.
 
-* [`fastmode`](#-dhparam--fastmode)
-* [`path`](#-dhparam--path)
-* [`provider`](#-dhparam--provider)
-* [`size`](#-dhparam--size)
+* [`fastmode`](#fastmode)
+* [`path`](#path)
+* [`provider`](#provider)
+* [`size`](#size)
 
-##### <a name="-dhparam--fastmode"></a>`fastmode`
+##### <a name="fastmode"></a>`fastmode`
 
 Enable fast mode
 
-Default value: `false`
+Default value: ``false``
 
-##### <a name="-dhparam--path"></a>`path`
+##### <a name="path"></a>`path`
 
 The path of the file
 
-##### <a name="-dhparam--provider"></a>`provider`
+##### <a name="provider"></a>`provider`
 
 The specific backend to use for this `dhparam` resource. You will seldom need to specify this --- Puppet will usually
 discover the appropriate provider for your platform.
 
-##### <a name="-dhparam--size"></a>`size`
+##### <a name="size"></a>`size`
 
 Valid values: `%r{\d+}`
 
@@ -983,18 +995,30 @@ The basic property that the resource should be in.
 
 Default value: `present`
 
+##### `group`
+
+group of the file
+
+##### `mode`
+
+mode of the file
+
+##### `owner`
+
+owner of the file
+
 #### Parameters
 
 The following parameters are available in the `ssl_pkey` type.
 
-* [`authentication`](#-ssl_pkey--authentication)
-* [`curve`](#-ssl_pkey--curve)
-* [`password`](#-ssl_pkey--password)
-* [`path`](#-ssl_pkey--path)
-* [`provider`](#-ssl_pkey--provider)
-* [`size`](#-ssl_pkey--size)
+* [`authentication`](#authentication)
+* [`curve`](#curve)
+* [`password`](#password)
+* [`path`](#path)
+* [`provider`](#provider)
+* [`size`](#size)
 
-##### <a name="-ssl_pkey--authentication"></a>`authentication`
+##### <a name="authentication"></a>`authentication`
 
 Valid values: `rsa`, `dsa`, `ec`
 
@@ -1002,26 +1026,26 @@ The authentication algorithm: 'rsa', 'dsa or ec'
 
 Default value: `rsa`
 
-##### <a name="-ssl_pkey--curve"></a>`curve`
+##### <a name="curve"></a>`curve`
 
 The EC curve
 
 Default value: `secp384r1`
 
-##### <a name="-ssl_pkey--password"></a>`password`
+##### <a name="password"></a>`password`
 
 The optional password for the key
 
-##### <a name="-ssl_pkey--path"></a>`path`
+##### <a name="path"></a>`path`
 
 The path to the key
 
-##### <a name="-ssl_pkey--provider"></a>`provider`
+##### <a name="provider"></a>`provider`
 
 The specific backend to use for this `ssl_pkey` resource. You will seldom need to specify this --- Puppet will usually
 discover the appropriate provider for your platform.
 
-##### <a name="-ssl_pkey--size"></a>`size`
+##### <a name="size"></a>`size`
 
 Valid values: `%r{\d+}`
 
@@ -1045,21 +1069,33 @@ The basic property that the resource should be in.
 
 Default value: `present`
 
+##### `group`
+
+group of the file
+
+##### `mode`
+
+mode of the file
+
+##### `owner`
+
+owner of the file
+
 #### Parameters
 
 The following parameters are available in the `x509_cert` type.
 
-* [`authentication`](#-x509_cert--authentication)
-* [`days`](#-x509_cert--days)
-* [`force`](#-x509_cert--force)
-* [`password`](#-x509_cert--password)
-* [`path`](#-x509_cert--path)
-* [`private_key`](#-x509_cert--private_key)
-* [`provider`](#-x509_cert--provider)
-* [`req_ext`](#-x509_cert--req_ext)
-* [`template`](#-x509_cert--template)
+* [`authentication`](#authentication)
+* [`days`](#days)
+* [`force`](#force)
+* [`password`](#password)
+* [`path`](#path)
+* [`private_key`](#private_key)
+* [`provider`](#provider)
+* [`req_ext`](#req_ext)
+* [`template`](#template)
 
-##### <a name="-x509_cert--authentication"></a>`authentication`
+##### <a name="authentication"></a>`authentication`
 
 Valid values: `rsa`, `dsa`, `ec`
 
@@ -1067,7 +1103,7 @@ The authentication algorithm: 'rsa', 'dsa or ec'
 
 Default value: `rsa`
 
-##### <a name="-x509_cert--days"></a>`days`
+##### <a name="days"></a>`days`
 
 Valid values: `%r{\d+}`
 
@@ -1075,40 +1111,40 @@ The validity of the certificate
 
 Default value: `3650`
 
-##### <a name="-x509_cert--force"></a>`force`
+##### <a name="force"></a>`force`
 
-Valid values: `true`, `false`
+Valid values: ``true``, ``false``
 
 Whether to replace the certificate if the private key mismatches
 
-Default value: `false`
+Default value: ``false``
 
-##### <a name="-x509_cert--password"></a>`password`
+##### <a name="password"></a>`password`
 
 The optional password for the private key
 
-##### <a name="-x509_cert--path"></a>`path`
+##### <a name="path"></a>`path`
 
 The path to the certificate
 
-##### <a name="-x509_cert--private_key"></a>`private_key`
+##### <a name="private_key"></a>`private_key`
 
 The path to the private key
 
-##### <a name="-x509_cert--provider"></a>`provider`
+##### <a name="provider"></a>`provider`
 
 The specific backend to use for this `x509_cert` resource. You will seldom need to specify this --- Puppet will usually
 discover the appropriate provider for your platform.
 
-##### <a name="-x509_cert--req_ext"></a>`req_ext`
+##### <a name="req_ext"></a>`req_ext`
 
-Valid values: `true`, `false`
+Valid values: ``true``, ``false``
 
 Whether adding v3 SAN from config
 
-Default value: `false`
+Default value: ``false``
 
-##### <a name="-x509_cert--template"></a>`template`
+##### <a name="template"></a>`template`
 
 The template to use
 
@@ -1128,20 +1164,32 @@ The basic property that the resource should be in.
 
 Default value: `present`
 
+##### `group`
+
+group of the file
+
+##### `mode`
+
+mode of the file
+
+##### `owner`
+
+owner of the file
+
 #### Parameters
 
 The following parameters are available in the `x509_request` type.
 
-* [`authentication`](#-x509_request--authentication)
-* [`encrypted`](#-x509_request--encrypted)
-* [`force`](#-x509_request--force)
-* [`password`](#-x509_request--password)
-* [`path`](#-x509_request--path)
-* [`private_key`](#-x509_request--private_key)
-* [`provider`](#-x509_request--provider)
-* [`template`](#-x509_request--template)
+* [`authentication`](#authentication)
+* [`encrypted`](#encrypted)
+* [`force`](#force)
+* [`password`](#password)
+* [`path`](#path)
+* [`private_key`](#private_key)
+* [`provider`](#provider)
+* [`template`](#template)
 
-##### <a name="-x509_request--authentication"></a>`authentication`
+##### <a name="authentication"></a>`authentication`
 
 Valid values: `rsa`, `dsa`, `ec`
 
@@ -1149,40 +1197,40 @@ The authentication algorithm: 'rsa', 'dsa' or ec
 
 Default value: `rsa`
 
-##### <a name="-x509_request--encrypted"></a>`encrypted`
+##### <a name="encrypted"></a>`encrypted`
 
-Valid values: `true`, `false`
+Valid values: ``true``, ``false``
 
 Whether to generate the key unencrypted. This is needed by some applications like OpenLDAP
 
-Default value: `true`
+Default value: ``true``
 
-##### <a name="-x509_request--force"></a>`force`
+##### <a name="force"></a>`force`
 
-Valid values: `true`, `false`
+Valid values: ``true``, ``false``
 
 Whether to replace the certificate if the private key mismatches
 
-Default value: `false`
+Default value: ``false``
 
-##### <a name="-x509_request--password"></a>`password`
+##### <a name="password"></a>`password`
 
 The optional password for the private key
 
-##### <a name="-x509_request--path"></a>`path`
+##### <a name="path"></a>`path`
 
 The path of the certificate signing request
 
-##### <a name="-x509_request--private_key"></a>`private_key`
+##### <a name="private_key"></a>`private_key`
 
 The path of the private key
 
-##### <a name="-x509_request--provider"></a>`provider`
+##### <a name="provider"></a>`provider`
 
 The specific backend to use for this `x509_request` resource. You will seldom need to specify this --- Puppet will
 usually discover the appropriate provider for your platform.
 
-##### <a name="-x509_request--template"></a>`template`
+##### <a name="template"></a>`template`
 
 The template to use
 
