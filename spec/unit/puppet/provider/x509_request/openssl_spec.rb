@@ -40,7 +40,7 @@ describe 'The openssl provider for the x509_request type' do
                                                          '-key', '/tmp/foo.key',
                                                          '-config', '/tmp/foo.cnf',
                                                          '-out', '/tmp/foo.csr',
-                                                         '-passin', 'pass:2x6${'
+                                                         ['-passin', 'pass:2x6${']
                                                        ])
       resource.provider.create
     end
