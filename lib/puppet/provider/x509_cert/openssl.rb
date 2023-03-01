@@ -67,19 +67,7 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
   end
 
   def create
-    # reqoptions = [
-    #   'req',
-    #   '-config', resource[:template],
-    #   '-new', '-x509',
-    #   '-days', resource[:days],
-    #   '-key', resource[:private_key],
-    #   '-out', resource[:path]
-    # ]
-    # reqoptions << ['-passin', "pass:#{resource[:password]}"] if resource[:password]
-    # reqoptions << ['-extensions', 'req_ext'] if resource[:req_ext] != :false
-    # openssl reqoptions
-
-    certoptions = [
+    options = [
       'x509',
       '-req',
       '-days', resource[:days],
@@ -87,11 +75,13 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
       '-out', resource[:path]
     ]
     if resource[:ca]
-      certoptions << ['CAcreateserial']
-      certoptions << ['-CA', resource[:ca]]
-      certoptions << ['-CAkey', resource[:cakey]]
+      options << ['-CAcreateserial']
+      options << ['-CA', resource[:ca]]
+      options << ['-CAkey', resource[:cakey]]
     end
-    openssl certoptions
+    options << ['-passin', "pass:#{resource[:password]}"] if resource[:password]
+    options << ['-extensions', 'req_ext'] if resource[:req_ext] != :false
+    openssl options
   end
 
   def destroy

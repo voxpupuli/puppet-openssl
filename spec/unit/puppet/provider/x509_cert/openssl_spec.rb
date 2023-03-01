@@ -27,9 +27,10 @@ describe 'The openssl provider for the x509_cert type' do
 
     it 'creates a certificate with the proper options' do
       expect(provider_class).to receive(:openssl).with([
-                                                         'req', '-config', '/tmp/foo.cnf', '-new', '-x509',
+                                                         'x509',
+                                                         '-req',
                                                          '-days', 3650,
-                                                         '-key', '/tmp/foo.key',
+                                                         '-in', '/tmp/foo.csr',
                                                          '-out', '/tmp/foo.crt',
                                                          ['-extensions', 'req_ext']
                                                        ])
@@ -40,9 +41,10 @@ describe 'The openssl provider for the x509_cert type' do
       it 'creates a certificate with the proper options' do
         resource[:password] = '2x6${'
         expect(provider_class).to receive(:openssl).with([
-                                                           'req', '-config', '/tmp/foo.cnf', '-new', '-x509',
+                                                           'x509',
+                                                           '-req',
                                                            '-days', 3650,
-                                                           '-key', '/tmp/foo.key',
+                                                           '-in', '/tmp/foo.csr',
                                                            '-out', '/tmp/foo.crt',
                                                            ['-passin', 'pass:2x6${'],
                                                            ['-extensions', 'req_ext']

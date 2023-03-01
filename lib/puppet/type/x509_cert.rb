@@ -14,18 +14,6 @@ Puppet::Type.newtype(:x509_cert) do
     end
   end
 
-  newparam(:private_key) do
-    desc 'The path to the private key'
-    defaultto do
-      path = Pathname.new(@resource[:path])
-      "#{path.dirname}/#{path.basename(path.extname)}.key"
-    end
-    validate do |value|
-      path = Pathname.new(value)
-      raise ArgumentError, "Path must be absolute: #{path}" unless path.absolute?
-    end
-  end
-
   newparam(:csr) do
     desc 'The path to the certificate signing request'
     defaultto do
