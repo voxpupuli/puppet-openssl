@@ -192,6 +192,7 @@ define openssl::certificate::x509 (
     require     => File[$_cnf],
     ca          => $ca,
     cakey       => $cakey,
+    csr         => $csr,
   }
 
   x509_request { $_csr:

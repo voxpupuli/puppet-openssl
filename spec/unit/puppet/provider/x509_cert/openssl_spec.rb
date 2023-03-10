@@ -27,10 +27,12 @@ describe 'The openssl provider for the x509_cert type' do
 
     it 'creates a certificate with the proper options' do
       expect(provider_class).to receive(:openssl).with([
-                                                         'x509',
-                                                         '-req',
+                                                         'req',
+                                                         '-config', '/tmp/foo.cnf',
+                                                         '-new',
+                                                         '-x509',
                                                          '-days', 3650,
-                                                         '-in', '/tmp/foo.csr',
+                                                         '-key', '/tmp/foo.key',
                                                          '-out', '/tmp/foo.crt',
                                                          ['-extensions', 'req_ext']
                                                        ])
@@ -41,16 +43,38 @@ describe 'The openssl provider for the x509_cert type' do
       it 'creates a certificate with the proper options' do
         resource[:password] = '2x6${'
         expect(provider_class).to receive(:openssl).with([
-                                                           'x509',
-                                                           '-req',
+                                                           'req',
+                                                           '-config', '/tmp/foo.cnf',
+                                                           '-new',
+                                                           '-x509',
                                                            '-days', 3650,
-                                                           '-in', '/tmp/foo.csr',
+                                                           '-key', '/tmp/foo.key',
                                                            '-out', '/tmp/foo.crt',
                                                            ['-passin', 'pass:2x6${'],
                                                            ['-extensions', 'req_ext']
                                                          ])
         resource.provider.create
       end
+    end
+  end
+
+  context 'when using a CA for signing' do
+    it 'creates a certificate with the proper options' do
+      resource[:csr] = '/tmp/foo.csr'
+      resource[:ca]  = '/tmp/foo-ca.crt'
+      resource[:cakey] = '/tmp/foo-ca.key'
+      expect(provider_class).to receive(:openssl).with([
+                                                         'x509',
+                                                         '-req',
+                                                         '-days', 3650,
+                                                         '-in', '/tmp/foo.csr',
+                                                         '-out', '/tmp/foo.crt',
+                                                         ["-CAcreateserial"],
+                                                         ["-CA", "/tmp/foo-ca.crt"],
+                                                         ["-CAkey", "/tmp/foo-ca.key"],
+                                                         ['-extensions', 'req_ext']
+                                                       ])
+      resource.provider.create
     end
   end
 
