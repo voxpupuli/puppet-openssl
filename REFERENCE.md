@@ -1260,6 +1260,7 @@ The following parameters are available in the `x509_cert` type.
 * [`force`](#-x509_cert--force)
 * [`password`](#-x509_cert--password)
 * [`path`](#-x509_cert--path)
+* [`private_key`](#-x509_cert--private_key)
 * [`provider`](#-x509_cert--provider)
 * [`req_ext`](#-x509_cert--req_ext)
 * [`template`](#-x509_cert--template)
@@ -1282,7 +1283,7 @@ The optional ca private key filepath
 
 ##### <a name="-x509_cert--csr"></a>`csr`
 
-The path to the certificate signing request
+The optional certificate signing request path
 
 ##### <a name="-x509_cert--days"></a>`days`
 
@@ -1307,6 +1308,10 @@ The optional password for the private key
 ##### <a name="-x509_cert--path"></a>`path`
 
 The path to the certificate
+
+##### <a name="-x509_cert--private_key"></a>`private_key`
+
+The path to the private key
 
 ##### <a name="-x509_cert--provider"></a>`provider`
 
