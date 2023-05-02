@@ -14,6 +14,7 @@
 ### Defined types
 
 * [`openssl::certificate::x509`](#openssl--certificate--x509): Creates a certificate, key and CSR according to datas provided.
+* [`openssl::config`](#openssl--config): Generates an openssl.conf file using defaults
 * [`openssl::dhparam`](#openssl--dhparam): Creates Diffie Helman parameters.
 * [`openssl::export::pem_cert`](#openssl--export--pem_cert): Export certificate(s) to PEM/x509 format
 * [`openssl::export::pem_key`](#openssl--export--pem_key): Export a key to PEM format
@@ -139,152 +140,7 @@ class { '::openssl::configs':
 
 The following parameters are available in the `openssl::configs` class:
 
-* [`owner`](#-openssl--configs--owner)
-* [`group`](#-openssl--configs--group)
-* [`mode`](#-openssl--configs--mode)
-* [`country`](#-openssl--configs--country)
-* [`state`](#-openssl--configs--state)
-* [`locality`](#-openssl--configs--locality)
-* [`organization`](#-openssl--configs--organization)
-* [`unit`](#-openssl--configs--unit)
-* [`email`](#-openssl--configs--email)
-* [`default_bits`](#-openssl--configs--default_bits)
-* [`default_md`](#-openssl--configs--default_md)
-* [`default_keyfile`](#-openssl--configs--default_keyfile)
-* [`basicconstraints`](#-openssl--configs--basicconstraints)
-* [`extendedkeyusages`](#-openssl--configs--extendedkeyusages)
-* [`keyusages`](#-openssl--configs--keyusages)
-* [`subjectaltnames`](#-openssl--configs--subjectaltnames)
 * [`conffiles`](#-openssl--configs--conffiles)
-
-##### <a name="-openssl--configs--owner"></a>`owner`
-
-Data type: `String`
-
-default owner for the configuration files
-
-Default value: `'root'`
-
-##### <a name="-openssl--configs--group"></a>`group`
-
-Data type: `String`
-
-default group for the configuration files
-
-Default value: `'root'`
-
-##### <a name="-openssl--configs--mode"></a>`mode`
-
-Data type: `String`
-
-default mode for the configuration files
-
-Default value: `'0640'`
-
-##### <a name="-openssl--configs--country"></a>`country`
-
-Data type: `Optional[String]`
-
-default value for country
-
-Default value: `undef`
-
-##### <a name="-openssl--configs--state"></a>`state`
-
-Data type: `Optional[String]`
-
-default value for state
-
-Default value: `undef`
-
-##### <a name="-openssl--configs--locality"></a>`locality`
-
-Data type: `Optional[String]`
-
-default value for locality
-
-Default value: `undef`
-
-##### <a name="-openssl--configs--organization"></a>`organization`
-
-Data type: `Optional[String]`
-
-default value for organization
-
-Default value: `undef`
-
-##### <a name="-openssl--configs--unit"></a>`unit`
-
-Data type: `Optional[String]`
-
-default value for unit
-
-Default value: `undef`
-
-##### <a name="-openssl--configs--email"></a>`email`
-
-Data type: `Optional[String]`
-
-default value for email
-
-Default value: `undef`
-
-##### <a name="-openssl--configs--default_bits"></a>`default_bits`
-
-Data type: `Integer`
-
-default key size to generate
-
-Default value: `4096`
-
-##### <a name="-openssl--configs--default_md"></a>`default_md`
-
-Data type: `String`
-
-default message digest to use
-
-Default value: `'sha512'`
-
-##### <a name="-openssl--configs--default_keyfile"></a>`default_keyfile`
-
-Data type: `String`
-
-default name for the keyfile
-
-Default value: `'privkey.pem'`
-
-##### <a name="-openssl--configs--basicconstraints"></a>`basicconstraints`
-
-Data type: `Optional[Array]`
-
-version 3 certificate extension basic constraints
-
-Default value: `undef`
-
-##### <a name="-openssl--configs--extendedkeyusages"></a>`extendedkeyusages`
-
-Data type: `Optional[Array]`
-
-version 3 certificate extension extended key usage
-
-Default value: `undef`
-
-##### <a name="-openssl--configs--keyusages"></a>`keyusages`
-
-Data type: `Optional[Array]`
-
-version 3 certificate extension key usage
-
-Default value: `undef`
-
-##### <a name="-openssl--configs--subjectaltnames"></a>`subjectaltnames`
-
-Data type: `Optional[Array]`
-
-version 3 certificate extension for alternative names
-currently supported are IP (v4) and DNS
-
-Default value: `undef`
 
 ##### <a name="-openssl--configs--conffiles"></a>`conffiles`
 
@@ -626,6 +482,187 @@ off encryption is needed by some applications, such as OpenLDAP.
 Defaults to true (key is encrypted)
 
 Default value: `true`
+
+### <a name="openssl--config"></a>`openssl::config`
+
+Generates an openssl.conf file using defaults
+
+#### Examples
+
+##### basic usage
+
+```puppet
+openssl::config {'/path/to/openssl.conf':
+  ensure     => 'present',
+  commonname => 'somewhere.org'
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `openssl::config` defined type:
+
+* [`ensure`](#-openssl--config--ensure)
+* [`owner`](#-openssl--config--owner)
+* [`group`](#-openssl--config--group)
+* [`mode`](#-openssl--config--mode)
+* [`commonname`](#-openssl--config--commonname)
+* [`country`](#-openssl--config--country)
+* [`state`](#-openssl--config--state)
+* [`locality`](#-openssl--config--locality)
+* [`organization`](#-openssl--config--organization)
+* [`unit`](#-openssl--config--unit)
+* [`email`](#-openssl--config--email)
+* [`default_bits`](#-openssl--config--default_bits)
+* [`default_md`](#-openssl--config--default_md)
+* [`default_keyfile`](#-openssl--config--default_keyfile)
+* [`basicconstraints`](#-openssl--config--basicconstraints)
+* [`extendedkeyusages`](#-openssl--config--extendedkeyusages)
+* [`keyusages`](#-openssl--config--keyusages)
+* [`subjectaltnames`](#-openssl--config--subjectaltnames)
+
+##### <a name="-openssl--config--ensure"></a>`ensure`
+
+Data type: `Enum['absent','present']`
+
+ensure parameter for configfile; defaults to present
+
+Default value: `'present'`
+
+##### <a name="-openssl--config--owner"></a>`owner`
+
+Data type: `String`
+
+default owner for the configuration files
+
+Default value: `'root'`
+
+##### <a name="-openssl--config--group"></a>`group`
+
+Data type: `String`
+
+default group for the configuration files
+
+Default value: `'root'`
+
+##### <a name="-openssl--config--mode"></a>`mode`
+
+Data type: `String`
+
+default mode for the configuration files
+
+Default value: `'0640'`
+
+##### <a name="-openssl--config--commonname"></a>`commonname`
+
+Data type: `Variant[String, Array[String]]`
+
+commonname for config file
+
+##### <a name="-openssl--config--country"></a>`country`
+
+Data type: `Optional[String]`
+
+default value for country
+
+Default value: `undef`
+
+##### <a name="-openssl--config--state"></a>`state`
+
+Data type: `Optional[String]`
+
+default value for state
+
+Default value: `undef`
+
+##### <a name="-openssl--config--locality"></a>`locality`
+
+Data type: `Optional[String]`
+
+default value for locality
+
+Default value: `undef`
+
+##### <a name="-openssl--config--organization"></a>`organization`
+
+Data type: `Optional[String]`
+
+default value for organization
+
+Default value: `undef`
+
+##### <a name="-openssl--config--unit"></a>`unit`
+
+Data type: `Optional[String]`
+
+default value for unit
+
+Default value: `undef`
+
+##### <a name="-openssl--config--email"></a>`email`
+
+Data type: `Optional[String]`
+
+default value for email
+
+Default value: `undef`
+
+##### <a name="-openssl--config--default_bits"></a>`default_bits`
+
+Data type: `Integer`
+
+default key size to generate
+
+Default value: `4096`
+
+##### <a name="-openssl--config--default_md"></a>`default_md`
+
+Data type: `String`
+
+default message digest to use
+
+Default value: `'sha512'`
+
+##### <a name="-openssl--config--default_keyfile"></a>`default_keyfile`
+
+Data type: `String`
+
+default name for the keyfile
+
+Default value: `'privkey.pem'`
+
+##### <a name="-openssl--config--basicconstraints"></a>`basicconstraints`
+
+Data type: `Optional[Array]`
+
+version 3 certificate extension basic constraints
+
+Default value: `undef`
+
+##### <a name="-openssl--config--extendedkeyusages"></a>`extendedkeyusages`
+
+Data type: `Optional[Array]`
+
+version 3 certificate extension extended key usage
+
+Default value: `undef`
+
+##### <a name="-openssl--config--keyusages"></a>`keyusages`
+
+Data type: `Optional[Array]`
+
+version 3 certificate extension key usage
+
+Default value: `undef`
+
+##### <a name="-openssl--config--subjectaltnames"></a>`subjectaltnames`
+
+Data type: `Optional[Array]`
+
+version 3 certificate extension for alternative names
+currently supported are IP (v4) and DNS
+
+Default value: `undef`
 
 ### <a name="openssl--dhparam"></a>`openssl::dhparam`
 
