@@ -140,7 +140,152 @@ class { '::openssl::configs':
 
 The following parameters are available in the `openssl::configs` class:
 
+* [`owner`](#-openssl--configs--owner)
+* [`group`](#-openssl--configs--group)
+* [`mode`](#-openssl--configs--mode)
+* [`country`](#-openssl--configs--country)
+* [`state`](#-openssl--configs--state)
+* [`locality`](#-openssl--configs--locality)
+* [`organization`](#-openssl--configs--organization)
+* [`unit`](#-openssl--configs--unit)
+* [`email`](#-openssl--configs--email)
+* [`default_bits`](#-openssl--configs--default_bits)
+* [`default_md`](#-openssl--configs--default_md)
+* [`default_keyfile`](#-openssl--configs--default_keyfile)
+* [`basicconstraints`](#-openssl--configs--basicconstraints)
+* [`extendedkeyusages`](#-openssl--configs--extendedkeyusages)
+* [`keyusages`](#-openssl--configs--keyusages)
+* [`subjectaltnames`](#-openssl--configs--subjectaltnames)
 * [`conffiles`](#-openssl--configs--conffiles)
+
+##### <a name="-openssl--configs--owner"></a>`owner`
+
+Data type: `String`
+
+default owner for the configuration files
+
+Default value: `'root'`
+
+##### <a name="-openssl--configs--group"></a>`group`
+
+Data type: `String`
+
+default group for the configuration files
+
+Default value: `'root'`
+
+##### <a name="-openssl--configs--mode"></a>`mode`
+
+Data type: `String`
+
+default mode for the configuration files
+
+Default value: `'0640'`
+
+##### <a name="-openssl--configs--country"></a>`country`
+
+Data type: `Optional[String]`
+
+default value for country
+
+Default value: `undef`
+
+##### <a name="-openssl--configs--state"></a>`state`
+
+Data type: `Optional[String]`
+
+default value for state
+
+Default value: `undef`
+
+##### <a name="-openssl--configs--locality"></a>`locality`
+
+Data type: `Optional[String]`
+
+default value for locality
+
+Default value: `undef`
+
+##### <a name="-openssl--configs--organization"></a>`organization`
+
+Data type: `Optional[String]`
+
+default value for organization
+
+Default value: `undef`
+
+##### <a name="-openssl--configs--unit"></a>`unit`
+
+Data type: `Optional[String]`
+
+default value for unit
+
+Default value: `undef`
+
+##### <a name="-openssl--configs--email"></a>`email`
+
+Data type: `Optional[String]`
+
+default value for email
+
+Default value: `undef`
+
+##### <a name="-openssl--configs--default_bits"></a>`default_bits`
+
+Data type: `Integer`
+
+default key size to generate
+
+Default value: `4096`
+
+##### <a name="-openssl--configs--default_md"></a>`default_md`
+
+Data type: `String`
+
+default message digest to use
+
+Default value: `'sha512'`
+
+##### <a name="-openssl--configs--default_keyfile"></a>`default_keyfile`
+
+Data type: `String`
+
+default name for the keyfile
+
+Default value: `'privkey.pem'`
+
+##### <a name="-openssl--configs--basicconstraints"></a>`basicconstraints`
+
+Data type: `Optional[Array]`
+
+default version 3 certificate extension basic constraints
+
+Default value: `undef`
+
+##### <a name="-openssl--configs--extendedkeyusages"></a>`extendedkeyusages`
+
+Data type: `Optional[Array]`
+
+default version 3 certificate extension extended key usage
+
+Default value: `undef`
+
+##### <a name="-openssl--configs--keyusages"></a>`keyusages`
+
+Data type: `Optional[Array]`
+
+default version 3 certificate extension key usage
+
+Default value: `undef`
+
+##### <a name="-openssl--configs--subjectaltnames"></a>`subjectaltnames`
+
+Data type: `Optional[Array]`
+
+default version 3 certificate extension for alternative names
+currently supported are IP (v4) and DNS
+
+Default value: `undef`
 
 ##### <a name="-openssl--configs--conffiles"></a>`conffiles`
 
@@ -535,7 +680,7 @@ Data type: `String`
 
 default owner for the configuration files
 
-Default value: `'root'`
+Default value: `$openssl::configs::owner`
 
 ##### <a name="-openssl--config--group"></a>`group`
 
@@ -543,7 +688,7 @@ Data type: `String`
 
 default group for the configuration files
 
-Default value: `'root'`
+Default value: `$openssl::configs::group`
 
 ##### <a name="-openssl--config--mode"></a>`mode`
 
@@ -551,7 +696,7 @@ Data type: `String`
 
 default mode for the configuration files
 
-Default value: `'0640'`
+Default value: `$openssl::configs::mode`
 
 ##### <a name="-openssl--config--commonname"></a>`commonname`
 
@@ -565,7 +710,7 @@ Data type: `Optional[String]`
 
 default value for country
 
-Default value: `undef`
+Default value: `$openssl::configs::country`
 
 ##### <a name="-openssl--config--state"></a>`state`
 
@@ -573,7 +718,7 @@ Data type: `Optional[String]`
 
 default value for state
 
-Default value: `undef`
+Default value: `$openssl::configs::state`
 
 ##### <a name="-openssl--config--locality"></a>`locality`
 
@@ -581,7 +726,7 @@ Data type: `Optional[String]`
 
 default value for locality
 
-Default value: `undef`
+Default value: `$openssl::configs::locality`
 
 ##### <a name="-openssl--config--organization"></a>`organization`
 
@@ -589,7 +734,7 @@ Data type: `Optional[String]`
 
 default value for organization
 
-Default value: `undef`
+Default value: `$openssl::configs::organization`
 
 ##### <a name="-openssl--config--unit"></a>`unit`
 
@@ -597,7 +742,7 @@ Data type: `Optional[String]`
 
 default value for unit
 
-Default value: `undef`
+Default value: `$openssl::configs::unit`
 
 ##### <a name="-openssl--config--email"></a>`email`
 
@@ -605,7 +750,7 @@ Data type: `Optional[String]`
 
 default value for email
 
-Default value: `undef`
+Default value: `$openssl::configs::email`
 
 ##### <a name="-openssl--config--default_bits"></a>`default_bits`
 
@@ -613,7 +758,7 @@ Data type: `Integer`
 
 default key size to generate
 
-Default value: `4096`
+Default value: `$openssl::configs::defaults_bits`
 
 ##### <a name="-openssl--config--default_md"></a>`default_md`
 
@@ -621,7 +766,7 @@ Data type: `String`
 
 default message digest to use
 
-Default value: `'sha512'`
+Default value: `$openssl::configs::default_md`
 
 ##### <a name="-openssl--config--default_keyfile"></a>`default_keyfile`
 
@@ -629,7 +774,7 @@ Data type: `String`
 
 default name for the keyfile
 
-Default value: `'privkey.pem'`
+Default value: `$openssl::configs::default_keyfile`
 
 ##### <a name="-openssl--config--basicconstraints"></a>`basicconstraints`
 
@@ -637,7 +782,7 @@ Data type: `Optional[Array]`
 
 version 3 certificate extension basic constraints
 
-Default value: `undef`
+Default value: `$openssl::configs::basiccontraints`
 
 ##### <a name="-openssl--config--extendedkeyusages"></a>`extendedkeyusages`
 
@@ -645,7 +790,7 @@ Data type: `Optional[Array]`
 
 version 3 certificate extension extended key usage
 
-Default value: `undef`
+Default value: `$openssl::configs::extendedkeyusages`
 
 ##### <a name="-openssl--config--keyusages"></a>`keyusages`
 
@@ -653,7 +798,7 @@ Data type: `Optional[Array]`
 
 version 3 certificate extension key usage
 
-Default value: `undef`
+Default value: `$openssl::configs::keyusages`
 
 ##### <a name="-openssl--config--subjectaltnames"></a>`subjectaltnames`
 
@@ -662,7 +807,7 @@ Data type: `Optional[Array]`
 version 3 certificate extension for alternative names
 currently supported are IP (v4) and DNS
 
-Default value: `undef`
+Default value: `$openssl::configs::subjectaltnames`
 
 ### <a name="openssl--dhparam"></a>`openssl::dhparam`
 
