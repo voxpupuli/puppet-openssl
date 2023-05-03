@@ -8,7 +8,7 @@
 
 * [`openssl`](#openssl): Installs openssl and ensures bundled certificate list is world readable
 * [`openssl::certificates`](#openssl--certificates): Generates x509 certificates based on class parameters
-* [`openssl::configs`](#openssl--configs): Generates openssl.conf files using defaults
+* [`openssl::configs`](#openssl--configs): Generates openssl.conf files using manually set defaults or defaults from openssl::config
 * [`openssl::packages`](#openssl--packages): Sets up packages for openssl
 
 ### Defined types
@@ -120,7 +120,7 @@ Default value: `{}`
 
 ### <a name="openssl--configs"></a>`openssl::configs`
 
-Generates openssl.conf files using defaults
+Generates openssl.conf files using manually set defaults or defaults from openssl::config
 
 #### Examples
 
@@ -128,10 +128,13 @@ Generates openssl.conf files using defaults
 
 ```puppet
 class { '::openssl::configs':
-  conffiles => { '/path/to/openssl.conf' => { ensure     => 'present',
-                                              commonname => 'somewhere.org',},
-                 '/a/other/openssl.conf' => { ensure     => 'present',
-                                              commonname => 'somewhere.else.org' },
+  country   => 'mycountry',
+  conffiles => { '/path/to/openssl.conf' => { ensure       => 'present',
+                                              commonname   => 'somewhere.org',
+                                              organization => 'myorg' },
+                 '/a/other/openssl.conf' => { ensure       => 'present',
+                                              commonname   => 'somewhere.else.org',
+                                              organization => 'myotherorg' },
                 }
 }
 ```
@@ -160,27 +163,27 @@ The following parameters are available in the `openssl::configs` class:
 
 ##### <a name="-openssl--configs--owner"></a>`owner`
 
-Data type: `String`
+Data type: `Optional[String]`
 
 default owner for the configuration files
 
-Default value: `'root'`
+Default value: `undef`
 
 ##### <a name="-openssl--configs--group"></a>`group`
 
-Data type: `String`
+Data type: `Optional[String]`
 
 default group for the configuration files
 
-Default value: `'root'`
+Default value: `undef`
 
 ##### <a name="-openssl--configs--mode"></a>`mode`
 
-Data type: `String`
+Data type: `Optional[String]`
 
 default mode for the configuration files
 
-Default value: `'0640'`
+Default value: `undef`
 
 ##### <a name="-openssl--configs--country"></a>`country`
 
@@ -232,27 +235,27 @@ Default value: `undef`
 
 ##### <a name="-openssl--configs--default_bits"></a>`default_bits`
 
-Data type: `Integer`
+Data type: `Optional[Integer]`
 
 default key size to generate
 
-Default value: `4096`
+Default value: `undef`
 
 ##### <a name="-openssl--configs--default_md"></a>`default_md`
 
-Data type: `String`
+Data type: `Optional[String]`
 
 default message digest to use
 
-Default value: `'sha512'`
+Default value: `undef`
 
 ##### <a name="-openssl--configs--default_keyfile"></a>`default_keyfile`
 
-Data type: `String`
+Data type: `Optional[String]`
 
 default name for the keyfile
 
-Default value: `'privkey.pem'`
+Default value: `undef`
 
 ##### <a name="-openssl--configs--basicconstraints"></a>`basicconstraints`
 
@@ -638,8 +641,10 @@ Generates an openssl.conf file using defaults
 
 ```puppet
 openssl::config {'/path/to/openssl.conf':
-  ensure     => 'present',
-  commonname => 'somewhere.org'
+  ensure       => 'present',
+  commonname   => 'somewhere.org',
+  country      => 'mycountry',
+  organization => 'myorg',
 }
 ```
 
@@ -648,14 +653,14 @@ openssl::config {'/path/to/openssl.conf':
 The following parameters are available in the `openssl::config` defined type:
 
 * [`ensure`](#-openssl--config--ensure)
+* [`commonname`](#-openssl--config--commonname)
+* [`country`](#-openssl--config--country)
+* [`organization`](#-openssl--config--organization)
 * [`owner`](#-openssl--config--owner)
 * [`group`](#-openssl--config--group)
 * [`mode`](#-openssl--config--mode)
-* [`commonname`](#-openssl--config--commonname)
-* [`country`](#-openssl--config--country)
 * [`state`](#-openssl--config--state)
 * [`locality`](#-openssl--config--locality)
-* [`organization`](#-openssl--config--organization)
 * [`unit`](#-openssl--config--unit)
 * [`email`](#-openssl--config--email)
 * [`default_bits`](#-openssl--config--default_bits)
@@ -674,30 +679,6 @@ ensure parameter for configfile; defaults to present
 
 Default value: `'present'`
 
-##### <a name="-openssl--config--owner"></a>`owner`
-
-Data type: `String`
-
-default owner for the configuration files
-
-Default value: `$openssl::configs::owner`
-
-##### <a name="-openssl--config--group"></a>`group`
-
-Data type: `String`
-
-default group for the configuration files
-
-Default value: `$openssl::configs::group`
-
-##### <a name="-openssl--config--mode"></a>`mode`
-
-Data type: `String`
-
-default mode for the configuration files
-
-Default value: `$openssl::configs::mode`
-
 ##### <a name="-openssl--config--commonname"></a>`commonname`
 
 Data type: `Variant[String, Array[String]]`
@@ -706,75 +687,95 @@ commonname for config file
 
 ##### <a name="-openssl--config--country"></a>`country`
 
-Data type: `Optional[String]`
+Data type: `String`
 
-default value for country
+value for country
 
-Default value: `$openssl::configs::country`
+##### <a name="-openssl--config--organization"></a>`organization`
+
+Data type: `String`
+
+value for organization
+
+##### <a name="-openssl--config--owner"></a>`owner`
+
+Data type: `String`
+
+owner for the configuration file
+
+Default value: `'root'`
+
+##### <a name="-openssl--config--group"></a>`group`
+
+Data type: `String`
+
+group for the configuration file
+
+Default value: `'root'`
+
+##### <a name="-openssl--config--mode"></a>`mode`
+
+Data type: `String`
+
+mode for the configuration file
+
+Default value: `'0640'`
 
 ##### <a name="-openssl--config--state"></a>`state`
 
 Data type: `Optional[String]`
 
-default value for state
+value for state
 
-Default value: `$openssl::configs::state`
+Default value: `undef`
 
 ##### <a name="-openssl--config--locality"></a>`locality`
 
 Data type: `Optional[String]`
 
-default value for locality
+value for locality
 
-Default value: `$openssl::configs::locality`
-
-##### <a name="-openssl--config--organization"></a>`organization`
-
-Data type: `Optional[String]`
-
-default value for organization
-
-Default value: `$openssl::configs::organization`
+Default value: `undef`
 
 ##### <a name="-openssl--config--unit"></a>`unit`
 
 Data type: `Optional[String]`
 
-default value for unit
+value for unit
 
-Default value: `$openssl::configs::unit`
+Default value: `undef`
 
 ##### <a name="-openssl--config--email"></a>`email`
 
 Data type: `Optional[String]`
 
-default value for email
+value for email
 
-Default value: `$openssl::configs::email`
+Default value: `undef`
 
 ##### <a name="-openssl--config--default_bits"></a>`default_bits`
 
 Data type: `Integer`
 
-default key size to generate
+key size to generate
 
-Default value: `$openssl::configs::defaults_bits`
+Default value: `4096`
 
 ##### <a name="-openssl--config--default_md"></a>`default_md`
 
 Data type: `String`
 
-default message digest to use
+message digest to use
 
-Default value: `$openssl::configs::default_md`
+Default value: `'sha512'`
 
 ##### <a name="-openssl--config--default_keyfile"></a>`default_keyfile`
 
 Data type: `String`
 
-default name for the keyfile
+name for the keyfile
 
-Default value: `$openssl::configs::default_keyfile`
+Default value: `'privkey.pem'`
 
 ##### <a name="-openssl--config--basicconstraints"></a>`basicconstraints`
 
@@ -782,7 +783,7 @@ Data type: `Optional[Array]`
 
 version 3 certificate extension basic constraints
 
-Default value: `$openssl::configs::basiccontraints`
+Default value: `undef`
 
 ##### <a name="-openssl--config--extendedkeyusages"></a>`extendedkeyusages`
 
@@ -790,7 +791,7 @@ Data type: `Optional[Array]`
 
 version 3 certificate extension extended key usage
 
-Default value: `$openssl::configs::extendedkeyusages`
+Default value: `undef`
 
 ##### <a name="-openssl--config--keyusages"></a>`keyusages`
 
@@ -798,7 +799,7 @@ Data type: `Optional[Array]`
 
 version 3 certificate extension key usage
 
-Default value: `$openssl::configs::keyusages`
+Default value: `undef`
 
 ##### <a name="-openssl--config--subjectaltnames"></a>`subjectaltnames`
 
@@ -807,7 +808,7 @@ Data type: `Optional[Array]`
 version 3 certificate extension for alternative names
 currently supported are IP (v4) and DNS
 
-Default value: `$openssl::configs::subjectaltnames`
+Default value: `undef`
 
 ### <a name="openssl--dhparam"></a>`openssl::dhparam`
 

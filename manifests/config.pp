@@ -2,32 +2,32 @@
 #
 # @param ensure
 #   ensure parameter for configfile; defaults to present
-# @param owner
-#   default owner for the configuration files
-# @param group
-#   default group for the configuration files
-# @param mode
-#   default mode for the configuration files
 # @param commonname
 #   commonname for config file
 # @param country
-#   default value for country
-# @param state
-#   default value for state
-# @param locality
-#   default value for locality
+#   value for country
 # @param organization
-#   default value for organization
+#   value for organization
+# @param owner
+#   owner for the configuration file
+# @param group
+#   group for the configuration file
+# @param mode
+#   mode for the configuration file
+# @param state
+#   value for state
+# @param locality
+#   value for locality
 # @param unit
-#   default value for unit
+#   value for unit
 # @param email
-#   default value for email
+#   value for email
 # @param default_bits
-#   default key size to generate
+#   key size to generate
 # @param default_md
-#   default message digest to use
+#   message digest to use
 # @param default_keyfile
-#   default name for the keyfile
+#   name for the keyfile
 # @param basicconstraints
 #   version 3 certificate extension basic constraints
 # @param extendedkeyusages
@@ -40,29 +40,31 @@
 #
 # @example basic usage
 #   openssl::config {'/path/to/openssl.conf':
-#     ensure     => 'present',
-#     commonname => 'somewhere.org'
+#     ensure       => 'present',
+#     commonname   => 'somewhere.org',
+#     country      => 'mycountry',
+#     organization => 'myorg',
 #   }
 #
 define openssl::config (
   Variant[String, Array[String]] $commonname,
+  String                         $country,
+  String                         $organization,
   Enum['absent','present']       $ensure            = 'present',
-  String                         $owner             = $openssl::configs::owner,
-  String                         $group             = $openssl::configs::group,
-  String                         $mode              = $openssl::configs::mode,
-  Optional[String]               $country           = $openssl::configs::country,
-  Optional[String]               $state             = $openssl::configs::state,
-  Optional[String]               $locality          = $openssl::configs::locality,
-  Optional[String]               $organization      = $openssl::configs::organization,
-  Optional[String]               $unit              = $openssl::configs::unit,
-  Optional[String]               $email             = $openssl::configs::email,
-  Integer                        $default_bits      = $openssl::configs::defaults_bits,
-  String                         $default_md        = $openssl::configs::default_md,
-  String                         $default_keyfile   = $openssl::configs::default_keyfile,
-  Optional[Array]                $basicconstraints  = $openssl::configs::basiccontraints,
-  Optional[Array]                $extendedkeyusages = $openssl::configs::extendedkeyusages,
-  Optional[Array]                $keyusages         = $openssl::configs::keyusages,
-  Optional[Array]                $subjectaltnames   = $openssl::configs::subjectaltnames,
+  String                         $owner             = 'root',
+  String                         $group             = 'root',
+  String                         $mode              = '0640',
+  Optional[String]               $state             = undef,
+  Optional[String]               $locality          = undef,
+  Optional[String]               $unit              = undef,
+  Optional[String]               $email             = undef,
+  Integer                        $default_bits      = 4096,
+  String                         $default_md        = 'sha512',
+  String                         $default_keyfile   = 'privkey.pem',
+  Optional[Array]                $basicconstraints  = undef,
+  Optional[Array]                $extendedkeyusages = undef,
+  Optional[Array]                $keyusages         = undef,
+  Optional[Array]                $subjectaltnames   = undef,
 ) {
   file { $name:
     ensure  => $ensure,
