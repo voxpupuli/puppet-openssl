@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-describe 'cert_date_valid' do
+describe 'openssl::cert_date_valid' do
   it { is_expected.not_to eq(nil) }
 
   it 'raises an error if called with no argument' do
@@ -20,7 +20,8 @@ describe 'cert_date_valid' do
     let(:cert) { OpenSSL::X509::Certificate.new }
 
     before do
-      allow(File).to receive(:read).and_return('bleh')
+      allow(File).to receive(:read).and_call_original
+      allow(File).to receive(:read).with('/path/to/cert').and_return('bleh')
     end
 
     it 'returns false if cert is not valid anymore' do
