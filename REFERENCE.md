@@ -1220,13 +1220,13 @@ Type: Ruby 4.x API
 
 Parameter: path to ssl certificate
 
-#### `cert_date_valid(String *$certfile)`
+#### `cert_date_valid(String $certfile)`
 
 Parameter: path to ssl certificate
 
 Returns: `Any` false if the certificate is expired or not yet valid,
 
-##### `*certfile`
+##### `certfile`
 
 Data type: `String`
 
