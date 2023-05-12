@@ -13,7 +13,7 @@ Puppet::Functions.create_function(:cert_date_valid) do
   # or the number of seconds the certificate is still valid for.
   #
   dispatch :valid? do
-    repeated_param 'String', :certfile
+    param 'String', :certfile
   end
 
   def valid?(certfile)
