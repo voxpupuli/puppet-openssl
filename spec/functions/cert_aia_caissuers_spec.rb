@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'cert_aia_caissuers' do
+describe 'openssl::cert_aia_caissuers' do
   it { is_expected.not_to eq(nil) }
 
   it 'raises an error if called with no argument' do
@@ -27,7 +27,8 @@ describe 'cert_aia_caissuers' do
     let(:cert) { OpenSSL::X509::Certificate.new }
 
     before do
-      allow(File).to receive(:read).and_return('foo')
+      allow(File).to receive(:read).and_call_original
+      allow(File).to receive(:read).with('/path/to/cert').and_return('foo')
     end
 
     it 'returns nil if cert does not contains AIA extension' do

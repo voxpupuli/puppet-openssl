@@ -6,14 +6,14 @@
 #
 # Parameter: path to ssl certificate
 #
-Puppet::Functions.create_function(:cert_date_valid) do
+Puppet::Functions.create_function(:'openssl::cert_date_valid') do
   # @param certfile The certificate file to check.
   #
   # @return false if the certificate is expired or not yet valid,
   # or the number of seconds the certificate is still valid for.
   #
   dispatch :valid? do
-    repeated_param 'String', :certfile
+    param 'String', :certfile
   end
 
   def valid?(certfile)
@@ -23,7 +23,7 @@ Puppet::Functions.create_function(:cert_date_valid) do
     content = File.read(certfile)
     cert = OpenSSL::X509::Certificate.new(content)
 
-    raise 'No date found in certificate' if cert.not_before.nil? && cert.not_after.nil?
+    raise KeyError, 'No date found in certificate' if cert.not_before.nil? && cert.not_after.nil?
 
     now = Time.now
 

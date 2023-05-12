@@ -8,7 +8,7 @@
 #
 # Parameter: path to ssl certificate
 #
-Puppet::Functions.create_function(:cert_aia_caissuers) do
+Puppet::Functions.create_function(:'openssl::cert_aia_caissuers') do
   # @param certfile Path to the certificate to inspect
   #
   # @return contents of the caIssuers access method of authorityInfoAccess extension, or nil if not found
