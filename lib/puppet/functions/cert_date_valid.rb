@@ -6,7 +6,7 @@
 #
 # Parameter: path to ssl certificate
 #
-Puppet::Functions.create_function(:cert_date_valid) do
+Puppet::Functions.create_function(:'openssl::cert_date_valid') do
   # @param certfile The certificate file to check.
   #
   # @return false if the certificate is expired or not yet valid,
