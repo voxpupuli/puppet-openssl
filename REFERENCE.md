@@ -29,8 +29,8 @@
 
 ### Functions
 
-* [`cert_aia_caissuers`](#cert_aia_caissuers): Extrating the caIssuers entry from Authority Information Access extension of X509 certificate
-* [`cert_date_valid`](#cert_date_valid): Checks SSL cetificate date validity.
+* [`openssl::cert_aia_caissuers`](#openssl--cert_aia_caissuers): Extrating the caIssuers entry from Authority Information Access extension of X509 certificate
+* [`openssl::cert_date_valid`](#openssl--cert_date_valid): Checks SSL cetificate date validity.
 
 ## Classes
 
@@ -1188,7 +1188,7 @@ The template to use
 
 ## Functions
 
-### <a name="cert_aia_caissuers"></a>`cert_aia_caissuers`
+### <a name="openssl--cert_aia_caissuers"></a>`openssl::cert_aia_caissuers`
 
 Type: Ruby 4.x API
 
@@ -1198,7 +1198,7 @@ For details see [rfc5280#section-4.2.2](https://tools.ietf.org/html/rfc5280#sect
 
 Parameter: path to ssl certificate
 
-#### `cert_aia_caissuers(String $certfile)`
+#### `openssl::cert_aia_caissuers(String $certfile)`
 
 Extract a X509 certificate for x509v3 extensions, search for Authority Information Access extension and return the
 contents caIssuers access method.
@@ -1214,13 +1214,13 @@ Data type: `String`
 
 Path to the certificate to inspect
 
-### <a name="cert_date_valid"></a>`cert_date_valid`
+### <a name="openssl--cert_date_valid"></a>`openssl::cert_date_valid`
 
 Type: Ruby 4.x API
 
 Parameter: path to ssl certificate
 
-#### `cert_date_valid(String $certfile)`
+#### `openssl::cert_date_valid(String $certfile)`
 
 Parameter: path to ssl certificate
 
