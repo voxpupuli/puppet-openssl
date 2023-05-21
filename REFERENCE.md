@@ -163,7 +163,7 @@ The following parameters are available in the `openssl::configs` class:
 
 ##### <a name="-openssl--configs--owner"></a>`owner`
 
-Data type: `Optional[String]`
+Data type: `Optional[String[1]]`
 
 default owner for the configuration files
 
@@ -171,7 +171,7 @@ Default value: `undef`
 
 ##### <a name="-openssl--configs--group"></a>`group`
 
-Data type: `Optional[String]`
+Data type: `Optional[String[1]]`
 
 default group for the configuration files
 
@@ -179,7 +179,7 @@ Default value: `undef`
 
 ##### <a name="-openssl--configs--mode"></a>`mode`
 
-Data type: `Optional[String]`
+Data type: `Optional[String[1]]`
 
 default mode for the configuration files
 
@@ -187,7 +187,7 @@ Default value: `undef`
 
 ##### <a name="-openssl--configs--country"></a>`country`
 
-Data type: `Optional[String]`
+Data type: `Optional[String[1]]`
 
 default value for country
 
@@ -195,7 +195,7 @@ Default value: `undef`
 
 ##### <a name="-openssl--configs--state"></a>`state`
 
-Data type: `Optional[String]`
+Data type: `Optional[String[1]]`
 
 default value for state
 
@@ -203,7 +203,7 @@ Default value: `undef`
 
 ##### <a name="-openssl--configs--locality"></a>`locality`
 
-Data type: `Optional[String]`
+Data type: `Optional[String[1]]`
 
 default value for locality
 
@@ -211,7 +211,7 @@ Default value: `undef`
 
 ##### <a name="-openssl--configs--organization"></a>`organization`
 
-Data type: `Optional[String]`
+Data type: `Optional[String[1]]`
 
 default value for organization
 
@@ -219,7 +219,7 @@ Default value: `undef`
 
 ##### <a name="-openssl--configs--unit"></a>`unit`
 
-Data type: `Optional[String]`
+Data type: `Optional[String[1]]`
 
 default value for unit
 
@@ -227,7 +227,7 @@ Default value: `undef`
 
 ##### <a name="-openssl--configs--email"></a>`email`
 
-Data type: `Optional[String]`
+Data type: `Optional[String[1]]`
 
 default value for email
 
@@ -243,7 +243,7 @@ Default value: `undef`
 
 ##### <a name="-openssl--configs--default_md"></a>`default_md`
 
-Data type: `Optional[String]`
+Data type: `Optional[String[1]]`
 
 default message digest to use
 
@@ -251,7 +251,7 @@ Default value: `undef`
 
 ##### <a name="-openssl--configs--default_keyfile"></a>`default_keyfile`
 
-Data type: `Optional[String]`
+Data type: `Optional[String[1]]`
 
 default name for the keyfile
 
@@ -480,7 +480,7 @@ Data type: `Integer`
 
 Size of the key to generate.
 
-Default value: `2048`
+Default value: `3072`
 
 ##### <a name="-openssl--certificate--x509--owner"></a>`owner`
 
@@ -681,25 +681,25 @@ Default value: `'present'`
 
 ##### <a name="-openssl--config--commonname"></a>`commonname`
 
-Data type: `Variant[String, Array[String]]`
+Data type: `Variant[String[1], Array[String[1]]]`
 
 commonname for config file
 
 ##### <a name="-openssl--config--country"></a>`country`
 
-Data type: `String`
+Data type: `String[1]`
 
 value for country
 
 ##### <a name="-openssl--config--organization"></a>`organization`
 
-Data type: `String`
+Data type: `String[1]`
 
 value for organization
 
 ##### <a name="-openssl--config--owner"></a>`owner`
 
-Data type: `String`
+Data type: `String[1]`
 
 owner for the configuration file
 
@@ -707,7 +707,7 @@ Default value: `'root'`
 
 ##### <a name="-openssl--config--group"></a>`group`
 
-Data type: `String`
+Data type: `String[1]`
 
 group for the configuration file
 
@@ -715,7 +715,7 @@ Default value: `'root'`
 
 ##### <a name="-openssl--config--mode"></a>`mode`
 
-Data type: `String`
+Data type: `String[1]`
 
 mode for the configuration file
 
@@ -723,7 +723,7 @@ Default value: `'0640'`
 
 ##### <a name="-openssl--config--state"></a>`state`
 
-Data type: `Optional[String]`
+Data type: `Optional[String[1]]`
 
 value for state
 
@@ -731,7 +731,7 @@ Default value: `undef`
 
 ##### <a name="-openssl--config--locality"></a>`locality`
 
-Data type: `Optional[String]`
+Data type: `Optional[String[1]]`
 
 value for locality
 
@@ -739,7 +739,7 @@ Default value: `undef`
 
 ##### <a name="-openssl--config--unit"></a>`unit`
 
-Data type: `Optional[String]`
+Data type: `Optional[String[1]]`
 
 value for unit
 
@@ -747,7 +747,7 @@ Default value: `undef`
 
 ##### <a name="-openssl--config--email"></a>`email`
 
-Data type: `Optional[String]`
+Data type: `Optional[String[1]]`
 
 value for email
 
@@ -763,7 +763,7 @@ Default value: `4096`
 
 ##### <a name="-openssl--config--default_md"></a>`default_md`
 
-Data type: `String`
+Data type: `String[1]`
 
 message digest to use
 
@@ -771,7 +771,7 @@ Default value: `'sha512'`
 
 ##### <a name="-openssl--config--default_keyfile"></a>`default_keyfile`
 
-Data type: `String`
+Data type: `String[1]`
 
 name for the keyfile
 
