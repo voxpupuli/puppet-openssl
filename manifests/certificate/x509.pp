@@ -58,8 +58,6 @@
 # @param force
 #   whether to override certificate and request
 #   if private key changes
-# @param cnf_tpl
-#   Specify an other template to generate ".cnf" file.
 # @param cnf_dir
 #   where cnf should be placed.
 #   Directory must exist, defaults to $base_dir.
@@ -167,7 +165,12 @@ define openssl::certificate::x509 (
     $req_ext = false
   }
 
-  openssl::config { $_cnf:
+  ssl_pkey { $_key:
+    ensure   => $ensure,
+    password => $password,
+    size     => $key_size,
+  }
+  ~> openssl::config { $_cnf:
     ensure            => $ensure,
     owner             => $owner,
     group             => $group,
@@ -181,14 +184,15 @@ define openssl::certificate::x509 (
     extendedkeyusages => $extkeyusage,
     subjectaltnames   => $altnames,
   }
-
-  ssl_pkey { $_key:
-    ensure   => $ensure,
-    password => $password,
-    size     => $key_size,
+  ~> x509_request { $_csr:
+    ensure      => $ensure,
+    template    => $_cnf,
+    private_key => $_key,
+    password    => $password,
+    force       => $force,
+    encrypted   => $encrypted,
   }
-
-  x509_cert { $_crt:
+  ~> x509_cert { $_crt:
     ensure      => $ensure,
     template    => $_cnf,
     private_key => $_key,
@@ -196,19 +200,9 @@ define openssl::certificate::x509 (
     password    => $password,
     req_ext     => $req_ext,
     force       => $force,
-    require     => Openssl::Config[$_cnf],
-  }
-
-  x509_request { $_csr:
-    ensure      => $ensure,
-    template    => $_cnf,
-    private_key => $_key,
-    password    => $password,
-    force       => $force,
-    encrypted   => $encrypted,
-    require     => Openssl::Config[$_cnf],
-    subscribe   => Openssl::Config[$_cnf],
-    notify      => X509_cert[$_crt],
+    ca          => $ca,
+    cakey       => $cakey,
+    csr         => $csr,
   }
 
   # Set owner of all files

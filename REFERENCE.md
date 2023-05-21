@@ -358,7 +358,6 @@ The following parameters are available in the `openssl::certificate::x509` defin
 * [`key_mode`](#-openssl--certificate--x509--key_mode)
 * [`password`](#-openssl--certificate--x509--password)
 * [`force`](#-openssl--certificate--x509--force)
-* [`cnf_tpl`](#-openssl--certificate--x509--cnf_tpl)
 * [`cnf_dir`](#-openssl--certificate--x509--cnf_dir)
 * [`crt_dir`](#-openssl--certificate--x509--crt_dir)
 * [`csr_dir`](#-openssl--certificate--x509--csr_dir)
@@ -409,16 +408,16 @@ certificate CommonName
 
 ##### <a name="-openssl--certificate--x509--altnames"></a>`altnames`
 
-Data type: `Array`
+Data type: `Optional[Array]`
 
 certificate subjectAltName.
 Can be an array or a single string.
 
-Default value: `[]`
+Default value: `undef`
 
 ##### <a name="-openssl--certificate--x509--extkeyusage"></a>`extkeyusage`
 
-Data type: `Array`
+Data type: `Optional[Array]`
 
 certificate extended key usage
 Value           | Meaning
@@ -435,7 +434,7 @@ msCodeCom       | Microsoft Commercial Code Signing (authenticode)
 msCTLSign       | Microsoft Trust List Signing
 msEFS           | Microsoft Encrypted File System
 
-Default value: `[]`
+Default value: `undef`
 
 ##### <a name="-openssl--certificate--x509--organization"></a>`organization`
 
@@ -541,14 +540,6 @@ whether to override certificate and request
 if private key changes
 
 Default value: `true`
-
-##### <a name="-openssl--certificate--x509--cnf_tpl"></a>`cnf_tpl`
-
-Data type: `String`
-
-Specify an other template to generate ".cnf" file.
-
-Default value: `'openssl/cert.cnf.erb'`
 
 ##### <a name="-openssl--certificate--x509--cnf_dir"></a>`cnf_dir`
 
