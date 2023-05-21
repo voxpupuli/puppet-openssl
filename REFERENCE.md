@@ -710,7 +710,7 @@ value for organization
 
 ##### <a name="-openssl--config--owner"></a>`owner`
 
-Data type: `String[1]`
+Data type: `Variant[String[1],Integer]`
 
 owner for the configuration file
 
@@ -718,7 +718,7 @@ Default value: `'root'`
 
 ##### <a name="-openssl--config--group"></a>`group`
 
-Data type: `String[1]`
+Data type: `Variant[String[1],Integer]`
 
 group for the configuration file
 
