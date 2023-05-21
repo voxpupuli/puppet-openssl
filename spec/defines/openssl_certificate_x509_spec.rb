@@ -486,9 +486,15 @@ describe 'openssl::certificate::x509' do
       ).with_content(
         %r{emailAddress\s+=\s+contact@foo\.com}
       ).with_content(
-        %r{subjectAltName\s+=\s+"DNS: a\.com, DNS: b\.com, DNS: c\.com"}
+        %r{extendedKeyUsage\s+=\s+serverAuth,\s+clientAuth}
       ).with_content(
-        %r{extendedKeyUsage\s+=\s+"serverAuth, clientAuth"}
+        %r{subjectAltName\s+=\s+@alt_names}
+      ).with_content(
+        %r{DNS\.0\s+=\s+a\.com}
+      ).with_content(
+        %r{DNS\.1\s+=\s+b\.com}        
+      ).with_content(
+        %r{DNS\.2\s+=\s+c\.com}
       )
     }
 

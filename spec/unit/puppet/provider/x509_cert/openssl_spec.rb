@@ -34,7 +34,7 @@ describe 'The openssl provider for the x509_cert type' do
                                                          '-days', 3650,
                                                          '-key', '/tmp/foo.key',
                                                          '-out', '/tmp/foo.crt',
-                                                         ['-extensions', 'req_ext']
+                                                         ['-extensions', 'v3_req']
                                                        ])
       resource.provider.create
     end
@@ -51,7 +51,7 @@ describe 'The openssl provider for the x509_cert type' do
                                                            '-key', '/tmp/foo.key',
                                                            '-out', '/tmp/foo.crt',
                                                            ['-passin', 'pass:2x6${'],
-                                                           ['-extensions', 'req_ext']
+                                                           ['-extensions', 'v3_req']
                                                          ])
         resource.provider.create
       end
@@ -69,10 +69,11 @@ describe 'The openssl provider for the x509_cert type' do
                                                          '-days', 3650,
                                                          '-in', '/tmp/foo.csr',
                                                          '-out', '/tmp/foo.crt',
+                                                         '-extfile', '/tmp/foo.cnf',
                                                          ['-CAcreateserial'],
                                                          ['-CA', '/tmp/foo-ca.crt'],
                                                          ['-CAkey', '/tmp/foo-ca.key'],
-                                                         ['-extensions', 'req_ext']
+                                                         ['-extensions', 'v3_req']
                                                        ])
       resource.provider.create
     end
