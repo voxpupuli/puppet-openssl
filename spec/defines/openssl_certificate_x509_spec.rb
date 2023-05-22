@@ -492,7 +492,7 @@ describe 'openssl::certificate::x509' do
       ).with_content(
         %r{DNS\.0\s+=\s+a\.com}
       ).with_content(
-        %r{DNS\.1\s+=\s+b\.com}        
+        %r{DNS\.1\s+=\s+b\.com}
       ).with_content(
         %r{DNS\.2\s+=\s+c\.com}
       )
