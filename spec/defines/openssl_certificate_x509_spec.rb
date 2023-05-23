@@ -407,7 +407,7 @@ describe 'openssl::certificate::x509' do
       is_expected.to contain_x509_cert('/etc/ssl/certs/foo.crt').with(
         ensure: 'present',
         template: '/etc/ssl/certs/foo.cnf',
-        private_key: '/etc/ssl/certs/foo.key',
+        csr: '/etc/ssl/certs/foo.csr',
         days: 365,
         password: nil,
         force: true
@@ -486,9 +486,15 @@ describe 'openssl::certificate::x509' do
       ).with_content(
         %r{emailAddress\s+=\s+contact@foo\.com}
       ).with_content(
-        %r{subjectAltName\s+=\s+"DNS: a\.com, DNS: b\.com, DNS: c\.com"}
+        %r{extendedKeyUsage\s+=\s+serverAuth,\s+clientAuth}
       ).with_content(
-        %r{extendedKeyUsage\s+=\s+"serverAuth, clientAuth"}
+        %r{subjectAltName\s+=\s+@alt_names}
+      ).with_content(
+        %r{DNS\.0\s+=\s+a\.com}
+      ).with_content(
+        %r{DNS\.1\s+=\s+b\.com}
+      ).with_content(
+        %r{DNS\.2\s+=\s+c\.com}
       )
     }
 
@@ -504,7 +510,7 @@ describe 'openssl::certificate::x509' do
       is_expected.to contain_x509_cert('/tmp/foobar/foo.crt').with(
         ensure: 'present',
         template: '/tmp/foobar/foo.cnf',
-        private_key: '/tmp/foobar/foo.key',
+        csr: '/tmp/foobar/foo.csr',
         days: 4567,
         password: '5r$}^',
         force: false

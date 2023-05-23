@@ -358,7 +358,6 @@ The following parameters are available in the `openssl::certificate::x509` defin
 * [`key_mode`](#-openssl--certificate--x509--key_mode)
 * [`password`](#-openssl--certificate--x509--password)
 * [`force`](#-openssl--certificate--x509--force)
-* [`cnf_tpl`](#-openssl--certificate--x509--cnf_tpl)
 * [`cnf_dir`](#-openssl--certificate--x509--cnf_dir)
 * [`crt_dir`](#-openssl--certificate--x509--crt_dir)
 * [`csr_dir`](#-openssl--certificate--x509--csr_dir)
@@ -542,14 +541,6 @@ if private key changes
 
 Default value: `true`
 
-##### <a name="-openssl--certificate--x509--cnf_tpl"></a>`cnf_tpl`
-
-Data type: `String`
-
-Specify an other template to generate ".cnf" file.
-
-Default value: `'openssl/cert.cnf.erb'`
-
 ##### <a name="-openssl--certificate--x509--cnf_dir"></a>`cnf_dir`
 
 Data type: `Optional[Stdlib::Absolutepath]`
@@ -719,7 +710,7 @@ value for organization
 
 ##### <a name="-openssl--config--owner"></a>`owner`
 
-Data type: `String[1]`
+Data type: `Variant[String[1],Integer]`
 
 owner for the configuration file
 
@@ -727,7 +718,7 @@ Default value: `'root'`
 
 ##### <a name="-openssl--config--group"></a>`group`
 
-Data type: `String[1]`
+Data type: `Variant[String[1],Integer]`
 
 group for the configuration file
 

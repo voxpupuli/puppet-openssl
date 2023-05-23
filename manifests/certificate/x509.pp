@@ -58,8 +58,6 @@
 # @param force
 #   whether to override certificate and request
 #   if private key changes
-# @param cnf_tpl
-#   Specify an other template to generate ".cnf" file.
 # @param cnf_dir
 #   where cnf should be placed.
 #   Directory must exist, defaults to $base_dir.
@@ -146,7 +144,6 @@ define openssl::certificate::x509 (
   String                             $key_mode = '0600',
   Optional[String]                   $password = undef,
   Boolean                            $force = true,
-  String                             $cnf_tpl = 'openssl/cert.cnf.erb',
   Boolean                            $encrypted = true,
   Optional[Stdlib::Absolutepath]     $ca = undef,
   Optional[Stdlib::Absolutepath]     $cakey = undef,
@@ -168,43 +165,43 @@ define openssl::certificate::x509 (
     $req_ext = false
   }
 
-  file { $_cnf:
-    ensure  => $ensure,
-    owner   => $owner,
-    group   => $group,
-    content => template($cnf_tpl),
-  }
-
   ssl_pkey { $_key:
     ensure   => $ensure,
     password => $password,
     size     => $key_size,
   }
-
-  x509_cert { $_crt:
-    ensure      => $ensure,
-    template    => $_cnf,
-    private_key => $_key,
-    days        => $days,
-    password    => $password,
-    req_ext     => $req_ext,
-    force       => $force,
-    require     => File[$_cnf],
-    ca          => $ca,
-    cakey       => $cakey,
-    csr         => $csr,
+  ~> openssl::config { $_cnf:
+    ensure            => $ensure,
+    owner             => $owner,
+    group             => $group,
+    commonname        => $commonname,
+    country           => $country,
+    state             => $state,
+    locality          => $locality,
+    organization      => $organization,
+    unit              => $unit,
+    email             => $email,
+    extendedkeyusages => $extkeyusage,
+    subjectaltnames   => $altnames,
   }
-
-  x509_request { $_csr:
+  ~> x509_request { $_csr:
     ensure      => $ensure,
     template    => $_cnf,
     private_key => $_key,
     password    => $password,
     force       => $force,
     encrypted   => $encrypted,
-    require     => File[$_cnf],
-    subscribe   => File[$_cnf],
-    notify      => X509_cert[$_crt],
+  }
+  ~> x509_cert { $_crt:
+    ensure   => $ensure,
+    template => $_cnf,
+    csr      => $_csr,
+    days     => $days,
+    password => $password,
+    req_ext  => $req_ext,
+    force    => $force,
+    ca       => $ca,
+    cakey    => $cakey,
   }
 
   # Set owner of all files
