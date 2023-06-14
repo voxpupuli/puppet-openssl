@@ -10,7 +10,7 @@ class openssl::packages {
   }
 
   if $facts['os']['family'] in ['Debian', 'RedHat'] {
-    ensure_packages(['ca-certificates'], { ensure => $openssl::ca_certificates_ensure, })
+    stdlib::ensure_packages(['ca-certificates'], { ensure => $openssl::ca_certificates_ensure, })
 
     if $facts['os']['family'] == 'Debian' {
       exec { 'update-ca-certificates':
