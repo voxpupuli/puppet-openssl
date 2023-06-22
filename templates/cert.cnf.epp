@@ -72,7 +72,7 @@ emailAddress                    = <%= $email %>
     <%- %>subjectAltName    = @alt_names
     <%- %>[ alt_names ]
     <%- $subjectaltnames.each |Integer $i, String $n | { -%>
-      <%- if $n =~ /^\d+.\d+.\d+.\d+$/ { -%>
+      <%- if $n =~ Stdlib::Ip::Address::Nosubnet { -%>
         <%- %>IP.<%= $i %> = <%= $n %>
       <%- } else { -%>
         <%- %>DNS.<%= $i %> = <%= $n %>
