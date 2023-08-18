@@ -22,13 +22,9 @@ Puppet::Type.type(:cert_file).provide :posix do
   def create
     case resource[:format]
     when :pem
-      File.open(resource[:path], 'wt') do |localcert_file|
-        localcert_file.write(remotecert.to_pem)
-      end
+      File.write(resource[:path], remotecert.to_pem)
     when :der
-      File.open(resource[:path], 'wb') do |localcert_file|
-        localcert_file.write(remotecert.to_der)
-      end
+      File.binwrite(resource[:path], remotecert.to_der)
     else
       raise ArgumentError, 'Output format not implemented.'
     end

@@ -39,9 +39,7 @@ Puppet::Type.type(:ssl_pkey).provide(:openssl) do
   def create
     key = self.class.generate_key(resource)
     pem = self.class.to_pem(resource, key)
-    File.open(resource[:path], 'w') do |f|
-      f.write(pem)
-    end
+    File.write(resource[:path], pem)
   end
 
   def destroy

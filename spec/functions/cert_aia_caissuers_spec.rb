@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe 'openssl::cert_aia_caissuers' do
-  it { is_expected.not_to eq(nil) }
+  it { is_expected.not_to be_nil }
 
   it 'raises an error if called with no argument' do
     is_expected.to run.with_params.and_raise_error(StandardError)

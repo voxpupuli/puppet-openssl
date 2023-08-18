@@ -30,7 +30,7 @@ describe 'The POSIX provider for type cert_file' do
 
   it 'exists? returns false on arbitraty path' do
     allow_any_instance_of(Pathname).to receive(:exist?).and_return(false) # rubocop:disable RSpec/AnyInstance
-    expect(resource.provider.exists?).to eq(false)
+    expect(resource.provider.exists?).to be(false)
   end
 
   it 'downloads a certificate and stores it' do
