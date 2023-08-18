@@ -17,12 +17,12 @@ describe 'The openssl provider for the x509_cert type' do
       allow_any_instance_of(Pathname).to receive(:exist?).and_return(true) # rubocop:disable RSpec/AnyInstance
       c = OpenSSL::X509::Certificate.new # Fake certificate for mocking
       allow(OpenSSL::X509::Certificate).to receive(:new).and_return(c)
-      expect(resource.provider.exists?).to eq(true)
+      expect(resource.provider.exists?).to be(true)
     end
 
     it 'exists? should return false if certificate does not exist' do
       allow_any_instance_of(Pathname).to receive(:exist?).and_return(false) # rubocop:disable RSpec/AnyInstance
-      expect(resource.provider.exists?).to eq(false)
+      expect(resource.provider.exists?).to be(false)
     end
 
     it 'creates a certificate with the proper options' do
@@ -87,7 +87,7 @@ describe 'The openssl provider for the x509_cert type' do
       allow(OpenSSL::X509::Certificate).to receive(:new).and_return(cert)
       allow(OpenSSL::PKey::RSA).to receive(:new)
       expect(cert).to receive(:check_private_key).and_return(true)
-      expect(resource.provider.exists?).to eq(true)
+      expect(resource.provider.exists?).to be(true)
     end
 
     it 'exists? should return false if certificate exists and is not synced' do
@@ -97,13 +97,13 @@ describe 'The openssl provider for the x509_cert type' do
       allow(OpenSSL::X509::Certificate).to receive(:new).and_return(cert)
       allow(OpenSSL::PKey::RSA).to receive(:new)
       expect(cert).to receive(:check_private_key).and_return(false)
-      expect(resource.provider.exists?).to eq(false)
+      expect(resource.provider.exists?).to be(false)
     end
 
     it 'exists? should return false if certificate does not exist' do
       resource[:force] = true
       allow_any_instance_of(Pathname).to receive(:exist?).and_return(false) # rubocop:disable RSpec/AnyInstance
-      expect(resource.provider.exists?).to eq(false)
+      expect(resource.provider.exists?).to be(false)
     end
   end
 

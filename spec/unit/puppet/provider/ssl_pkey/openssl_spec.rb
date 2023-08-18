@@ -13,13 +13,13 @@ describe 'The openssl provider for the ssl_pkey type' do
   it 'exists? should return true if key exists' do
     expect(Pathname).to receive(:new).twice.with(path).and_return(pathname)
     expect(pathname).to receive(:exist?).and_return(true)
-    expect(resource.provider.exists?).to eq(true)
+    expect(resource.provider.exists?).to be(true)
   end
 
   it 'exists? should return false if certificate does not exist' do
     expect(Pathname).to receive(:new).twice.with(path).and_return(pathname)
     expect(pathname).to receive(:exist?).and_return(false)
-    expect(resource.provider.exists?).to eq(false)
+    expect(resource.provider.exists?).to be(false)
   end
 
   context 'when creating a key with defaults' do
