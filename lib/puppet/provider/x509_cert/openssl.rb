@@ -74,13 +74,14 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
         '-days', resource[:days],
         '-in', resource[:csr],
         '-out', resource[:path],
-        '-extfile', resource[:template],
-        '-key', resource[:private_key]
+        '-extfile', resource[:template]
       ]
       if resource[:ca]
         options << ['-CAcreateserial']
         options << ['-CA', resource[:ca]]
         options << ['-CAkey', resource[:cakey]]
+      else
+        options << ['-key', resource[:private_key]]
       end
     else
       options = [
