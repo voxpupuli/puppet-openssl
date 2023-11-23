@@ -37,7 +37,7 @@
 #   config files to generate
 #
 # @example basic usage
-#   class { '::openssl::configs':
+#   class { 'openssl::configs':
 #     country   => 'mycountry',
 #     conffiles => { '/path/to/openssl.conf' => { ensure       => 'present',
 #                                                 commonname   => 'somewhere.org',

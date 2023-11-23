@@ -3,7 +3,7 @@
 # @param x509_certs
 #
 # @example basic usage
-#   class { '::openssl::certificate':
+#   class { 'openssl::certificate':
 #     x509_certs => { '/path/to/certificate.crt' => {  ensure      => 'present',
 #                                                      password    => 'j(D$',
 #                                                      template    => '/other/path/to/template.cnf',

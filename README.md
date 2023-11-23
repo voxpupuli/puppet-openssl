@@ -32,7 +32,7 @@ class { 'openssl':
 Create certificates (see the x509 defined type):
 
 ```puppet
-class { '::openssl::certificates':
+class { 'openssl::certificates':
   x509_certs => { '/path/to/certificate.crt' => { ensure      => 'present',
                                                   password    => 'j(D$',
                                                   template    => '/other/path/to/template.cnf',

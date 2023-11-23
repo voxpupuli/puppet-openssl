@@ -92,7 +92,7 @@ Generates x509 certificates based on class parameters
 ##### basic usage
 
 ```puppet
-class { '::openssl::certificate':
+class { 'openssl::certificate':
   x509_certs => { '/path/to/certificate.crt' => {  ensure      => 'present',
                                                    password    => 'j(D$',
                                                    template    => '/other/path/to/template.cnf',
@@ -127,7 +127,7 @@ Generates openssl.conf files using manually set defaults or defaults from openss
 ##### basic usage
 
 ```puppet
-class { '::openssl::configs':
+class { 'openssl::configs':
   country   => 'mycountry',
   conffiles => { '/path/to/openssl.conf' => { ensure       => 'present',
                                               commonname   => 'somewhere.org',
