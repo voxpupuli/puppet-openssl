@@ -4,6 +4,41 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.0.0](https://github.com/voxpupuli/puppet-openssl/tree/v3.0.0) (2024-03-05)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-openssl/compare/v2.0.1...v3.0.0)
+
+**Breaking changes:**
+
+- Require puppetlabs-stdlib 9.x [\#165](https://github.com/voxpupuli/puppet-openssl/pull/165) ([smortex](https://github.com/smortex))
+- moves config management to config provider for X509 certificate; moves certificate from v1 to v3 [\#164](https://github.com/voxpupuli/puppet-openssl/pull/164) ([zilchms](https://github.com/zilchms))
+- Drop Puppet 6 support [\#163](https://github.com/voxpupuli/puppet-openssl/pull/163) ([zilchms](https://github.com/zilchms))
+- add puppet7 support; namespace all functions [\#162](https://github.com/voxpupuli/puppet-openssl/pull/162) ([zilchms](https://github.com/zilchms))
+- enable single config file support [\#159](https://github.com/voxpupuli/puppet-openssl/pull/159) ([zilchms](https://github.com/zilchms))
+- Enlarge key size based on new security requirement [\#143](https://github.com/voxpupuli/puppet-openssl/pull/143) ([Vampouille](https://github.com/Vampouille))
+
+**Implemented enhancements:**
+
+- move from own regex to stdlib ip type adding ipv6 support for SANS [\#166](https://github.com/voxpupuli/puppet-openssl/pull/166) ([zilchms](https://github.com/zilchms))
+- refactor x509\_request to be consistent with x509\_cert provider [\#155](https://github.com/voxpupuli/puppet-openssl/pull/155) ([zilchms](https://github.com/zilchms))
+- add ability to certificate provider to get signed against a CA cert [\#153](https://github.com/voxpupuli/puppet-openssl/pull/153) ([zilchms](https://github.com/zilchms))
+- Allow cert\_file to download certificates via https [\#146](https://github.com/voxpupuli/puppet-openssl/pull/146) ([rtib](https://github.com/rtib))
+
+**Fixed bugs:**
+
+- templates/cert.cnf.erb should use @, not $ [\#149](https://github.com/voxpupuli/puppet-openssl/pull/149) ([mikerenfro](https://github.com/mikerenfro))
+- fix openssl\_version on EL8 OpenSSL 1.1.1k [\#135](https://github.com/voxpupuli/puppet-openssl/pull/135) ([fraenki](https://github.com/fraenki))
+
+**Closed issues:**
+
+- Move on from puppet6 [\#161](https://github.com/voxpupuli/puppet-openssl/issues/161)
+- Bug/Maintenance in/for configuration templates [\#158](https://github.com/voxpupuli/puppet-openssl/issues/158)
+
+**Merged pull requests:**
+
+- Remove legacy top-scope syntax [\#171](https://github.com/voxpupuli/puppet-openssl/pull/171) ([smortex](https://github.com/smortex))
+- Use puppet-strings comments [\#151](https://github.com/voxpupuli/puppet-openssl/pull/151) ([smortex](https://github.com/smortex))
+
 ## [v2.0.1](https://github.com/voxpupuli/puppet-openssl/tree/v2.0.1) (2022-03-09)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-openssl/compare/2.0.0...v2.0.1)
@@ -11,6 +46,10 @@ These should not affect the functionality of the module.
 **Fixed bugs:**
 
 - incorrect behaviour of cert\_aia\_caissuers if file does not exists [\#126](https://github.com/voxpupuli/puppet-openssl/pull/126) ([rtib](https://github.com/rtib))
+
+**Closed issues:**
+
+- openssl\_version fact resolves to nil [\#134](https://github.com/voxpupuli/puppet-openssl/issues/134)
 
 **Merged pull requests:**
 
@@ -379,7 +418,7 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
--  Improvement in doc to show how to generate password-free certs [\#32](https://github.com/voxpupuli/puppet-openssl/pull/32) ([enekogb](https://github.com/enekogb))
+-  Improvement in doc to show how to generate password-free certs [\#32](https://github.com/voxpupuli/puppet-openssl/pull/32) ([atxulo](https://github.com/atxulo))
 
 ## [0.3.2](https://github.com/voxpupuli/puppet-openssl/tree/0.3.2) (2014-09-23)
 
