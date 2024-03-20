@@ -393,6 +393,8 @@ describe 'openssl::certificate::x509' do
         %r{organizationName\s+=\s+bar}
       ).with_content(
         %r{commonName\s+=\s+baz}
+      ).without_content(
+        %r{v3_req}
       )
     }
 
