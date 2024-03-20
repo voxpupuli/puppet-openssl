@@ -80,6 +80,8 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
         options << ['-CAcreateserial']
         options << ['-CA', resource[:ca]]
         options << ['-CAkey', resource[:cakey]]
+      else
+        options << ['-key', resource[:private_key]]
       end
     else
       options = [
