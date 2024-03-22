@@ -408,16 +408,16 @@ certificate CommonName
 
 ##### <a name="-openssl--certificate--x509--altnames"></a>`altnames`
 
-Data type: `Array`
+Data type: `Optional[Array[String[1]]]`
 
 certificate subjectAltName.
 Can be an array or a single string.
 
-Default value: `[]`
+Default value: `undef`
 
 ##### <a name="-openssl--certificate--x509--extkeyusage"></a>`extkeyusage`
 
-Data type: `Array`
+Data type: `Optional[Array[String[1]]]`
 
 certificate extended key usage
 Value           | Meaning
@@ -434,7 +434,7 @@ msCodeCom       | Microsoft Commercial Code Signing (authenticode)
 msCTLSign       | Microsoft Trust List Signing
 msEFS           | Microsoft Encrypted File System
 
-Default value: `[]`
+Default value: `undef`
 
 ##### <a name="-openssl--certificate--x509--organization"></a>`organization`
 

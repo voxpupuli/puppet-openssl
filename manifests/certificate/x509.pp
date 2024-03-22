@@ -123,8 +123,8 @@ define openssl::certificate::x509 (
   Optional[String]                   $state = undef,
   Optional[String]                   $locality = undef,
   Optional[String]                   $unit = undef,
-  Array                              $altnames = [],
-  Array                              $extkeyusage = [],
+  Optional[Array[String[1]]]         $altnames = undef,
+  Optional[Array[String[1]]]         $extkeyusage = undef,
   Optional[String]                   $email = undef,
   Integer                            $days = 365,
   Stdlib::Absolutepath               $base_dir = '/etc/ssl/certs',
@@ -159,7 +159,7 @@ define openssl::certificate::x509 (
   $_csr = pick($csr, "${_csr_dir}/${name}.csr")
   $_key = pick($key, "${_key_dir}/${name}.key")
 
-  if !empty($altnames+$extkeyusage) {
+  if $altnames or $extkeyusage {
     $req_ext = true
   } else {
     $req_ext = false
