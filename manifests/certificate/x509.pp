@@ -116,13 +116,13 @@
 #   and set $key_mode to '0640'.
 #
 define openssl::certificate::x509 (
-  String                         $country,
-  String                         $organization,
-  String                         $commonname,
   Enum['present', 'absent']      $ensure = present,
-  Optional[String]               $state = undef,
-  Optional[String]               $locality = undef,
+  Optional[String]               $country = undef,
+  Optional[String]               $organization = undef,
   Optional[String]               $unit = undef,
+  Optional[String]               $state = undef,
+  Optional[String]               $commonname = undef,
+  Optional[String]               $locality = undef,
   Array                          $altnames = [],
   Array                          $extkeyusage = [],
   Optional[String]               $email = undef,
@@ -148,6 +148,9 @@ define openssl::certificate::x509 (
   Optional[Stdlib::Absolutepath] $ca = undef,
   Optional[Stdlib::Absolutepath] $cakey = undef,
 ) {
+  unless $country or $organization or $unit or $state or $commonname {
+    fail('At least one of $country, $organization, $unit, $state or $commonname is required.')
+  }
   ssl_pkey { $key:
     ensure   => $ensure,
     password => $password,

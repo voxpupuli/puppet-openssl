@@ -1,17 +1,17 @@
-<%- | String                         $country,
-      Optional[String]               $state        = undef,
-      Optional[String]               $locality     = undef,
-      String                         $organization,
-      Optional[String]               $unit         = undef,
-      Variant[String, Array[String]] $commonname,
-      Optional[String]               $email        = undef,
-      Integer                        $default_bits,
-      String                         $default_md,
-      String                         $default_keyfile,
-      Optional[Array]                $basicconstraints  = undef,
-      Optional[Array]                $extendedkeyusages = undef,
-      Optional[Array]                $keyusages         = undef,
-      Optional[Array]                $subjectaltnames   = undef,
+<%- | Optional[String]                         $country,
+      Optional[String]                         $state,
+      Optional[String]                         $locality,
+      Optional[String]                         $organization,
+      Optional[String]                         $unit,
+      Optional[Variant[String, Array[String]]] $commonname,
+      Optional[String]                         $email,
+      Integer                                  $default_bits,
+      String                                   $default_md,
+      String                                   $default_keyfile,
+      Array                                    $basicconstraints,
+      Array                                    $extendedkeyusages,
+      Array                                    $keyusages,
+      Array                                    $subjectaltnames,
 | -%>
 
 # file managed by puppet
@@ -60,14 +60,18 @@ req_extensions     = v3_req
 <% } -%>
 
 [ req_distinguished_name ]
+<% if $country { -%>
 countryName                     = <%= $country %>
+<% } -%>
 <% if $state { -%>
 stateOrProvinceName             = <%= $state %>
 <% } -%>
 <% if $locality { -%>
 localityName                    = <%= $locality %>
 <% } -%>
+<% if $organization { -%>
 organizationName                = <%= $organization %>
+<% } -%>
 <% if $unit { -%>
 organizationalUnitName          = <%= $unit %>
 <% } -%>
@@ -75,7 +79,7 @@ organizationalUnitName          = <%= $unit %>
   <%- $commonname.each |Integer $index, String $v| { -%>
      <%- %><%= $index %>.commonName    = <%= $v %>
   <%- } -%>
-<% } else { -%>
+<% } elsif $commonname { -%>
 commonName                      = <%= $commonname %>
 <% } -%>
 <% if $email { -%>
