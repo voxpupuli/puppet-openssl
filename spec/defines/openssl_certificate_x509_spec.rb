@@ -18,16 +18,14 @@ describe 'openssl::certificate::x509' do
     it { is_expected.to compile.and_raise_error(%r{got ['barz|Sting]}) }
   end
 
-  context 'when not passing a country' do
+  context 'when not passing a country, organization, unit, state and commonname' do
     let(:params) do
       {
-        organization: 'bar',
-        commonname: 'baz',
         base_dir: '/tmp/foo',
       }
     end
 
-    it { is_expected.to compile.and_raise_error(%r{\bcountry\b}) }
+    it { is_expected.to raise_error(Puppet::PreformattedError) }
   end
 
   context 'when passing wrong type for country' do
@@ -43,18 +41,6 @@ describe 'openssl::certificate::x509' do
     it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
   end
 
-  context 'when not passing an organization' do
-    let(:params) do
-      {
-        country: 'CH',
-        commonname: 'baz',
-        base_dir: '/tmp/foo',
-      }
-    end
-
-    it { is_expected.to compile.and_raise_error(%r{\borganization\b}) }
-  end
-
   context 'when passing wrong type for organization' do
     let(:params) do
       {
@@ -66,18 +52,6 @@ describe 'openssl::certificate::x509' do
     end
 
     it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
-  end
-
-  context 'when not passing an commonname' do
-    let(:params) do
-      {
-        country: 'CH',
-        organization: 'bar',
-        base_dir: '/tmp/foo',
-      }
-    end
-
-    it { is_expected.to compile.and_raise_error(%r{\bcommonname\b}) }
   end
 
   context 'when passing wrong type for commonname' do
@@ -393,6 +367,8 @@ describe 'openssl::certificate::x509' do
         %r{organizationName\s+=\s+bar}
       ).with_content(
         %r{commonName\s+=\s+baz}
+      ).without_content(
+        %r{v3_req}
       )
     }
 
