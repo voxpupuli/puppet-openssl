@@ -56,7 +56,7 @@ describe Puppet::Type.type(:x509_cert) do
 
   it 'accepts a valid req_ext parameter' do
     resource[:req_ext] = true
-    expect(resource[:req_ext]).to eq(:true)
+    expect(resource[:req_ext]).to be(true)
   end
 
   it 'does not accept a bad req_ext parameter' do
