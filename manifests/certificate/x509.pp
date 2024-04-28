@@ -193,15 +193,16 @@ define openssl::certificate::x509 (
     encrypted   => $encrypted,
   }
   ~> x509_cert { $_crt:
-    ensure   => $ensure,
-    template => $_cnf,
-    csr      => $_csr,
-    days     => $days,
-    password => $password,
-    req_ext  => $req_ext,
-    force    => $force,
-    ca       => $ca,
-    cakey    => $cakey,
+    ensure      => $ensure,
+    template    => $_cnf,
+    csr         => $_csr,
+    private_key => $_key,
+    days        => $days,
+    password    => $password,
+    req_ext     => $req_ext,
+    force       => $force,
+    ca          => $ca,
+    cakey       => $cakey,
   }
 
   # Set owner of all files
