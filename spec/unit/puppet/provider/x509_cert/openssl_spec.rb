@@ -69,7 +69,7 @@ describe 'The openssl provider for the x509_cert type' do
                                                          '-days', 3650,
                                                          '-in', '/tmp/foo.csr',
                                                          '-out', '/tmp/foo.crt',
-                                                         '-extfile', '/tmp/foo.cnf',
+                                                         ['-extfile', '/tmp/foo.cnf'],
                                                          ['-CAcreateserial'],
                                                          ['-CA', '/tmp/foo-ca.crt'],
                                                          ['-CAkey', '/tmp/foo-ca.key'],

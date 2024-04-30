@@ -1323,7 +1323,7 @@ discover the appropriate provider for your platform.
 
 ##### <a name="-x509_cert--req_ext"></a>`req_ext`
 
-Valid values: `true`, `false`
+Valid values: `true`, `false`, `yes`, `no`
 
 Whether adding v3 SAN from config
 
