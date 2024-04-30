@@ -380,9 +380,11 @@ Default value: `present`
 
 ##### <a name="-openssl--certificate--x509--country"></a>`country`
 
-Data type: `String`
+Data type: `Optional[String]`
 
 certificate countryName
+
+Default value: `undef`
 
 ##### <a name="-openssl--certificate--x509--state"></a>`state`
 
@@ -402,9 +404,11 @@ Default value: `undef`
 
 ##### <a name="-openssl--certificate--x509--commonname"></a>`commonname`
 
-Data type: `String`
+Data type: `Optional[String]`
 
 certificate CommonName
+
+Default value: `undef`
 
 ##### <a name="-openssl--certificate--x509--altnames"></a>`altnames`
 
@@ -438,9 +442,11 @@ Default value: `[]`
 
 ##### <a name="-openssl--certificate--x509--organization"></a>`organization`
 
-Data type: `String`
+Data type: `Optional[String]`
 
 certificate organizationName
+
+Default value: `undef`
 
 ##### <a name="-openssl--certificate--x509--unit"></a>`unit`
 
@@ -501,23 +507,23 @@ Default value: `'root'`
 
 ##### <a name="-openssl--certificate--x509--key_owner"></a>`key_owner`
 
-Data type: `Optional[Variant[String, Integer]]`
+Data type: `Variant[String, Integer]`
 
 key owner. User must exist. defaults to $owner
 
-Default value: `undef`
+Default value: `$owner`
 
 ##### <a name="-openssl--certificate--x509--key_group"></a>`key_group`
 
-Data type: `Optional[Variant[String, Integer]]`
+Data type: `Variant[String, Integer]`
 
 key group. Group must exist. defaults to $group
 
-Default value: `undef`
+Default value: `$group`
 
 ##### <a name="-openssl--certificate--x509--key_mode"></a>`key_mode`
 
-Data type: `String`
+Data type: `Stdlib::Filemode`
 
 key group.
 
@@ -543,75 +549,75 @@ Default value: `true`
 
 ##### <a name="-openssl--certificate--x509--cnf_dir"></a>`cnf_dir`
 
-Data type: `Optional[Stdlib::Absolutepath]`
+Data type: `Stdlib::Absolutepath`
 
 where cnf should be placed.
 Directory must exist, defaults to $base_dir.
 
-Default value: `undef`
+Default value: `$base_dir`
 
 ##### <a name="-openssl--certificate--x509--crt_dir"></a>`crt_dir`
 
-Data type: `Optional[Stdlib::Absolutepath]`
+Data type: `Stdlib::Absolutepath`
 
 where crt should be placed.
 Directory must exist, defaults to $base_dir.
 
-Default value: `undef`
+Default value: `$base_dir`
 
 ##### <a name="-openssl--certificate--x509--csr_dir"></a>`csr_dir`
 
-Data type: `Optional[Stdlib::Absolutepath]`
+Data type: `Stdlib::Absolutepath`
 
 where csr should be placed.
 Directory must exist, defaults to $base_dir.
 
-Default value: `undef`
+Default value: `$base_dir`
 
 ##### <a name="-openssl--certificate--x509--key_dir"></a>`key_dir`
 
-Data type: `Optional[Stdlib::Absolutepath]`
+Data type: `Stdlib::Absolutepath`
 
 where key should be placed.
 Directory must exist, defaults to $base_dir.
 
-Default value: `undef`
+Default value: `$base_dir`
 
 ##### <a name="-openssl--certificate--x509--cnf"></a>`cnf`
 
-Data type: `Optional[Stdlib::Absolutepath]`
+Data type: `Stdlib::Absolutepath`
 
 override cnf path entirely.
 Directory must exist, defaults to $cnf_dir/$title.cnf
 
-Default value: `undef`
+Default value: `"${cnf_dir}/${name}.cnf"`
 
 ##### <a name="-openssl--certificate--x509--crt"></a>`crt`
 
-Data type: `Optional[Stdlib::Absolutepath]`
+Data type: `Stdlib::Absolutepath`
 
 override crt path entirely.
 Directory must exist, defaults to $crt_dir/$title.crt
 
-Default value: `undef`
+Default value: `"${crt_dir}/${name}.crt"`
 
 ##### <a name="-openssl--certificate--x509--csr"></a>`csr`
 
-Data type: `Optional[Stdlib::Absolutepath]`
+Data type: `Stdlib::Absolutepath`
 
 override csr path entirely.
 Directory must exist, defaults to $csr_dir/$title.csr
 
-Default value: `undef`
+Default value: `"${csr_dir}/${name}.csr"`
 
 ##### <a name="-openssl--certificate--x509--key"></a>`key`
 
-Data type: `Optional[Stdlib::Absolutepath]`
+Data type: `Stdlib::Absolutepath`
 
 override key path entirely.
 Directory must exist, defaults to $key_dir/$title.key
 
-Default value: `undef`
+Default value: `"${key_dir}/${name}.key"`
 
 ##### <a name="-openssl--certificate--x509--encrypted"></a>`encrypted`
 
@@ -692,21 +698,27 @@ Default value: `'present'`
 
 ##### <a name="-openssl--config--commonname"></a>`commonname`
 
-Data type: `Variant[String[1], Array[String[1]]]`
+Data type: `Optional[Variant[String[1], Array[String[1]]]]`
 
 commonname for config file
 
+Default value: `undef`
+
 ##### <a name="-openssl--config--country"></a>`country`
 
-Data type: `String[1]`
+Data type: `Optional[String[1]]`
 
 value for country
 
+Default value: `undef`
+
 ##### <a name="-openssl--config--organization"></a>`organization`
 
-Data type: `String[1]`
+Data type: `Optional[String[1]]`
 
 value for organization
+
+Default value: `undef`
 
 ##### <a name="-openssl--config--owner"></a>`owner`
 
@@ -726,7 +738,7 @@ Default value: `'root'`
 
 ##### <a name="-openssl--config--mode"></a>`mode`
 
-Data type: `String[1]`
+Data type: `Stdlib::Filemode`
 
 mode for the configuration file
 
@@ -790,36 +802,36 @@ Default value: `'privkey.pem'`
 
 ##### <a name="-openssl--config--basicconstraints"></a>`basicconstraints`
 
-Data type: `Optional[Array]`
+Data type: `Array`
 
 version 3 certificate extension basic constraints
 
-Default value: `undef`
+Default value: `[]`
 
 ##### <a name="-openssl--config--extendedkeyusages"></a>`extendedkeyusages`
 
-Data type: `Optional[Array]`
+Data type: `Array`
 
 version 3 certificate extension extended key usage
 
-Default value: `undef`
+Default value: `[]`
 
 ##### <a name="-openssl--config--keyusages"></a>`keyusages`
 
-Data type: `Optional[Array]`
+Data type: `Array`
 
 version 3 certificate extension key usage
 
-Default value: `undef`
+Default value: `[]`
 
 ##### <a name="-openssl--config--subjectaltnames"></a>`subjectaltnames`
 
-Data type: `Optional[Array]`
+Data type: `Array`
 
 version 3 certificate extension for alternative names
 currently supported are IP (v4) and DNS
 
-Default value: `undef`
+Default value: `[]`
 
 ### <a name="openssl--dhparam"></a>`openssl::dhparam`
 
