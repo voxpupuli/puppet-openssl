@@ -4,7 +4,21 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v3.0.0](https://github.com/voxpupuli/puppet-openssl/tree/v3.0.0) (2024-03-05)
+## [v3.1.0](https://github.com/voxpupuli/puppet-openssl/tree/v3.1.0) (2024-05-02)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-openssl/compare/v3.0.0...v3.1.0)
+
+**Implemented enhancements:**
+
+- Improve documentation [\#183](https://github.com/voxpupuli/puppet-openssl/pull/183) ([rtib](https://github.com/rtib))
+
+**Fixed bugs:**
+
+- Release 3.0.0 broken [\#178](https://github.com/voxpupuli/puppet-openssl/issues/178)
+- Fix handling of request extensions in x509\_cert type and provider [\#180](https://github.com/voxpupuli/puppet-openssl/pull/180) ([rtib](https://github.com/rtib))
+- Fix config template issues and add some improvements [\#179](https://github.com/voxpupuli/puppet-openssl/pull/179) ([rtib](https://github.com/rtib))
+
+## [v3.0.0](https://github.com/voxpupuli/puppet-openssl/tree/v3.0.0) (2024-03-19)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-openssl/compare/v2.0.1...v3.0.0)
 
