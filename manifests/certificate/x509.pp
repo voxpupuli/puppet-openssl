@@ -184,6 +184,7 @@ define openssl::certificate::x509 (
   ~> x509_cert { $crt:
     ensure         => $ensure,
     template       => $cnf,
+    private_key    => $key,
     csr            => $csr,
     days           => $days,
     password       => $password,
