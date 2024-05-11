@@ -26,7 +26,11 @@ Puppet::Type.type(:ssl_pkey).provide(:openssl) do
   def self.to_pem(resource, key)
     if resource[:password]
       cipher = OpenSSL::Cipher.new('des3')
-      key.to_pem(cipher, resource[:password])
+      if resource[:password].respond_to?(:unwrap)
+        Puppet::Pops::Types::PSensitiveType::Sensitive.new(key.to_pem(cipher, resource[:password].unwrap))
+      else
+        key.to_pem(cipher, resource[:password])
+      end
     else
       key.to_pem
     end

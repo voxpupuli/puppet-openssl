@@ -21,18 +21,19 @@ define openssl::export::pkcs12 (
   Stdlib::Absolutepath      $cert,
   Enum['present', 'absent'] $ensure    = present,
   Optional[String]          $chaincert = undef,
-  Optional[String]          $in_pass   = undef,
-  Optional[String]          $out_pass  = undef,
+  Optional[Variant[Sensitive[String], String]] $in_pass  = undef,
+  Optional[Variant[Sensitive[String], String]] $out_pass = undef,
 ) {
   if $ensure == 'present' {
+    $is_sensitive = ($in_pass =~ Sensitive or $out_pass =~ Sensitive)
     $pass_opt = $in_pass ? {
       undef   => '',
-      default => "-passin pass:${in_pass}",
+      default => "-passin pass:${in_pass.unwrap}",
     }
 
     $passout_opt = $out_pass ? {
       undef   => '',
-      default => "-passout pass:${out_pass}",
+      default => "-passout pass:${out_pass.unwrap}",
     }
 
     $chain_opt = $chaincert ? {
@@ -50,10 +51,10 @@ define openssl::export::pkcs12 (
       $chain_opt,
       $pass_opt,
       $passout_opt,
-    ]
+    ].join(' ')
 
     exec { "Export ${name} to ${basedir}/${name}.p12":
-      command => inline_template('<%= @cmd.join(" ") %>'),
+      command => if $is_sensitive { Sensitive($cmd) } else { $cmd },
       path    => $facts['path'],
       creates => "${basedir}/${name}.p12",
     }

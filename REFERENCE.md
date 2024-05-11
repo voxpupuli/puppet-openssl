@@ -531,7 +531,7 @@ Default value: `'0600'`
 
 ##### <a name="-openssl--certificate--x509--password"></a>`password`
 
-Data type: `Optional[String]`
+Data type: `Optional[Variant[Sensitive[String], String]]`
 
 private key password. undef means no passphrase
 will be used to encrypt private key.
@@ -953,7 +953,7 @@ Default value: `$title`
 
 ##### <a name="-openssl--export--pem_cert--in_pass"></a>`in_pass`
 
-Data type: `Optional[String]`
+Data type: `Optional[Variant[Sensitive[String], String]]`
 
 PFX password
 
@@ -997,7 +997,7 @@ Default value: `present`
 
 ##### <a name="-openssl--export--pem_key--in_pass"></a>`in_pass`
 
-Data type: `Optional[String]`
+Data type: `Optional[Variant[Sensitive[String], String]]`
 
 PFX container password
 
@@ -1005,7 +1005,7 @@ Default value: `undef`
 
 ##### <a name="-openssl--export--pem_key--out_pass"></a>`out_pass`
 
-Data type: `Optional[String]`
+Data type: `Optional[Variant[Sensitive[String], String]]`
 
 PEM key password
 
@@ -1055,7 +1055,7 @@ Default value: `present`
 
 ##### <a name="-openssl--export--pkcs12--in_pass"></a>`in_pass`
 
-Data type: `Optional[String]`
+Data type: `Optional[Variant[Sensitive[String], String]]`
 
 Private key password
 
@@ -1063,7 +1063,7 @@ Default value: `undef`
 
 ##### <a name="-openssl--export--pkcs12--out_pass"></a>`out_pass`
 
-Data type: `Optional[String]`
+Data type: `Optional[Variant[Sensitive[String], String]]`
 
 PKCS12 password
 

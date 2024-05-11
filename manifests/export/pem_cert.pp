@@ -16,7 +16,7 @@ define openssl::export::pem_cert (
   Stdlib::Absolutepath            $pem_cert = $title,
   Optional[Stdlib::Absolutepath]  $pfx_cert = undef,
   Optional[Stdlib::Absolutepath]  $der_cert = undef,
-  Optional[String]                $in_pass  = undef,
+  Optional[Variant[Sensitive[String], String]] $in_pass = undef,
 
 ) {
   #local variables
@@ -40,6 +40,7 @@ define openssl::export::pem_cert (
     $module_opt   = ''
   }
 
+  $is_sensitive = ($in_pass =~ Sensitive)
   $passin_opt = $in_pass ? {
     undef   => '',
     default => "-nokeys -passin pass:'${in_pass}'",
@@ -52,10 +53,10 @@ define openssl::export::pem_cert (
       "-in ${in_cert}",
       "-out ${pem_cert}",
       $passin_opt,
-    ]
+    ].join(' ')
 
     exec { "Export ${in_cert} to ${pem_cert}":
-      command => inline_template('<%= @cmd.join(" ") %>'),
+      command => if $is_sensitive { Sensitive($cmd) } else { $cmd },
       path    => $facts['path'],
       creates => $pem_cert,
     }

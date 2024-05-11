@@ -10,11 +10,23 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
     file = File.read(resource[:private_key])
     case resource[:authentication]
     when :dsa
-      OpenSSL::PKey::DSA.new(file, resource[:password])
+      if resource[:password].respond_to?(:unwrap)
+        Puppet::Pops::Types::PSensitiveType::Sensitive.new(OpenSSL::PKey::DSA.new(file, resource[:password].unwrap))
+      else
+        OpenSSL::PKey::DSA.new(file, resource[:password])
+      end
     when :rsa
-      OpenSSL::PKey::RSA.new(file, resource[:password])
+      if resource[:password].respond_to?(:unwrap)
+        Puppet::Pops::Types::PSensitiveType::Sensitive.new(OpenSSL::PKey::RSA.new(file, resource[:password].unwrap))
+      else
+        OpenSSL::PKey::RSA.new(file, resource[:password])
+      end
     when :ec
-      OpenSSL::PKey::EC.new(file, resource[:password])
+      if resource[:password].respond_to?(:unwrap)
+        Puppet::Pops::Types::PSensitiveType::Sensitive.new(OpenSSL::PKey::EC.new(file, resource[:password].unwrap))
+      else
+        OpenSSL::PKey::EC.new(file, resource[:password])
+      end
     else
       raise Puppet::Error,
             "Unknown authentication type '#{resource[:authentication]}'"
@@ -99,7 +111,11 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
         '-out', resource[:path]
       ]
     end
-    options << ['-passin', "pass:#{resource[:password]}"] if resource[:password]
+    if resource[:password].respond_to?(:unwrap)
+      options << ['-passin', "pass:#{resource[:password].unwrap}"]
+    elsif resource[:password]
+      options << ['-passin', "pass:#{resource[:password]}"]
+    end
     options << ['-extensions', 'v3_req'] if resource[:req_ext] != :false
     openssl options
   end

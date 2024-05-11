@@ -142,7 +142,7 @@ define openssl::certificate::x509 (
   Variant[String, Integer]       $key_owner = $owner,
   Variant[String, Integer]       $key_group = $group,
   Stdlib::Filemode               $key_mode = '0600',
-  Optional[String]               $password = undef,
+  Optional[Variant[Sensitive[String], String]] $password = undef,
   Boolean                        $force = true,
   Boolean                        $encrypted = true,
   Optional[Stdlib::Absolutepath] $ca = undef,

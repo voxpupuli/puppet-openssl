@@ -15,10 +15,11 @@ define openssl::export::pem_key (
   Stdlib::Absolutepath      $pfx_cert,
   Stdlib::Absolutepath      $pem_key  = $title,
   Enum['present', 'absent'] $ensure   = present,
-  Optional[String]          $in_pass  = undef,
-  Optional[String]          $out_pass = undef,
+  Optional[Variant[Sensitive[String], String]] $in_pass  = undef,
+  Optional[Variant[Sensitive[String], String]] $out_pass = undef,
 ) {
   if $ensure == 'present' {
+    $is_sensitive = ($in_pass =~ Sensitive or $out_pass =~ Sensitive)
     $passin_opt = $in_pass ? {
       undef   => '',
       default => "-passin pass:'${in_pass}'",
@@ -36,10 +37,10 @@ define openssl::export::pem_key (
       '-nocerts',
       $passin_opt,
       $passout_opt,
-    ]
+    ].join(' ')
 
     exec { "Export ${pfx_cert} to ${pem_key}":
-      command => inline_template('<%= @cmd.join(" ") %>'),
+      command => if $is_sensitive { Sensitive($cmd) } else { $cmd },
       path    => $facts['path'],
       creates => $pem_key,
     }
