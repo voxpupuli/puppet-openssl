@@ -93,6 +93,8 @@
 # @param cakey
 #   Path to CA private key for signing. Undef mean no CAkey will be
 #   provided.
+# @param cakey_password
+#   Optional password that has encrypted the CA key.
 #
 # @example basic usage
 #
@@ -147,6 +149,7 @@ define openssl::certificate::x509 (
   Boolean                        $encrypted = true,
   Optional[Stdlib::Absolutepath] $ca = undef,
   Optional[Stdlib::Absolutepath] $cakey = undef,
+  Optional[Variant[Sensitive[String[1]], String[1]]] $cakey_password = undef,
 ) {
   unless $country or $organization or $unit or $state or $commonname {
     fail('At least one of $country, $organization, $unit, $state or $commonname is required.')
@@ -179,15 +182,16 @@ define openssl::certificate::x509 (
     encrypted   => $encrypted,
   }
   ~> x509_cert { $crt:
-    ensure   => $ensure,
-    template => $cnf,
-    csr      => $csr,
-    days     => $days,
-    password => $password,
-    req_ext  => !empty($altnames) or !empty($extkeyusage),
-    force    => $force,
-    ca       => $ca,
-    cakey    => $cakey,
+    ensure         => $ensure,
+    template       => $cnf,
+    csr            => $csr,
+    days           => $days,
+    password       => $password,
+    req_ext        => !empty($altnames) or !empty($extkeyusage),
+    force          => $force,
+    ca             => $ca,
+    cakey          => $cakey,
+    cakey_password => $cakey_password,
   }
 
   # Set owner of all files
