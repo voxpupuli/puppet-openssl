@@ -93,6 +93,8 @@
 # @param cakey
 #   Path to CA private key for signing. Undef mean no CAkey will be
 #   provided.
+# @param cakey_password
+#   Optional password that has encrypted the CA key.
 #
 # @example basic usage
 #
@@ -116,37 +118,38 @@
 #   and set $key_mode to '0640'.
 #
 define openssl::certificate::x509 (
-  Enum['present', 'absent']      $ensure = present,
-  Optional[String]               $country = undef,
-  Optional[String]               $organization = undef,
-  Optional[String]               $unit = undef,
-  Optional[String]               $state = undef,
-  Optional[String]               $commonname = undef,
-  Optional[String]               $locality = undef,
-  Array                          $altnames = [],
-  Array                          $extkeyusage = [],
-  Optional[String]               $email = undef,
-  Integer                        $days = 365,
-  Stdlib::Absolutepath           $base_dir = '/etc/ssl/certs',
-  Stdlib::Absolutepath           $cnf_dir = $base_dir,
-  Stdlib::Absolutepath           $crt_dir = $base_dir,
-  Stdlib::Absolutepath           $csr_dir = $base_dir,
-  Stdlib::Absolutepath           $key_dir = $base_dir,
-  Stdlib::Absolutepath           $cnf = "${cnf_dir}/${name}.cnf",
-  Stdlib::Absolutepath           $crt = "${crt_dir}/${name}.crt",
-  Stdlib::Absolutepath           $csr = "${csr_dir}/${name}.csr",
-  Stdlib::Absolutepath           $key = "${key_dir}/${name}.key",
-  Integer                        $key_size = 3072,
-  Variant[String, Integer]       $owner = 'root',
-  Variant[String, Integer]       $group = 'root',
-  Variant[String, Integer]       $key_owner = $owner,
-  Variant[String, Integer]       $key_group = $group,
-  Stdlib::Filemode               $key_mode = '0600',
-  Optional[String]               $password = undef,
-  Boolean                        $force = true,
-  Boolean                        $encrypted = true,
-  Optional[Stdlib::Absolutepath] $ca = undef,
-  Optional[Stdlib::Absolutepath] $cakey = undef,
+  Enum['present', 'absent']            $ensure = present,
+  Optional[String]                     $country = undef,
+  Optional[String]                     $organization = undef,
+  Optional[String]                     $unit = undef,
+  Optional[String]                     $state = undef,
+  Optional[String]                     $commonname = undef,
+  Optional[String]                     $locality = undef,
+  Array                                $altnames = [],
+  Array                                $extkeyusage = [],
+  Optional[String]                     $email = undef,
+  Integer                              $days = 365,
+  Stdlib::Absolutepath                 $base_dir = '/etc/ssl/certs',
+  Stdlib::Absolutepath                 $cnf_dir = $base_dir,
+  Stdlib::Absolutepath                 $crt_dir = $base_dir,
+  Stdlib::Absolutepath                 $csr_dir = $base_dir,
+  Stdlib::Absolutepath                 $key_dir = $base_dir,
+  Stdlib::Absolutepath                 $cnf = "${cnf_dir}/${name}.cnf",
+  Stdlib::Absolutepath                 $crt = "${crt_dir}/${name}.crt",
+  Stdlib::Absolutepath                 $csr = "${csr_dir}/${name}.csr",
+  Stdlib::Absolutepath                 $key = "${key_dir}/${name}.key",
+  Integer                              $key_size = 3072,
+  Variant[String, Integer]             $owner = 'root',
+  Variant[String, Integer]             $group = 'root',
+  Variant[String, Integer]             $key_owner = $owner,
+  Variant[String, Integer]             $key_group = $group,
+  Stdlib::Filemode                     $key_mode = '0600',
+  Optional[String]                     $password = undef,
+  Boolean                              $force = true,
+  Boolean                              $encrypted = true,
+  Optional[Stdlib::Absolutepath]       $ca = undef,
+  Optional[Stdlib::Absolutepath]       $cakey = undef,
+  Optional[Variant[Sensitive, String]] $cakey_password = undef,
 ) {
   unless $country or $organization or $unit or $state or $commonname {
     fail('At least one of $country, $organization, $unit, $state or $commonname is required.')
@@ -179,15 +182,16 @@ define openssl::certificate::x509 (
     encrypted   => $encrypted,
   }
   ~> x509_cert { $crt:
-    ensure   => $ensure,
-    template => $cnf,
-    csr      => $csr,
-    days     => $days,
-    password => $password,
-    req_ext  => !empty($altnames) and !empty($extkeyusage),
-    force    => $force,
-    ca       => $ca,
-    cakey    => $cakey,
+    ensure         => $ensure,
+    template       => $cnf,
+    csr            => $csr,
+    days           => $days,
+    password       => $password,
+    req_ext        => !empty($altnames) and !empty($extkeyusage),
+    force          => $force,
+    ca             => $ca,
+    cakey          => $cakey,
+    cakey_password => $cakey_password,
   }
 
   # Set owner of all files

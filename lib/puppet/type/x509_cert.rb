@@ -77,6 +77,10 @@ Puppet::Type.newtype(:x509_cert) do
     desc 'The optional ca private key filepath'
   end
 
+  newparam(:cakey_password) do
+    desc 'The optional CA key password'
+  end
+
   autorequire(:file) do
     self[:template]
   end
