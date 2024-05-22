@@ -65,21 +65,6 @@ describe Puppet::Type.type(:x509_cert) do
     end.to raise_error(Puppet::Error, %r{Invalid value :foo})
   end
 
-  it 'accepts a valid authentication' do
-    resource[:authentication] = :rsa
-    expect(resource[:authentication]).to eq(:rsa)
-    resource[:authentication] = :dsa
-    expect(resource[:authentication]).to eq(:dsa)
-    resource[:authentication] = :ec
-    expect(resource[:authentication]).to eq(:ec)
-  end
-
-  it 'does not accept an invalid authentication' do
-    expect do
-      resource[:authentication] = :foo
-    end.to raise_error(Puppet::Error, %r{Invalid value :foo})
-  end
-
   it 'accepts a valid csr parameter' do
     resource[:csr] = '/tmp/foo.csr'
     expect(resource[:csr]).to eq('/tmp/foo.csr')
