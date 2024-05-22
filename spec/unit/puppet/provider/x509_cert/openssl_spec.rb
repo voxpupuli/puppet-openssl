@@ -87,22 +87,24 @@ describe 'The openssl provider for the x509_cert type' do
   context 'when forcing key' do
     it 'exists? should return true if certificate exists and is synced' do
       resource[:force] = true
-      allow(File).to receive(:read)
+      expect(File).to receive(:read).with('/tmp/foo.crt').twice.and_return('cert')
+      expect(File).to receive(:read).with('/tmp/foo.key').and_return('pkey')
       expect(Pathname).to receive(:new).with(path).and_return(pathname)
       expect(pathname).to receive(:exist?).and_return(true)
-      allow(OpenSSL::X509::Certificate).to receive(:new).and_return(cert)
-      allow(OpenSSL::PKey::RSA).to receive(:new)
+      expect(OpenSSL::X509::Certificate).to receive(:new).with('cert').twice.and_return(cert)
+      expect(OpenSSL::PKey::RSA).to receive(:new)
       expect(cert).to receive(:check_private_key).and_return(true)
       expect(resource.provider.exists?).to be(true)
     end
 
     it 'exists? should return false if certificate exists and is not synced' do
       resource[:force] = true
-      allow(File).to receive(:read)
+      expect(File).to receive(:read).with('/tmp/foo.crt').and_return('cert')
+      expect(File).to receive(:read).with('/tmp/foo.key').and_return('pkey')
       expect(Pathname).to receive(:new).with(path).and_return(pathname)
       expect(pathname).to receive(:exist?).and_return(true)
-      allow(OpenSSL::X509::Certificate).to receive(:new).and_return(cert)
-      allow(OpenSSL::PKey::RSA).to receive(:new)
+      expect(OpenSSL::X509::Certificate).to receive(:new).with('cert').and_return(cert)
+      expect(OpenSSL::PKey::RSA).to receive(:new)
       expect(cert).to receive(:check_private_key).and_return(false)
       expect(resource.provider.exists?).to be(false)
     end
