@@ -25,7 +25,7 @@ describe 'The openssl provider for the ssl_pkey type' do
   context 'when creating a key with defaults' do
     it 'creates an rsa key' do
       allow(OpenSSL::PKey::RSA).to receive(:new).with(2048).and_return(key)
-      allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+      expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
       resource.provider.create
     end
 
@@ -33,7 +33,7 @@ describe 'The openssl provider for the ssl_pkey type' do
       it 'creates with given size' do
         resource[:size] = 1024
         allow(OpenSSL::PKey::RSA).to receive(:new).with(1024).and_return(key)
-        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+        expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
         resource.provider.create
       end
     end
@@ -43,7 +43,7 @@ describe 'The openssl provider for the ssl_pkey type' do
         resource[:password] = '2x$5{'
         allow(OpenSSL::PKey::RSA).to receive(:new).with(2048).and_return(key)
         allow(OpenSSL::Cipher).to receive(:new).with('des3')
-        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+        expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
         resource.provider.create
       end
     end
@@ -53,7 +53,7 @@ describe 'The openssl provider for the ssl_pkey type' do
     it 'creates a dsa key' do
       resource[:authentication] = :rsa
       allow(OpenSSL::PKey::RSA).to receive(:new).with(2048).and_return(key)
-      allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+      expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
       resource.provider.create
     end
 
@@ -62,7 +62,7 @@ describe 'The openssl provider for the ssl_pkey type' do
         resource[:authentication] = :rsa
         resource[:size] = 1024
         allow(OpenSSL::PKey::RSA).to receive(:new).with(1024).and_return(key)
-        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+        expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
         resource.provider.create
       end
     end
@@ -73,7 +73,7 @@ describe 'The openssl provider for the ssl_pkey type' do
         resource[:password] = '2x$5{'
         allow(OpenSSL::PKey::RSA).to receive(:new).with(2048).and_return(key)
         allow(OpenSSL::Cipher).to receive(:new).with('des3')
-        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+        expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
         resource.provider.create
       end
     end
@@ -83,7 +83,7 @@ describe 'The openssl provider for the ssl_pkey type' do
     it 'creates a dsa key' do
       resource[:authentication] = :dsa
       allow(OpenSSL::PKey::DSA).to receive(:new).with(2048).and_return(key)
-      allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+      expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
       resource.provider.create
     end
 
@@ -92,7 +92,7 @@ describe 'The openssl provider for the ssl_pkey type' do
         resource[:authentication] = :dsa
         resource[:size] = 1024
         allow(OpenSSL::PKey::DSA).to receive(:new).with(1024).and_return(key)
-        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+        expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
         resource.provider.create
       end
     end
@@ -103,7 +103,7 @@ describe 'The openssl provider for the ssl_pkey type' do
         resource[:password] = '2x$5{'
         allow(OpenSSL::PKey::DSA).to receive(:new).with(2048).and_return(key)
         allow(OpenSSL::Cipher).to receive(:new).with('des3')
-        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+        expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
         resource.provider.create
       end
     end
@@ -115,7 +115,7 @@ describe 'The openssl provider for the ssl_pkey type' do
     it 'creates an ec key' do
       resource[:authentication] = :ec
       allow(OpenSSL::PKey::EC).to receive(:new).with('secp384r1').and_return(key)
-      allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+      expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
       resource.provider.create
     end
 
@@ -124,7 +124,7 @@ describe 'The openssl provider for the ssl_pkey type' do
         resource[:authentication] = :ec
         resource[:curve] = 'prime239v1'
         allow(OpenSSL::PKey::EC).to receive(:new).with('prime239v1').and_return(key)
-        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+        expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
         resource.provider.create
       end
     end
@@ -135,7 +135,7 @@ describe 'The openssl provider for the ssl_pkey type' do
         resource[:password] = '2x$5{'
         allow(OpenSSL::PKey::EC).to receive(:new).with('secp384r1').and_return(key)
         allow(OpenSSL::Cipher).to receive(:new).with('des3')
-        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+        expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
         resource.provider.create
       end
     end
