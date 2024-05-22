@@ -92,7 +92,7 @@ describe 'The openssl provider for the x509_cert type' do
       expect(Pathname).to receive(:new).with(path).and_return(pathname)
       expect(pathname).to receive(:exist?).and_return(true)
       expect(OpenSSL::X509::Certificate).to receive(:new).with('cert').twice.and_return(cert)
-      expect(OpenSSL::PKey::RSA).to receive(:new)
+      expect(OpenSSL::PKey).to receive(:read).with('pkey', nil)
       expect(cert).to receive(:check_private_key).and_return(true)
       expect(resource.provider.exists?).to be(true)
     end
@@ -104,7 +104,7 @@ describe 'The openssl provider for the x509_cert type' do
       expect(Pathname).to receive(:new).with(path).and_return(pathname)
       expect(pathname).to receive(:exist?).and_return(true)
       expect(OpenSSL::X509::Certificate).to receive(:new).with('cert').and_return(cert)
-      expect(OpenSSL::PKey::RSA).to receive(:new)
+      expect(OpenSSL::PKey).to receive(:read).with('pkey', nil)
       expect(cert).to receive(:check_private_key).and_return(false)
       expect(resource.provider.exists?).to be(false)
     end
