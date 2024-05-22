@@ -10,17 +10,17 @@ Puppet::Type.type(:ssl_pkey).provide(:openssl) do
   end
 
   def self.generate_key(resource)
+    options = {}
     case resource[:authentication]
     when :dsa
-      OpenSSL::PKey::DSA.new(resource[:size])
+      options[:dsa_paramgen_bits] = resource[:size] if resource[:size]
     when :rsa
-      OpenSSL::PKey::RSA.new(resource[:size])
+      options[:rsa_keygen_bits] = resource[:size] if resource[:size]
     when :ec
-      OpenSSL::PKey::EC.new(resource[:curve]).generate_key
-    else
-      raise Puppet::Error,
-            "Unknown authentication type '#{resource[:authentication]}'"
+      options[:ec_paramgen_curve] = resource[:curve] if resource[:curve]
     end
+
+    OpenSSL::PKey.generate_key(resource[:authentication].to_s.upcase, options)
   end
 
   def self.to_pem(resource, key)

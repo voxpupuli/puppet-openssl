@@ -7,7 +7,7 @@ require 'webmock/rspec'
 require 'openssl'
 describe 'The POSIX provider for type cert_file' do
   before do
-    test_keys = OpenSSL::PKey::RSA.new(2049)
+    test_keys = OpenSSL::PKey.generate_key('RSA')
     test_cert = OpenSSL::X509::Certificate.new
     test_cert.version = 2
     test_cert.serial = 1
