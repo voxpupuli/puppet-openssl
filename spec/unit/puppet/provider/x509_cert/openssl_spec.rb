@@ -84,8 +84,8 @@ describe 'The openssl provider for the x509_cert type' do
       resource[:force] = true
       allow(File).to receive(:read)
       allow_any_instance_of(Pathname).to receive(:exist?).and_return(true) # rubocop:disable RSpec/AnyInstance
-      allow(OpenSSL::X509::Certificate).to receive(:new).and_return(cert)
-      allow(OpenSSL::PKey::RSA).to receive(:new)
+      expect(OpenSSL::X509::Certificate).to receive(:new).twice.and_return(cert)
+      expect(OpenSSL::PKey).to receive(:read)
       expect(cert).to receive(:check_private_key).and_return(true)
       expect(resource.provider.exists?).to be(true)
     end
@@ -94,8 +94,8 @@ describe 'The openssl provider for the x509_cert type' do
       resource[:force] = true
       allow(File).to receive(:read)
       allow_any_instance_of(Pathname).to receive(:exist?).and_return(true) # rubocop:disable RSpec/AnyInstance
-      allow(OpenSSL::X509::Certificate).to receive(:new).and_return(cert)
-      allow(OpenSSL::PKey::RSA).to receive(:new)
+      expect(OpenSSL::X509::Certificate).to receive(:new).and_return(cert)
+      expect(OpenSSL::PKey).to receive(:read)
       expect(cert).to receive(:check_private_key).and_return(false)
       expect(resource.provider.exists?).to be(false)
     end
