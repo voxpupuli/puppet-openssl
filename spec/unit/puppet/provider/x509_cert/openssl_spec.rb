@@ -79,6 +79,29 @@ describe 'The openssl provider for the x509_cert type' do
     end
   end
 
+  context 'when using a CA for signing with a password' do
+    it 'creates a certificate with the proper options' do
+      resource[:csr] = '/tmp/foo.csr'
+      resource[:ca]  = '/tmp/foo-ca.crt'
+      resource[:cakey] = '/tmp/foo-ca.key'
+      resource[:cakey_password] = '5i;6%'
+      expect(provider_class).to receive(:openssl).with([
+                                                         'x509',
+                                                         '-req',
+                                                         '-days', 3650,
+                                                         '-in', '/tmp/foo.csr',
+                                                         '-out', '/tmp/foo.crt',
+                                                         ['-extfile', '/tmp/foo.cnf'],
+                                                         ['-CAcreateserial'],
+                                                         ['-CA', '/tmp/foo-ca.crt'],
+                                                         ['-CAkey', '/tmp/foo-ca.key'],
+                                                         ['-passin', 'pass:5i;6%'],
+                                                         ['-extensions', 'v3_req']
+                                                       ])
+      resource.provider.create
+    end
+  end
+
   context 'when forcing key' do
     it 'exists? should return true if certificate exists and is synced' do
       resource[:force] = true

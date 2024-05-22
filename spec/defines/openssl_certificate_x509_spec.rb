@@ -524,4 +524,111 @@ describe 'openssl::certificate::x509' do
       )
     }
   end
+
+  context 'when passing CA properties' do
+    let(:params) do
+      {
+        country: 'com',
+        organization: 'bar',
+        commonname: 'baz',
+        state: 'FR',
+        locality: 'here',
+        unit: 'braz',
+        altnames: ['a.com', 'b.com', 'c.com'],
+        extkeyusage: %w[serverAuth clientAuth],
+        email: 'contact@foo.com',
+        days: 4567,
+        key_size: 4096,
+        owner: 'www-data',
+        ca: '/etc/pki/ca.crt',
+        cakey: '/etc/pki/ca.key',
+        cakey_password: '5r$}^',
+        force: false,
+        base_dir: '/tmp/foobar',
+      }
+    end
+
+    it {
+      is_expected.to contain_file('/tmp/foobar/foo.cnf').with(
+        ensure: 'present',
+        owner: 'www-data'
+      ).with_content(
+        %r{countryName\s+=\s+com}
+      ).with_content(
+        %r{stateOrProvinceName\s+=\s+FR}
+      ).with_content(
+        %r{localityName\s+=\s+here}
+      ).with_content(
+        %r{organizationName\s+=\s+bar}
+      ).with_content(
+        %r{organizationalUnitName\s+=\s+braz}
+      ).with_content(
+        %r{commonName\s+=\s+baz}
+      ).with_content(
+        %r{emailAddress\s+=\s+contact@foo\.com}
+      ).with_content(
+        %r{extendedKeyUsage\s+=\s+serverAuth,\s+clientAuth}
+      ).with_content(
+        %r{subjectAltName\s+=\s+@alt_names}
+      ).with_content(
+        %r{DNS\.0\s+=\s+a\.com}
+      ).with_content(
+        %r{DNS\.1\s+=\s+b\.com}
+      ).with_content(
+        %r{DNS\.2\s+=\s+c\.com}
+      )
+    }
+
+    it {
+      is_expected.to contain_ssl_pkey('/tmp/foobar/foo.key').with(
+        ensure: 'present',
+        password: nil,
+        size: 4096
+      )
+    }
+
+    it {
+      is_expected.to contain_x509_cert('/tmp/foobar/foo.crt').with(
+        ensure: 'present',
+        template: '/tmp/foobar/foo.cnf',
+        csr: '/tmp/foobar/foo.csr',
+        days: 4567,
+        ca: '/etc/pki/ca.crt',
+        cakey: '/etc/pki/ca.key',
+        cakey_password: '5r$}^',
+        force: false
+      )
+    }
+
+    it {
+      is_expected.to contain_x509_request('/tmp/foobar/foo.csr').with(
+        ensure: 'present',
+        template: '/tmp/foobar/foo.cnf',
+        private_key: '/tmp/foobar/foo.key',
+        password: nil,
+        force: false
+      )
+    }
+
+    it {
+      is_expected.to contain_file('/tmp/foobar/foo.key').with(
+        ensure: 'present',
+        owner: 'www-data'
+      )
+    }
+
+    it {
+      is_expected.to contain_file('/tmp/foobar/foo.crt').with(
+        ensure: 'present',
+        owner: 'www-data'
+      )
+    }
+
+    it {
+      is_expected.to contain_file('/tmp/foobar/foo.csr').with(
+        ensure: 'present',
+        owner: 'www-data'
+      )
+    }
+  end
 end

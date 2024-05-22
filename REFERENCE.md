@@ -369,6 +369,7 @@ The following parameters are available in the `openssl::certificate::x509` defin
 * [`encrypted`](#-openssl--certificate--x509--encrypted)
 * [`ca`](#-openssl--certificate--x509--ca)
 * [`cakey`](#-openssl--certificate--x509--cakey)
+* [`cakey_password`](#-openssl--certificate--x509--cakey_password)
 
 ##### <a name="-openssl--certificate--x509--ensure"></a>`ensure`
 
@@ -645,6 +646,14 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to CA private key for signing. Undef mean no CAkey will be
 provided.
+
+Default value: `undef`
+
+##### <a name="-openssl--certificate--x509--cakey_password"></a>`cakey_password`
+
+Data type: `Optional[Variant[Sensitive, String]]`
+
+Optional password that has encrypted the CA key.
 
 Default value: `undef`
 
@@ -1258,6 +1267,7 @@ The following parameters are available in the `x509_cert` type.
 * [`authentication`](#-x509_cert--authentication)
 * [`ca`](#-x509_cert--ca)
 * [`cakey`](#-x509_cert--cakey)
+* [`cakey_password`](#-x509_cert--cakey_password)
 * [`csr`](#-x509_cert--csr)
 * [`days`](#-x509_cert--days)
 * [`force`](#-x509_cert--force)
@@ -1283,6 +1293,10 @@ The optional ca certificate filepath
 ##### <a name="-x509_cert--cakey"></a>`cakey`
 
 The optional ca private key filepath
+
+##### <a name="-x509_cert--cakey_password"></a>`cakey_password`
+
+The optional CA key password
 
 ##### <a name="-x509_cert--csr"></a>`csr`
 
