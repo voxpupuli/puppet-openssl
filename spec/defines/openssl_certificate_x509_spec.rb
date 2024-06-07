@@ -422,6 +422,86 @@ describe 'openssl::certificate::x509' do
     }
   end
 
+  context 'when passing altnames, extension is enabled' do
+    let(:params) do
+      {
+        country: 'com',
+        organization: 'bar',
+        commonname: 'foo.example.com',
+        altnames: ['bar.example.com'],
+      }
+    end
+
+    it {
+      is_expected.to contain_x509_cert('/etc/ssl/certs/foo.crt').with(
+        ensure: 'present',
+        template: '/etc/ssl/certs/foo.cnf',
+        csr: '/etc/ssl/certs/foo.csr',
+        req_ext: true
+      )
+    }
+  end
+
+  context 'when passing extkeyusage, extension is enabled' do
+    let(:params) do
+      {
+        country: 'com',
+        organization: 'bar',
+        commonname: 'foo.example.com',
+        extkeyusage: ['clientauth'],
+      }
+    end
+
+    it {
+      is_expected.to contain_x509_cert('/etc/ssl/certs/foo.crt').with(
+        ensure: 'present',
+        template: '/etc/ssl/certs/foo.cnf',
+        csr: '/etc/ssl/certs/foo.csr',
+        req_ext: true
+      )
+    }
+  end
+
+  context 'when passing altnames and extkeyusage, extension is enabled' do
+    let(:params) do
+      {
+        country: 'com',
+        organization: 'bar',
+        commonname: 'foo.example.com',
+        extkeyusage: ['clientauth'],
+        altnames: ['bar.example.com'],
+      }
+    end
+
+    it {
+      is_expected.to contain_x509_cert('/etc/ssl/certs/foo.crt').with(
+        ensure: 'present',
+        template: '/etc/ssl/certs/foo.cnf',
+        csr: '/etc/ssl/certs/foo.csr',
+        req_ext: true
+      )
+    }
+  end
+
+  context 'w/o passing altnames and extkeyusage, extension is disabled' do
+    let(:params) do
+      {
+        country: 'com',
+        organization: 'bar',
+        commonname: 'foo.example.com',
+      }
+    end
+
+    it {
+      is_expected.to contain_x509_cert('/etc/ssl/certs/foo.crt').with(
+        ensure: 'present',
+        template: '/etc/ssl/certs/foo.cnf',
+        csr: '/etc/ssl/certs/foo.csr',
+        req_ext: false
+      )
+    }
+  end
+
   context 'when passing all parameters' do
     let(:params) do
       {
