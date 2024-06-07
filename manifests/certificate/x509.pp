@@ -184,7 +184,7 @@ define openssl::certificate::x509 (
     csr      => $csr,
     days     => $days,
     password => $password,
-    req_ext  => !empty($altnames) and !empty($extkeyusage),
+    req_ext  => !empty($altnames) or !empty($extkeyusage),
     force    => $force,
     ca       => $ca,
     cakey    => $cakey,
