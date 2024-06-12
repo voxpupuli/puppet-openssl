@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'puppet/parameter/boolean'
 require 'pathname'
 Puppet::Type.newtype(:x509_cert) do
   desc 'An x509 certificate'
