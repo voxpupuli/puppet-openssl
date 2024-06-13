@@ -8,7 +8,6 @@ describe 'The openssl provider for the ssl_pkey type' do
   let(:path) { '/tmp/foo.key' }
   let(:pathname) { Pathname.new(path) }
   let(:resource) { Puppet::Type::Ssl_pkey.new(path: path) }
-  let(:key) { OpenSSL::PKey::RSA.new }
 
   it 'exists? should return true if key exists' do
     expect(Pathname).to receive(:new).twice.with(path).and_return(pathname)
@@ -24,16 +23,16 @@ describe 'The openssl provider for the ssl_pkey type' do
 
   context 'when creating a key with defaults' do
     it 'creates an rsa key' do
-      allow(OpenSSL::PKey::RSA).to receive(:new).with(2048).and_return(key)
-      allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+      expect(OpenSSL::PKey).to receive(:generate_key).with('RSA', { rsa_keygen_bits: 2048 }).and_call_original
+      expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
       resource.provider.create
     end
 
     context 'when setting size' do
       it 'creates with given size' do
         resource[:size] = 1024
-        allow(OpenSSL::PKey::RSA).to receive(:new).with(1024).and_return(key)
-        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+        expect(OpenSSL::PKey).to receive(:generate_key).with('RSA', { rsa_keygen_bits: 1024 }).and_call_original
+        expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
         resource.provider.create
       end
     end
@@ -41,19 +40,19 @@ describe 'The openssl provider for the ssl_pkey type' do
     context 'when setting password' do
       it 'creates with given password' do
         resource[:password] = '2x$5{'
-        allow(OpenSSL::PKey::RSA).to receive(:new).with(2048).and_return(key)
-        allow(OpenSSL::Cipher).to receive(:new).with('des3')
-        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+        expect(OpenSSL::PKey).to receive(:generate_key).with('RSA', { rsa_keygen_bits: 2048 }).and_call_original
+        expect(OpenSSL::Cipher).to receive(:new).with('des3')
+        expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
         resource.provider.create
       end
     end
   end
 
   context 'when setting authentication to rsa' do
-    it 'creates a dsa key' do
+    it 'creates a RSA key' do
       resource[:authentication] = :rsa
-      allow(OpenSSL::PKey::RSA).to receive(:new).with(2048).and_return(key)
-      allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+      expect(OpenSSL::PKey).to receive(:generate_key).with('RSA', { rsa_keygen_bits: 2048 }).and_call_original
+      expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
       resource.provider.create
     end
 
@@ -61,8 +60,8 @@ describe 'The openssl provider for the ssl_pkey type' do
       it 'creates with given size' do
         resource[:authentication] = :rsa
         resource[:size] = 1024
-        allow(OpenSSL::PKey::RSA).to receive(:new).with(1024).and_return(key)
-        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+        expect(OpenSSL::PKey).to receive(:generate_key).with('RSA', { rsa_keygen_bits: 1024 }).and_call_original
+        expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
         resource.provider.create
       end
     end
@@ -71,9 +70,9 @@ describe 'The openssl provider for the ssl_pkey type' do
       it 'creates with given password' do
         resource[:authentication] = :rsa
         resource[:password] = '2x$5{'
-        allow(OpenSSL::PKey::RSA).to receive(:new).with(2048).and_return(key)
-        allow(OpenSSL::Cipher).to receive(:new).with('des3')
-        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+        expect(OpenSSL::PKey).to receive(:generate_key).with('RSA', { rsa_keygen_bits: 2048 }).and_call_original
+        expect(OpenSSL::Cipher).to receive(:new).with('des3')
+        expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
         resource.provider.create
       end
     end
@@ -82,8 +81,8 @@ describe 'The openssl provider for the ssl_pkey type' do
   context 'when setting authentication to dsa' do
     it 'creates a dsa key' do
       resource[:authentication] = :dsa
-      allow(OpenSSL::PKey::DSA).to receive(:new).with(2048).and_return(key)
-      allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+      expect(OpenSSL::PKey).to receive(:generate_key).with('DSA', { dsa_paramgen_bits: 2048 }).and_call_original
+      expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
       resource.provider.create
     end
 
@@ -91,8 +90,8 @@ describe 'The openssl provider for the ssl_pkey type' do
       it 'creates with given size' do
         resource[:authentication] = :dsa
         resource[:size] = 1024
-        allow(OpenSSL::PKey::DSA).to receive(:new).with(1024).and_return(key)
-        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+        expect(OpenSSL::PKey).to receive(:generate_key).with('DSA', { dsa_paramgen_bits: 1024 }).and_call_original
+        expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
         resource.provider.create
       end
     end
@@ -101,30 +100,28 @@ describe 'The openssl provider for the ssl_pkey type' do
       it 'creates with given password' do
         resource[:authentication] = :dsa
         resource[:password] = '2x$5{'
-        allow(OpenSSL::PKey::DSA).to receive(:new).with(2048).and_return(key)
-        allow(OpenSSL::Cipher).to receive(:new).with('des3')
-        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+        expect(OpenSSL::PKey).to receive(:generate_key).with('DSA', { dsa_paramgen_bits: 2048 }).and_call_original
+        expect(OpenSSL::Cipher).to receive(:new).with('des3')
+        expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
         resource.provider.create
       end
     end
   end
 
   context 'when setting authentication to ec' do
-    key = OpenSSL::PKey::EC.new('secp384r1').generate_key # For mocking
-
-    it 'creates an ec key' do
+    it 'creates an ec key with secp384r1 curve' do
       resource[:authentication] = :ec
-      allow(OpenSSL::PKey::EC).to receive(:new).with('secp384r1').and_return(key)
-      allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+      expect(OpenSSL::PKey).to receive(:generate_key).with('EC', { ec_paramgen_curve: 'secp384r1' }).and_call_original
+      expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
       resource.provider.create
     end
 
-    context 'when setting curve' do
+    context 'when setting curve prime239v1 curve' do
       it 'creates with given curve' do
         resource[:authentication] = :ec
         resource[:curve] = 'prime239v1'
-        allow(OpenSSL::PKey::EC).to receive(:new).with('prime239v1').and_return(key)
-        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+        expect(OpenSSL::PKey).to receive(:generate_key).with('EC', { ec_paramgen_curve: 'prime239v1' }).and_call_original
+        expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
         resource.provider.create
       end
     end
@@ -133,9 +130,9 @@ describe 'The openssl provider for the ssl_pkey type' do
       it 'creates with given password' do
         resource[:authentication] = :ec
         resource[:password] = '2x$5{'
-        allow(OpenSSL::PKey::EC).to receive(:new).with('secp384r1').and_return(key)
-        allow(OpenSSL::Cipher).to receive(:new).with('des3')
-        allow(File).to receive(:open).with('/tmp/foo.key', 'w')
+        expect(OpenSSL::PKey).to receive(:generate_key).with('EC', { ec_paramgen_curve: 'secp384r1' }).and_call_original
+        expect(OpenSSL::Cipher).to receive(:new).with('des3')
+        expect(File).to receive(:write).with('/tmp/foo.key', kind_of(String))
         resource.provider.create
       end
     end
