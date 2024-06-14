@@ -110,7 +110,8 @@ describe 'The openssl provider for the ssl_pkey type' do
   end
 
   context 'when setting authentication to ec' do
-    key = OpenSSL::PKey::EC.new('secp384r1').generate_key # For mocking
+    # For mocking
+    let(:key) { OpenSSL::PKey::EC.generate('secp384r1') }
 
     it 'creates an ec key' do
       resource[:authentication] = :ec
