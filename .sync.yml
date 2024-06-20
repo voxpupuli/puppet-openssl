@@ -3,3 +3,5 @@ Gemfile:
   optional:
     ':test':
       - gem: webmock
+spec/spec_helper_acceptance.rb:
+  unmanaged: false

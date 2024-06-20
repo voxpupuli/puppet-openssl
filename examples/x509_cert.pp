@@ -1,9 +1,9 @@
-openssl::certificate::x509 { 'foo.bar':
+openssl::certificate::x509 { 'foo.example.com':
   ensure       => present,
   country      => 'CH',
   organization => 'Example.com',
-  commonname   => $fqdn,
+  commonname   => 'foo.example.com',
   base_dir     => '/tmp',
-  owner        => 'www-data',
+  owner        => 'nobody',
   password     => 'mahje1Qu',
 }
