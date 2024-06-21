@@ -60,12 +60,6 @@ Puppet::Type.newtype(:x509_cert) do
     end
   end
 
-  newparam(:authentication) do
-    desc "The authentication algorithm: 'rsa', 'dsa or ec'"
-    newvalues :rsa, :dsa, :ec
-    defaultto :rsa
-  end
-
   newparam(:csr) do
     desc 'The optional certificate signing request path'
   end

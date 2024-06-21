@@ -8,17 +8,7 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
 
   def self.private_key(resource)
     file = File.read(resource[:private_key])
-    case resource[:authentication]
-    when :dsa
-      OpenSSL::PKey::DSA.new(file, resource[:password])
-    when :rsa
-      OpenSSL::PKey::RSA.new(file, resource[:password])
-    when :ec
-      OpenSSL::PKey::EC.new(file, resource[:password])
-    else
-      raise Puppet::Error,
-            "Unknown authentication type '#{resource[:authentication]}'"
-    end
+    OpenSSL::PKey.read(file, resource[:password])
   end
 
   def self.check_private_key(resource)
