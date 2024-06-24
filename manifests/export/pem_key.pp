@@ -21,12 +21,12 @@ define openssl::export::pem_key (
   if $ensure == 'present' {
     $passin_opt = $in_pass ? {
       undef   => '',
-      default => "-passin pass:'${in_pass}'",
+      default => "-passin pass:${in_pass}",
     }
 
     $passout_opt = $out_pass ? {
       undef   => '-nodes',
-      default => "-passout pass:'${out_pass}'",
+      default => "-passout pass:${out_pass}",
     }
 
     $cmd = [
