@@ -42,7 +42,7 @@ define openssl::export::pem_cert (
 
   $passin_opt = $in_pass ? {
     undef   => '',
-    default => "-nokeys -passin pass:'${in_pass}'",
+    default => "-nokeys -passin pass:${shellquote($in_pass)}",
   }
 
   if $ensure == 'present' {

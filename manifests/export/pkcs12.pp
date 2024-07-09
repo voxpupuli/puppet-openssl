@@ -27,12 +27,12 @@ define openssl::export::pkcs12 (
   if $ensure == 'present' {
     $pass_opt = $in_pass ? {
       undef   => '',
-      default => "-passin pass:${in_pass}",
+      default => "-passin pass:${shellquote($in_pass)}",
     }
 
     $passout_opt = $out_pass ? {
       undef   => '',
-      default => "-passout pass:${out_pass}",
+      default => "-passout pass:${shellquote($out_pass)}",
     }
 
     $chain_opt = $chaincert ? {
