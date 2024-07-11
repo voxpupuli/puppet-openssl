@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.1.1](https://github.com/voxpupuli/puppet-openssl/tree/v3.1.1) (2024-07-11)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-openssl/compare/v3.1.0...v3.1.1)
+
+**Fixed bugs:**
+
+- r10k generate types fails [\#197](https://github.com/voxpupuli/puppet-openssl/issues/197)
+- export/{pem\_cert,pem\_key,pkcs12}: `passin`, `passout`: use `shellquote()` instead of single quotation marks [\#199](https://github.com/voxpupuli/puppet-openssl/pull/199) ([pavelkovtunov](https://github.com/pavelkovtunov))
+- Add missing require so that generate types works. [\#198](https://github.com/voxpupuli/puppet-openssl/pull/198) ([ncstate-daniel](https://github.com/ncstate-daniel))
+- fix logic bug with extkeyusage and altnames [\#195](https://github.com/voxpupuli/puppet-openssl/pull/195) ([rtib](https://github.com/rtib))
+
 ## [v3.1.0](https://github.com/voxpupuli/puppet-openssl/tree/v3.1.0) (2024-05-02)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-openssl/compare/v3.0.0...v3.1.0)
