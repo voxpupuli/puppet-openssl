@@ -918,6 +918,8 @@ The following parameters are available in the `openssl::export::pem_cert` define
 * [`der_cert`](#-openssl--export--pem_cert--der_cert)
 * [`pem_cert`](#-openssl--export--pem_cert--pem_cert)
 * [`in_pass`](#-openssl--export--pem_cert--in_pass)
+* [`dynamic`](#-openssl--export--pem_cert--dynamic)
+* [`resources`](#-openssl--export--pem_cert--resources)
 
 ##### <a name="-openssl--export--pem_cert--ensure"></a>`ensure`
 
@@ -959,6 +961,22 @@ PFX password
 
 Default value: `undef`
 
+##### <a name="-openssl--export--pem_cert--dynamic"></a>`dynamic`
+
+Data type: `Boolean`
+
+Switch to dynamic mode of export, if input configuration changes
+
+Default value: `false`
+
+##### <a name="-openssl--export--pem_cert--resources"></a>`resources`
+
+Data type: `Variant[Type, Array[Type]]`
+
+Single resource or a list of resources to subcribe on for dynamic refresh
+
+Default value: `undef`
+
 ### <a name="openssl--export--pem_key"></a>`openssl::export::pem_key`
 
 Export a key to PEM format
@@ -972,6 +990,8 @@ The following parameters are available in the `openssl::export::pem_key` defined
 * [`ensure`](#-openssl--export--pem_key--ensure)
 * [`in_pass`](#-openssl--export--pem_key--in_pass)
 * [`out_pass`](#-openssl--export--pem_key--out_pass)
+* [`dynamic`](#-openssl--export--pem_key--dynamic)
+* [`resources`](#-openssl--export--pem_key--resources)
 
 ##### <a name="-openssl--export--pem_key--pfx_cert"></a>`pfx_cert`
 
@@ -1011,6 +1031,22 @@ PEM key password
 
 Default value: `undef`
 
+##### <a name="-openssl--export--pem_key--dynamic"></a>`dynamic`
+
+Data type: `Boolean`
+
+Switch to dynamic mode of export, if input configuration changes
+
+Default value: `false`
+
+##### <a name="-openssl--export--pem_key--resources"></a>`resources`
+
+Data type: `Variant[Type, Array[Type]]`
+
+Single resource or a list of resources to subcribe on for dynamic refresh
+
+Default value: `undef`
+
 ### <a name="openssl--export--pkcs12"></a>`openssl::export::pkcs12`
 
 Export a key pair to PKCS12 format
@@ -1026,6 +1062,8 @@ The following parameters are available in the `openssl::export::pkcs12` defined 
 * [`in_pass`](#-openssl--export--pkcs12--in_pass)
 * [`out_pass`](#-openssl--export--pkcs12--out_pass)
 * [`chaincert`](#-openssl--export--pkcs12--chaincert)
+* [`dynamic`](#-openssl--export--pkcs12--dynamic)
+* [`resources`](#-openssl--export--pkcs12--resources)
 
 ##### <a name="-openssl--export--pkcs12--basedir"></a>`basedir`
 
@@ -1074,6 +1112,22 @@ Default value: `undef`
 Data type: `Optional[String]`
 
 Chain certificate to include in pkcs12
+
+Default value: `undef`
+
+##### <a name="-openssl--export--pkcs12--dynamic"></a>`dynamic`
+
+Data type: `Boolean`
+
+Switch to dynamic mode of export, if input configuration changes
+
+Default value: `false`
+
+##### <a name="-openssl--export--pkcs12--resources"></a>`resources`
+
+Data type: `Variant[Type, Array[Type]]`
+
+Single resource or a list of resources to subcribe on for dynamic refresh
 
 Default value: `undef`
 
