@@ -913,13 +913,21 @@ Export certificate(s) to PEM/x509 format
 
 The following parameters are available in the `openssl::export::pem_cert` defined type:
 
+* [`dynamic`](#-openssl--export--pem_cert--dynamic)
 * [`ensure`](#-openssl--export--pem_cert--ensure)
+* [`resources`](#-openssl--export--pem_cert--resources)
 * [`pfx_cert`](#-openssl--export--pem_cert--pfx_cert)
 * [`der_cert`](#-openssl--export--pem_cert--der_cert)
 * [`pem_cert`](#-openssl--export--pem_cert--pem_cert)
 * [`in_pass`](#-openssl--export--pem_cert--in_pass)
-* [`dynamic`](#-openssl--export--pem_cert--dynamic)
-* [`resources`](#-openssl--export--pem_cert--resources)
+
+##### <a name="-openssl--export--pem_cert--dynamic"></a>`dynamic`
+
+Data type: `Boolean`
+
+dynamically renew certificate file
+
+Default value: `false`
 
 ##### <a name="-openssl--export--pem_cert--ensure"></a>`ensure`
 
@@ -928,6 +936,14 @@ Data type: `Enum['present', 'absent']`
 Whether the certificate file should exist
 
 Default value: `present`
+
+##### <a name="-openssl--export--pem_cert--resources"></a>`resources`
+
+Data type: `Variant[Type, Array[Type]]`
+
+List of resources to subcribe for certificate file renewal
+
+Default value: `undef`
 
 ##### <a name="-openssl--export--pem_cert--pfx_cert"></a>`pfx_cert`
 
@@ -961,22 +977,6 @@ PFX password
 
 Default value: `undef`
 
-##### <a name="-openssl--export--pem_cert--dynamic"></a>`dynamic`
-
-Data type: `Boolean`
-
-Switch to dynamic mode of export, if input configuration changes
-
-Default value: `false`
-
-##### <a name="-openssl--export--pem_cert--resources"></a>`resources`
-
-Data type: `Variant[Type, Array[Type]]`
-
-Single resource or a list of resources to subcribe on for dynamic refresh
-
-Default value: `undef`
-
 ### <a name="openssl--export--pem_key"></a>`openssl::export::pem_key`
 
 Export a key to PEM format
@@ -987,11 +987,11 @@ The following parameters are available in the `openssl::export::pem_key` defined
 
 * [`pfx_cert`](#-openssl--export--pem_key--pfx_cert)
 * [`pem_key`](#-openssl--export--pem_key--pem_key)
+* [`dynamic`](#-openssl--export--pem_key--dynamic)
 * [`ensure`](#-openssl--export--pem_key--ensure)
+* [`resources`](#-openssl--export--pem_key--resources)
 * [`in_pass`](#-openssl--export--pem_key--in_pass)
 * [`out_pass`](#-openssl--export--pem_key--out_pass)
-* [`dynamic`](#-openssl--export--pem_key--dynamic)
-* [`resources`](#-openssl--export--pem_key--resources)
 
 ##### <a name="-openssl--export--pem_key--pfx_cert"></a>`pfx_cert`
 
@@ -1007,13 +1007,29 @@ PEM certificate
 
 Default value: `$title`
 
+##### <a name="-openssl--export--pem_key--dynamic"></a>`dynamic`
+
+Data type: `Boolean`
+
+dynamically renew key file
+
+Default value: `false`
+
 ##### <a name="-openssl--export--pem_key--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
-Whether the key file should exist
+Whether the keyfile should exist
 
 Default value: `present`
+
+##### <a name="-openssl--export--pem_key--resources"></a>`resources`
+
+Data type: `Variant[Type, Array[Type]]`
+
+List of resources to subcribe for key renewal
+
+Default value: `undef`
 
 ##### <a name="-openssl--export--pem_key--in_pass"></a>`in_pass`
 
@@ -1031,22 +1047,6 @@ PEM key password
 
 Default value: `undef`
 
-##### <a name="-openssl--export--pem_key--dynamic"></a>`dynamic`
-
-Data type: `Boolean`
-
-Switch to dynamic mode of export, if input configuration changes
-
-Default value: `false`
-
-##### <a name="-openssl--export--pem_key--resources"></a>`resources`
-
-Data type: `Variant[Type, Array[Type]]`
-
-Single resource or a list of resources to subcribe on for dynamic refresh
-
-Default value: `undef`
-
 ### <a name="openssl--export--pkcs12"></a>`openssl::export::pkcs12`
 
 Export a key pair to PKCS12 format
@@ -1058,12 +1058,12 @@ The following parameters are available in the `openssl::export::pkcs12` defined 
 * [`basedir`](#-openssl--export--pkcs12--basedir)
 * [`pkey`](#-openssl--export--pkcs12--pkey)
 * [`cert`](#-openssl--export--pkcs12--cert)
+* [`dynamic`](#-openssl--export--pkcs12--dynamic)
 * [`ensure`](#-openssl--export--pkcs12--ensure)
+* [`resources`](#-openssl--export--pkcs12--resources)
 * [`in_pass`](#-openssl--export--pkcs12--in_pass)
 * [`out_pass`](#-openssl--export--pkcs12--out_pass)
 * [`chaincert`](#-openssl--export--pkcs12--chaincert)
-* [`dynamic`](#-openssl--export--pkcs12--dynamic)
-* [`resources`](#-openssl--export--pkcs12--resources)
 
 ##### <a name="-openssl--export--pkcs12--basedir"></a>`basedir`
 
@@ -1083,6 +1083,14 @@ Data type: `Stdlib::Absolutepath`
 
 Certificate
 
+##### <a name="-openssl--export--pkcs12--dynamic"></a>`dynamic`
+
+Data type: `Boolean`
+
+dynamically renew PKCS12 file
+
+Default value: `false`
+
 ##### <a name="-openssl--export--pkcs12--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
@@ -1090,6 +1098,14 @@ Data type: `Enum['present', 'absent']`
 Whether the PKCS12 file should exist
 
 Default value: `present`
+
+##### <a name="-openssl--export--pkcs12--resources"></a>`resources`
+
+Data type: `Variant[Type, Array[Type]]`
+
+List of resources to subcribe for PKCS12 renewal
+
+Default value: `undef`
 
 ##### <a name="-openssl--export--pkcs12--in_pass"></a>`in_pass`
 
@@ -1112,22 +1128,6 @@ Default value: `undef`
 Data type: `Optional[String]`
 
 Chain certificate to include in pkcs12
-
-Default value: `undef`
-
-##### <a name="-openssl--export--pkcs12--dynamic"></a>`dynamic`
-
-Data type: `Boolean`
-
-Switch to dynamic mode of export, if input configuration changes
-
-Default value: `false`
-
-##### <a name="-openssl--export--pkcs12--resources"></a>`resources`
-
-Data type: `Variant[Type, Array[Type]]`
-
-Single resource or a list of resources to subcribe on for dynamic refresh
 
 Default value: `undef`
 
