@@ -48,7 +48,7 @@ describe 'openssl::export::pem_cert' do
       )
     }
   end
-  
+
   context 'when using defaults pkcs12 to PEM with dynamic refresh' do
     let(:params) do
       {
