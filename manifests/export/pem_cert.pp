@@ -1,7 +1,11 @@
 # @summary Export certificate(s) to PEM/x509 format
 #
+# @param dynamic
+#   dynamically renew certificate file
 # @param ensure
 #   Whether the certificate file should exist
+# @param resources
+#   List of resources to subcribe for certificate file renewal
 # @param pfx_cert
 #   PFX certificate/key container
 # @param der_cert
@@ -12,11 +16,13 @@
 #   PFX password
 #
 define openssl::export::pem_cert (
-  Enum['present', 'absent']       $ensure   = present,
-  Stdlib::Absolutepath            $pem_cert = $title,
-  Optional[Stdlib::Absolutepath]  $pfx_cert = undef,
-  Optional[Stdlib::Absolutepath]  $der_cert = undef,
-  Optional[String]                $in_pass  = undef,
+  Boolean                         $dynamic   = false,
+  Enum['present', 'absent']       $ensure    = present,
+  Variant[Type, Array[Type]]      $resources = undef,
+  Stdlib::Absolutepath            $pem_cert  = $title,
+  Optional[Stdlib::Absolutepath]  $pfx_cert  = undef,
+  Optional[Stdlib::Absolutepath]  $der_cert  = undef,
+  Optional[String]                $in_pass   = undef,
 
 ) {
   #local variables
@@ -54,10 +60,19 @@ define openssl::export::pem_cert (
       $passin_opt,
     ]
 
+    if $dynamic {
+      $exec_params = {
+        refreshonly => true,
+        subscribe   => $resources,
+      }
+    } else {
+      $exec_params = { creates => $pem_cert, }
+    }
+
     exec { "Export ${in_cert} to ${pem_cert}":
       command => inline_template('<%= @cmd.join(" ") %>'),
       path    => $facts['path'],
-      creates => $pem_cert,
+      *       => $exec_params,
     }
   } else {
     file { $pem_cert:
