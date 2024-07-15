@@ -943,7 +943,7 @@ Data type: `Variant[Type, Array[Type]]`
 
 List of resources to subcribe for certificate file renewal
 
-Default value: `undef`
+Default value: `[]`
 
 ##### <a name="-openssl--export--pem_cert--pfx_cert"></a>`pfx_cert`
 
@@ -1029,7 +1029,7 @@ Data type: `Variant[Type, Array[Type]]`
 
 List of resources to subcribe for key renewal
 
-Default value: `undef`
+Default value: `[]`
 
 ##### <a name="-openssl--export--pem_key--in_pass"></a>`in_pass`
 
@@ -1105,7 +1105,7 @@ Data type: `Variant[Type, Array[Type]]`
 
 List of resources to subcribe for PKCS12 renewal
 
-Default value: `undef`
+Default value: `[]`
 
 ##### <a name="-openssl--export--pkcs12--in_pass"></a>`in_pass`
 

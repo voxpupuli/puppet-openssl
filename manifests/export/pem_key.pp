@@ -20,7 +20,7 @@ define openssl::export::pem_key (
   Stdlib::Absolutepath       $pem_key   = $title,
   Boolean                    $dynamic   = false,
   Enum['present', 'absent']  $ensure    = present,
-  Variant[Type, Array[Type]] $resources = undef,
+  Variant[Type, Array[Type]] $resources = [],
   Optional[String]           $in_pass   = undef,
   Optional[String]           $out_pass  = undef,
 ) {

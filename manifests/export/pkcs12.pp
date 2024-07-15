@@ -25,7 +25,7 @@ define openssl::export::pkcs12 (
   Stdlib::Absolutepath       $cert,
   Boolean                    $dynamic   = false,
   Enum['present', 'absent']  $ensure    = present,
-  Variant[Type, Array[Type]] $resources = undef,
+  Variant[Type, Array[Type]] $resources = [],
   Optional[String]           $chaincert = undef,
   Optional[String]           $in_pass   = undef,
   Optional[String]           $out_pass  = undef,
