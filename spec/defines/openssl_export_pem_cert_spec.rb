@@ -62,7 +62,7 @@ describe 'openssl::export::pem_cert' do
       is_expected.to contain_exec('Export /etc/ssl/certs/foo.pfx to /etc/ssl/certs/foo.pem').with(
         command: 'openssl pkcs12  -in /etc/ssl/certs/foo.pfx -out /etc/ssl/certs/foo.pem ',
         path: '/usr/bin:/bin:/usr/sbin:/sbin',
-        refreshonly: true,
+        refreshonly: true
       )
     }
   end
