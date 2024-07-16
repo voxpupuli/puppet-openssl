@@ -941,7 +941,7 @@ Default value: `present`
 
 Data type: `Variant[Type, Array[Type]]`
 
-List of resources to subcribe for certificate file renewal
+List of resources to subscribe to for certificate file renewal
 
 Default value: `[]`
 
@@ -1027,7 +1027,7 @@ Default value: `present`
 
 Data type: `Variant[Type, Array[Type]]`
 
-List of resources to subcribe for key renewal
+List of resources to subscribe to for key renewal
 
 Default value: `[]`
 
@@ -1103,7 +1103,7 @@ Default value: `present`
 
 Data type: `Variant[Type, Array[Type]]`
 
-List of resources to subcribe for PKCS12 renewal
+List of resources to subscribe to for PKCS12 renewal
 
 Default value: `[]`
 

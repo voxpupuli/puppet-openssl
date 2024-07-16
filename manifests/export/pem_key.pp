@@ -9,7 +9,7 @@
 # @param ensure
 #   Whether the keyfile should exist
 # @param resources
-#   List of resources to subcribe for key renewal
+#   List of resources to subscribe to for key renewal
 # @param in_pass
 #   PFX container password
 # @param out_pass

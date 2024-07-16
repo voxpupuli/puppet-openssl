@@ -11,7 +11,7 @@
 # @param ensure
 #   Whether the PKCS12 file should exist
 # @param resources
-#   List of resources to subcribe for PKCS12 renewal
+#   List of resources to subscribe to for PKCS12 renewal
 # @param in_pass
 #   Private key password
 # @param out_pass

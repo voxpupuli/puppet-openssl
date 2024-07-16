@@ -5,7 +5,7 @@
 # @param ensure
 #   Whether the certificate file should exist
 # @param resources
-#   List of resources to subcribe for certificate file renewal
+#   List of resources to subscribe to for certificate file renewal
 # @param pfx_cert
 #   PFX certificate/key container
 # @param der_cert

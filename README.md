@@ -120,7 +120,7 @@ openssl::export::pem_key { 'foo':
 
 ### Dynamic refresh of exported files
 
-If you want Puppet to refresh the PKCS#12, PEM/x509 or PEM key file in case the input files changed, set the dynamic mode on and handle over desired resources for subscription:
+If you want Puppet to refresh the PKCS#12, PEM/x509 or PEM key file in case the input files changed, set the dynamic mode on and list desired resources for subscription:
 
 ```puppet
 openssl::export::pkcs12 { 'bar':
