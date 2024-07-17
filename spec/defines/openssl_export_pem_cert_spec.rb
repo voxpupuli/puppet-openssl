@@ -49,6 +49,24 @@ describe 'openssl::export::pem_cert' do
     }
   end
 
+  context 'when using defaults pkcs12 to PEM with dynamic refresh' do
+    let(:params) do
+      {
+        ensure: :present,
+        pfx_cert: '/etc/ssl/certs/foo.pfx',
+        dynamic: true,
+      }
+    end
+
+    it {
+      is_expected.to contain_exec('Export /etc/ssl/certs/foo.pfx to /etc/ssl/certs/foo.pem').with(
+        command: 'openssl pkcs12  -in /etc/ssl/certs/foo.pfx -out /etc/ssl/certs/foo.pem ',
+        path: '/usr/bin:/bin:/usr/sbin:/sbin',
+        refreshonly: true
+      )
+    }
+  end
+
   context 'when converting pkcs12 to PEM with password for just the certificate' do
     let(:params) do
       {
