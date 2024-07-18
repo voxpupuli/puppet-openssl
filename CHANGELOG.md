@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.2.0](https://github.com/voxpupuli/puppet-openssl/tree/v3.2.0) (2024-07-18)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-openssl/compare/v3.1.1...v3.2.0)
+
+**Implemented enhancements:**
+
+- feat: refreshable exports [\#202](https://github.com/voxpupuli/puppet-openssl/pull/202) ([pavelkovtunov](https://github.com/pavelkovtunov))
+
 ## [v3.1.1](https://github.com/voxpupuli/puppet-openssl/tree/v3.1.1) (2024-07-11)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-openssl/compare/v3.1.0...v3.1.1)
