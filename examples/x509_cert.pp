@@ -6,4 +6,5 @@ openssl::certificate::x509 { 'foo.example.com':
   base_dir     => '/tmp',
   owner        => 'nobody',
   password     => 'mahje1Qu',
+  key_size     => 1024,
 }

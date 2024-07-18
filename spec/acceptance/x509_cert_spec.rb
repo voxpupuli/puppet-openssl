@@ -15,7 +15,7 @@ describe 'x509_cert example' do
       it { is_expected.to be_certificate }
       it { is_expected.to be_valid }
       its(:subject) { is_expected.to match_without_whitespace(%r{C = CH, O = Example.com, CN = foo.example.com}) }
-      its(:keylength) { is_expected.to eq 3072 }
+      its(:keylength) { is_expected.to eq 1024 }
     end
 
     it { expect(file('/tmp/foo.example.com.key')).to be_file.and(have_attributes(owner: 'nobody', mode: '600')) }
