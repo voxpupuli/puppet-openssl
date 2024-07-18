@@ -25,7 +25,7 @@ Puppet::Type.type(:ssl_pkey).provide(:openssl) do
 
   def self.to_pem(resource, key)
     if resource[:password]
-      cipher = OpenSSL::Cipher.new('des3')
+      cipher = OpenSSL::Cipher.new('aes-256-cbc')
       key.to_pem(cipher, resource[:password])
     else
       key.to_pem
