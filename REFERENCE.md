@@ -1318,7 +1318,6 @@ Default value: `present`
 
 The following parameters are available in the `x509_cert` type.
 
-* [`authentication`](#-x509_cert--authentication)
 * [`ca`](#-x509_cert--ca)
 * [`cakey`](#-x509_cert--cakey)
 * [`cakey_password`](#-x509_cert--cakey_password)
@@ -1331,14 +1330,6 @@ The following parameters are available in the `x509_cert` type.
 * [`provider`](#-x509_cert--provider)
 * [`req_ext`](#-x509_cert--req_ext)
 * [`template`](#-x509_cert--template)
-
-##### <a name="-x509_cert--authentication"></a>`authentication`
-
-Valid values: `rsa`, `dsa`, `ec`
-
-The authentication algorithm: 'rsa', 'dsa or ec'
-
-Default value: `rsa`
 
 ##### <a name="-x509_cert--ca"></a>`ca`
 
@@ -1421,7 +1412,6 @@ Default value: `present`
 
 The following parameters are available in the `x509_request` type.
 
-* [`authentication`](#-x509_request--authentication)
 * [`encrypted`](#-x509_request--encrypted)
 * [`force`](#-x509_request--force)
 * [`password`](#-x509_request--password)
@@ -1429,14 +1419,6 @@ The following parameters are available in the `x509_request` type.
 * [`private_key`](#-x509_request--private_key)
 * [`provider`](#-x509_request--provider)
 * [`template`](#-x509_request--template)
-
-##### <a name="-x509_request--authentication"></a>`authentication`
-
-Valid values: `rsa`, `dsa`, `ec`
-
-The authentication algorithm: 'rsa', 'dsa' or ec
-
-Default value: `rsa`
 
 ##### <a name="-x509_request--encrypted"></a>`encrypted`
 
