@@ -35,8 +35,6 @@ describe Puppet::Type.type(:ssl_pkey) do
   it 'accepts a valid authentication' do
     resource[:authentication] = :rsa
     expect(resource[:authentication]).to eq(:rsa)
-    resource[:authentication] = :dsa
-    expect(resource[:authentication]).to eq(:dsa)
     resource[:authentication] = :ec
     expect(resource[:authentication]).to eq(:ec)
   end

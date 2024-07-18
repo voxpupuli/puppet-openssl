@@ -15,15 +15,15 @@ Puppet::Type.newtype(:ssl_pkey) do
   end
 
   newparam(:authentication) do
-    desc "The authentication algorithm: 'rsa', 'dsa or ec'"
-    newvalues :rsa, :dsa, :ec
+    desc 'The authentication algorithm'
+    newvalues :rsa, :ec
     defaultto :rsa
 
     munge(&:to_sym)
   end
 
   newparam(:size) do
-    desc 'The key size'
+    desc 'The key size for RSA keys'
     newvalues %r{\d+}
     defaultto 2048
 
