@@ -9,14 +9,16 @@ Puppet::Type.type(:ssl_pkey).provide(:openssl) do
     resource[:path].dirname
   end
 
+  # @see man openssl genpkey
   def self.generate_key(resource)
     case resource[:authentication]
     when :dsa
-      OpenSSL::PKey::DSA.new(resource[:size])
+      params = OpenSSL::PKey.generate_parameters('DSA', 'dsa_paramgen_bits' => resource[:size])
+      OpenSSL::PKey.generate_key(params)
     when :rsa
-      OpenSSL::PKey::RSA.new(resource[:size])
+      OpenSSL::PKey.generate_key('RSA', 'rsa_keygen_bits' => resource[:size])
     when :ec
-      OpenSSL::PKey::EC.new(resource[:curve]).generate_key
+      OpenSSL::PKey.generate_key('EC', 'ec_paramgen_curve' => resource[:curve])
     else
       raise Puppet::Error,
             "Unknown authentication type '#{resource[:authentication]}'"
