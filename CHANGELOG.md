@@ -4,6 +4,40 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.0.0](https://github.com/voxpupuli/puppet-openssl/tree/v4.0.0) (2024-07-19)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-openssl/compare/v3.2.0...v4.0.0)
+
+**Breaking changes:**
+
+- Drop DSA key support [\#222](https://github.com/voxpupuli/puppet-openssl/pull/222) ([ekohl](https://github.com/ekohl))
+- password encryption: switch from des3-\>aes-256-cbc [\#221](https://github.com/voxpupuli/puppet-openssl/pull/221) ([bastelfreak](https://github.com/bastelfreak))
+- Drop EoL CentOS 6,7,8 support [\#212](https://github.com/voxpupuli/puppet-openssl/pull/212) ([bastelfreak](https://github.com/bastelfreak))
+- Drop EoL RedHat 6 and 7 support [\#211](https://github.com/voxpupuli/puppet-openssl/pull/211) ([bastelfreak](https://github.com/bastelfreak))
+- Drop EoL Ubuntu 14.04,16.04,18.04 [\#208](https://github.com/voxpupuli/puppet-openssl/pull/208) ([bastelfreak](https://github.com/bastelfreak))
+- Drop EoL Debian 8,9,10 support [\#207](https://github.com/voxpupuli/puppet-openssl/pull/207) ([bastelfreak](https://github.com/bastelfreak))
+- Use OpenSSL::PKey.read to read private keys [\#190](https://github.com/voxpupuli/puppet-openssl/pull/190) ([ekohl](https://github.com/ekohl))
+
+**Implemented enhancements:**
+
+- Support OpenSSL 3 [\#223](https://github.com/voxpupuli/puppet-openssl/pull/223) ([ekohl](https://github.com/ekohl))
+- Add Archlinux support [\#217](https://github.com/voxpupuli/puppet-openssl/pull/217) ([bastelfreak](https://github.com/bastelfreak))
+- Add OracleLinux 8 & 9 support [\#216](https://github.com/voxpupuli/puppet-openssl/pull/216) ([bastelfreak](https://github.com/bastelfreak))
+- Add Rocky Linux 8 & 9 support [\#215](https://github.com/voxpupuli/puppet-openssl/pull/215) ([bastelfreak](https://github.com/bastelfreak))
+- Allow passing a CA key password when signing a cert [\#214](https://github.com/voxpupuli/puppet-openssl/pull/214) ([bastelfreak](https://github.com/bastelfreak))
+- Add AlmaLinux 8 & 9 support [\#213](https://github.com/voxpupuli/puppet-openssl/pull/213) ([bastelfreak](https://github.com/bastelfreak))
+- Add EL9 support [\#210](https://github.com/voxpupuli/puppet-openssl/pull/210) ([bastelfreak](https://github.com/bastelfreak))
+- Add Ubuntu 22.04 support [\#209](https://github.com/voxpupuli/puppet-openssl/pull/209) ([bastelfreak](https://github.com/bastelfreak))
+- Add Debian 12 support [\#206](https://github.com/voxpupuli/puppet-openssl/pull/206) ([bastelfreak](https://github.com/bastelfreak))
+- Add Debian 11 support [\#205](https://github.com/voxpupuli/puppet-openssl/pull/205) ([bastelfreak](https://github.com/bastelfreak))
+- Add basic acceptance tests for the existing examples [\#192](https://github.com/voxpupuli/puppet-openssl/pull/192) ([ekohl](https://github.com/ekohl))
+- Add Ubuntu 24.04 support [\#191](https://github.com/voxpupuli/puppet-openssl/pull/191) ([ekohl](https://github.com/ekohl))
+- Add Puppet 8 support [\#167](https://github.com/voxpupuli/puppet-openssl/pull/167) ([bastelfreak](https://github.com/bastelfreak))
+
+**Fixed bugs:**
+
+- Use private\_key parameter when creating certificate [\#186](https://github.com/voxpupuli/puppet-openssl/pull/186) ([vasilevalex](https://github.com/vasilevalex))
+
 ## [v3.2.0](https://github.com/voxpupuli/puppet-openssl/tree/v3.2.0) (2024-07-18)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-openssl/compare/v3.1.1...v3.2.0)
