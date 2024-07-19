@@ -11,8 +11,6 @@ Puppet::Type.type(:ssl_pkey).provide(:openssl) do
 
   def self.generate_key(resource)
     case resource[:authentication]
-    when :dsa
-      OpenSSL::PKey::DSA.new(resource[:size])
     when :rsa
       OpenSSL::PKey::RSA.new(resource[:size])
     when :ec

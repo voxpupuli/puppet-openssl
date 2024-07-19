@@ -1265,9 +1265,9 @@ The following parameters are available in the `ssl_pkey` type.
 
 ##### <a name="-ssl_pkey--authentication"></a>`authentication`
 
-Valid values: `rsa`, `dsa`, `ec`
+Valid values: `rsa`, `ec`
 
-The authentication algorithm: 'rsa', 'dsa or ec'
+The authentication algorithm
 
 Default value: `rsa`
 
@@ -1294,7 +1294,7 @@ discover the appropriate provider for your platform.
 
 Valid values: `%r{\d+}`
 
-The key size
+The key size for RSA keys
 
 Default value: `2048`
 
