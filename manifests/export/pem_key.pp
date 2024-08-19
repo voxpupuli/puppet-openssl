@@ -26,23 +26,21 @@ define openssl::export::pem_key (
 ) {
   if $ensure == 'present' {
     $passin_opt = $in_pass ? {
-      undef   => '',
-      default => "-passin pass:${shellquote($in_pass)}",
+      undef   => [],
+      default => ['-passin', "pass:${in_pass}"],
     }
 
     $passout_opt = $out_pass ? {
-      undef   => '-nodes',
-      default => "-passout pass:${shellquote($out_pass)}",
+      undef   => ['-nodes'],
+      default => ['-passout', "pass:${out_pass}"],
     }
 
     $cmd = [
-      'openssl pkcs12',
-      "-in ${pfx_cert}",
-      "-out ${pem_key}",
+      'openssl', 'pkcs12',
+      '-in', $pfx_cert,
+      '-out', $pem_key,
       '-nocerts',
-      $passin_opt,
-      $passout_opt,
-    ]
+    ] + $passin_opt + $passout_opt
 
     if $dynamic {
       $exec_params = {
@@ -54,7 +52,7 @@ define openssl::export::pem_key (
     }
 
     exec { "Export ${pfx_cert} to ${pem_key}":
-      command => inline_template('<%= @cmd.join(" ") %>'),
+      command => $cmd,
       path    => $facts['path'],
       *       => $exec_params,
     }

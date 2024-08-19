@@ -42,7 +42,7 @@ describe 'openssl::export::pem_cert' do
 
     it {
       is_expected.to contain_exec('Export /etc/ssl/certs/foo.pfx to /etc/ssl/certs/foo.pem').with(
-        command: 'openssl pkcs12  -in /etc/ssl/certs/foo.pfx -out /etc/ssl/certs/foo.pem ',
+        command: ['openssl', 'pkcs12', '-in', '/etc/ssl/certs/foo.pfx', '-out', '/etc/ssl/certs/foo.pem'],
         creates: '/etc/ssl/certs/foo.pem',
         path: '/usr/bin:/bin:/usr/sbin:/sbin'
       )
@@ -60,7 +60,7 @@ describe 'openssl::export::pem_cert' do
 
     it {
       is_expected.to contain_exec('Export /etc/ssl/certs/foo.pfx to /etc/ssl/certs/foo.pem').with(
-        command: 'openssl pkcs12  -in /etc/ssl/certs/foo.pfx -out /etc/ssl/certs/foo.pem ',
+        command: ['openssl', 'pkcs12', '-in', '/etc/ssl/certs/foo.pfx', '-out', '/etc/ssl/certs/foo.pem'],
         path: '/usr/bin:/bin:/usr/sbin:/sbin',
         refreshonly: true
       )
@@ -79,7 +79,7 @@ describe 'openssl::export::pem_cert' do
 
     it {
       is_expected.to contain_exec('Export /etc/ssl/certs/foo.pfx to /etc/ssl/certs/foo.pem').with(
-        command: "openssl pkcs12  -in /etc/ssl/certs/foo.pfx -out /etc/ssl/certs/foo.pem -nokeys -passin pass:'5r$}^'",
+        command: ['openssl', 'pkcs12', '-in', '/etc/ssl/certs/foo.pfx', '-out', '/etc/ssl/certs/foo.pem', '-nokeys', '-passin', 'pass:5r$}^'],
         creates: '/etc/ssl/certs/foo.pem',
         path: '/usr/bin:/bin:/usr/sbin:/sbin'
       )
@@ -96,7 +96,7 @@ describe 'openssl::export::pem_cert' do
 
     it {
       is_expected.to contain_exec('Export /etc/ssl/certs/foo.der to /etc/ssl/certs/foo.pem').with(
-        command: 'openssl x509 -inform DER -in /etc/ssl/certs/foo.der -out /etc/ssl/certs/foo.pem ',
+        command: ['openssl', 'x509', '-inform', 'DER', '-in', '/etc/ssl/certs/foo.der', '-out', '/etc/ssl/certs/foo.pem'],
         creates: '/etc/ssl/certs/foo.pem',
         path: '/usr/bin:/bin:/usr/sbin:/sbin'
       )
