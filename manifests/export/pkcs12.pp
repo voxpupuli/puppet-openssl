@@ -30,35 +30,32 @@ define openssl::export::pkcs12 (
   Optional[String]           $in_pass   = undef,
   Optional[String]           $out_pass  = undef,
 ) {
+  $full_path = "${basedir}/${name}.p12"
+
   if $ensure == 'present' {
     $pass_opt = $in_pass ? {
-      undef   => '',
-      default => "-passin pass:${shellquote($in_pass)}",
+      undef   => [],
+      default => ['-passin', "pass:${in_pass}"],
     }
 
     $passout_opt = $out_pass ? {
-      undef   => '',
-      default => "-passout pass:${shellquote($out_pass)}",
+      undef   => [],
+      default => ['-passout', "pass:${out_pass}"],
     }
 
     $chain_opt = $chaincert ? {
-      undef   => '',
-      default => "-chain -CAfile ${chaincert}",
+      undef   => [],
+      default => ['-chain', '-CAfile', $chaincert],
     }
 
     $cmd = [
-      'openssl pkcs12 -export',
-      "-in ${cert}",
-      "-inkey ${pkey}",
-      "-out ${basedir}/${name}.p12",
-      "-name ${name}",
-      '-nodes -noiter',
-      $chain_opt,
-      $pass_opt,
-      $passout_opt,
-    ]
-
-    $full_path = "${basedir}/${name}.p12"
+      'openssl', 'pkcs12', '-export',
+      '-in', $cert,
+      '-inkey', $pkey,
+      '-out', $full_path,
+      '-name', $name,
+      '-nodes', '-noiter',
+    ] + $chain_opt + $pass_opt + $passout_opt
 
     if $dynamic {
       $exec_params = {
@@ -70,12 +67,12 @@ define openssl::export::pkcs12 (
     }
 
     exec { "Export ${name} to ${full_path}":
-      command => inline_template('<%= @cmd.join(" ") %>'),
+      command => $cmd,
       path    => $facts['path'],
       *       => $exec_params,
     }
   } else {
-    file { "${basedir}/${name}.p12":
+    file { $full_path:
       ensure => absent,
     }
   }

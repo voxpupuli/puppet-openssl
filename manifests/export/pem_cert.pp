@@ -37,28 +37,20 @@ define openssl::export::pem_cert (
   }
 
   if $der_cert {
-    $sslmodule = 'x509'
+    $sslmodule = ['x509', '-inform', 'DER']
     $in_cert   = $der_cert
-    $module_opt  = '-inform DER'
   } else {
-    $sslmodule  = 'pkcs12'
+    $sslmodule  = ['pkcs12']
     $in_cert    = $pfx_cert
-    $module_opt   = ''
   }
 
   $passin_opt = $in_pass ? {
-    undef   => '',
-    default => "-nokeys -passin pass:${shellquote($in_pass)}",
+    undef   => [],
+    default => ['-nokeys', '-passin', "pass:${in_pass}"],
   }
 
   if $ensure == 'present' {
-    $cmd = [
-      "openssl ${sslmodule}",
-      $module_opt,
-      "-in ${in_cert}",
-      "-out ${pem_cert}",
-      $passin_opt,
-    ]
+    $cmd = ['openssl'] + $sslmodule + ['-in', $in_cert, '-out', $pem_cert] + $passin_opt
 
     if $dynamic {
       $exec_params = {
@@ -70,7 +62,7 @@ define openssl::export::pem_cert (
     }
 
     exec { "Export ${in_cert} to ${pem_cert}":
-      command => inline_template('<%= @cmd.join(" ") %>'),
+      command => $cmd,
       path    => $facts['path'],
       *       => $exec_params,
     }
