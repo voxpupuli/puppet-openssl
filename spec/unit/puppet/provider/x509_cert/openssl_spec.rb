@@ -5,7 +5,6 @@ require 'puppet/util/inifile'
 require 'pathname'
 require 'puppet/type/x509_cert'
 
-provider_class = Puppet::Type.type(:x509_cert).provider(:openssl)
 describe 'The openssl provider for the x509_cert type' do
   let(:path) { '/tmp/foo.crt' }
   let(:pathname) { Pathname.new(path) }
@@ -31,33 +30,49 @@ describe 'The openssl provider for the x509_cert type' do
     end
 
     it 'creates a certificate with the proper options' do
-      expect(provider_class).to receive(:openssl).with([
-                                                         'req',
-                                                         '-config', '/tmp/foo.cnf',
-                                                         '-new',
-                                                         '-x509',
-                                                         '-days', 3650,
-                                                         '-key', '/tmp/foo.key',
-                                                         '-out', '/tmp/foo.crt',
-                                                         '-extensions', 'v3_req',
-                                                       ])
+      expect(resource.provider).to receive(:execute).with(
+        [
+          '/usr/bin/openssl',
+          'req',
+          '-config', '/tmp/foo.cnf',
+          '-new',
+          '-x509',
+          '-days', 3650,
+          '-key', '/tmp/foo.key',
+          '-out', '/tmp/foo.crt',
+          '-extensions', 'v3_req',
+        ],
+        {
+          combine: true,
+          custom_environment: {},
+          failonfail: true,
+        }
+      )
       resource.provider.create
     end
 
     context 'when using password' do
       it 'creates a certificate with the proper options' do
         resource[:password] = '2x6${'
-        expect(provider_class).to receive(:openssl).with([
-                                                           'req',
-                                                           '-config', '/tmp/foo.cnf',
-                                                           '-new',
-                                                           '-x509',
-                                                           '-days', 3650,
-                                                           '-key', '/tmp/foo.key',
-                                                           '-out', '/tmp/foo.crt',
-                                                           '-passin', 'pass:2x6${',
-                                                           '-extensions', 'v3_req',
-                                                         ])
+        expect(resource.provider).to receive(:execute).with(
+          [
+            '/usr/bin/openssl',
+            'req',
+            '-config', '/tmp/foo.cnf',
+            '-new',
+            '-x509',
+            '-days', 3650,
+            '-key', '/tmp/foo.key',
+            '-out', '/tmp/foo.crt',
+            '-passin', 'env:CERTIFICATE_PASSIN',
+            '-extensions', 'v3_req',
+          ],
+          {
+            combine: true,
+            custom_environment: { 'CERTIFICATE_PASSIN' => '2x6${' },
+            failonfail: true,
+          }
+        )
         resource.provider.create
       end
     end
@@ -68,18 +83,26 @@ describe 'The openssl provider for the x509_cert type' do
       resource[:csr] = '/tmp/foo.csr'
       resource[:ca]  = '/tmp/foo-ca.crt'
       resource[:cakey] = '/tmp/foo-ca.key'
-      expect(provider_class).to receive(:openssl).with([
-                                                         'x509',
-                                                         '-req',
-                                                         '-days', 3650,
-                                                         '-in', '/tmp/foo.csr',
-                                                         '-out', '/tmp/foo.crt',
-                                                         '-extfile', '/tmp/foo.cnf',
-                                                         '-CAcreateserial',
-                                                         '-CA', '/tmp/foo-ca.crt',
-                                                         '-CAkey', '/tmp/foo-ca.key',
-                                                         '-extensions', 'v3_req',
-                                                       ])
+      expect(resource.provider).to receive(:execute).with(
+        [
+          '/usr/bin/openssl',
+          'x509',
+          '-req',
+          '-days', 3650,
+          '-in', '/tmp/foo.csr',
+          '-out', '/tmp/foo.crt',
+          '-extfile', '/tmp/foo.cnf',
+          '-CAcreateserial',
+          '-CA', '/tmp/foo-ca.crt',
+          '-CAkey', '/tmp/foo-ca.key',
+          '-extensions', 'v3_req',
+        ],
+        {
+          combine: true,
+          custom_environment: {},
+          failonfail: true,
+        }
+      )
       resource.provider.create
     end
   end
@@ -90,19 +113,27 @@ describe 'The openssl provider for the x509_cert type' do
       resource[:ca]  = '/tmp/foo-ca.crt'
       resource[:cakey] = '/tmp/foo-ca.key'
       resource[:cakey_password] = '5i;6%'
-      expect(provider_class).to receive(:openssl).with([
-                                                         'x509',
-                                                         '-req',
-                                                         '-days', 3650,
-                                                         '-in', '/tmp/foo.csr',
-                                                         '-out', '/tmp/foo.crt',
-                                                         '-extfile', '/tmp/foo.cnf',
-                                                         '-CAcreateserial',
-                                                         '-CA', '/tmp/foo-ca.crt',
-                                                         '-CAkey', '/tmp/foo-ca.key',
-                                                         '-passin', 'pass:5i;6%',
-                                                         '-extensions', 'v3_req',
-                                                       ])
+      expect(resource.provider).to receive(:execute).with(
+        [
+          '/usr/bin/openssl',
+          'x509',
+          '-req',
+          '-days', 3650,
+          '-in', '/tmp/foo.csr',
+          '-out', '/tmp/foo.crt',
+          '-extfile', '/tmp/foo.cnf',
+          '-CAcreateserial',
+          '-CA', '/tmp/foo-ca.crt',
+          '-CAkey', '/tmp/foo-ca.key',
+          '-passin', 'env:CERTIFICATE_PASSIN',
+          '-extensions', 'v3_req',
+        ],
+        {
+          combine: true,
+          custom_environment: { 'CERTIFICATE_PASSIN' => '5i;6%' },
+          failonfail: true,
+        }
+      )
       resource.provider.create
     end
   end

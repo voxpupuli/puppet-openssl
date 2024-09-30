@@ -44,9 +44,12 @@ define openssl::export::pem_cert (
     $in_cert    = $pfx_cert
   }
 
-  $passin_opt = $in_pass ? {
-    undef   => [],
-    default => ['-nokeys', '-passin', "pass:${in_pass}"],
+  if $in_pass {
+    $passin_opt = ['-nokeys', '-passin', 'env:CERTIFICATE_PASSIN']
+    $passin_env = ["CERTIFICATE_PASSIN=${in_pass}"]
+  } else {
+    $passin_opt = []
+    $passin_env = []
   }
 
   if $ensure == 'present' {
@@ -62,9 +65,10 @@ define openssl::export::pem_cert (
     }
 
     exec { "Export ${in_cert} to ${pem_cert}":
-      command => $cmd,
-      path    => $facts['path'],
-      *       => $exec_params,
+      command     => $cmd,
+      environment => $passin_env,
+      path        => $facts['path'],
+      *           => $exec_params,
     }
   } else {
     file { $pem_cert:

@@ -25,14 +25,20 @@ define openssl::export::pem_key (
   Optional[String]           $out_pass  = undef,
 ) {
   if $ensure == 'present' {
-    $passin_opt = $in_pass ? {
-      undef   => [],
-      default => ['-passin', "pass:${in_pass}"],
+    if $in_pass {
+      $passin_opt = ['-nokeys', '-passin', 'env:CERTIFICATE_PASSIN']
+      $passin_env = ["CERTIFICATE_PASSIN=${in_pass}"]
+    } else {
+      $passin_opt = []
+      $passin_env = []
     }
 
-    $passout_opt = $out_pass ? {
-      undef   => ['-nodes'],
-      default => ['-passout', "pass:${out_pass}"],
+    if $out_pass {
+      $passout_opt = ['-nokeys', '-passout', 'env:CERTIFICATE_PASSOUT']
+      $passout_env = ["CERTIFICATE_PASSOUT=${out_pass}"]
+    } else {
+      $passout_opt = []
+      $passout_env = []
     }
 
     $cmd = [
@@ -52,9 +58,10 @@ define openssl::export::pem_key (
     }
 
     exec { "Export ${pfx_cert} to ${pem_key}":
-      command => $cmd,
-      path    => $facts['path'],
-      *       => $exec_params,
+      command     => $cmd,
+      environment => $passin_env + $passout_env,
+      path        => $facts['path'],
+      *           => $exec_params,
     }
   } else {
     file { $pem_key:
