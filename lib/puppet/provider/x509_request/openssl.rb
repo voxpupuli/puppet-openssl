@@ -35,8 +35,8 @@ Puppet::Type.type(:x509_request).provide(:openssl) do
       '-out', resource[:path]
     ]
 
-    options << ['-passin', "pass:#{resource[:password]}"] if resource[:password]
-    options << ['-nodes'] unless resource[:encrypted]
+    options += ['-passin', "pass:#{resource[:password]}"] if resource[:password]
+    options += ['-nodes'] unless resource[:encrypted]
 
     openssl options
   end

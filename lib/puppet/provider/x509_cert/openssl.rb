@@ -66,14 +66,14 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
         '-out', resource[:path]
       ]
       if resource[:ca]
-        options << ['-extfile', resource[:template]]
-        options << ['-CAcreateserial']
-        options << ['-CA', resource[:ca]]
-        options << ['-CAkey', resource[:cakey]]
+        options += ['-extfile', resource[:template]]
+        options += ['-CAcreateserial']
+        options += ['-CA', resource[:ca]]
+        options += ['-CAkey', resource[:cakey]]
       else
-        options << ['-signkey', resource[:private_key]]
+        options += ['-signkey', resource[:private_key]]
         if resource[:req_ext]
-          options << [
+          options += [
             '-extensions', 'v3_req',
             '-extfile', resource[:template]
           ]
@@ -92,8 +92,8 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
 
     password = resource[:cakey_password] || resource[:password]
 
-    options << ['-passin', "pass:#{password}"] if password
-    options << ['-extensions', 'v3_req'] if resource[:req_ext] != :false
+    options += ['-passin', "pass:#{password}"] if password
+    options += ['-extensions', 'v3_req'] if resource[:req_ext] != :false
     openssl options
   end
 
