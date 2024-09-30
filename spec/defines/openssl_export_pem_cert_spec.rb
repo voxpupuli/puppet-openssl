@@ -79,8 +79,7 @@ describe 'openssl::export::pem_cert' do
 
     it {
       is_expected.to contain_exec('Export /etc/ssl/certs/foo.pfx to /etc/ssl/certs/foo.pem').with(
-        command: ['openssl', 'pkcs12', '-in', '/etc/ssl/certs/foo.pfx', '-out', '/etc/ssl/certs/foo.pem', '-nokeys', '-passin', 'env:CERTIFICATE_PASSIN'],
-        environment: ['CERTIFICATE_PASSIN=5r$}^'],
+        command: ['openssl', 'pkcs12', '-in', '/etc/ssl/certs/foo.pfx', '-out', '/etc/ssl/certs/foo.pem', '-nokeys', '-passin', 'pass:5r$}^'],
         creates: '/etc/ssl/certs/foo.pem',
         path: '/usr/bin:/bin:/usr/sbin:/sbin'
       )
