@@ -33,14 +33,20 @@ define openssl::export::pkcs12 (
   $full_path = "${basedir}/${name}.p12"
 
   if $ensure == 'present' {
-    $pass_opt = $in_pass ? {
-      undef   => [],
-      default => ['-passin', "pass:${in_pass}"],
+    if $in_pass {
+      $passin_opt = ['-nokeys', '-passin', 'env:CERTIFICATE_PASSIN']
+      $passin_env = ["CERTIFICATE_PASSIN=${in_pass}"]
+    } else {
+      $passin_opt = []
+      $passin_env = []
     }
 
-    $passout_opt = $out_pass ? {
-      undef   => [],
-      default => ['-passout', "pass:${out_pass}"],
+    if $out_pass {
+      $passout_opt = ['-nokeys', '-passout', 'env:CERTIFICATE_PASSOUT']
+      $passout_env = ["CERTIFICATE_PASSOUT=${out_pass}"]
+    } else {
+      $passout_opt = []
+      $passout_env = []
     }
 
     $chain_opt = $chaincert ? {
@@ -55,7 +61,7 @@ define openssl::export::pkcs12 (
       '-out', $full_path,
       '-name', $name,
       '-nodes', '-noiter',
-    ] + $chain_opt + $pass_opt + $passout_opt
+    ] + $chain_opt + $passin_opt + $passout_opt
 
     if $dynamic {
       $exec_params = {
@@ -67,9 +73,10 @@ define openssl::export::pkcs12 (
     }
 
     exec { "Export ${name} to ${full_path}":
-      command => $cmd,
-      path    => $facts['path'],
-      *       => $exec_params,
+      command     => $cmd,
+      environment => $passin_env + $passout_env,
+      path        => $facts['path'],
+      *           => $exec_params,
     }
   } else {
     file { $full_path:

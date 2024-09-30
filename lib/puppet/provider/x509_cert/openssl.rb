@@ -57,6 +57,8 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
   end
 
   def create
+    env = {}
+
     if resource[:csr]
       options = [
         'x509',
@@ -92,9 +94,12 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
 
     password = resource[:cakey_password] || resource[:password]
 
-    options << ['-passin', "pass:#{password}"] if password
+    if password
+      options << ['-passin', 'env:CERTIFICATE_PASSIN']
+      env['CERTIFICATE_PASSIN'] = password
+    end
     options << ['-extensions', 'v3_req'] if resource[:req_ext] != :false
-    openssl options
+    openssl options, environment: env
   end
 
   def destroy

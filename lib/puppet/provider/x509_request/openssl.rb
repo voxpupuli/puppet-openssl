@@ -28,6 +28,7 @@ Puppet::Type.type(:x509_request).provide(:openssl) do
   end
 
   def create
+    env = {}
     options = [
       'req', '-new',
       '-key', resource[:private_key],
@@ -35,10 +36,13 @@ Puppet::Type.type(:x509_request).provide(:openssl) do
       '-out', resource[:path]
     ]
 
-    options << ['-passin', "pass:#{resource[:password]}"] if resource[:password]
+    if resource[:password]
+      options << ['-passin', 'env:CERTIFICATE_PASSIN']
+      env['CERTIFICATE_PASSIN'] = resource[:password]
+    end
     options << ['-nodes'] unless resource[:encrypted]
 
-    openssl options
+    openssl options, environment: env
   end
 
   def destroy
