@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.1.0](https://github.com/voxpupuli/puppet-openssl/tree/v4.1.0) (2024-10-01)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-openssl/compare/v4.0.0...v4.1.0)
+
+**Implemented enhancements:**
+
+- Pass openssl commands as an array [\#225](https://github.com/voxpupuli/puppet-openssl/pull/225) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- Correctly pass secrets via environment variables to avoid them being visible in process lists [\#228](https://github.com/voxpupuli/puppet-openssl/pull/228) ([ekohl](https://github.com/ekohl))
+
 ## [v4.0.0](https://github.com/voxpupuli/puppet-openssl/tree/v4.0.0) (2024-07-19)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-openssl/compare/v3.2.0...v4.0.0)
