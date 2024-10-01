@@ -37,12 +37,14 @@ Puppet::Type.type(:x509_request).provide(:openssl) do
     ]
 
     if resource[:password]
-      options << ['-passin', 'env:CERTIFICATE_PASSIN']
+      options += ['-passin', 'env:CERTIFICATE_PASSIN']
       env['CERTIFICATE_PASSIN'] = resource[:password]
     end
-    options << ['-nodes'] unless resource[:encrypted]
+    options << '-nodes' unless resource[:encrypted]
 
-    openssl options, environment: env
+    # openssl(options) doesn't work because it's impossible to pass an env
+    # https://github.com/puppetlabs/puppet/issues/9493
+    execute([command('openssl')] + options, { failonfail: true, combine: true, custom_environment: env })
   end
 
   def destroy

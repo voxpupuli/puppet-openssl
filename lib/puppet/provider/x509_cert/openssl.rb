@@ -68,14 +68,14 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
         '-out', resource[:path]
       ]
       if resource[:ca]
-        options << ['-extfile', resource[:template]]
-        options << ['-CAcreateserial']
-        options << ['-CA', resource[:ca]]
-        options << ['-CAkey', resource[:cakey]]
+        options += ['-extfile', resource[:template]]
+        options += ['-CAcreateserial']
+        options += ['-CA', resource[:ca]]
+        options += ['-CAkey', resource[:cakey]]
       else
-        options << ['-signkey', resource[:private_key]]
+        options += ['-signkey', resource[:private_key]]
         if resource[:req_ext]
-          options << [
+          options += [
             '-extensions', 'v3_req',
             '-extfile', resource[:template]
           ]
@@ -95,11 +95,14 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
     password = resource[:cakey_password] || resource[:password]
 
     if password
-      options << ['-passin', 'env:CERTIFICATE_PASSIN']
+      options += ['-passin', 'env:CERTIFICATE_PASSIN']
       env['CERTIFICATE_PASSIN'] = password
     end
-    options << ['-extensions', 'v3_req'] if resource[:req_ext] != :false
-    openssl options, environment: env
+    options += ['-extensions', 'v3_req'] if resource[:req_ext] != :false
+
+    # openssl(options) doesn't work because it's impossible to pass an env
+    # https://github.com/puppetlabs/puppet/issues/9493
+    execute([command('openssl')] + options, { failonfail: true, combine: true, custom_environment: env })
   end
 
   def destroy
