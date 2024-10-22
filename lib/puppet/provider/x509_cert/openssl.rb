@@ -98,7 +98,7 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
       options += ['-passin', 'env:CERTIFICATE_PASSIN']
       env['CERTIFICATE_PASSIN'] = password
     end
-    options += ['-extensions', 'v3_req'] if resource[:req_ext] != :false
+    options += ['-extensions', 'v3_req'] if resource[:req_ext]
 
     # openssl(options) doesn't work because it's impossible to pass an env
     # https://github.com/puppetlabs/puppet/issues/9493
