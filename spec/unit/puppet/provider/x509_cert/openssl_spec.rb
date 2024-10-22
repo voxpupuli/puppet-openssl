@@ -40,7 +40,6 @@ describe 'The openssl provider for the x509_cert type' do
           '-days', 3650,
           '-key', '/tmp/foo.key',
           '-out', '/tmp/foo.crt',
-          '-extensions', 'v3_req',
         ],
         {
           combine: true,
@@ -65,7 +64,6 @@ describe 'The openssl provider for the x509_cert type' do
             '-key', '/tmp/foo.key',
             '-out', '/tmp/foo.crt',
             '-passin', 'env:CERTIFICATE_PASSIN',
-            '-extensions', 'v3_req',
           ],
           {
             combine: true,
@@ -95,7 +93,6 @@ describe 'The openssl provider for the x509_cert type' do
           '-CAcreateserial',
           '-CA', '/tmp/foo-ca.crt',
           '-CAkey', '/tmp/foo-ca.key',
-          '-extensions', 'v3_req',
         ],
         {
           combine: true,
@@ -126,7 +123,6 @@ describe 'The openssl provider for the x509_cert type' do
           '-CA', '/tmp/foo-ca.crt',
           '-CAkey', '/tmp/foo-ca.key',
           '-passin', 'env:CERTIFICATE_PASSIN',
-          '-extensions', 'v3_req',
         ],
         {
           combine: true,
