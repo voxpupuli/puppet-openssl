@@ -26,18 +26,18 @@ define openssl::export::pem_key (
 ) {
   if $ensure == 'present' {
     if $in_pass {
-      $passin_opt = ['-nokeys', '-passin', 'env:CERTIFICATE_PASSIN']
+      $passin_opt = ['-passin', 'env:CERTIFICATE_PASSIN']
       $passin_env = ["CERTIFICATE_PASSIN=${in_pass}"]
     } else {
-      $passin_opt = []
+      $passin_opt = ['-passin', 'pass:']
       $passin_env = []
     }
 
     if $out_pass {
-      $passout_opt = ['-nokeys', '-passout', 'env:CERTIFICATE_PASSOUT']
+      $passout_opt = ['-passout', 'env:CERTIFICATE_PASSOUT']
       $passout_env = ["CERTIFICATE_PASSOUT=${out_pass}"]
     } else {
-      $passout_opt = []
+      $passout_opt = ['-nodes']
       $passout_env = []
     }
 
