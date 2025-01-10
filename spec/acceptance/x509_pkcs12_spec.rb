@@ -14,7 +14,7 @@ describe 'x509 to pkcs12 to pem key' do
       its(:keylength) { is_expected.to eq 1024 }
     end
 
-    describe command('openssl -text -noout -in /tmp/export.pkcs12.p12 -inpass pass:') do
+    describe command('openssl pkcs12 -text -noout -in /tmp/export.p12 -inpass pass:') do
       its(:exit_status) { is_expected.to eq 0 }
     end
   end
@@ -30,7 +30,7 @@ describe 'x509 to pkcs12 to pem key' do
     its(:size) { is_expected.to be > 0 }
   end
 
-  describe file('/tmp/sample_x509.p12') do
+  describe file('/tmp/export.p12') do
     it { is_expected.to be_file }
     its(:size) { is_expected.to be > 0 }
   end

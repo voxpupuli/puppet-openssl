@@ -5,7 +5,7 @@ openssl::certificate::x509 { 'sample_x509':
   organization => 'voxpupuli',
 }
 
--> openssl::export::pkcs12 { 'export.pkcs12':
+-> openssl::export::pkcs12 { 'export':
   ensure  => 'present',
   basedir => '/tmp',
   pkey    => '/tmp/sample_x509.key',
@@ -14,6 +14,6 @@ openssl::certificate::x509 { 'sample_x509':
 
 -> openssl::export::pem_key { 'key-UUID':
   ensure   => present,
-  pfx_cert => '/tmp/export.pkcs12.p12',
+  pfx_cert => '/tmp/export.p12',
   pem_key  => '/tmp/key.pem',
 }
