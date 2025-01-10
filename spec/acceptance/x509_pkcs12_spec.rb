@@ -22,17 +22,17 @@ describe 'x509 to pkcs12 to pem key' do
   # rubocop:disable RSpec/RepeatedExampleGroupBody
   describe file('/tmp/sample_x509.crt') do
     it { is_expected.to be_file }
-    its(:size) { is_expected.to > 0 }
+    its(:size) { is_expected.to be > 0 }
   end
 
   describe file('/tmp/sample_x509.key') do
     it { is_expected.to be_file }
-    its(:size) { is_expected.to > 0 }
+    its(:size) { is_expected.to be > 0 }
   end
 
   describe file('/tmp/sample_x509.p12') do
     it { is_expected.to be_file }
-    its(:size) { is_expected.to > 0 }
+    its(:size) { is_expected.to be > 0 }
   end
   # rubocop:enable RSpec/RepeatedExampleGroupBody
 end
