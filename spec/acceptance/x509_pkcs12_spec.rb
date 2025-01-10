@@ -8,10 +8,6 @@ require 'spec_helper_acceptance'
 # in the meantime we won't use x509_certificate matcher
 describe 'x509 to pkcs12 to pem key' do
   it_behaves_like 'the example', 'x509_pkcs12_pemkey.pp' do
-    it { expect(file('/tmp/sample_x509.crt')).to be_file.and(its(:size) { is_expected.to > 0 }) }
-    it { expect(file('/tmp/sample_x509.key')).to be_file.and(its(:size) { is_expected.to > 0 }) }
-    it { expect(file('/tmp/export.pkcs12.p12')).to be_file.and(its(:size) { is_expected.to > 0 }) }
-
     describe x509_certificate('/tmp/sample_x509.crt') do
       it { is_expected.to be_certificate }
       it { is_expected.to be_valid }
@@ -22,4 +18,21 @@ describe 'x509 to pkcs12 to pem key' do
       its(:exit_status) { is_expected.to eq 0 }
     end
   end
+
+  # rubocop:disable RSpec/RepeatedExampleGroupBody
+  describe file('/tmp/sample_x509.crt') do
+    it { is_expected.to be_file }
+    its(:size) { is_expected.to > 0 }
+  end
+
+  describe file('/tmp/sample_x509.key') do
+    it { is_expected.to be_file }
+    its(:size) { is_expected.to > 0 }
+  end
+
+  describe file('/tmp/sample_x509.p12') do
+    it { is_expected.to be_file }
+    its(:size) { is_expected.to > 0 }
+  end
+  # rubocop:enable RSpec/RepeatedExampleGroupBody
 end
