@@ -1,9 +1,10 @@
 contain openssl
 
 openssl::certificate::x509 { 'sample_x509':
-  ensure   => present,
-  base_dir => '/tmp',
-  key_size => 1024, #entropy in CI is limited
+  ensure       => present,
+  base_dir     => '/tmp',
+  key_size     => 1024, #entropy in CI is limited
+  organization => 'voxpupuli',
 }
 
 openssl::export::pkcs12 { 'export.pkcs12':

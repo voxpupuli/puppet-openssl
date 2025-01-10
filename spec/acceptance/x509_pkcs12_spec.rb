@@ -8,17 +8,18 @@ require 'spec_helper_acceptance'
 # in the meantime we won't use x509_certificate matcher
 describe 'x509 to pkcs12 to pem key' do
   it_behaves_like 'the example', 'x509_pkcs12_pemkey.pp' do
-    it { expect(file('/tmp/sample_x509.crt')).to be_file.and(have_attributes(owner: 'root')) }
-    # it { expect(x509_certificate('/tmp/foo.example.com.crt')).to be_certificate.and(have_attributes(subject: 'C = CH, O = Example.com, CN = foo.example.com')) }
+    it { expect(file('/tmp/sample_x509.crt')).to be_file.and(its(:size) { is_expected.to > 0 }) }
+    it { expect(file('/tmp/sample_x509.key')).to be_file.and(its(:size) { is_expected.to > 0 }) }
+    it { expect(file('/tmp/export.pkcs12.p12')).to be_file.and(its(:size) { is_expected.to > 0 }) }
 
     describe x509_certificate('/tmp/sample_x509.crt') do
       it { is_expected.to be_certificate }
       it { is_expected.to be_valid }
-      #      its(:subject) { is_expected.to match_without_whitespace(%r{C = CH, O = Example.com, CN = foo.example.com}) }
       its(:keylength) { is_expected.to eq 1024 }
     end
 
-    #    it { expect(file('/tmp/foo.example.com.key')).to be_file.and(have_attributes(owner: 'nobody', mode: '600')) }
-    #    it { expect(x509_private_key('/tmp/foo.example.com.key', passin: 'pass:mahje1Qu')).to have_matching_certificate('/tmp/foo.example.com.crt') }
+    describe command('openssl -text -noout -in /tmp/export.pkcs12.p12 -inpass pass:') do
+      its(:exit_status) { is_expected.to eq 0 }
+    end
   end
 end
