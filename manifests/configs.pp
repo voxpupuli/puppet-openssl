@@ -75,6 +75,9 @@ class openssl::configs (
   $conffiles.each | String $filename, Hash $vals | {
     openssl::config { $filename:
       * => {
+        owner             => $owner,
+        group             => $group,
+        mode              => $mode,
         country           => $country,
         state             => $state,
         locality          => $locality,
