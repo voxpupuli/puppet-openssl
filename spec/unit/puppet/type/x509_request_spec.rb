@@ -59,13 +59,31 @@ describe Puppet::Type.type(:x509_request) do
     expect(resource[:mode]).to eq('0700')
   end
 
+  it 'does not accept numeric mode' do
+    expect do
+      resource[:mode] = '700'
+    end.to raise_error(Puppet::Error, %r{700 is not a valid file mode})
+  end
+
   it 'accepts owner' do
     resource[:owner] = 'someone'
     expect(resource[:owner]).to eq('someone')
   end
 
+  it 'does not accept bad owner' do
+    expect do
+      resource[:owner] = 'someone else'
+    end.to raise_error(Puppet::Error, %r{someone else is not a valid user name})
+  end
+
   it 'accepts group' do
     resource[:group] = 'party'
     expect(resource[:group]).to eq('party')
+  end
+
+  it 'does not accept bad group group' do
+    expect do
+      resource[:group] = 'party crasher'
+    end.to raise_error(Puppet::Error, %r{party crasher is not a valid group name})
   end
 end
