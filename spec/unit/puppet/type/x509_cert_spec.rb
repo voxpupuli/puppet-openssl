@@ -84,5 +84,4 @@ describe Puppet::Type.type(:x509_cert) do
     resource[:group] = 'party'
     expect(resource[:group]).to eq('party')
   end
-
 end

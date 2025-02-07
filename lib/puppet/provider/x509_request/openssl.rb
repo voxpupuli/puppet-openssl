@@ -4,7 +4,7 @@ require 'pathname'
 require File.join(__dir__, '..', '..', '..', 'puppet/provider/openssl')
 Puppet::Type.type(:x509_request).provide(
   :openssl,
-  parent: Puppet::Provider::Openssl,
+  parent: Puppet::Provider::Openssl
 ) do
   desc 'Manages certificate signing requests with OpenSSL'
 

@@ -5,7 +5,7 @@ require 'openssl'
 require File.join(__dir__, '..', '..', '..', 'puppet/provider/openssl')
 Puppet::Type.type(:ssl_pkey).provide(
   :openssl,
-  parent: Puppet::Provider::Openssl,
+  parent: Puppet::Provider::Openssl
 ) do
   desc 'Manages private keys with OpenSSL'
 

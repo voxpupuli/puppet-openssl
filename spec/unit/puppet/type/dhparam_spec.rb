@@ -53,5 +53,4 @@ describe Puppet::Type.type(:dhparam) do
     resource[:group] = 'party'
     expect(resource[:group]).to eq('party')
   end
-
 end

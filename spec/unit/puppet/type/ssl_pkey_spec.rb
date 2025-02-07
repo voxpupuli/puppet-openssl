@@ -64,5 +64,4 @@ describe Puppet::Type.type(:ssl_pkey) do
     resource[:group] = 'party'
     expect(resource[:group]).to eq('party')
   end
-
 end
