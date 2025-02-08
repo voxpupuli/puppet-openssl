@@ -46,14 +46,14 @@ Puppet::Type.newtype(:ssl_pkey) do
   newproperty(:owner) do
     desc 'owner of the file'
     validate do |value|
-      raise ArgumentError, "#{value} is not a valid user name" unless value =~ %r{^\w+}
+      raise ArgumentError, "#{value} is not a valid user name" unless value =~ %r{^\w+$}
     end
   end
 
   newproperty(:group) do
     desc 'group of the file'
     validate do |value|
-      raise ArgumentError, "#{value} is not a valid group name" unless value =~ %r{^\w+}
+      raise ArgumentError, "#{value} is not a valid group name" unless value =~ %r{^\w+$}
     end
   end
 
