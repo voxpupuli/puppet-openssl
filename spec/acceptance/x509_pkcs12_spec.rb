@@ -14,7 +14,7 @@ describe 'x509 to pkcs12 to pem key' do
       its(:keylength) { is_expected.to eq 1024 }
     end
 
-    describe command('openssl pkcs12 -info -in /tmp/export.p12 -passin pass: -passout pass:') do
+    describe command('openssl pkcs12 -info -in /tmp/export.p12 -legacy -passin pass: -passout pass:') do
       its(:exit_status) { is_expected.to eq 0 }
     end
   end
