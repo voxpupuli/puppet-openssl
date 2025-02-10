@@ -33,5 +33,20 @@ describe 'pkcs12 example' do
   describe file('/tmp/export4.pkcs12.p12') do
     its(:size) { is_expected.to be > 0 }
   end
+
+  if fact('openssl_version').split('.').first.to_i > 1
+    describe command('openssl pkcs12 -info -in /tmp/export3.pkcs12.p12 -passin pass: -passout pass:') do
+      its(:stdout) { is_expected.to contain('-----BEGIN CERTIFICATE-----') }
+      its(:stdout) { is_expected.to contain('-----BEGIN ENCRYPTED PRIVATE KEY-----') }
+      its(:exit_status) { is_expected.to eq 0 }
+    end
+
+    describe command('openssl pkcs12 -info -in /tmp/export.pkcs12.p12 -passin pass:mahje1Qu -passout pass:') do
+      its(:stdout) { is_expected.to contain('-----BEGIN CERTIFICATE-----') }
+      its(:stdout) { is_expected.to contain('-----BEGIN ENCRYPTED PRIVATE KEY-----') }
+      its(:exit_status) { is_expected.to eq 0 }
+    end
+  end
+
   # rubocop:enable RSpec/RepeatedExampleGroupBody
 end
