@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.2.0](https://github.com/voxpupuli/puppet-openssl/tree/v4.2.0) (2025-02-10)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-openssl/compare/v4.1.0...v4.2.0)
+
+**Implemented enhancements:**
+
+- file mode: Use type from stdlib [\#237](https://github.com/voxpupuli/puppet-openssl/pull/237) ([bastelfreak](https://github.com/bastelfreak))
+- add user/group/mode parameter to custom types [\#129](https://github.com/voxpupuli/puppet-openssl/pull/129) ([trefzer](https://github.com/trefzer))
+
+**Fixed bugs:**
+
+- fix default configs file ownership [\#235](https://github.com/voxpupuli/puppet-openssl/pull/235) ([trefzer](https://github.com/trefzer))
+- fix: remove `nokeys` option and set default empty import/export passwords [\#233](https://github.com/voxpupuli/puppet-openssl/pull/233) ([bastelfreak](https://github.com/bastelfreak))
+- Fix expression that looks like boolish logic [\#231](https://github.com/voxpupuli/puppet-openssl/pull/231) ([rtib](https://github.com/rtib))
+
+**Merged pull requests:**
+
+- openssl::export::pkcs12: Enhance acceptance tests with openssl validation [\#244](https://github.com/voxpupuli/puppet-openssl/pull/244) ([marcusdots](https://github.com/marcusdots))
+- openssl::export::pem\_key: Add acceptance tests [\#243](https://github.com/voxpupuli/puppet-openssl/pull/243) ([bastelfreak](https://github.com/bastelfreak))
+- openssl::certificate::pkcs12: Add test for x509 without password [\#242](https://github.com/voxpupuli/puppet-openssl/pull/242) ([bastelfreak](https://github.com/bastelfreak))
+- openssl::export::pkcs12: cleanup if condition [\#240](https://github.com/voxpupuli/puppet-openssl/pull/240) ([bastelfreak](https://github.com/bastelfreak))
+- Add acceptance test for PKCS\#12 generation with password [\#239](https://github.com/voxpupuli/puppet-openssl/pull/239) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v4.1.0](https://github.com/voxpupuli/puppet-openssl/tree/v4.1.0) (2024-10-01)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-openssl/compare/v4.0.0...v4.1.0)
