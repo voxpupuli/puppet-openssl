@@ -63,13 +63,10 @@ define openssl::export::pkcs12 (
       '-nodes', '-noiter',
     ] + $chain_opt + $passin_opt + $passout_opt
 
-    if $dynamic {
-      $exec_params = {
-        refreshonly => true,
-        subscribe   => $resources,
-      }
+    $exec_params = if $dynamic {
+      { refreshonly => true, subscribe => $resources }
     } else {
-      $exec_params = { creates => $full_path, }
+      { creates => $full_path }
     }
 
     exec { "Export ${name} to ${full_path}":
