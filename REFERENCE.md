@@ -179,7 +179,7 @@ Default value: `undef`
 
 ##### <a name="-openssl--configs--mode"></a>`mode`
 
-Data type: `Optional[String[1]]`
+Data type: `Optional[Stdlib::Filemode]`
 
 default mode for the configuration files
 
@@ -900,7 +900,7 @@ Default value: `'root'`
 
 ##### <a name="-openssl--dhparam--mode"></a>`mode`
 
-Data type: `String`
+Data type: `Stdlib::Filemode`
 
 file mode.
 
