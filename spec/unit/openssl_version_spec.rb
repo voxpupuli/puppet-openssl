@@ -45,7 +45,7 @@ describe Facter.fact(:openssl_version) do
           end
 
           it {
-            expect(Facter.value(:openssl_version)).to eq('1.0.1e-fips')
+            expect(Facter.value(:openssl_version)).to eq('1.0.1e')
           }
         end
       end
@@ -85,6 +85,58 @@ describe Facter.fact(:openssl_version) do
 
           it {
             expect(Facter.value(:openssl_version)).to eq('1.1.1k')
+          }
+        end
+      end
+
+      describe 'openssl_version oracle7' do
+        context 'with value' do
+          before do
+            allow(Facter::Util::Resolution).to receive(:which).with('openssl').and_return(true)
+            allow(Facter::Util::Resolution).to receive(:exec).with('openssl version 2>&1').and_return('OpenSSL 1.0.2k-fips  26 Jan 2017')
+          end
+
+          it {
+            expect(Facter.value(:openssl_version)).to eq('1.0.2k')
+          }
+        end
+      end
+
+      describe 'openssl_version oracle8' do
+        context 'with value' do
+          before do
+            allow(Facter::Util::Resolution).to receive(:which).with('openssl').and_return(true)
+            allow(Facter::Util::Resolution).to receive(:exec).with('openssl version 2>&1').and_return('OpenSSL 1.1.1k  FIPS 25 Mar 2021')
+          end
+
+          it {
+            expect(Facter.value(:openssl_version)).to eq('1.1.1k')
+          }
+        end
+      end
+
+      describe 'openssl_version debian11' do
+        context 'with value' do
+          before do
+            allow(Facter::Util::Resolution).to receive(:which).with('openssl').and_return(true)
+            allow(Facter::Util::Resolution).to receive(:exec).with('openssl version 2>&1').and_return('OpenSSL 1.1.1w  11 Sep 2023')
+          end
+
+          it {
+            expect(Facter.value(:openssl_version)).to eq('1.1.1w')
+          }
+        end
+      end
+
+      describe 'openssl_version debian12' do
+        context 'with value' do
+          before do
+            allow(Facter::Util::Resolution).to receive(:which).with('openssl').and_return(true)
+            allow(Facter::Util::Resolution).to receive(:exec).with('openssl version 2>&1').and_return('OpenSSL 3.0.15 3 Sep 2024 (Library: OpenSSL 3.0.15 3 Sep 2024)')
+          end
+
+          it {
+            expect(Facter.value(:openssl_version)).to eq('3.0.15')
           }
         end
       end
