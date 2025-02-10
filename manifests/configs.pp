@@ -51,7 +51,7 @@
 class openssl::configs (
   Optional[String[1]]  $owner           = undef,
   Optional[String[1]]  $group           = undef,
-  Optional[String[1]]  $mode            = undef,
+  Optional[Stdlib::Filemode] $mode      = undef,
   Optional[String[1]]  $country         = undef,
   Optional[String[1]]  $state           = undef,
   Optional[String[1]]  $locality        = undef,

@@ -20,7 +20,7 @@ define openssl::dhparam (
   Integer[1]                $size = 2048,
   Variant[String, Integer]  $owner = 'root',
   Variant[String, Integer]  $group = 'root',
-  String                    $mode = '0644',
+  Stdlib::Filemode          $mode = '0644',
   Boolean                   $fastmode = false,
 ) {
   dhparam { $path:
