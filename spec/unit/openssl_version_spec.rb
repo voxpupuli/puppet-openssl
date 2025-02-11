@@ -64,6 +64,10 @@ fact_matrix = {
     return_string: 'OpenSSL 1.0.2g  1 Mar 2016',
     version_string: '1.0.2g',
   },
+  'vanilla-openssl' => {
+    return_string: 'OpenSSL 3.5.0-dev  (Library: OpenSSL 3.5.0-dev )',
+    version_string: '3.5.0-dev',
+  },
   'legacy' => {
     return_string: 'OpenSSL 0.9.8zg 14 July 2015',
     version_string: '0.9.8zg',
