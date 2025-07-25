@@ -78,9 +78,7 @@
     },
     {
       "operatingsystem": "Archlinux",
-      "operatingsystemrelease": [
-
-      ]
+      "operatingsystemrelease": []
     }
   ],
   "requirements": [
