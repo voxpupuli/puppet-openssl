@@ -15,18 +15,6 @@
 #   Can be an array or a single string.
 # @param keyusage
 #   certificate key usage
-#   Value            |
-#   -----------------|
-#   digitalSignature |
-#   nonRepudiation   | 
-#   keyEncipherment  | 
-#   dataEncipherment |
-#   keyAgreement     | 
-#   keyCertSign      | 
-#   cRLSign          | 
-#   encipherOnly     | 
-#   decipherOnly     | 
-#
 # @param extkeyusage
 #   certificate extended key usage
 #   Value           | Meaning
@@ -140,7 +128,7 @@ define openssl::certificate::x509 (
   Optional[String]               $commonname = undef,
   Optional[String]               $locality = undef,
   Array                          $altnames = [],
-  Array                          $keyusage = [],
+  Array[Openssl::Keyusage]       $keyusage = [],
   Array                          $extkeyusage = [],
   Optional[String]               $email = undef,
   Integer                        $days = 365,

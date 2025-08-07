@@ -63,7 +63,7 @@ define openssl::config (
   String[1]                                      $default_keyfile   = 'privkey.pem',
   Array                                          $basicconstraints  = [],
   Array                                          $extendedkeyusages = [],
-  Array                                          $keyusages         = [],
+  Array[Openssl::Keyusage]                       $keyusages         = [],
   Array                                          $subjectaltnames   = [],
 ) {
   file { $name:

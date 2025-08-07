@@ -33,6 +33,10 @@
 * [`openssl::cert_aia_caissuers`](#openssl--cert_aia_caissuers): Extrating the caIssuers entry from Authority Information Access extension of X509 certificate
 * [`openssl::cert_date_valid`](#openssl--cert_date_valid): Checks SSL cetificate date validity.
 
+### Data types
+
+* [`Openssl::Keyusage`](#Openssl--Keyusage): Acceptable keyUsage values, defined in [RFC 5280 4.2.1.3](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.3)
+
 ## Classes
 
 ### <a name="openssl"></a>`openssl`
@@ -423,20 +427,9 @@ Default value: `[]`
 
 ##### <a name="-openssl--certificate--x509--keyusage"></a>`keyusage`
 
-Data type: `Array`
+Data type: `Array[Openssl::Keyusage]`
 
 certificate key usage
-Value            |
------------------|
-digitalSignature |
-nonRepudiation   |
-keyEncipherment  |
-dataEncipherment |
-keyAgreement     |
-keyCertSign      |
-cRLSign          |
-encipherOnly     |
-decipherOnly     |
 
 Default value: `[]`
 
@@ -847,7 +840,7 @@ Default value: `[]`
 
 ##### <a name="-openssl--config--keyusages"></a>`keyusages`
 
-Data type: `Array`
+Data type: `Array[Openssl::Keyusage]`
 
 version 3 certificate extension key usage
 
@@ -1570,4 +1563,12 @@ Returns: `Any` false if the certificate is expired or not yet valid,
 Data type: `String`
 
 The certificate file to check.
+
+## Data types
+
+### <a name="Openssl--Keyusage"></a>`Openssl::Keyusage`
+
+Acceptable keyUsage values, defined in [RFC 5280 4.2.1.3](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.3)
+
+Alias of `Enum['digitalSignature', 'nonRepudiation', 'contentCommitment', 'keyEncipherment', 'dataEncipherment', 'keyAgreement', 'keyCertSign', 'cRLSign', 'encipherOnly', 'decipherOnly']`
 
