@@ -344,6 +344,7 @@ The following parameters are available in the `openssl::certificate::x509` defin
 * [`locality`](#-openssl--certificate--x509--locality)
 * [`commonname`](#-openssl--certificate--x509--commonname)
 * [`altnames`](#-openssl--certificate--x509--altnames)
+* [`keyusage`](#-openssl--certificate--x509--keyusage)
 * [`extkeyusage`](#-openssl--certificate--x509--extkeyusage)
 * [`organization`](#-openssl--certificate--x509--organization)
 * [`unit`](#-openssl--certificate--x509--unit)
@@ -417,6 +418,25 @@ Data type: `Array`
 
 certificate subjectAltName.
 Can be an array or a single string.
+
+Default value: `[]`
+
+##### <a name="-openssl--certificate--x509--keyusage"></a>`keyusage`
+
+Data type: `Array`
+
+certificate key usage
+Value            |
+-----------------|
+digitalSignature |
+nonRepudiation   |
+keyEncipherment  |
+dataEncipherment |
+keyAgreement     |
+keyCertSign      |
+cRLSign          |
+encipherOnly     |
+decipherOnly     |
 
 Default value: `[]`
 

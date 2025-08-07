@@ -137,6 +137,20 @@ describe 'openssl::certificate::x509' do
     it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
   end
 
+  context 'when passing wrong type for keyusage' do
+    let(:params) do
+      {
+        country: 'CH',
+        organization: 'bar',
+        commonname: 'baz',
+        base_dir: '/tmp/foo',
+        keyusage: true,
+      }
+    end
+
+    it { is_expected.to compile.and_raise_error(%r{got Boolean}) }
+  end
+
   context 'when passing wrong type for extkeyusage' do
     let(:params) do
       {
@@ -442,6 +456,26 @@ describe 'openssl::certificate::x509' do
     }
   end
 
+  context 'when passing keyusage, extension is enabled' do
+    let(:params) do
+      {
+        country: 'com',
+        organization: 'bar',
+        commonname: 'foo.example.com',
+        keyusage: ['digitalSignature'],
+      }
+    end
+
+    it {
+      is_expected.to contain_x509_cert('/etc/ssl/certs/foo.crt').with(
+        ensure: 'present',
+        template: '/etc/ssl/certs/foo.cnf',
+        csr: '/etc/ssl/certs/foo.csr',
+        req_ext: true
+      )
+    }
+  end
+
   context 'when passing extkeyusage, extension is enabled' do
     let(:params) do
       {
@@ -462,12 +496,13 @@ describe 'openssl::certificate::x509' do
     }
   end
 
-  context 'when passing altnames and extkeyusage, extension is enabled' do
+  context 'when passing altnames and keyusage and extkeyusage, extension is enabled' do
     let(:params) do
       {
         country: 'com',
         organization: 'bar',
         commonname: 'foo.example.com',
+        keyusage: ['digitalSignature'],
         extkeyusage: ['clientauth'],
         altnames: ['bar.example.com'],
       }
@@ -483,7 +518,7 @@ describe 'openssl::certificate::x509' do
     }
   end
 
-  context 'w/o passing altnames and extkeyusage, extension is disabled' do
+  context 'w/o passing altnames, keyusage, or extkeyusage, extension is disabled' do
     let(:params) do
       {
         country: 'com',
@@ -512,6 +547,7 @@ describe 'openssl::certificate::x509' do
         locality: 'here',
         unit: 'braz',
         altnames: ['a.com', 'b.com', 'c.com'],
+        keyusage: ['digitalSignature', 'keyEncipherment'],
         extkeyusage: %w[serverAuth clientAuth],
         email: 'contact@foo.com',
         days: 4567,
@@ -541,6 +577,8 @@ describe 'openssl::certificate::x509' do
         %r{commonName\s+=\s+baz}
       ).with_content(
         %r{emailAddress\s+=\s+contact@foo\.com}
+      ).with_content(
+        %r{keyUsage\s+=\s+digitalSignature,\s+keyEncipherment}
       ).with_content(
         %r{extendedKeyUsage\s+=\s+serverAuth,\s+clientAuth}
       ).with_content(
@@ -615,6 +653,7 @@ describe 'openssl::certificate::x509' do
         locality: 'here',
         unit: 'braz',
         altnames: ['a.com', 'b.com', 'c.com'],
+        keyusage: ['digitalSignature', 'keyEncipherment'],
         extkeyusage: %w[serverAuth clientAuth],
         email: 'contact@foo.com',
         days: 4567,
@@ -646,6 +685,8 @@ describe 'openssl::certificate::x509' do
         %r{commonName\s+=\s+baz}
       ).with_content(
         %r{emailAddress\s+=\s+contact@foo\.com}
+      ).with_content(
+        %r{keyUsage\s+=\s+digitalSignature,\s+keyEncipherment}
       ).with_content(
         %r{extendedKeyUsage\s+=\s+serverAuth,\s+clientAuth}
       ).with_content(
