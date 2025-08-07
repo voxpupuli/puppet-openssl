@@ -13,6 +13,8 @@
 # @param altnames
 #   certificate subjectAltName.
 #   Can be an array or a single string.
+# @param keyusage
+#   certificate key usage
 # @param extkeyusage
 #   certificate extended key usage
 #   Value           | Meaning
@@ -126,6 +128,7 @@ define openssl::certificate::x509 (
   Optional[String]               $commonname = undef,
   Optional[String]               $locality = undef,
   Array                          $altnames = [],
+  Array[Openssl::Keyusage]       $keyusage = [],
   Array                          $extkeyusage = [],
   Optional[String]               $email = undef,
   Integer                        $days = 365,
@@ -170,6 +173,7 @@ define openssl::certificate::x509 (
     organization      => $organization,
     unit              => $unit,
     email             => $email,
+    keyusages         => $keyusage,
     extendedkeyusages => $extkeyusage,
     subjectaltnames   => $altnames,
   }
@@ -188,7 +192,7 @@ define openssl::certificate::x509 (
     csr            => $csr,
     days           => $days,
     password       => $password,
-    req_ext        => !empty($altnames) or !empty($extkeyusage),
+    req_ext        => !empty($altnames) or !empty($extkeyusage) or !empty($keyusage),
     force          => $force,
     ca             => $ca,
     cakey          => $cakey,
