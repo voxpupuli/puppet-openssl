@@ -69,12 +69,14 @@ define openssl::export::pkcs12 (
       { creates => $full_path }
     }
 
+    # lint:ignore:exec_idempotency
     exec { "Export ${name} to ${full_path}":
       command     => $cmd,
       environment => $passin_env + $passout_env,
       path        => $facts['path'],
       *           => $exec_params,
     }
+    # lint:endignore
   } else {
     file { $full_path:
       ensure => absent,

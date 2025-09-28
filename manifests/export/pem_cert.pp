@@ -64,12 +64,14 @@ define openssl::export::pem_cert (
       $exec_params = { creates => $pem_cert, }
     }
 
+    # lint:ignore:exec_idempotency
     exec { "Export ${in_cert} to ${pem_cert}":
       command     => $cmd,
       environment => $passin_env,
       path        => $facts['path'],
       *           => $exec_params,
     }
+    # lint:endignore
   } else {
     file { $pem_cert:
       ensure => absent,

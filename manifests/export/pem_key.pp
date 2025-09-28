@@ -57,12 +57,14 @@ define openssl::export::pem_key (
       $exec_params = { creates => $pem_key, }
     }
 
+    # lint:ignore:exec_idempotency
     exec { "Export ${pfx_cert} to ${pem_key}":
       command     => $cmd,
       environment => $passin_env + $passout_env,
       path        => $facts['path'],
       *           => $exec_params,
     }
+    # lint:endignore
   } else {
     file { $pem_key:
       ensure => absent,
