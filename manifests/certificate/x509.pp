@@ -15,6 +15,8 @@
 #   Can be an array or a single string.
 # @param keyusage
 #   certificate key usage
+# @param basicconstraint
+#   certificate basic constraints
 # @param extkeyusage
 #   certificate extended key usage
 #   Value           | Meaning
@@ -129,6 +131,7 @@ define openssl::certificate::x509 (
   Optional[String]               $locality = undef,
   Array                          $altnames = [],
   Array[Openssl::Keyusage]       $keyusage = [],
+  Array[String]                  $basicconstraint = [],
   Array                          $extkeyusage = [],
   Optional[String]               $email = undef,
   Integer                        $days = 365,
@@ -174,6 +177,7 @@ define openssl::certificate::x509 (
     unit              => $unit,
     email             => $email,
     keyusages         => $keyusage,
+    basicconstraints  => $basicconstraint,
     extendedkeyusages => $extkeyusage,
     subjectaltnames   => $altnames,
   }
