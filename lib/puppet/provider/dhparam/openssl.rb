@@ -5,7 +5,7 @@ require File.join(__dir__, '..', '..', '..', 'puppet/provider/openssl')
 
 Puppet::Type.type(:dhparam).provide(
   :openssl,
-  parent: Puppet::Provider::Openssl
+  parent: Puppet::Provider::Openssl,
 ) do
   desc 'Manages dhparam files with OpenSSL'
 
@@ -19,7 +19,7 @@ Puppet::Type.type(:dhparam).provide(
     options = [
       'dhparam',
       '-out', resource[:path],
-      resource[:size]
+      resource[:size],
     ]
     options.insert(1, '-dsaparam') if resource[:fastmode]
 

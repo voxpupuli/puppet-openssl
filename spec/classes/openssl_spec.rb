@@ -15,9 +15,9 @@ describe 'openssl' do
 
       context 'on not OpenBSD', if: facts[:osfamily] != 'OpenBSD' do
         it {
-          is_expected.to contain_package('openssl').
-            with_ensure('installed').
-            with_name('openssl')
+          is_expected.to contain_package('openssl')
+            .with_ensure('installed')
+            .with_name('openssl')
         }
       end
 

@@ -23,23 +23,23 @@ describe 'openssl::configs' do
         it { is_expected.to compile }
 
         it {
-          is_expected.to contain_file('/path/to/openssl.conf').
-            with_ensure('present').
-            with_owner('root').
-            with_mode('0640')
+          is_expected.to contain_file('/path/to/openssl.conf')
+            .with_ensure('present')
+            .with_owner('root')
+            .with_mode('0640')
         }
 
         it {
-          is_expected.to contain_file('/other/path/to/openssl.conf').
-            with_ensure('present').
-            with_owner('root').
-            with_group('vpn').
-            with_mode('0640')
+          is_expected.to contain_file('/other/path/to/openssl.conf')
+            .with_ensure('present')
+            .with_owner('root')
+            .with_group('vpn')
+            .with_mode('0640')
         }
 
         it {
-          is_expected.to contain_file('/absent.conf').
-            with_ensure('absent')
+          is_expected.to contain_file('/absent.conf')
+            .with_ensure('absent')
         }
       end
 
@@ -57,19 +57,19 @@ describe 'openssl::configs' do
         end
 
         it {
-          is_expected.to contain_file('/path/to/openssl.conf').
-            with_ensure('present').
-            with_owner('someone').
-            with_group('somegroup').
-            with_mode('0000')
+          is_expected.to contain_file('/path/to/openssl.conf')
+            .with_ensure('present')
+            .with_owner('someone')
+            .with_group('somegroup')
+            .with_mode('0000')
         }
 
         it {
-          is_expected.to contain_file('/tmp/openssl.conf').
-            with_ensure('present').
-            with_owner('whoever').
-            with_group('agroup').
-            with_mode('1111')
+          is_expected.to contain_file('/tmp/openssl.conf')
+            .with_ensure('present')
+            .with_owner('whoever')
+            .with_group('agroup')
+            .with_mode('1111')
         }
       end
     end

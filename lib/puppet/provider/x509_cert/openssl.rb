@@ -4,7 +4,7 @@ require 'pathname'
 require File.join(__dir__, '..', '..', '..', 'puppet/provider/openssl')
 Puppet::Type.type(:x509_cert).provide(
   :openssl,
-  parent: Puppet::Provider::Openssl
+  parent: Puppet::Provider::Openssl,
 ) do
   desc 'Manages certificates with OpenSSL'
 
@@ -69,7 +69,7 @@ Puppet::Type.type(:x509_cert).provide(
         '-req',
         '-days', resource[:days],
         '-in', resource[:csr],
-        '-out', resource[:path]
+        '-out', resource[:path],
       ]
       if resource[:ca]
         options += ['-extfile', resource[:template]]
@@ -81,7 +81,7 @@ Puppet::Type.type(:x509_cert).provide(
         if resource[:req_ext]
           options += [
             '-extensions', 'v3_req',
-            '-extfile', resource[:template]
+            '-extfile', resource[:template],
           ]
         end
       end
@@ -92,7 +92,7 @@ Puppet::Type.type(:x509_cert).provide(
         '-new', '-x509',
         '-days', resource[:days],
         '-key', resource[:private_key],
-        '-out', resource[:path]
+        '-out', resource[:path],
       ]
     end
 

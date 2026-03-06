@@ -59,13 +59,13 @@ describe 'openssl::dhparam' do
     it {
       is_expected.to contain_dhparam('/etc/ssl/dhparam.pem').with(
         ensure: 'present',
-        size: 2048
+        size: 2048,
       )
     }
 
     it {
       is_expected.to contain_file('/etc/ssl/dhparam.pem').with(
-        owner: 0
+        owner: 0,
       )
     }
   end
@@ -81,13 +81,13 @@ describe 'openssl::dhparam' do
     it {
       is_expected.to contain_dhparam('/etc/ssl/dhparam.pem').with(
         ensure: 'present',
-        size: 2048
+        size: 2048,
       )
     }
 
     it {
       is_expected.to contain_file('/etc/ssl/dhparam.pem').with(
-        group: 0
+        group: 0,
       )
     }
   end
@@ -124,7 +124,7 @@ describe 'openssl::dhparam' do
     it {
       is_expected.to contain_dhparam('/etc/ssl/dhparam.pem').with(
         ensure: 'present',
-        size: 2048
+        size: 2048,
       )
     }
 
@@ -133,7 +133,7 @@ describe 'openssl::dhparam' do
         ensure: 'present',
         owner: 'root',
         group: 'root',
-        mode: '0644'
+        mode: '0644',
       )
     }
   end
@@ -149,7 +149,7 @@ describe 'openssl::dhparam' do
     it {
       is_expected.to contain_dhparam('/etc/ssl/dhparam.pem').with(
         ensure: 'present',
-        size: 2048
+        size: 2048,
       )
     }
 
@@ -158,7 +158,7 @@ describe 'openssl::dhparam' do
         ensure: 'present',
         owner: 'root',
         group: 'root',
-        mode: '0644'
+        mode: '0644',
       )
     }
   end
@@ -177,7 +177,7 @@ describe 'openssl::dhparam' do
     it {
       is_expected.to contain_dhparam('/etc/ssl/dhparam.pem').with(
         ensure: 'present',
-        size: 2048
+        size: 2048,
       )
     }
 
@@ -186,7 +186,7 @@ describe 'openssl::dhparam' do
         ensure: 'present',
         owner: 'www-data',
         group: 'adm',
-        mode: '0640'
+        mode: '0640',
       )
     }
   end
@@ -201,13 +201,13 @@ describe 'openssl::dhparam' do
 
     it {
       is_expected.to contain_dhparam('/etc/ssl/dhparam.pem').with(
-        ensure: 'absent'
+        ensure: 'absent',
       )
     }
 
     it {
       is_expected.to contain_file('/etc/ssl/dhparam.pem').with(
-        ensure: 'absent'
+        ensure: 'absent',
       )
     }
   end

@@ -44,7 +44,7 @@ describe 'openssl::export::pem_cert' do
       is_expected.to contain_exec('Export /etc/ssl/certs/foo.pfx to /etc/ssl/certs/foo.pem').with(
         command: ['openssl', 'pkcs12', '-in', '/etc/ssl/certs/foo.pfx', '-out', '/etc/ssl/certs/foo.pem'],
         creates: '/etc/ssl/certs/foo.pem',
-        path: '/usr/bin:/bin:/usr/sbin:/sbin'
+        path: '/usr/bin:/bin:/usr/sbin:/sbin',
       )
     }
   end
@@ -62,7 +62,7 @@ describe 'openssl::export::pem_cert' do
       is_expected.to contain_exec('Export /etc/ssl/certs/foo.pfx to /etc/ssl/certs/foo.pem').with(
         command: ['openssl', 'pkcs12', '-in', '/etc/ssl/certs/foo.pfx', '-out', '/etc/ssl/certs/foo.pem'],
         path: '/usr/bin:/bin:/usr/sbin:/sbin',
-        refreshonly: true
+        refreshonly: true,
       )
     }
   end
@@ -82,7 +82,7 @@ describe 'openssl::export::pem_cert' do
         command: ['openssl', 'pkcs12', '-in', '/etc/ssl/certs/foo.pfx', '-out', '/etc/ssl/certs/foo.pem', '-nokeys', '-passin', 'env:CERTIFICATE_PASSIN'],
         environment: ['CERTIFICATE_PASSIN=5r$}^'],
         creates: '/etc/ssl/certs/foo.pem',
-        path: '/usr/bin:/bin:/usr/sbin:/sbin'
+        path: '/usr/bin:/bin:/usr/sbin:/sbin',
       )
     }
   end
@@ -99,7 +99,7 @@ describe 'openssl::export::pem_cert' do
       is_expected.to contain_exec('Export /etc/ssl/certs/foo.der to /etc/ssl/certs/foo.pem').with(
         command: ['openssl', 'x509', '-inform', 'DER', '-in', '/etc/ssl/certs/foo.der', '-out', '/etc/ssl/certs/foo.pem'],
         creates: '/etc/ssl/certs/foo.pem',
-        path: '/usr/bin:/bin:/usr/sbin:/sbin'
+        path: '/usr/bin:/bin:/usr/sbin:/sbin',
       )
     }
   end
@@ -113,7 +113,7 @@ describe 'openssl::export::pem_cert' do
 
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.pem').with(
-        ensure: 'absent'
+        ensure: 'absent',
       )
     }
   end
