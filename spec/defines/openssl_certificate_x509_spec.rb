@@ -275,21 +275,21 @@ describe 'openssl::certificate::x509' do
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.key').with(
         ensure: 'present',
-        owner: 0
+        owner: 0,
       )
     }
 
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.crt').with(
         ensure: 'present',
-        owner: 0
+        owner: 0,
       )
     }
 
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.csr').with(
         ensure: 'present',
-        owner: 0
+        owner: 0,
       )
     }
   end
@@ -307,21 +307,21 @@ describe 'openssl::certificate::x509' do
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.key').with(
         ensure: 'present',
-        group: 0
+        group: 0,
       )
     }
 
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.crt').with(
         ensure: 'present',
-        group: 0
+        group: 0,
       )
     }
 
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.csr').with(
         ensure: 'present',
-        group: 0
+        group: 0,
       )
     }
   end
@@ -339,7 +339,7 @@ describe 'openssl::certificate::x509' do
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.key').with(
         ensure: 'present',
-        owner: 0
+        owner: 0,
       )
     }
   end
@@ -357,7 +357,7 @@ describe 'openssl::certificate::x509' do
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.key').with(
         ensure: 'present',
-        group: 0
+        group: 0,
       )
     }
   end
@@ -374,22 +374,22 @@ describe 'openssl::certificate::x509' do
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.cnf').with(
         ensure: 'present',
-        owner: 'root'
+        owner: 'root',
       ).with_content(
-        %r{countryName\s+=\s+com}
+        %r{countryName\s+=\s+com},
       ).with_content(
-        %r{organizationName\s+=\s+bar}
+        %r{organizationName\s+=\s+bar},
       ).with_content(
-        %r{commonName\s+=\s+baz}
+        %r{commonName\s+=\s+baz},
       ).without_content(
-        %r{v3_req}
+        %r{v3_req},
       )
     }
 
     it {
       is_expected.to contain_ssl_pkey('/etc/ssl/certs/foo.key').with(
         ensure: 'present',
-        password: nil
+        password: nil,
       )
     }
 
@@ -400,7 +400,7 @@ describe 'openssl::certificate::x509' do
         csr: '/etc/ssl/certs/foo.csr',
         days: 365,
         password: nil,
-        force: true
+        force: true,
       )
     }
 
@@ -410,28 +410,28 @@ describe 'openssl::certificate::x509' do
         template: '/etc/ssl/certs/foo.cnf',
         private_key: '/etc/ssl/certs/foo.key',
         password: nil,
-        force: true
+        force: true,
       )
     }
 
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.key').with(
         ensure: 'present',
-        owner: 'root'
+        owner: 'root',
       )
     }
 
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.crt').with(
         ensure: 'present',
-        owner: 'root'
+        owner: 'root',
       )
     }
 
     it {
       is_expected.to contain_file('/etc/ssl/certs/foo.csr').with(
         ensure: 'present',
-        owner: 'root'
+        owner: 'root',
       )
     }
   end
@@ -451,7 +451,7 @@ describe 'openssl::certificate::x509' do
         ensure: 'present',
         template: '/etc/ssl/certs/foo.cnf',
         csr: '/etc/ssl/certs/foo.csr',
-        req_ext: true
+        req_ext: true,
       )
     }
   end
@@ -471,7 +471,7 @@ describe 'openssl::certificate::x509' do
         ensure: 'present',
         template: '/etc/ssl/certs/foo.cnf',
         csr: '/etc/ssl/certs/foo.csr',
-        req_ext: true
+        req_ext: true,
       )
     }
   end
@@ -491,7 +491,7 @@ describe 'openssl::certificate::x509' do
         ensure: 'present',
         template: '/etc/ssl/certs/foo.cnf',
         csr: '/etc/ssl/certs/foo.csr',
-        req_ext: true
+        req_ext: true,
       )
     }
   end
@@ -513,7 +513,7 @@ describe 'openssl::certificate::x509' do
         ensure: 'present',
         template: '/etc/ssl/certs/foo.cnf',
         csr: '/etc/ssl/certs/foo.csr',
-        req_ext: true
+        req_ext: true,
       )
     }
   end
@@ -532,7 +532,7 @@ describe 'openssl::certificate::x509' do
         ensure: 'present',
         template: '/etc/ssl/certs/foo.cnf',
         csr: '/etc/ssl/certs/foo.csr',
-        req_ext: false
+        req_ext: false,
       )
     }
   end
@@ -562,33 +562,33 @@ describe 'openssl::certificate::x509' do
     it {
       is_expected.to contain_file('/tmp/foobar/foo.cnf').with(
         ensure: 'present',
-        owner: 'www-data'
+        owner: 'www-data',
       ).with_content(
-        %r{countryName\s+=\s+com}
+        %r{countryName\s+=\s+com},
       ).with_content(
-        %r{stateOrProvinceName\s+=\s+FR}
+        %r{stateOrProvinceName\s+=\s+FR},
       ).with_content(
-        %r{localityName\s+=\s+here}
+        %r{localityName\s+=\s+here},
       ).with_content(
-        %r{organizationName\s+=\s+bar}
+        %r{organizationName\s+=\s+bar},
       ).with_content(
-        %r{organizationalUnitName\s+=\s+braz}
+        %r{organizationalUnitName\s+=\s+braz},
       ).with_content(
-        %r{commonName\s+=\s+baz}
+        %r{commonName\s+=\s+baz},
       ).with_content(
-        %r{emailAddress\s+=\s+contact@foo\.com}
+        %r{emailAddress\s+=\s+contact@foo\.com},
       ).with_content(
-        %r{keyUsage\s+=\s+digitalSignature,\s+keyEncipherment}
+        %r{keyUsage\s+=\s+digitalSignature,\s+keyEncipherment},
       ).with_content(
-        %r{extendedKeyUsage\s+=\s+serverAuth,\s+clientAuth}
+        %r{extendedKeyUsage\s+=\s+serverAuth,\s+clientAuth},
       ).with_content(
-        %r{subjectAltName\s+=\s+@alt_names}
+        %r{subjectAltName\s+=\s+@alt_names},
       ).with_content(
-        %r{DNS\.0\s+=\s+a\.com}
+        %r{DNS\.0\s+=\s+a\.com},
       ).with_content(
-        %r{DNS\.1\s+=\s+b\.com}
+        %r{DNS\.1\s+=\s+b\.com},
       ).with_content(
-        %r{DNS\.2\s+=\s+c\.com}
+        %r{DNS\.2\s+=\s+c\.com},
       )
     }
 
@@ -596,7 +596,7 @@ describe 'openssl::certificate::x509' do
       is_expected.to contain_ssl_pkey('/tmp/foobar/foo.key').with(
         ensure: 'present',
         password: '5r$}^',
-        size: 4096
+        size: 4096,
       )
     }
 
@@ -607,7 +607,7 @@ describe 'openssl::certificate::x509' do
         csr: '/tmp/foobar/foo.csr',
         days: 4567,
         password: '5r$}^',
-        force: false
+        force: false,
       )
     }
 
@@ -617,28 +617,28 @@ describe 'openssl::certificate::x509' do
         template: '/tmp/foobar/foo.cnf',
         private_key: '/tmp/foobar/foo.key',
         password: '5r$}^',
-        force: false
+        force: false,
       )
     }
 
     it {
       is_expected.to contain_file('/tmp/foobar/foo.key').with(
         ensure: 'present',
-        owner: 'www-data'
+        owner: 'www-data',
       )
     }
 
     it {
       is_expected.to contain_file('/tmp/foobar/foo.crt').with(
         ensure: 'present',
-        owner: 'www-data'
+        owner: 'www-data',
       )
     }
 
     it {
       is_expected.to contain_file('/tmp/foobar/foo.csr').with(
         ensure: 'present',
-        owner: 'www-data'
+        owner: 'www-data',
       )
     }
   end
@@ -670,33 +670,33 @@ describe 'openssl::certificate::x509' do
     it {
       is_expected.to contain_file('/tmp/foobar/foo.cnf').with(
         ensure: 'present',
-        owner: 'www-data'
+        owner: 'www-data',
       ).with_content(
-        %r{countryName\s+=\s+com}
+        %r{countryName\s+=\s+com},
       ).with_content(
-        %r{stateOrProvinceName\s+=\s+FR}
+        %r{stateOrProvinceName\s+=\s+FR},
       ).with_content(
-        %r{localityName\s+=\s+here}
+        %r{localityName\s+=\s+here},
       ).with_content(
-        %r{organizationName\s+=\s+bar}
+        %r{organizationName\s+=\s+bar},
       ).with_content(
-        %r{organizationalUnitName\s+=\s+braz}
+        %r{organizationalUnitName\s+=\s+braz},
       ).with_content(
-        %r{commonName\s+=\s+baz}
+        %r{commonName\s+=\s+baz},
       ).with_content(
-        %r{emailAddress\s+=\s+contact@foo\.com}
+        %r{emailAddress\s+=\s+contact@foo\.com},
       ).with_content(
-        %r{keyUsage\s+=\s+digitalSignature,\s+keyEncipherment}
+        %r{keyUsage\s+=\s+digitalSignature,\s+keyEncipherment},
       ).with_content(
-        %r{extendedKeyUsage\s+=\s+serverAuth,\s+clientAuth}
+        %r{extendedKeyUsage\s+=\s+serverAuth,\s+clientAuth},
       ).with_content(
-        %r{subjectAltName\s+=\s+@alt_names}
+        %r{subjectAltName\s+=\s+@alt_names},
       ).with_content(
-        %r{DNS\.0\s+=\s+a\.com}
+        %r{DNS\.0\s+=\s+a\.com},
       ).with_content(
-        %r{DNS\.1\s+=\s+b\.com}
+        %r{DNS\.1\s+=\s+b\.com},
       ).with_content(
-        %r{DNS\.2\s+=\s+c\.com}
+        %r{DNS\.2\s+=\s+c\.com},
       )
     }
 
@@ -704,7 +704,7 @@ describe 'openssl::certificate::x509' do
       is_expected.to contain_ssl_pkey('/tmp/foobar/foo.key').with(
         ensure: 'present',
         password: nil,
-        size: 4096
+        size: 4096,
       )
     }
 
@@ -717,7 +717,7 @@ describe 'openssl::certificate::x509' do
         ca: '/etc/pki/ca.crt',
         cakey: '/etc/pki/ca.key',
         cakey_password: '5r$}^',
-        force: false
+        force: false,
       )
     }
 
@@ -727,28 +727,28 @@ describe 'openssl::certificate::x509' do
         template: '/tmp/foobar/foo.cnf',
         private_key: '/tmp/foobar/foo.key',
         password: nil,
-        force: false
+        force: false,
       )
     }
 
     it {
       is_expected.to contain_file('/tmp/foobar/foo.key').with(
         ensure: 'present',
-        owner: 'www-data'
+        owner: 'www-data',
       )
     }
 
     it {
       is_expected.to contain_file('/tmp/foobar/foo.crt').with(
         ensure: 'present',
-        owner: 'www-data'
+        owner: 'www-data',
       )
     }
 
     it {
       is_expected.to contain_file('/tmp/foobar/foo.csr').with(
         ensure: 'present',
-        owner: 'www-data'
+        owner: 'www-data',
       )
     }
   end

@@ -42,7 +42,7 @@ describe 'openssl::cert_aia_caissuers' do
       aia = extension_factory.create_extension(
         'authorityInfoAccess',
         'caIssuers;URI:http://ca.example.org/cer',
-        false
+        false,
       )
       cert.add_extension(aia)
       is_expected.to run.with_params('/path/to/cert').and_return('http://ca.example.org/cer')

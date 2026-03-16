@@ -37,7 +37,7 @@ class Puppet::Provider::Openssl < Puppet::Provider
   # Return the mode as an octal string, not as an integer.
   def mode
     if File.exist?(@resource[:path])
-      format('0%o', (File.stat(@resource[:path]).mode & 0o07777))
+      format('0%o', File.stat(@resource[:path]).mode & 0o07777)
     else
       :absent
     end

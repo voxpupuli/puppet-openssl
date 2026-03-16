@@ -32,13 +32,13 @@ describe 'The openssl provider for the x509_request type' do
           'req', '-new',
           '-key', '/tmp/foo.key',
           '-config', '/tmp/foo.cnf',
-          '-out', '/tmp/foo.csr'
+          '-out', '/tmp/foo.csr',
         ],
         {
           combine: true,
           custom_environment: {},
           failonfail: true,
-        }
+        },
       )
       resource.provider.create
     end
@@ -60,7 +60,7 @@ describe 'The openssl provider for the x509_request type' do
           combine: true,
           custom_environment: { 'CERTIFICATE_PASSIN' => '2x6${' },
           failonfail: true,
-        }
+        },
       )
       resource.provider.create
     end

@@ -45,7 +45,7 @@ describe 'The openssl provider for the x509_cert type' do
           combine: true,
           custom_environment: {},
           failonfail: true,
-        }
+        },
       )
       resource.provider.create
     end
@@ -69,7 +69,7 @@ describe 'The openssl provider for the x509_cert type' do
             combine: true,
             custom_environment: { 'CERTIFICATE_PASSIN' => '2x6${' },
             failonfail: true,
-          }
+          },
         )
         resource.provider.create
       end
@@ -98,7 +98,7 @@ describe 'The openssl provider for the x509_cert type' do
           combine: true,
           custom_environment: {},
           failonfail: true,
-        }
+        },
       )
       resource.provider.create
     end
@@ -128,7 +128,7 @@ describe 'The openssl provider for the x509_cert type' do
           combine: true,
           custom_environment: { 'CERTIFICATE_PASSIN' => '5i;6%' },
           failonfail: true,
-        }
+        },
       )
       resource.provider.create
     end

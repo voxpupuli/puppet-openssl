@@ -18,10 +18,10 @@ describe 'The POSIX provider for type cert_file' do
     test_cert.sign(test_keys, OpenSSL::Digest.new('SHA256'))
 
     resp_header = { 'Content-Type' => 'application/x-x509-ca-cert' }
-    stub_request(:get, 'http://example.org/cert.der').
-      to_return(status: 200, body: test_cert.to_der, headers: resp_header)
-    stub_request(:get, 'http://example.org/cert.pem').
-      to_return(status: 200, body: test_cert.to_pem, headers: resp_header)
+    stub_request(:get, 'http://example.org/cert.der')
+      .to_return(status: 200, body: test_cert.to_der, headers: resp_header)
+    stub_request(:get, 'http://example.org/cert.pem')
+      .to_return(status: 200, body: test_cert.to_pem, headers: resp_header)
   end
 
   let(:path) { '/tmp/test.pem' }

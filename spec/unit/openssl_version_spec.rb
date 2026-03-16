@@ -27,8 +27,8 @@ describe Facter.fact(:openssl_version) do
         context 'with broken openssl' do
           before do
             allow(Facter::Util::Resolution).to receive(:which).with('openssl').and_return(true)
-            allow(Facter::Util::Resolution).to receive(:exec).with('openssl version 2>&1').
-              and_return('openssl: /usr/lib/x86_64-linux-gnu/libcrypto.so.1.0.0: version `OPENSSL_1.0.1s\' not found (required by openssl)')
+            allow(Facter::Util::Resolution).to receive(:exec).with('openssl version 2>&1')
+                                                             .and_return('openssl: /usr/lib/x86_64-linux-gnu/libcrypto.so.1.0.0: version `OPENSSL_1.0.1s\' not found (required by openssl)')
           end
 
           it {

@@ -11,11 +11,11 @@ describe 'openssl::certificates' do
                                                     'commonname' => 'foo',
                                                     'password' => 'j(D$',
                                                     'days' => 4536,
-                                                    'force' => false },
+                                                    'force' => false, },
                     '/a/other/certificate.crt' => { 'ensure' => 'present',
                                                     'country' => 'FR',
                                                     'organization' => 'OtherCorp',
-                                                    'commonname' => 'bar' } },
+                                                    'commonname' => 'bar', }, },
     }
   end
 
