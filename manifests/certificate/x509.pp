@@ -131,7 +131,7 @@ define openssl::certificate::x509 (
   Optional[String]               $locality = undef,
   Array                          $altnames = [],
   Array[Openssl::Keyusage]       $keyusage = [],
-  Array[String]                  $basicconstraint = [],
+  Array[String[1]]               $basicconstraint = [],
   Array                          $extkeyusage = [],
   Optional[String]               $email = undef,
   Integer                        $days = 365,

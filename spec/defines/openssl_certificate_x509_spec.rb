@@ -476,6 +476,27 @@ describe 'openssl::certificate::x509' do
     }
   end
 
+  context 'when passing basicconstraint, extension is enabled' do
+    let(:params) do
+      {
+        country: 'com',
+        organization: 'bar',
+        commonname: 'foo.example.com',
+        keyusage: %w[keyCertSign cRLSign],
+        basicconstraint: ['critical', 'CA:true', 'pathlen:1'],
+      }
+    end
+
+    it {
+      is_expected.to contain_x509_cert('/etc/ssl/certs/foo.crt').with(
+        ensure: 'present',
+        template: '/etc/ssl/certs/foo.cnf',
+        csr: '/etc/ssl/certs/foo.csr',
+        req_ext: true,
+      )
+    }
+  end
+
   context 'when passing extkeyusage, extension is enabled' do
     let(:params) do
       {
