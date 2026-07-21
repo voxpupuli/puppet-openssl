@@ -51,9 +51,9 @@ Note that `openssl::certificate::x509` is a defined type that provides this abst
 
 ```puppet
 openssl::certificate::x509 { 'hostcert':
-  commonname => "any.domain.is.suitable",
-  basicconstraint => ['critical','CA:true', 'pathlen:1'],
-  keyusage => ['keyCertSign','cRLSign']
+  commonname      => 'any.domain.is.suitable',
+  basicconstraint => ['critical', 'CA:true', 'pathlen:1'],
+  keyusage        => ['keyCertSign', 'cRLSign']
 }
 ```
 
