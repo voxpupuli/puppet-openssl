@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v5.0.0](https://github.com/voxpupuli/puppet-openssl/tree/v5.0.0) (2026-07-22)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-openssl/compare/v4.2.0...v5.0.0)
+
+**Breaking changes:**
+
+- Drop puppet, update openvox minimum version to 8.19 [\#254](https://github.com/voxpupuli/puppet-openssl/pull/254) ([TheMeier](https://github.com/TheMeier))
+
+**Implemented enhancements:**
+
+- Add ability to specify `basicConstraint` in x509 cert [\#266](https://github.com/voxpupuli/puppet-openssl/pull/266) ([marcusdots](https://github.com/marcusdots))
+- Add support for defining keyUsage in `openssl::certificate::x509` type [\#255](https://github.com/voxpupuli/puppet-openssl/pull/255) ([griggi-ws](https://github.com/griggi-ws))
+- metadata.json: Add OpenVox [\#250](https://github.com/voxpupuli/puppet-openssl/pull/250) ([jstraw](https://github.com/jstraw))
+
 ## [v4.2.0](https://github.com/voxpupuli/puppet-openssl/tree/v4.2.0) (2025-02-10)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-openssl/compare/v4.1.0...v4.2.0)
@@ -89,7 +103,7 @@ These should not affect the functionality of the module.
 
 - r10k generate types fails [\#197](https://github.com/voxpupuli/puppet-openssl/issues/197)
 - export/{pem\_cert,pem\_key,pkcs12}: `passin`, `passout`: use `shellquote()` instead of single quotation marks [\#199](https://github.com/voxpupuli/puppet-openssl/pull/199) ([pavelkovtunov](https://github.com/pavelkovtunov))
-- Add missing require so that generate types works. [\#198](https://github.com/voxpupuli/puppet-openssl/pull/198) ([ncstate-daniel](https://github.com/ncstate-daniel))
+- Add missing require so that generate types works. [\#198](https://github.com/voxpupuli/puppet-openssl/pull/198) ([ghost](https://github.com/ghost))
 - fix logic bug with extkeyusage and altnames [\#195](https://github.com/voxpupuli/puppet-openssl/pull/195) ([rtib](https://github.com/rtib))
 
 ## [v3.1.0](https://github.com/voxpupuli/puppet-openssl/tree/v3.1.0) (2024-05-02)
@@ -245,7 +259,7 @@ These should not affect the functionality of the module.
 **Merged pull requests:**
 
 - Fix spec tests [\#97](https://github.com/voxpupuli/puppet-openssl/pull/97) ([coreone](https://github.com/coreone))
-- Update dhparams example in README.md [\#92](https://github.com/voxpupuli/puppet-openssl/pull/92) ([tlcowling](https://github.com/tlcowling))
+- Update dhparams example in README.md [\#92](https://github.com/voxpupuli/puppet-openssl/pull/92) ([hackerpants](https://github.com/hackerpants))
 
 ## [1.10.0](https://github.com/voxpupuli/puppet-openssl/tree/1.10.0) (2017-04-18)
 
