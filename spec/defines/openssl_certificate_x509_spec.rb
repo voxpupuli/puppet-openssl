@@ -466,14 +466,20 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it {
+    it do
       is_expected.to contain_x509_cert('/etc/ssl/certs/foo.crt').with(
         ensure: 'present',
         template: '/etc/ssl/certs/foo.cnf',
         csr: '/etc/ssl/certs/foo.csr',
         req_ext: true,
       )
-    }
+    end
+
+    it do
+      is_expected.to contain_openssl__certificate__x509('foo').with(
+        'keyusage' => %w[digitalSignature],
+      )
+    end
   end
 
   context 'when passing basicconstraint, extension is enabled' do
@@ -487,14 +493,20 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it {
+    it do
       is_expected.to contain_x509_cert('/etc/ssl/certs/foo.crt').with(
         ensure: 'present',
         template: '/etc/ssl/certs/foo.cnf',
         csr: '/etc/ssl/certs/foo.csr',
         req_ext: true,
       )
-    }
+    end
+
+    it do
+      is_expected.to contain_openssl__certificate__x509('foo').with(
+        'basicconstraint' => %w[critical CA:true pathlen:1],
+      )
+    end
   end
 
   context 'when passing extkeyusage, extension is enabled' do
@@ -507,14 +519,20 @@ describe 'openssl::certificate::x509' do
       }
     end
 
-    it {
+    it do
       is_expected.to contain_x509_cert('/etc/ssl/certs/foo.crt').with(
         ensure: 'present',
         template: '/etc/ssl/certs/foo.cnf',
         csr: '/etc/ssl/certs/foo.csr',
         req_ext: true,
       )
-    }
+    end
+
+    it do
+      is_expected.to contain_openssl__certificate__x509('foo').with(
+        'extkeyusage' => %w[clientauth],
+      )
+    end
   end
 
   context 'when passing altnames and keyusage and extkeyusage, extension is enabled' do
