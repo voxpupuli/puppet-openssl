@@ -349,6 +349,7 @@ The following parameters are available in the `openssl::certificate::x509` defin
 * [`commonname`](#-openssl--certificate--x509--commonname)
 * [`altnames`](#-openssl--certificate--x509--altnames)
 * [`keyusage`](#-openssl--certificate--x509--keyusage)
+* [`basicconstraint`](#-openssl--certificate--x509--basicconstraint)
 * [`extkeyusage`](#-openssl--certificate--x509--extkeyusage)
 * [`organization`](#-openssl--certificate--x509--organization)
 * [`unit`](#-openssl--certificate--x509--unit)
@@ -430,6 +431,14 @@ Default value: `[]`
 Data type: `Array[Openssl::Keyusage]`
 
 certificate key usage
+
+Default value: `[]`
+
+##### <a name="-openssl--certificate--x509--basicconstraint"></a>`basicconstraint`
+
+Data type: `Array[String[1]]`
+
+certificate basic constraints
 
 Default value: `[]`
 

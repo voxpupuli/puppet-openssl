@@ -47,6 +47,16 @@ This will create a series of resources, i.e. the private key in `/etc/ssl/certs/
 
 Note that `openssl::certificate::x509` is a defined type that provides this abstract functionality by leveraging several other resources of the module, which are also available individually for more advanced use cases.
 
+### Create X.509 CA certificate
+
+```puppet
+openssl::certificate::x509 { 'hostcert':
+  commonname      => 'any.domain.is.suitable',
+  basicconstraint => ['critical', 'CA:true', 'pathlen:1'],
+  keyusage        => ['keyCertSign', 'cRLSign']
+}
+```
+
 ### Create X.509 certificates from a hash
 
 Include the [openssl::certificates](REFERENCE.md#opensslcertificates) class in a node's manifest and set the `certificates` parameter - possibly via Hiera - to a hash of certificate definitions:
