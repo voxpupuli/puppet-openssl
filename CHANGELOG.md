@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v5.1.0](https://github.com/voxpupuli/puppet-openssl/tree/v5.1.0) (2026-09-14)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-openssl/compare/v5.0.0...v5.1.0)
+
+**Implemented enhancements:**
+
+- Replace deprecated calls with `Facter::Core::Execution` [\#268](https://github.com/voxpupuli/puppet-openssl/pull/268) ([corporate-gadfly](https://github.com/corporate-gadfly))
+
 ## [v5.0.0](https://github.com/voxpupuli/puppet-openssl/tree/v5.0.0) (2026-07-22)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-openssl/compare/v4.2.0...v5.0.0)
